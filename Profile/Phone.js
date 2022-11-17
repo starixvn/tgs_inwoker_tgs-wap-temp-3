@@ -24,6 +24,7 @@ const SelectContainer = styled.select`
   color: #000;
   font-size: 30px;
   background-color: #fff;
+  min-height: 71px;
 `;
 const CustomText = styled.div`
   width: 700px;
@@ -41,6 +42,7 @@ const CustomLabel = styled.div`
 const CustomInput = styled.input`
   height: 50px;
   width: 405px;
+  min-height: 71px;
   font-size: 28px;
   margin-top: 18px;
   border-radius: 16px;

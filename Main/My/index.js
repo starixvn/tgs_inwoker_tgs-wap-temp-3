@@ -36,20 +36,11 @@ const VipLevelLabel = styled.span`
   color: #01f1fe;
 `;
 
-const AvatarContainer = styled.div`
-  width: 188px;
-  height: 188px;
-  float: left;
-  margin: 20px 0 0 70px;
-`;
-const AvatarImg = styled.img`
-  width: 170px;
-`;
 const InfoContainer = styled.div`
-  float: left;
-  margin: 20px 0 0 0px;
-  width: 460px;
-  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0 0 0;
 `;
 
 const NameContainer = styled.div`
@@ -66,18 +57,21 @@ const MainWalletContainer = styled.div`
   font-size: 28px;
   margin-top: 12px;
 `;
+
+const AmountWrapper = styled.div`
+  min-height: 140px;
+  padding: 20px 0;
+`;
 const TotalWalletContainer = styled.div`
   font-size: 28px;
   margin-top: 12px;
 `;
 const WalletLabel = styled.div`
-  color: ${({ theme }) =>
-    theme.wapSecondary ? theme.wapSecondary : theme.secondary};
+  color: ${({ theme }) => theme.wapPrimary};
   float: left;
 `;
 const WalletAmount = styled.div`
-  color: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
+  color: ${({ theme }) => theme.wapPrimary};
   font-weight: 500;
   float: left;
   margin-left: 15px;
@@ -85,6 +79,9 @@ const WalletAmount = styled.div`
 
 const ListView = styled.div`
   padding: 10px 30px 90px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const RedDot = styled.div`
@@ -101,20 +98,21 @@ const MessageRedDot = styled(RedDot)`
 `;
 
 const ProfileMenuHolder = styled.div`
-  padding: 20px;
+  padding: 20px 50px;
+  width: 600px;
 `;
 
 const ProfileMenuWrapper = styled.div`
-  background: white;
   padding: 10px 20px;
   border-radius: 20px;
+  color: #fff;
 `;
 
 const ProfileMenuList = styled.div`
   font-size: 24px;
   padding: 20px 20px;
   display: flex;
-  border-bottom: solid 1px rgba(30, 30, 30, 0.5);
+  border-bottom: solid 1px rgba(255, 255, 255, 1);
   justify-content: space-between;
   align-items: center;
 
@@ -124,7 +122,7 @@ const ProfileMenuList = styled.div`
 `;
 
 const TheUserContainer = styled.div`
-  padding: 20px 0px;
+  padding: 20px 0 10px 0;
 `;
 
 const TextAndIcon = styled.div`
@@ -136,8 +134,7 @@ const Icon = styled.div`
   width: 40px;
   height: 40px;
   margin-right: 20px;
-  background-color: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
+  background-color: ${({ theme }) => theme.primary};
   mask: ${({ icon }) => {
     return `url(${
       process.env.PUBLIC_URL + `/assets/images/wapp/${icon}.svg`
@@ -148,6 +145,26 @@ const Icon = styled.div`
 
 const Notification = styled.div`
   position: relative;
+`;
+
+const ShowAmountContainer = styled.div`
+  font-size: 28px;
+  margin-top: 12px;
+  color: ${({ theme }) => theme.wapPrimary};
+`;
+
+const LogoutButton = styled.div`
+  background: ${({ theme }) => theme.primary};
+  color: #fff;
+  width: fit-content;
+  padding: 30px 50px;
+  margin-top: 20px;
+  border-radius: 50px;
+  font-size: 34px;
+  text-transform: uppercase;
+  filter: drop-shadow(0 0 10px ${({ theme }) => theme.primary})
+    drop-shadow(0 0 10px ${({ theme }) => theme.primary}) contrast(1)
+    brightness(1);
 `;
 class My extends Component {
   constructor(props) {
@@ -162,6 +179,7 @@ class My extends Component {
       balance: balance,
       balanceLoaded: loaded,
       avatarError: false,
+      showAmount: false,
     };
   }
   componentDidMount() {
@@ -288,62 +306,92 @@ class My extends Component {
               </VipLevelLabel>
             </LevelContainer>
           )}
-          <div className="clear"></div>
-
-          <div className="clear"></div>
         </StyledAppBar>
         <TheUserContainer>
-          <AvatarContainer>
-            <AvatarImg
-              src={process.env.PUBLIC_URL + `/assets/images/wapp/avatar.png`}
-            ></AvatarImg>
-          </AvatarContainer>
           <InfoContainer>
             <NameContainer>
               {this.props.account.info.member_username}
-              {/* (VIP {this.props.account.info.member_level_id}) */}
             </NameContainer>
 
-            <div className="clear"></div>
-            <MainWalletContainer>
-              <WalletLabel>
-                {i18n.t("wap.main.account.mainAccount")}
-              </WalletLabel>
-              <WalletAmount>
-                {this.props.wallet.mainSymbol}
-                {Common.formatNumberWithThousand(this.props.wallet.mainBalance)}
-              </WalletAmount>
-            </MainWalletContainer>
-            <TotalWalletContainer>
-              <WalletLabel>{i18n.t("wap.main.account.totalFund")}</WalletLabel>
-              <WalletAmount>
-                {(() => {
-                  if (this.state.balanceLoaded) {
-                    return (
-                      this.props.wallet.mainSymbol +
-                      Common.formatNumberWithThousand(
-                        this.props.wallet.mainBalance +
-                          this.props.game.providerList
-                            .filter(
-                              (item) =>
-                                item.status === 0 &&
-                                item.transferwallet === true
+            <AmountWrapper>
+              {this.state.showAmount ? (
+                <div
+                  onClick={() => {
+                    this.setState({
+                      ...this.state,
+                      showAmount: false,
+                    });
+                  }}
+                >
+                  <MainWalletContainer>
+                    <WalletLabel>
+                      {i18n.t("wap.main.account.mainAccount")}
+                    </WalletLabel>
+                    <WalletAmount>
+                      {this.props.wallet.mainSymbol}
+                      {Common.formatNumberWithThousand(
+                        this.props.wallet.mainBalance
+                      )}
+                    </WalletAmount>
+                  </MainWalletContainer>
+                  <TotalWalletContainer>
+                    <WalletLabel>
+                      {i18n.t("wap.main.account.totalFund")}
+                    </WalletLabel>
+                    <WalletAmount>
+                      {(() => {
+                        if (this.state.balanceLoaded) {
+                          return (
+                            this.props.wallet.mainSymbol +
+                            Common.formatNumberWithThousand(
+                              this.props.wallet.mainBalance +
+                                this.props.game.providerList
+                                  .filter(
+                                    (item) =>
+                                      item.status === 0 &&
+                                      item.transferwallet === true
+                                  )
+                                  .reduce((a, v) => (a = a + v.balance), 0)
                             )
-                            .reduce((a, v) => (a = a + v.balance), 0)
-                      )
-                    );
-                  } else {
-                    return (
-                      <CircularProgress
-                        size={25}
-                        color={"secondary"}
-                        style={{ margin: "6px 0 0 10px" }}
-                      ></CircularProgress>
-                    );
-                  }
-                })()}
-              </WalletAmount>
-            </TotalWalletContainer>
+                          );
+                        } else {
+                          return (
+                            <CircularProgress
+                              size={25}
+                              color={"secondary"}
+                              style={{ margin: "6px 0 0 10px" }}
+                            ></CircularProgress>
+                          );
+                        }
+                      })()}
+                    </WalletAmount>
+                  </TotalWalletContainer>
+                </div>
+              ) : (
+                <ShowAmountContainer
+                  onClick={() => {
+                    this.setState({
+                      ...this.state,
+                      showAmount: true,
+                    });
+                  }}
+                >
+                  <div
+                    style={{ display: "flex", gap: 20, alignItems: "center" }}
+                  >
+                    <img
+                      style={{ height: 40, width: 40 }}
+                      src={
+                        process.env.PUBLIC_URL +
+                        "/assets/images/wapp/resource/T13/profilepage/walletbalance.svg"
+                      }
+                      alt=""
+                    />
+                    <div>Show total funds</div>
+                  </div>
+                </ShowAmountContainer>
+              )}
+            </AmountWrapper>
           </InfoContainer>
         </TheUserContainer>
         <ListView>
@@ -438,11 +486,7 @@ class My extends Component {
             </ProfileMenuWrapper>
           </ProfileMenuHolder>
           <div className="clear"></div>
-          <BtnLogout
-            onClick={this.handleLogoutClick}
-            name={i18n.t("wap.main.account.signout")}
-            style={{ margin: "30px auto 10px auto" }}
-          ></BtnLogout>
+          <LogoutButton onClick={this.handleLogoutClick}>SIGN OUT</LogoutButton>
         </ListView>
       </Container>
     );

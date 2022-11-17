@@ -90,7 +90,7 @@ class QQ extends BaseProfile {
       this.state.isConfigured && config.features.ChangesNotAllowed
         ? i18n.t("common.configured")
         : this.state.qq !== this.props.account.member_qq &&
-            i18n.t("common.complete"),
+            i18n.t("common.update"),
 
       (() => {
         if (

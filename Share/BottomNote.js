@@ -15,13 +15,11 @@ const Content = styled.div`
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
 `;
 const LabelLink = styled(Link)`
-  color: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
+  color: ${({ theme }) => theme.primary};
   text-decoration: none;
 `;
 const LabelNormal = styled.span`
-  color: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
+  color: ${({ theme }) => theme.primary};
   text-decoration: none;
 `;
 class BottomNote extends Component {

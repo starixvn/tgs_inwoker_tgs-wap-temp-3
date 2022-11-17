@@ -23,21 +23,22 @@ const CustomLabel = styled.div`
 const CustomInput = styled.input`
   font-size: 28px;
   margin-top: 18px;
-  border-radius: 16px;
+  border-radius: 50px;
   min-height: 71px;
-  padding: 16px 32px;
+  background: none;
+  padding: 16px 54px;
   font-weight: 500;
   border: 0;
   display: flex;
   flex: 1;
+  color: #fff;
+  border: solid 1px #fff;
   ::placeholder,
   ::-webkit-input-placeholder {
     color: #c3c3c3;
     font-size: 28px;
   }
   &:disabled {
-    background: #fff;
-
     opacity: 1;
   }
 `;
@@ -45,6 +46,7 @@ const CustomInput = styled.input`
 const LabelContainer = styled.div`
   display: flex;
   align-items: center;
+  padding-bottom: 20px;
   justify-content: space-between;
 `;
 class Textbox extends Component {

@@ -15,43 +15,15 @@ import { utility } from "../../../utils/utility";
 
 const GMOstyle = config.brand === "GMO";
 
-const CustomSelect = withStyles((theme) => ({
-  root: {
-    "&:focus": {
-      border: "none",
-      backgroundColor: "#fff",
-    },
-    "&:active": {
-      border: "none",
-      backgroundColor: "#fff",
-    },
-  },
-  select: {
-    padding: "18.5px 0px",
-    "&:focus": {
-      border: "none",
-      backgroundColor: "#fff",
-    },
-    "&:active": {
-      border: "none",
-      backgroundColor: "#fff",
-    },
-    "&:disabled": {
-      color: "#c3c3c3",
-    },
-  },
-}))(Select);
-
-const CustomCustomSelect = styled(CustomSelect)`
+const CustomCustomSelect = styled.select`
   font-size: 28px;
-  height: 78px;
+  min-height: 105px;
   border: none;
-
-  .MuiSelect-root {
-    color: ${({ value }) => {
-      return value === "" || value === undefined ? "rgba(0,0,0,0.45)" : "#000";
-    }};
-  }
+  color: #fff;
+  border-radius: 50px;
+  border: solid 1px #fff;
+  padding: 0px 50px;
+  background: none;
 `;
 
 const CustomText = styled.div`
@@ -68,6 +40,7 @@ const CustomLabel = styled.div`
   font-size: 24px;
   font-weight: 600;
   margin-left: 3px;
+  padding-bottom: 20px;
   color: ${({ black, theme }) => {
     return black
       ? "#000"
@@ -77,20 +50,6 @@ const CustomLabel = styled.div`
   }};
   float: left;
 `;
-const CustomFormControl = withStyles((theme) => ({
-  root: {
-    margin: "10px 0 0 0",
-    background: "white",
-    padding: "16px 32px",
-    borderRadius: "16px",
-    height: "101px",
-    border: "none",
-    fontSize: "28px",
-    "& fieldset": {
-      border: "none",
-    },
-  },
-}))(FormControl);
 
 const LimitLabel = styled.span`
   color: #747474;
@@ -296,50 +255,46 @@ class Main extends Component {
             )}
             <CustomText>
               <CustomLabel>{i18n.t("deposit.msgPlsSelectPayment")}</CustomLabel>
-              <CustomFormControl variant="outlined">
-                <CustomCustomSelect
-                  native
-                  id="customSelect"
-                  value={this.props.selectedMethodIndex}
-                  onChange={(e) => this.props.handleMethodChange(e)}
-                >
-                  <option value={""} disabled>
-                    {i18n.t("deposit.msgPlsSelectPayment")}
-                  </option>
-                  {this.props.wallet.depositTypeList.length > 0 &&
-                    this.props.wallet.depositTypeList[
-                      this.props.selectedPaymentIndex
-                    ].method.map((item, index) => {
-                      return (
-                        <option value={index}>{i18n.t(item.methodcode)}</option>
-                      );
-                    })}
-                </CustomCustomSelect>
-              </CustomFormControl>
+              <CustomCustomSelect
+                native
+                id="customSelect"
+                value={this.props.selectedMethodIndex}
+                onChange={(e) => this.props.handleMethodChange(e)}
+              >
+                <option value={""} disabled>
+                  {i18n.t("deposit.msgPlsSelectPayment")}
+                </option>
+                {this.props.wallet.depositTypeList.length > 0 &&
+                  this.props.wallet.depositTypeList[
+                    this.props.selectedPaymentIndex
+                  ].method.map((item, index) => {
+                    return (
+                      <option value={index}>{i18n.t(item.methodcode)}</option>
+                    );
+                  })}
+              </CustomCustomSelect>
             </CustomText>
           </>
         ) : (
           <CustomText>
             <CustomLabel>{i18n.t("idr1.pleaseEnterAccountName")}</CustomLabel>
-            <CustomFormControl variant="outlined">
-              <CustomCustomSelect
-                native
-                id="customSelect"
-                value={this.props.selectedBankCard}
-                onChange={(e) => this.props.handleBankCardChange(e)}
-              >
-                <option value="" disabled>
-                  {i18n.t("idr1.pleaseEnterAccountName")}
-                </option>
-                {this.props.bankCardList.map((item, index) => {
-                  return (
-                    <option value={item.id} key={index}>
-                      {formatBankCardDetail(item)}
-                    </option>
-                  );
-                })}
-              </CustomCustomSelect>
-            </CustomFormControl>
+            <CustomCustomSelect
+              native
+              id="customSelect"
+              value={this.props.selectedBankCard}
+              onChange={(e) => this.props.handleBankCardChange(e)}
+            >
+              <option value="" disabled>
+                {i18n.t("idr1.pleaseEnterAccountName")}
+              </option>
+              {this.props.bankCardList.map((item, index) => {
+                return (
+                  <option value={item.id} key={index}>
+                    {formatBankCardDetail(item)}
+                  </option>
+                );
+              })}
+            </CustomCustomSelect>
           </CustomText>
         )}
         {!(
@@ -348,23 +303,21 @@ class Main extends Component {
         ) && (
           <CustomText>
             <CustomLabel>{i18n.t("deposit.msgPlsSelectMethod")}</CustomLabel>
-            <CustomFormControl variant="outlined">
-              <CustomCustomSelect
-                native
-                id="customSelect"
-                value={this.props.selectedChannelIndex}
-                onChange={(e) => this.props.handleChannelChange(e)}
-              >
-                {this.props.wallet.depositTypeList.length > 0 &&
-                  this.props.wallet.depositTypeList[
-                    this.props.selectedPaymentIndex
-                  ].method[this.props.selectedMethodIndex].channel.map(
-                    (item, index) => {
-                      return <option value={index}>{item.channelname}</option>;
-                    }
-                  )}
-              </CustomCustomSelect>
-            </CustomFormControl>
+            <CustomCustomSelect
+              native
+              id="customSelect"
+              value={this.props.selectedChannelIndex}
+              onChange={(e) => this.props.handleChannelChange(e)}
+            >
+              {this.props.wallet.depositTypeList.length > 0 &&
+                this.props.wallet.depositTypeList[
+                  this.props.selectedPaymentIndex
+                ].method[this.props.selectedMethodIndex].channel.map(
+                  (item, index) => {
+                    return <option value={index}>{item.channelname}</option>;
+                  }
+                )}
+            </CustomCustomSelect>
           </CustomText>
         )}
         {(() => {
@@ -578,35 +531,33 @@ class Main extends Component {
                               ? i18n.t("idr1.pleaseEnterAccountName")
                               : i18n.t("common.pleaseEnterAccountName")}
                           </CustomLabel>
-                          <CustomFormControl variant="outlined">
-                            <CustomCustomSelect
-                              native
-                              id="customSelect"
-                              value={this.props.selectedBankCard}
-                              onChange={(e) =>
-                                this.props.handleSelectAccountChange(e)
+                          <CustomCustomSelect
+                            native
+                            id="customSelect"
+                            value={this.props.selectedBankCard}
+                            onChange={(e) =>
+                              this.props.handleSelectAccountChange(e)
+                            }
+                          >
+                            <option value="">
+                              {config.features.Deposit_OriginAccount
+                                ? i18n.t("idr1.pleaseEnterAccountName")
+                                : i18n.t("common.pleaseEnterAccountName")}
+                            </option>
+                            {this.props.wallet.bankCardList.map(
+                              (item, index) => {
+                                var detail = item.detail;
+                                return (
+                                  <option value={item.id} key={index}>
+                                    {detail.bankAccount ||
+                                      detail.address ||
+                                      detail.phone}{" "}
+                                    ({item.banktype})
+                                  </option>
+                                );
                               }
-                            >
-                              <option value="">
-                                {config.features.Deposit_OriginAccount
-                                  ? i18n.t("idr1.pleaseEnterAccountName")
-                                  : i18n.t("common.pleaseEnterAccountName")}
-                              </option>
-                              {this.props.wallet.bankCardList.map(
-                                (item, index) => {
-                                  var detail = item.detail;
-                                  return (
-                                    <option value={item.id} key={index}>
-                                      {detail.bankAccount ||
-                                        detail.address ||
-                                        detail.phone}{" "}
-                                      ({item.banktype})
-                                    </option>
-                                  );
-                                }
-                              )}
-                            </CustomCustomSelect>
-                          </CustomFormControl>
+                            )}
+                          </CustomCustomSelect>
                         </CustomText>
                       ) : (
                         <Textbox
@@ -817,40 +768,36 @@ class Main extends Component {
         })()}
         <CustomText>
           <CustomLabel>{i18n.t("deposit.promotion")}</CustomLabel>
-          <CustomFormControl variant="outlined">
-            <CustomCustomSelect
-              native
-              id="customSelect"
-              value={this.props.depositPromotion}
-              onChange={(e) => this.props.handlePromotionChange(e)}
-            >
-              <option value="">
-                {i18n.t("deposit.msgPlsSelectPromotion")}
-              </option>
-              {this.props.general.promotionList.items
-                .filter(
-                  (item) =>
-                    [
-                      "FirstDeposit",
-                      "DailySecondDeposit",
-                      "DailyFirstDeposit",
-                      "DepositReward",
-                      "DepositAccumulateRoulette",
-                    ].indexOf(item.promotionType) >= 0 &&
-                    (item.promotionType === "DepositReward"
-                      ? this.props.amount >=
-                        item.campaignDetail.depositMinimumLimit
-                      : true)
-                )
-                .map((item, index) => {
-                  return (
-                    <option value={item.id} key={index}>
-                      {item.name}
-                    </option>
-                  );
-                })}
-            </CustomCustomSelect>
-          </CustomFormControl>
+          <CustomCustomSelect
+            native
+            id="customSelect"
+            value={this.props.depositPromotion}
+            onChange={(e) => this.props.handlePromotionChange(e)}
+          >
+            <option value="">{i18n.t("deposit.msgPlsSelectPromotion")}</option>
+            {this.props.general.promotionList.items
+              .filter(
+                (item) =>
+                  [
+                    "FirstDeposit",
+                    "DailySecondDeposit",
+                    "DailyFirstDeposit",
+                    "DepositReward",
+                    "DepositAccumulateRoulette",
+                  ].indexOf(item.promotionType) >= 0 &&
+                  (item.promotionType === "DepositReward"
+                    ? this.props.amount >=
+                      item.campaignDetail.depositMinimumLimit
+                    : true)
+              )
+              .map((item, index) => {
+                return (
+                  <option value={item.id} key={index}>
+                    {item.name}
+                  </option>
+                );
+              })}
+          </CustomCustomSelect>
         </CustomText>
         {(() => {
           if (

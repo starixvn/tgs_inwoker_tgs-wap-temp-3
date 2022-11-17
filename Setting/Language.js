@@ -38,23 +38,27 @@ const CustomList = withStyles({
   root: {
     width: "100%",
     maxWidth: 750,
-    backgroundColor: "#fff",
+
     fontSize: "30px",
-    marginTop: 10,
   },
 })(List);
-const CustomListItem = withStyles({
-  root: {
-    padding: "16px 20px",
-    borderBottom: "solid 1px #000",
-  },
-})(ListItem);
-const CustomListItemText = withStyles({
-  primary: {
-    padding: "0px 30px",
-    fontSize: "34px",
-  },
-})(ListItemText);
+const CustomListItem = styled.div`
+  padding: 10px 20px;
+`;
+const CustomListItemText = styled.div`
+  background: #202137;
+  padding: 30px 40px;
+  border-radius: 50px;
+  text-align: center;
+  color: #fff;
+
+  ${({ selected }) =>
+    selected &&
+    `
+    background: #fff;
+    color: #202137;
+  `}
+`;
 class Profile extends Component {
   state = {
     checked: i18n.language,
@@ -77,15 +81,7 @@ class Profile extends Component {
   };
   handleUpdate = () => {
     i18n.changeLanguage(this.state.checked);
-    this.props.appHistory.push(`/${this.state.checked}`);
-    this.props.getBanner();
-    this.props.getMarquee(this.state.checked);
-    this.props.getAnnouncement(this.state.checked);
-    GeneralService.GetLocalization().then((response) => {
-      if (response.IsSuccess) {
-        ErrorSwitcher.setTranslation(response.data);
-      }
-    });
+    window.location.reload();
   };
   render() {
     return (
@@ -105,30 +101,14 @@ class Profile extends Component {
             return (
               <CustomListItem
                 key={value.culturecode}
-                role={undefined}
-                dense
-                button
                 onClick={this.handleToggle(value.culturecode)}
               >
-                <ListItemIcon>
-                  <img
-                    src={imageMap[value.culturecode]}
-                    alt={value.culturecode}
-                  ></img>
-                </ListItemIcon>
                 <CustomListItemText
                   id={labelId}
-                  primary={i18n.t("lang." + value.culturecode)}
-                />
-                <ListItemSecondaryAction>
-                  {(() => {
-                    if (this.state.checked === value.culturecode) {
-                      return <CheckIcon style={{ fontSize: 60 }}></CheckIcon>;
-                    } else {
-                      return null;
-                    }
-                  })()}
-                </ListItemSecondaryAction>
+                  selected={this.state.checked === value.culturecode}
+                >
+                  {i18n.t("lang." + value.culturecode)}
+                </CustomListItemText>
               </CustomListItem>
             );
           })}

@@ -216,47 +216,28 @@ const TheDepositButton = styled.div`
 const CustomTabs = styled.div`
   height: 80px;
   font-size: 25px;
-  display: flex;
+  white-space: initial;
+  overflow-wrap: normal;
 `;
 
 const CustomTabText = styled.div`
   display: flex;
+  width: fit-content;
   flex: 1;
   justify-content: center;
   align-items: center;
-`;
-
-const CustomBorderBottom = styled.div`
-  height: 5px;
+  padding: 10px 30px;
+  background: #27273f;
+  margin-right: 20px;
+  border-radius: 50px;
 `;
 
 const CustomTab = styled.div`
-  width: calc(100vw / 4);
-  display: flex;
-  flex-direction: column;
-  padding: 0px 10px;
-
+  color: #fff;
+  width: fit-content;
   ${CustomTabText} {
-    color: ${({ selected, theme }) => {
-      return selected
-        ? theme.wapPrimary
-          ? theme.wapPrimary
-          : theme.primary
-        : theme.wapSecondary
-        ? theme.wapSecondary
-        : theme.secondary;
-    }};
-  }
-
-  ${CustomBorderBottom} {
-    background: ${({ selected, theme }) => {
-      return selected
-        ? theme.wapPrimary
-          ? theme.wapPrimary
-          : theme.primary
-        : theme.wapSecondary
-        ? theme.wapSecondary
-        : theme.secondary;
+    ${({ selected, theme }) => {
+      return selected && `background: ${theme.primary}`;
     }};
   }
 `;
@@ -432,7 +413,6 @@ class Report extends Component {
         }}
       >
         <CustomTabText>{label}</CustomTabText>
-        <CustomBorderBottom />
       </CustomTab>
     );
   };

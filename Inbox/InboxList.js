@@ -18,17 +18,20 @@ const ContentContainer = styled.div`
   align-items: center;
   position: relative;
   font-size: 28px;
-  padding: 20px;
-  background: ${({ opened, theme }) => {
-    return opened
-      ? theme.wapPrimary
-        ? theme.wapPrimary
-        : theme.primary
-      : "#fff";
-  }};
-  color: ${({ opened, theme }) => {
-    return opened ? "#fff" : "#707070";
-  }};
+
+  background: #202137;
+  color: #fff;
+  border-radius: 75px;
+  padding: 20px 60px;
+
+  ${({ opened }) =>
+    opened
+      ? `
+    border-radius: 75px 75px 0 0;
+    `
+      : `
+    border-radius: 75px;
+        `}
 `;
 
 const ListItem = styled.div`
@@ -55,6 +58,8 @@ const MsgTitleSpan = styled.span`
 const MsgDate = styled.div`
   float: left;
   font-size: 28px;
+  opacity: 0.5;
+  padding: 20px 0;
 `;
 
 const ItemContainer = styled.div`
@@ -79,9 +84,19 @@ const CheckboxCircle = styled.div`
 
 const LetterContent = styled.div`
   font-size: 30px;
-  padding: 20px;
-  background: #fff7ee;
-  color: #707070;
+  padding: 0 60px 60px 60px;
+  background: #202137;
+  color: #fff;
+  border-radius: 0 0 75px 75px;
+
+  ${({ opened }) =>
+    opened
+      ? `
+
+  `
+      : `
+  display: none;
+      `}
 `;
 
 const ArrowDown = styled.div`
@@ -141,6 +156,7 @@ const InboxList = ({
         </ContentContainer>
         <Collapse in={opened}>
           <LetterContent
+            opened={opened}
             dangerouslySetInnerHTML={{
               __html:
                 "<div style='width: 100%; height: 1px; background: #efefef;margin-top: 2px;'>123</div>" +

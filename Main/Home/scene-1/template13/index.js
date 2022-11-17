@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import config from "../../../../../../config/config";
 import i18n from "../../../../../../utils/i18n";
@@ -31,25 +31,6 @@ const TheText = styled.div`
 
   color: ${({ theme }) => theme.gamelisterOriginalText};
   ${() => config.brand === "TIGER" && `font-weight: bold; font-size: 24px;`}
-`;
-
-const CustomImageResizer = styled.div`
-  width: 50px;
-  height: 50px;
-  background: ${({ theme }) => theme.gamelisterOriginalColor};
-  mask: ${({ icon }) => {
-    return `url(${
-      process.env.PUBLIC_URL + `/assets/images/wapp/home/T8/${icon}.svg`
-    }) no-repeat center /
-    contain;`;
-  }};
-`;
-
-const Dot = styled.div`
-  border-radius: 20px;
-  position: absolute;
-  zindex: 0;
-  display: none;
 `;
 
 const Arrow = styled.div`
@@ -89,15 +70,14 @@ const GameListItem = styled.div`
     return selected
       ? `
    
-    
-      ${CustomImageResizer}{
-        background:${theme.gamelisterSelectedIcon};
-      }
+  background: ${theme.primary};  
+  filter: drop-shadow(0 0 2px ${theme.primary})
+  drop-shadow(0 0 2px ${theme.primary}) contrast(1)
+  brightness(1);
 
-      ${Dot}{
-        display: block;
-      }
-
+  ${GameListItemIcon}{
+    background: #fff;
+  }
 
     `
       : "";
@@ -140,6 +120,54 @@ const AnnouncementSection = styled.div`
   align-items: center;
 `;
 
+const GameButtonWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+  padding: 20px;
+`;
+
+const GameFrameImg = styled.div`
+  display: block;
+  width: 100%;
+  height: 240px;
+  border-radius: 20px;
+  background: url(${(props) => props.src}) no-repeat;
+  background-position: center;
+  background-size: cover;
+`;
+
+const Maintenance = styled.div`
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 1;
+  font-size: 40px;
+  font-weight: bold;
+  text-transform: capitalize;
+`;
+
+const NewWrapper = styled.div`
+  position: relative;
+
+  ${({ maintenance }) => {
+    return maintenance
+      ? `
+      ${GameFrameImg}{
+        filter: brightness(20%) grayscale(200%);
+      }
+      ${Maintenance}{
+        display: flex;
+    
+    }`
+      : ``;
+  }}
+`;
+
 const Template13 = ({
   gameMenu2,
   changeShowGame,
@@ -148,12 +176,7 @@ const Template13 = ({
   handleGameClick,
 }) => {
   const [selected, setSelected] = useState("");
-
-  useEffect(() => {
-    if (selected === "") {
-      setSelected(gameMenu2[0].type);
-    }
-  }, []);
+  var currentType = -1;
 
   return (
     <TheContainer>
@@ -173,8 +196,12 @@ const Template13 = ({
                 <GameListItem
                   selected={selected === i.type}
                   onClick={() => {
-                    changeShowGame(i.type);
-                    setSelected(i.type);
+                    if (selected === i.type) {
+                      setSelected("");
+                    } else {
+                      changeShowGame(i.type);
+                      setSelected(i.type);
+                    }
                   }}
                 >
                   <GameListItemIcon src={i.type} />
@@ -188,13 +215,62 @@ const Template13 = ({
       <AnnouncementSection>
         <Marquee />
       </AnnouncementSection>
+
       <GridWrapper>
-        <ContentWrapper title="topgames" type="game" />
-        <ContentWrapper title="topgames" type="game" />
-        <ContentWrapper title="topgames" type="game" />
-        <ContentWrapper title="topgames" type="game" />
-        <ContentWrapper title="topgames" type="game" />
-        <ContentWrapper title="topgames" type="game" />
+        {selected ? (
+          <GameButtonWrapper>
+            {(() => {
+              return homePageGameList
+                .filter((game) => selected.indexOf(game.type) >= 0)
+                .sort((a, b) => {
+                  if (config.features.LiveGame_Sorting_SKY) {
+                    var sortDGFirst = ["DG"];
+                    return (
+                      sortDGFirst.indexOf(b.abbreviation) -
+                      sortDGFirst.indexOf(a.abbreviation)
+                    );
+                  } else return b - a;
+                })
+                .map((row, index) => {
+                  return (
+                    <NewWrapper maintenance={row.status !== 0}>
+                      <Maintenance>
+                        {i18n.t("transfer.maintenance")}
+                      </Maintenance>
+                      <GameFrameImg
+                        src={`${
+                          process.env.PUBLIC_URL
+                        }/assets/images/wapGame/T9/${getImgPrefix(
+                          row.type
+                        )}-${row.abbreviation.toLowerCase()}.jpg`}
+                        id={
+                          currentType !== row.type
+                            ? `gameType${row.type}`
+                            : `gameId${row.id}`
+                        }
+                        onClick={() =>
+                          handleGameClick(
+                            row.type,
+                            row.gpcode,
+                            row.game_platform_id
+                          )
+                        }
+                      ></GameFrameImg>
+                    </NewWrapper>
+                  );
+                });
+            })()}
+          </GameButtonWrapper>
+        ) : (
+          <>
+            <ContentWrapper title="topgames" type="game" />
+            <ContentWrapper title="topgames" type="game" />
+            <ContentWrapper title="topgames" type="game" />
+            <ContentWrapper title="topgames" type="game" />
+            <ContentWrapper title="topgames" type="game" />
+            <ContentWrapper title="topgames" type="game" />
+          </>
+        )}
       </GridWrapper>
     </TheContainer>
   );

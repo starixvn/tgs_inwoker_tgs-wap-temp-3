@@ -21,8 +21,9 @@ const BlockLabel = styled.div`
   margin: 30px 0 10px 60px;
 `;
 const BlockContainer = styled.div`
-  background-color: #fff;
+  background-color: #202137;
   width: 700px;
+  color: #fff;
   padding: 30px 0;
   border-radius: 20px;
   margin: 30px auto;
@@ -32,27 +33,22 @@ const ItemContainer = styled.div`
 
   margin: 30px 0 0 30px;
 `;
-const ItemIconContainer = styled.div`
-  width: 48px;
-  float: left;
-  margin: 0 10px 0 30px;
-`;
-const ItemIcon = styled.div`
-  height: 48px;
-  margin-top: 20px;
-  width: 48px;
-  background: url(${(props) => props.icon}) no-repeat left center;
-  background-size: contain;
-`;
+
 const ItemContentContainer = styled.div`
   float: left;
   margin: 0 0 0 10px;
+  padding: 10px;
+`;
+
+const ItemContentData = styled.div`
+  opacity: 0.5;
+  padding: 20px 0;
 `;
 const ItemTitle = styled.div`
   font-size: 32px;
   font-weight: 500;
 
-  color: #2c2c2c;
+  color: #fff;
 `;
 const NotSetLabel = styled.div`
   margin-top: 5px;
@@ -63,15 +59,19 @@ const NotSetLabel = styled.div`
 `;
 const SettedLabel = styled(NotSetLabel)`
   color: ${({ theme }) =>
-    theme.customProfileText? theme.customProfileText : theme.wapPrimary ? theme.wapPrimary : theme.primary};
+    theme.customProfileText
+      ? theme.customProfileText
+      : theme.wapPrimary
+      ? theme.wapPrimary
+      : theme.primary};
 `;
 const BtnBack = styled.div`
   height: 100px;
 
   width: 50px;
-  background: url(${process.env.PUBLIC_URL +
-    `/assets/images/wapp/btn-back.png`})
+  mask: url(${process.env.PUBLIC_URL + `/assets/images/wapp/btn-back.png`})
     no-repeat right center;
+  background: #fff;
   float: right;
   margin: 0 50px 0 0px;
 `;
@@ -97,12 +97,9 @@ const ContentItem = (
   }
   return (
     <ItemContainer onClick={!disable && !disabled && onClickEvent}>
-      <ItemIconContainer>
-        <ItemIcon icon={icon}></ItemIcon>
-      </ItemIconContainer>
       <ItemContentContainer>
         <ItemTitle>{title}</ItemTitle>
-        {configureElement}
+        <ItemContentData>{configureElement}</ItemContentData>
       </ItemContentContainer>
       {!disable && !disabled && <BtnBack></BtnBack>}
     </ItemContainer>
@@ -170,7 +167,6 @@ class Profile extends Component {
         <div style={{ height: 90 }} />
         <div style={{ marginBottom: "-30px" }}>
           <BlockContainer>
-            <BlockLabel>{i18n.t("profile.basicInfo")}</BlockLabel>
             {config.features.ICVerification &&
               ContentItem(
                 process.env.PUBLIC_URL + `/assets/images/wapp/icon-user.png`,
@@ -230,7 +226,6 @@ class Profile extends Component {
           {(config.features.QQWeChat ||
             config.features.CustomMessaging.length > 0) && (
             <BlockContainer>
-              <BlockLabel>{i18n.t("profile.otherInfo")}</BlockLabel>
               {config.features.QQWeChat &&
                 ContentItem(
                   process.env.PUBLIC_URL + `/assets/images/wapp/icon-qq.png`,
@@ -283,7 +278,6 @@ class Profile extends Component {
           )}
         </div>
         <BlockContainer>
-          <BlockLabel>{i18n.t("profile.securityInfo")}</BlockLabel>
           {ContentItem(
             process.env.PUBLIC_URL + `/assets/images/wapp/icon-unlock.png`,
             i18n.t("profile.password.title"),

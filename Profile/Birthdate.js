@@ -30,14 +30,18 @@ const CustomDatepicker = styled.div`
   ${({ disabled }) => {
     return disabled && `pointer-events: none;`;
   }}
-  background: white;
+  border: 1px solid #fff;
   zoom: 1.5;
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 10px 30px;
+  border-radius: 50px;
+  min-height: 71px;
+  display: flex;
+  align-items: center;
   margin-top: 10px;
 
   .MuiInputBase-input {
     background: none;
+    color: #fff;
   }
 
   .MuiInput-underline:before,
@@ -50,6 +54,7 @@ const CustomLabel = styled.div`
   font-size: 24px;
   font-weight: 600;
   margin-left: 3px;
+  padding-bottom: 20px;
   color: ${({ theme }) =>
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
 `;

@@ -65,9 +65,9 @@ const JoinButton = styled.div`
   background: #cf2029;
   border-radius: 50px;
 
-  box-shadow: rgba(207, 32, 41, 0.2) 0px 30px 60px -12px,
-    rgba(207, 32, 41, 0.3) 0px 18px 36px -18px;
-
+  filter: drop-shadow(0 0 10px ${({ theme }) => theme.primary})
+    drop-shadow(0 0 10px ${({ theme }) => theme.primary}) contrast(1)
+    brightness(1);
   display: flex;
   align-items: center;
   justify-content: center;

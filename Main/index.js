@@ -218,66 +218,25 @@ class Main extends Component {
       to: "/",
     },
     {
+      icon: "deposit.svg",
+      text: "common.deposit",
+      to: "/deposit",
+    },
+    {
+      icon: "withdrawal.svg",
+      text: "common.withdrawal",
+      to: "/withdrawal",
+    },
+    {
       icon: "promotion.svg",
-      text: i18n.exists(`${config.brand}.promo`)
-        ? `${config.brand}.promo`
-        : "wap.main.promo",
+      text: "wap.main.promo",
       to: "/promotion-list",
-    },
-    {
-      icon: "withdrawal-piso.svg",
-      text: "wap.main.account.wallet",
-      to: "",
-    },
-    {
-      icon: "cs.svg",
-      text: i18n.exists(`${config.brand}.cs`)
-        ? `${config.brand}.cs`
-        : "wap.main.cs",
-      to: "/main/support",
     },
     {
       icon: "me.svg",
       text: i18n.exists(`${config.brand}.my`)
         ? `${config.brand}.my`
         : "wap.main.my",
-      to: "/main/profile",
-    },
-  ];
-
-  bottomNavButtonWapT11 = [
-    {
-      icon: "home.png",
-      text: "wap.main.homePage",
-      to: "/",
-      resetPage: true,
-    },
-    {
-      icon: "promotion",
-      text: "wap.main.promo",
-      to: "/promotion-list",
-      isGif: true,
-    },
-    {
-      icon: "deposit",
-      text: "common.deposit",
-      to: "/deposit",
-      isGif: true,
-    },
-    {
-      icon: "withdrawal",
-      text: "common.withdrawal",
-      to: "/withdrawal",
-      isGif: true,
-    },
-    {
-      icon: "cs.svg",
-      text: "wap.main.cs",
-      to: "/main/support",
-    },
-    {
-      icon: "me.png",
-      text: "wap.main.my",
       to: "/main/profile",
     },
   ];
@@ -371,9 +330,6 @@ class Main extends Component {
   switchBottomNav = (template) => {
     let bottomNav = [];
     switch (template) {
-      case 11:
-        bottomNav = this.bottomNavButtonWapT11;
-        break;
       default:
         bottomNav = this.bottomNavButton;
         break;
@@ -383,6 +339,7 @@ class Main extends Component {
 
   render() {
     const { page } = this.props.match.params;
+
     return (
       <React.Fragment>
         {this.componentRenderer(page)}

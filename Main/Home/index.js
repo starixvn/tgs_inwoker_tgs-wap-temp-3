@@ -1302,7 +1302,13 @@ class Home extends Component {
                                     />
                                   </AnotherColoredButton>
                                 )}
-                              <UsernameContainer>
+                              <UsernameContainer
+                                onClick={() => {
+                                  this.props.appHistory.push(
+                                    "/" + i18n.language + "/profile"
+                                  );
+                                }}
+                              >
                                 <UsernameText
                                   style={{
                                     fontSize:
