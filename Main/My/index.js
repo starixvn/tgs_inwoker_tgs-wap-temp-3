@@ -12,6 +12,7 @@ import Common from "../../../../utils/Common";
 
 import i18n from "../../../../utils/i18n";
 import config from "../../../../config/config";
+import Header from "../../Share/Header";
 const StyledAppBar = withStyles((theme) => ({
   root: {
     display: "block",
@@ -47,7 +48,6 @@ const NameContainer = styled.div`
   float: left;
 
   font-size: 40px;
-  font-weight: 600;
 
   color: ${({ theme }) =>
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
@@ -59,8 +59,8 @@ const MainWalletContainer = styled.div`
 `;
 
 const AmountWrapper = styled.div`
-  min-height: 140px;
-  padding: 20px 0;
+  min-height: 130px;
+  padding: 20px 0 0 0;
 `;
 const TotalWalletContainer = styled.div`
   font-size: 28px;
@@ -98,8 +98,9 @@ const MessageRedDot = styled(RedDot)`
 `;
 
 const ProfileMenuHolder = styled.div`
-  padding: 20px 50px;
+  padding: 0 50px 20px 50px;
   width: 600px;
+  border-radius: 50px;
 `;
 
 const ProfileMenuWrapper = styled.div`
@@ -110,7 +111,7 @@ const ProfileMenuWrapper = styled.div`
 
 const ProfileMenuList = styled.div`
   font-size: 24px;
-  padding: 20px 20px;
+  padding: 20px 20px 20px 0;
   display: flex;
   border-bottom: solid 1px rgba(255, 255, 255, 1);
   justify-content: space-between;
@@ -162,8 +163,8 @@ const LogoutButton = styled.div`
   border-radius: 50px;
   font-size: 34px;
   text-transform: uppercase;
-  filter: drop-shadow(0 0 10px ${({ theme }) => theme.primary})
-    drop-shadow(0 0 10px ${({ theme }) => theme.primary}) contrast(1)
+  filter: drop-shadow(0 0 4px ${({ theme }) => theme.primary})
+    drop-shadow(0 0 4px ${({ theme }) => theme.primary}) contrast(1)
     brightness(1);
 `;
 class My extends Component {
@@ -295,18 +296,19 @@ class My extends Component {
     },
   ];
 
+  handleBackClick = () => {
+    this.props.appHistory.goBack();
+  };
+
   render() {
     return (
       <Container>
-        <StyledAppBar position="fixed" color="default">
-          {config.features.HaveVIPFeature && (
-            <LevelContainer onClick={() => this.props.navigate("/vip")}>
-              <VipLevelLabel>
-                {this.props.account.vip.curr_vip.title}
-              </VipLevelLabel>
-            </LevelContainer>
-          )}
-        </StyledAppBar>
+        <Header
+          onBackClick={this.handleBackClick}
+          title={"123"}
+          position={"sticky"}
+          backgroundColor={"transparent"}
+        ></Header>
         <TheUserContainer>
           <InfoContainer>
             <NameContainer>
@@ -387,7 +389,7 @@ class My extends Component {
                       }
                       alt=""
                     />
-                    <div>Show total funds</div>
+                    <div style={{ opacity: 0.7 }}>Show total funds</div>
                   </div>
                 </ShowAmountContainer>
               )}
@@ -464,15 +466,6 @@ class My extends Component {
                 </TextAndIcon>
               </ProfileMenuList>
 
-              <ProfileMenuList
-                onClick={() => this.props.navigate("/setting/language")}
-              >
-                <TextAndIcon>
-                  <Icon icon="icon-profile-language" />
-                  <div>{i18n.t("common.language")}</div>
-                </TextAndIcon>
-              </ProfileMenuList>
-
               {config.features.Wap_ShowProfileTransfer && (
                 <ProfileMenuList
                   onClick={() => this.props.navigate("/transfer")}
@@ -483,6 +476,15 @@ class My extends Component {
                   </TextAndIcon>
                 </ProfileMenuList>
               )}
+
+              <ProfileMenuList
+                onClick={() => this.props.navigate("/setting/language")}
+              >
+                <TextAndIcon>
+                  <Icon icon="icon-profile-language" />
+                  <div>{i18n.t("common.language")}</div>
+                </TextAndIcon>
+              </ProfileMenuList>
             </ProfileMenuWrapper>
           </ProfileMenuHolder>
           <div className="clear"></div>

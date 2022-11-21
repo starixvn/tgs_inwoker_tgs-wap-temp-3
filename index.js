@@ -69,6 +69,7 @@ import Birthdate from "./Profile/Birthdate";
 import CustomSportPage from "./CustomSportPage";
 import LiveChat from "../Share/live-chat";
 import ForcedVerification from "./ForcedVerification";
+import BottomNavBar from "./Share/BottomNavBar";
 const baseRouteUrl = Common.baseRouteUrl;
 const StyledModal = withStyles((theme) => ({
   paper: {
@@ -1061,6 +1062,7 @@ class Wap extends Component {
               {i18n.t("common.cancel")}
             </ButtonCancel>
           </StyledModalPopup>
+          <BottomNavBar />
         </>
       );
     }

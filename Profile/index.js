@@ -80,7 +80,7 @@ const ContentItem = (
   title,
   isConfigured,
   onClickEvent,
-  configuredValue = i18n.t("profile.setted"),
+  configuredValue,
   category,
   disabled
 ) => {
@@ -99,7 +99,9 @@ const ContentItem = (
     <ItemContainer onClick={!disable && !disabled && onClickEvent}>
       <ItemContentContainer>
         <ItemTitle>{title}</ItemTitle>
-        <ItemContentData>{configureElement}</ItemContentData>
+        {configureElement && (
+          <ItemContentData>{configureElement}</ItemContentData>
+        )}
       </ItemContentContainer>
       {!disable && !disabled && <BtnBack></BtnBack>}
     </ItemContainer>

@@ -81,6 +81,7 @@ class Profile extends Component {
   };
   handleUpdate = () => {
     i18n.changeLanguage(this.state.checked);
+    this.props.appHistory.replace("/" + this.state.checked);
     window.location.reload();
   };
   render() {

@@ -507,44 +507,6 @@ class Main extends Component {
             <ButtonCloseMenu onClick={this.handleCloseMenu}></ButtonCloseMenu>
           </MenuContainer>
         </StyledDialog>
-        <CustomStyledAppBar position="fixed" color="default">
-          <CustomCustomBottomNav
-            value={this.state.currentPage}
-            showLabels
-            style={{ width: "750px", height: "90px" }}
-          >
-            {this.switchBottomNav(config.wapVersion).map((data, index) => {
-              return (
-                <CustomCustomBottomNavAction
-                  label={i18n.t(data.text)}
-                  value={data.to}
-                  onClick={() =>
-                    data.to
-                      ? this.handleChangeSelection(data.to, data.resetPage)
-                      : this.toggleMenu()
-                  }
-                  icon={
-                    data.isGif ? (
-                      <GifHolder
-                        icon={
-                          process.env.PUBLIC_URL +
-                          `/assets/images/wapp/bottomnav/${data.icon}.gif`
-                        }
-                      />
-                    ) : (
-                      <IconHolder
-                        icon={
-                          process.env.PUBLIC_URL +
-                          `/assets/images/wapp/bottomnav/${data.icon}`
-                        }
-                      />
-                    )
-                  }
-                />
-              );
-            })}
-          </CustomCustomBottomNav>
-        </CustomStyledAppBar>
       </React.Fragment>
     );
   }

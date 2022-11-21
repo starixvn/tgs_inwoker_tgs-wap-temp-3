@@ -10,17 +10,11 @@ import ButtonWap from "../../../../Share/ButtonWap";
 
 import i18n from "../../../../../utils/i18n";
 import config from "../../../../../config/config";
+import { AppHistory } from "../../../../../history/History";
 
-const Logo = styled.div`
-  width: 300px;
-  height: 200px;
-  margin: 60px auto 60px auto;
-  background: url("${(props) => props.img}") no-repeat center center;
-  background-size: contain;
-`;
 const RememberPassContainer = styled.div`
   float: left;
-  margin: 10px 0 0 70px;
+  margin: 10px 0 0 10px;
 `;
 const RememberPassLabel = styled.div`
   float: left;
@@ -38,7 +32,7 @@ const CustomCheck = withStyles({
 })(Checkbox);
 const ForgotPassContainer = styled.div`
   float: righht;
-  margin: 10px 70px 0 0;
+  margin: 10px 10px 0 0;
 `;
 const ForgotPassLabel = styled(RememberPassLabel)`
   float: right;
@@ -48,43 +42,27 @@ const LanguageWrap = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.loginText};
   font-size: 28px;
-  margin-top: 20px;
 `;
 
-const DownloadButtonHolder = styled.div`
+const ButtonHolder = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 const DownloadButton = styled(LanguageWrap)`
-  font-size: 30px;
+  font-size: 24px;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
 `;
-const LanguageLink = styled.span`
-  text-align: center;
-  color: ${(props) =>
-    props.selected === true ? props.theme.accent : props.theme.loginText};
-`;
 
 const TNC = styled(RememberPassLabel)`
   width: 515px;
   margin-bottom: 14px;
   font-size: 20px;
-`;
-
-const CustomWapButton = styled(ButtonWap)`
-  background: url(${process.env.PUBLIC_URL +
-    `/assets/images/wapp/btn-login-T11.png`})
-    no-repeat center;
-  border: none;
-  color: #fff;
-  background-size: 637px 94px;
-  padding-top: 26px;
 `;
 
 const CustomInvitationSelect = styled.select`
@@ -166,18 +144,7 @@ const Title = styled.div`
   text-align: center;
   padding: 100px 0;
   text-transform: uppercase;
-  width: 500px;
-`;
-
-const LoginButton = styled.div`
-  background: ${({ theme }) => theme.primary};
-  min-width: 400px;
-  text-align: center;
-  width: fit-content;
-  padding: 25px 40px;
-  font-size: 35px;
-  border-radius: 50px;
-  color: #fff;
+  width: 100%;
 `;
 
 const ContentGap = styled.div`
@@ -186,6 +153,7 @@ const ContentGap = styled.div`
   width: 635px;
   margin-bottom: 100px;
 `;
+
 const Variant3 = ({
   template,
   logoImg,
@@ -342,23 +310,26 @@ const Variant3 = ({
                 </ForgotPassContainer>
               </ContentGap>
 
-              <LoginButton onClick={handleLoginClick}>
-                {i18n.t("common.login")}
-              </LoginButton>
+              <ButtonWap
+                name={i18n.t("common.login")}
+                onClick={handleLoginClick}
+              ></ButtonWap>
 
-              {config.features.HaveDownloadFeature && (
-                <DownloadButtonHolder>
-                  <DownloadButton onClick={handleGoDownloadPage}>
-                    <Icon icon="icon-download" />
-                    {i18n.t("wap.main.account.appDownload")}
-                  </DownloadButton>
-                </DownloadButtonHolder>
-              )}
+              <ButtonHolder>
+                <div style={{ color: "white" }}>Don't have an account?</div>{" "}
+                <DownloadButton
+                  onClick={() => {
+                    handleChangeSelection(1);
+                  }}
+                >
+                  {i18n.t("wap.main.home.steps.step1")}
+                </DownloadButton>
+              </ButtonHolder>
             </Container>
           );
         } else if (selected === 1) {
           return (
-            <React.Fragment>
+            <Container>
               <Title>Register</Title>
               <Textbox
                 icon={
@@ -497,17 +468,19 @@ const Variant3 = ({
                   )}
                 </CustomWrapper>
               )}
-              <RememberPassContainer>
-                <CustomCheck
-                  style={{ fontSize: "30px" }}
-                  icon={<CheckBoxUnchecked />}
-                  checkedIcon={<CheckBoxChecked />}
-                  checked={tnc}
-                  onChange={handleTncClick}
-                />
-                <TNC>{i18n.t("web.register.contract")}</TNC>
-              </RememberPassContainer>
-              <CustomWapButton
+              <div style={{ padding: "10px 40px" }}>
+                <RememberPassContainer>
+                  <CustomCheck
+                    style={{ fontSize: "30px" }}
+                    icon={<CheckBoxUnchecked />}
+                    checkedIcon={<CheckBoxChecked />}
+                    checked={tnc}
+                    onChange={handleTncClick}
+                  />
+                  <TNC>{i18n.t("web.register.contract")}</TNC>
+                </RememberPassContainer>
+              </div>
+              <ButtonWap
                 style={{ margin: "150px auto 0px auto" }}
                 name={
                   config.features.Register_CustomFlow_IDR
@@ -516,8 +489,18 @@ const Variant3 = ({
                 }
                 onClick={handleRegisterClick}
                 disableButton={!tnc}
-              ></CustomWapButton>
-            </React.Fragment>
+              ></ButtonWap>
+              <ButtonHolder>
+                <div style={{ color: "white" }}>Already have an acocunt?</div>{" "}
+                <DownloadButton
+                  onClick={() => {
+                    handleChangeSelection(0);
+                  }}
+                >
+                  {i18n.t("common.login")}
+                </DownloadButton>
+              </ButtonHolder>
+            </Container>
           );
         } else if (selected === 2) {
           return (
@@ -545,7 +528,7 @@ const Variant3 = ({
                     inputStyle={{ ...customVerificationInputStyle }}
                     style={{ ...customVerificationInputContainerStyle }}
                     customWapButton={(props) => (
-                      <CustomWapButton {...props}></CustomWapButton>
+                      <ButtonWap {...props}></ButtonWap>
                     )}
                   ></VerificationCode>
                   {config.features.Custom_Temp_show_verify_SMS_hints && (
@@ -555,11 +538,11 @@ const Variant3 = ({
                   )}
                 </>
               )}
-              <CustomWapButton
+              <ButtonWap
                 style={{ margin: "100px auto 0 auto" }}
                 name={i18n.t("common.submit")}
                 onClick={handleActivationClick}
-              ></CustomWapButton>
+              ></ButtonWap>
             </React.Fragment>
           );
         }

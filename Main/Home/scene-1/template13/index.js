@@ -124,13 +124,12 @@ const GameButtonWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 15px;
-  padding: 20px;
 `;
 
 const GameFrameImg = styled.div`
   display: block;
-  width: 100%;
-  height: 240px;
+
+  aspect-ratio: 1;
   border-radius: 20px;
   background: url(${(props) => props.src}) no-repeat;
   background-position: center;
@@ -145,14 +144,31 @@ const Maintenance = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
-  z-index: 1;
+  z-index: 2;
   font-size: 40px;
   font-weight: bold;
   text-transform: capitalize;
 `;
 
+const LogoOverlay = styled.div`
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 0;
+  font-size: 40px;
+  font-weight: bold;
+  text-transform: capitalize;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
 const NewWrapper = styled.div`
   position: relative;
+  aspect-ratio: 1;
+  border-radius: 20px;
 
   ${({ maintenance }) => {
     return maintenance
@@ -160,12 +176,29 @@ const NewWrapper = styled.div`
       ${GameFrameImg}{
         filter: brightness(20%) grayscale(200%);
       }
+
+    
       ${Maintenance}{
         display: flex;
+    }
     
-    }`
+    ${LogoOverlay}  { 
+      display: none;
+    }
+    
+    `
       : ``;
   }}
+`;
+
+const MaintenanceContentHolder = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 `;
 
 const Template13 = ({
@@ -235,12 +268,35 @@ const Template13 = ({
                   return (
                     <NewWrapper maintenance={row.status !== 0}>
                       <Maintenance>
-                        {i18n.t("transfer.maintenance")}
+                        <MaintenanceContentHolder>
+                          <img
+                            src={
+                              process.env.PUBLIC_URL +
+                              "/assets/images/wapp/resource/T13/homepage/notavailable.png"
+                            }
+                            alt={"not available"}
+                            style={{
+                              width: "200px",
+
+                              transform: "rotate(-35deg)",
+                            }}
+                          />
+                        </MaintenanceContentHolder>
                       </Maintenance>
+                      <LogoOverlay>
+                        <img
+                          src={
+                            process.env.PUBLIC_URL +
+                            `/assets/images/provider/${row.abbreviation.toLowerCase()}.png`
+                          }
+                          style={{ width: "200px", height: "auto" }}
+                          alt={row.abbreviation.toLowerCase()}
+                        />
+                      </LogoOverlay>
                       <GameFrameImg
                         src={`${
                           process.env.PUBLIC_URL
-                        }/assets/images/wapGame/T9/${getImgPrefix(
+                        }/assets/images/wapGame/T13/${getImgPrefix(
                           row.type
                         )}-${row.abbreviation.toLowerCase()}.jpg`}
                         id={
