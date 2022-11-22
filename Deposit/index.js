@@ -226,7 +226,16 @@ class Deposit extends Component {
             showTabContainer: false,
           });
         } else {
-          if (payment.paymentcode.toUpperCase() === "MANUAL") {
+          if (
+            payment.paymentcode.toUpperCase() === "USDT" &&
+            config.features.Deposit_SplitUsdt
+          ) {
+            this.props.doUsdtDeposit(
+              this.state.amount.replace(/,/g, ""),
+              channel.id,
+              this.state.depositPromotion
+            );
+          } else if (payment.paymentcode.toUpperCase() === "MANUAL") {
             if (config.features.Deposit_UploadRequired) {
               this.props.doUploadDepositProof(
                 response.data,
