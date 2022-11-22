@@ -45,46 +45,32 @@ const DateContainer = styled.div`
 `;
 const DateSpliter = styled.div`
   font-size: 22px;
-  font-weight: 600;
-  color: #4a4a4a;
-  margin: 75px 0 0 10px;
+
+  color: #fff;
 `;
 const DateInner = styled.div`
   width: 320px;
   padding: 5px;
 `;
-const DateLabel = styled.div`
-  height: 40px;
-  border-left: 5px solid
-    ${({ theme }) => (theme.wapPrimary ? theme.wapPrimary : theme.primary)};
-  padding-left: 20px;
-  padding-top: 5px;
-  margin-left: 10px;
-  font-size: 22px;
-  font-weight: 600;
-  color: ${({ theme }) =>
-    theme.wapSecondary ? theme.wapSecondary : theme.secondary};
-`;
-const DateRangContainer = styled.div`
+
+const DateRangContainer = styled.div`space-between
   margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 `;
 const DateRangSelection = styled.div`
-  width: 220px;
-  height: 52px;
-  float: left;
-  font-weight: 600;
+  padding: 10px 20px;
 
+  border-radius: 50px;
   letter-spacing: normal;
   text-align: center;
   font-size: 32px;
-  color: ${({ selected, theme }) => {
+  color: #fff;
+  ${({ selected, theme }) => {
     return selected
-      ? theme.wapPrimary
-        ? theme.wapPrimary
-        : theme.primary
-      : theme.wapSecondary
-      ? theme.wapSecondary
-      : theme.secondary;
+      ? `background:  ${theme.primary};  border: 2px solid ${theme.primary}; `
+      : `border: 2px solid #fff;`;
   }};
 `;
 const DataContent = styled.div`
@@ -214,19 +200,19 @@ const TheDepositButton = styled.div`
 `;
 
 const CustomTabs = styled.div`
-  height: 80px;
   font-size: 25px;
-  white-space: initial;
-  overflow-wrap: normal;
+  width: 100%;
+  display: -webkit-box;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 20px;
 `;
 
 const CustomTabText = styled.div`
-  display: flex;
-  width: fit-content;
   flex: 1;
   justify-content: center;
   align-items: center;
-  padding: 10px 30px;
+  padding: 15px 35px;
   background: #27273f;
   margin-right: 20px;
   border-radius: 50px;
@@ -234,7 +220,8 @@ const CustomTabText = styled.div`
 
 const CustomTab = styled.div`
   color: #fff;
-  width: fit-content;
+  font-size: 28px;
+  display: block;
   ${CustomTabText} {
     ${({ selected, theme }) => {
       return selected && `background: ${theme.primary}`;
@@ -243,14 +230,17 @@ const CustomTab = styled.div`
 `;
 
 const CustomDatepicker = styled.div`
-  background: white;
-  zoom: 1.5;
+  background: transparent;
+  border: solid 1px #fff;
+
+  border-radius: 50px;
+
   padding: 10px 20px;
-  border-radius: 8px;
-  margin-top: 10px;
 
   .MuiInputBase-input {
     background: none;
+    color: #fff;
+    font-size: 28px;
   }
 
   .MuiInput-underline:before,
@@ -270,6 +260,7 @@ const CustomWinLose = styled.span`
 const CustomDataRow = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const AnotherCustomDataRow = styled.div`
@@ -282,7 +273,9 @@ const AnotherCustomDataRow = styled.div`
 const FlatStraightLine = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-direction: row;
+  padding-bottom: 20px;
 `;
 
 class Report extends Component {
@@ -1054,11 +1047,10 @@ class Report extends Component {
                   return i18n.t("report.rebateDetails");
               }
             })()}
-            position={"sticky"}
             backgroundColor={"transparent"}
           ></Header>
         </StyledAppBar>
-        <CustomTabs visibleScrollbar={true} scrollButtons={true}>
+        <CustomTabs>
           {(this.props.game.containTransferWallet
             ? this.theMenu
             : this.noTransfer
@@ -1070,7 +1062,6 @@ class Report extends Component {
         <DateContainer>
           <FlatStraightLine>
             <DateInner>
-              <DateLabel>{i18n.t("report.startDate")}</DateLabel>
               <CustomDatepicker>
                 <MuiPickersUtilsProvider
                   utils={DateFnsUtils}
@@ -1090,7 +1081,6 @@ class Report extends Component {
             </DateInner>
             <DateSpliter>-</DateSpliter>
             <DateInner>
-              <DateLabel>{i18n.t("report.endDate")}</DateLabel>
               <CustomDatepicker>
                 <MuiPickersUtilsProvider
                   utils={DateFnsUtils}

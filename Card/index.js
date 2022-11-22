@@ -17,8 +17,7 @@ const Container = styled.div`
 
 const BalanceLabel = styled.div`
   font-size: 36px;
-  background: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
+
   text-align: center;
   color: ${({ theme }) =>
     theme.customProfileText ? theme.customProfileText : "#ffffff"};
@@ -37,19 +36,15 @@ const CardItem = styled.div`
 `;
 const InfoLabel = styled.div`
   font-size: 18px;
-  font-weight: 600;
 
   color: ${({ theme }) =>
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
   float: right;
-  margin: 15px 80px 0 0;
-  background: url(${process.env.PUBLIC_URL +
-    `/assets/images/wapp/icon-card-info.png`})
-    no-repeat left center;
+  margin-top: 20px;
   background-size: 32px;
-  padding-left: 44px;
+  font-size: 24px;
+
   height: 32px;
-  padding-top: 4px;
 `;
 
 const BankName = styled.div`
@@ -68,38 +63,44 @@ const BankNumber = styled.div`
 `;
 const EmptyCardItem = styled.div`
   width: 632px;
-  height: 170px;
+
+  padding: 40px;
+  position: relative;
   border: 2px
     ${({ theme }) =>
       theme.wapSecondary ? theme.wapSecondary : theme.secondary}
-    dashed;
-  border-radius: 16px;
-  margin: 30px auto 0 auto;
+    solid;
+  border-radius: 40px;
+  margin: 30px auto 0;
 `;
 const EmptyCardTitle = styled.div`
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
-  float: left;
+
   color: ${({ theme }) =>
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
-  width: 450px;
 
-  margin: 50px 0 0 45px;
+  margin: 60px 0 0 0px;
 `;
 const EmptyCardDesc = styled.div`
-  font-size: 18px;
-  float: left;
+  font-size: 24px;
+  margin-top: 20px;
+
   color: ${({ theme }) =>
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
-  width: 450px;
-  margin: 5px 0 0 45px;
+
+  margin: 10px 0 0 0px;
 `;
 const EmptyCardAdd = styled.div`
-  background: url(${process.env.PUBLIC_URL +
+  mask: url(${process.env.PUBLIC_URL +
     `/assets/images/wapp/icon-plus-circle.png`})
     no-repeat center center;
-  width: 100px;
-  height: 170px;
+  position: absolute;
+  right: 40px;
+  top: 20px;
+  background: #fff;
+  width: 80px;
+  height: 80px;
   float: right;
 `;
 
@@ -169,7 +170,7 @@ class Card extends Component {
       <Container>
         <Header
           onBackClick={this.handleBackClick}
-          title={i18n.t("card.title")}
+          title={i18n.t("wap.main.account.manageBank")}
           position={"sticky"}
           backgroundColor={"transparent"}
         ></Header>
@@ -184,6 +185,18 @@ class Card extends Component {
             ) + this.props.wallet.mainBalance
           )}
         </BalanceLabel>
+
+        {!(
+          config.features.AddCard_NotAllowedEditDelete ||
+          config.features.ChangesNotAllowed ||
+          (this.props.wallet.bankCardList.length >=
+            config.features.AddCard_MaximumCardAllowed &&
+            config.features.AddCard_DisableCreateUpdateDelete)
+        ) && (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <InfoLabel>{i18n.t("card.msgSlideToDelete")}</InfoLabel>
+          </div>
+        )}
 
         {this.props.wallet.bankCardList.map((row) => {
           return (
@@ -221,7 +234,6 @@ class Card extends Component {
             config.features.AddCard_DisableCreateUpdateDelete)
         ) && (
           <>
-            <InfoLabel>{i18n.t("card.msgSlideToDelete")}</InfoLabel>
             <div className="clear"></div>
             <EmptyCardItem
               onClick={() => {

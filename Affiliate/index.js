@@ -8,17 +8,11 @@ import Loading from "../../Wap/Share/Loading";
 import i18n from "../../../utils/i18n";
 import QRCode from "react-qr-code";
 import { utility } from "../../../utils/utility";
+import PageTitle from "../components/pagetitle";
 
-const QRCodeLabel = styled.div`
-  margin: 30px auto;
-  display: table;
-  font-size: 30px;
-  color: ${({ theme }) =>
-    theme.wapSecondary ? theme.wapSecondary : theme.secondary};
-`;
 const QRCodeContainer = styled.div`
   padding: 20px;
-  margin: 0 auto;
+  margin: 50px auto;
   display: table;
   background-color: #fff;
 `;
@@ -26,20 +20,22 @@ const CustomText = styled.div`
   width: 700px;
   font-size: 28px;
   box-shadow: 0 2px 6px 0 rgba(58, 58, 58, 0.2);
-  border: solid 1px #f3f3f3;
-  background-color: #ffffff;
-  border-radius: 20px;
-  padding: 0px 20px 0 20px;
+  background-color: #27273f;
+  border-radius: 50px;
+  padding: 0 20px 0 40px;
   margin: 20px auto;
+
+  display: grid;
+  align-items: center;
+  grid-template-columns: 30% auto;
 `;
 const CustomLabel = styled.div`
-  font-weight: 600;
-  margin: 24px 0 0 3px;
   float: left;
-  color: #212e31;
+  color: #fff;
 `;
 const CustomInput = styled.input`
-  color: #000;
+  color: #fff;
+  background: transparent;
   font-size: 28px;
   margin: 25px 0 25px 10px;
   font-weight: 500;
@@ -51,24 +47,20 @@ const CustomInput = styled.input`
     color: #c3c3c3;
   }
   &:disabled {
-    background: #fff;
-    -webkit-text-fill-color: #d09f58;
     opacity: 1;
   }
 `;
 const Button = styled.div`
   height: 60px;
-  border-radius: 10%;
-  border: solid 1px #000;
-
   font-size: 24px;
   font-weight: 600;
-
   text-align: center;
-  color: #000;
-  float: right;
-  padding: 12px 20px 0 20px;
-  margin-top: 12px;
+  color: #fff;
+  background: #dc141e;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
 `;
 
 const LightTooltip = withStyles((theme) => ({
@@ -109,41 +101,53 @@ class Affiliate extends Component {
           onBackClick={this.handleBackClick}
           title={i18n.t("affiliate.title")}
         ></Header>
-        <QRCodeLabel>{i18n.t("affiliate.qrCode")}</QRCodeLabel>
-        <QRCodeContainer>
-          <QRCode value={affiliateLink}></QRCode>
-        </QRCodeContainer>
 
-        <CustomText>
-          <CustomLabel>{i18n.t("affiliate.promoId")}</CustomLabel>
-          <CustomInput
-            type={"text"}
-            value={this.props.account.info.playercode}
-            readOnly={true}
-          ></CustomInput>
-        </CustomText>
-        <CustomText>
-          <CustomLabel>{i18n.t("affiliate.promoLink")}</CustomLabel>
-          <CustomInput
-            type={"text"}
-            value={affiliateLink}
-            readOnly={true}
-          ></CustomInput>
-          <LightTooltip
-            open={this.state.copyTooltips}
-            title={i18n.t("affiliate.copied")}
-            placement="top"
-          >
-            <Button
-              onClick={() => {
-                this.handleCopyLink(affiliateLink);
+        <div style={{ paddingTop: 90 }}>
+          <PageTitle>{i18n.t("affiliate.qrCode")}</PageTitle>
+          <QRCodeContainer>
+            <QRCode value={affiliateLink}></QRCode>
+          </QRCodeContainer>
+
+          <CustomText>
+            <CustomLabel>{i18n.t("affiliate.promoId")}</CustomLabel>
+            <CustomInput
+              type={"text"}
+              value={this.props.account.info.playercode}
+              readOnly={true}
+            ></CustomInput>
+          </CustomText>
+          <CustomText>
+            <CustomLabel>{i18n.t("affiliate.promoLink")}</CustomLabel>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 10,
               }}
             >
-              {i18n.t("common.copy")}
-            </Button>
-          </LightTooltip>
-        </CustomText>
-
+              <CustomInput
+                type={"text"}
+                value={affiliateLink}
+                readOnly={true}
+              ></CustomInput>
+              <LightTooltip
+                open={this.state.copyTooltips}
+                title={i18n.t("affiliate.copied")}
+                placement="top"
+              >
+                <Button
+                  onClick={() => {
+                    this.handleCopyLink(affiliateLink);
+                  }}
+                >
+                  {i18n.t("common.copy")}
+                </Button>
+              </LightTooltip>
+            </div>
+          </CustomText>
+        </div>
         <Loading show={this.state.loading}></Loading>
       </React.Fragment>
     );

@@ -17,7 +17,7 @@ const Content = styled.div`
 const PromoDetailImage = styled.div`
   width: 750px;
   height: 304px;
-  margin-top: 100px;
+  margin-top: 90px;
   background: url(${(props) => props.img}) no-repeat;
   background-size: 100% 100%;
   position: relative;
@@ -157,7 +157,7 @@ class Details extends Component {
       this.state.details.terms ||
       "";
     return (
-      <React.Fragment>
+      <div style={{ paddingBottom: 120 }}>
         <Header
           token={null}
           balance={0}
@@ -238,7 +238,7 @@ class Details extends Component {
             }
           ></Button>
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }

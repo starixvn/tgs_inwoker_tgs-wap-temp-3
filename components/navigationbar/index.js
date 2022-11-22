@@ -110,6 +110,12 @@ const BottomNavBar = (props) => {
     setCurrentPage(value);
   };
 
+  React.useEffect(() => {
+    window.onpopstate = () => {
+      setCurrentPage(window.location.pathname);
+    };
+  }, []);
+
   const bottomNavButton = [
     {
       icon: "home.svg",

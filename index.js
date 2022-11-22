@@ -69,7 +69,8 @@ import Birthdate from "./Profile/Birthdate";
 import CustomSportPage from "./CustomSportPage";
 import LiveChat from "../Share/live-chat";
 import ForcedVerification from "./ForcedVerification";
-import BottomNavBar from "./Share/BottomNavBar";
+import BottomNavBar from "./components/navigationbar";
+
 const baseRouteUrl = Common.baseRouteUrl;
 const StyledModal = withStyles((theme) => ({
   paper: {

@@ -22,7 +22,7 @@ const ContentContainer = styled.div`
   background: #202137;
   color: #fff;
   border-radius: 75px;
-  padding: 20px 60px;
+  padding: 20px 85px;
 
   ${({ opened }) =>
     opened
@@ -84,7 +84,7 @@ const CheckboxCircle = styled.div`
 
 const LetterContent = styled.div`
   font-size: 30px;
-  padding: 0 60px 60px 60px;
+  padding: 0 85px 20px 85px;
   background: #202137;
   color: #fff;
   border-radius: 0 0 75px 75px;

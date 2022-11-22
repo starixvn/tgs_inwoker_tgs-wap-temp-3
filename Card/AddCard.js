@@ -16,8 +16,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import Common from "../../../utils/Common";
+import Textfield from "../components/textfield";
 const Container = styled.div`
   width: 100%;
+`;
+
+const ContentPadding = styled.div`
+  padding: 20px;
 `;
 
 const BalanceLabel = styled.div`
@@ -540,358 +545,354 @@ class AddCard extends Component {
           position={"sticky"}
           backgroundColor={"transparent"}
         ></Header>
-        <BalanceLabel>
-          {Common.formatNumberWithThousand(
-            this.props.wallet.mainBalance +
-              this.props.game.providerList
-                .filter(
-                  (item) => item.status === 0 && item.transferwallet === true
-                )
-                .reduce((a, v) => (a = a + v.balance), 0)
+        <ContentPadding>
+          {!config.features.AddCard_HideCertainField && (
+            <Textfield
+              style={{ margin: "20px auto 20px auto" }}
+              value={
+                !this.state.isDeposit &&
+                this.props.wallet.withdrawalList.length > 0
+                  ? this.props.wallet.withdrawalList[
+                      this.state.selectedBankTypeIndex
+                    ].banktype
+                  : this.state.isDeposit &&
+                    this.props.wallet.depositList.length > 0
+                  ? this.props.wallet.depositList[
+                      this.state.selectedBankTypeIndex
+                    ].banktype
+                  : ""
+              }
+              onClick={() =>
+                this.setState({ ...this.state, bankTypeOpen: true })
+              }
+              type={"text"}
+              title={i18n.t("common.withdrawalBankType")}
+              disabled={true}
+            ></Textfield>
           )}
-        </BalanceLabel>
 
-        <SubTitle>{i18n.t("card.addCard.title")}</SubTitle>
-        {!config.features.AddCard_HideCertainField && (
-          <Textbox
-            style={{ margin: "20px auto 20px auto" }}
-            value={
-              !this.state.isDeposit &&
-              this.props.wallet.withdrawalList.length > 0
-                ? this.props.wallet.withdrawalList[
+          {!config.features.AddCard_HideChannel && (
+            <Textfield
+              style={{ margin: "20px auto 20px auto" }}
+              value={
+                this.state.channelList.length > 0
+                  ? i18n.t(
+                      this.state.channelList[this.state.selectedChannelIndex]
+                        .channelname
+                    )
+                  : ""
+              }
+              onClick={() =>
+                this.setState({ ...this.state, channelOpen: true })
+              }
+              type={"text"}
+              title={
+                config.features.AddCard_Bank_Custom_IDR &&
+                ((!this.state.isDeposit &&
+                  this.props.wallet.withdrawalList.length > 0 &&
+                  this.props.wallet.withdrawalList[
                     this.state.selectedBankTypeIndex
-                  ].banktype
-                : this.state.isDeposit &&
-                  this.props.wallet.depositList.length > 0
-                ? this.props.wallet.depositList[
-                    this.state.selectedBankTypeIndex
-                  ].banktype
-                : ""
-            }
-            onClick={() => this.setState({ ...this.state, bankTypeOpen: true })}
-            type={"text"}
-            label={i18n.t("common.withdrawalBankType")}
-            disabled={true}
-          ></Textbox>
-        )}
+                  ].banktype === "Bank") ||
+                  (this.state.isDeposit &&
+                    this.props.wallet.depositList.length > 0 &&
+                    this.props.wallet.depositList[
+                      this.state.selectedBankTypeIndex
+                    ].banktype === "Bank"))
+                  ? i18n.t("card.addCard.BankName")
+                  : i18n.t("common.withdrawalChannel")
+              }
+              disabled={true}
+            ></Textfield>
+          )}
 
-        {!config.features.AddCard_HideChannel && (
-          <Textbox
-            style={{ margin: "20px auto 20px auto" }}
-            value={
-              this.state.channelList.length > 0
-                ? i18n.t(
-                    this.state.channelList[this.state.selectedChannelIndex]
-                      .channelname
-                  )
-                : ""
-            }
-            onClick={() => this.setState({ ...this.state, channelOpen: true })}
-            type={"text"}
-            label={
-              config.features.AddCard_Bank_Custom_IDR &&
-              ((!this.state.isDeposit &&
+          {(() => {
+            if (
+              (!this.state.isDeposit &&
                 this.props.wallet.withdrawalList.length > 0 &&
                 this.props.wallet.withdrawalList[
                   this.state.selectedBankTypeIndex
                 ].banktype === "Bank") ||
-                (this.state.isDeposit &&
-                  this.props.wallet.depositList.length > 0 &&
-                  this.props.wallet.depositList[
-                    this.state.selectedBankTypeIndex
-                  ].banktype === "Bank"))
-                ? i18n.t("card.addCard.BankName")
-                : i18n.t("common.withdrawalChannel")
-            }
-            disabled={true}
-          ></Textbox>
-        )}
+              (this.state.isDeposit &&
+                this.props.wallet.depositList.length > 0 &&
+                this.props.wallet.depositList[this.state.selectedBankTypeIndex]
+                  .banktype === "Bank")
+            ) {
+              return (
+                <React.Fragment>
+                  {!(
+                    config.features.AddCard_HideCertainField ||
+                    config.features.AddCard_Bank_Custom_IDR ||
+                    eWalletCustom ||
+                    selectedBankType("Pulsa")
+                  ) && (
+                    <>
+                      <Textfield
+                        style={{ margin: "20px auto 20px auto" }}
+                        value={this.state.bankName}
+                        onChange={this.handleBankNameChange}
+                        type={"text"}
+                        disabled={
+                          config.features.AddCard_BankDropdown ||
+                          this.state.disabledBankNameInput
+                        }
+                        onClick={() =>
+                          this.setState({ ...this.state, bankNameOpen: true })
+                        }
+                        placeholder={
+                          config.features.AddCard_DisplayFPS
+                            ? i18n.t("hk28.card.addCard.msgEnterBankName")
+                            : i18n.t("card.addCard.msgEnterBankName")
+                        }
+                        title={
+                          config.features.AddCard_DisplayFPS
+                            ? i18n.t("hk28.card.addCard.BankName")
+                            : i18n.t("card.addCard.BankName")
+                        }
+                        maxLength={255}
+                      ></Textfield>
+                      {(() => {
+                        if (config.features.AddCard_BankBranch) {
+                          return (
+                            <Textfield
+                              style={{ margin: "20px auto 20px auto" }}
+                              value={this.state.bankBranch}
+                              onChange={this.handleBankBranchChange}
+                              type={"text"}
+                              placeholder={i18n.t(
+                                "card.addCard.branchPlaceHolder"
+                              )}
+                              title={i18n.t("card.addCard.branch")}
+                              maxLength={255}
+                            ></Textfield>
+                          );
+                        }
+                      })()}
+                    </>
+                  )}
 
-        {(() => {
-          if (
-            (!this.state.isDeposit &&
-              this.props.wallet.withdrawalList.length > 0 &&
-              this.props.wallet.withdrawalList[this.state.selectedBankTypeIndex]
-                .banktype === "Bank") ||
+                  <Textfield
+                    style={{ margin: "20px auto 20px auto" }}
+                    value={this.state.bankAccountName}
+                    onChange={this.handleBankAccountNameChange}
+                    type={"text"}
+                    placeholder={
+                      eWalletCustom
+                        ? i18n.t("card.addCard.eWalletAccount")
+                        : config.features.AddCard_DisplayFPS
+                        ? i18n.t("hk28.card.addCard.BankAccountName")
+                        : i18n.t("card.addCard.BankAccountName")
+                    }
+                    title={
+                      eWalletCustom
+                        ? i18n.t("card.addCard.eWalletAccount")
+                        : config.features.AddCard_DisplayFPS
+                        ? i18n.t("hk28.card.addCard.BankAccountName")
+                        : i18n.t("card.addCard.BankAccountName")
+                    }
+                    maxLength={255}
+                    disabled={this.state.disableBankAccountNameInput}
+                  ></Textfield>
+                </React.Fragment>
+              );
+            }
+          })()}
+          {((!this.state.isDeposit &&
+            this.props.wallet.withdrawalList.length > 0 &&
+            this.props.wallet.withdrawalList[this.state.selectedBankTypeIndex]
+              .banktype === "EWallet") ||
             (this.state.isDeposit &&
               this.props.wallet.depositList.length > 0 &&
               this.props.wallet.depositList[this.state.selectedBankTypeIndex]
-                .banktype === "Bank")
-          ) {
-            return (
-              <React.Fragment>
-                {!(
-                  config.features.AddCard_HideCertainField ||
-                  config.features.AddCard_Bank_Custom_IDR ||
-                  eWalletCustom ||
-                  selectedBankType("Pulsa")
-                ) && (
-                  <>
-                    <Textbox
-                      style={{ margin: "20px auto 20px auto" }}
-                      value={this.state.bankName}
-                      onChange={this.handleBankNameChange}
-                      type={"text"}
-                      disabled={
-                        config.features.AddCard_BankDropdown ||
-                        this.state.disabledBankNameInput
-                      }
-                      onClick={() =>
-                        this.setState({ ...this.state, bankNameOpen: true })
-                      }
-                      placeholder={
-                        config.features.AddCard_DisplayFPS
-                          ? i18n.t("hk28.card.addCard.msgEnterBankName")
-                          : i18n.t("card.addCard.msgEnterBankName")
-                      }
-                      label={
-                        config.features.AddCard_DisplayFPS
-                          ? i18n.t("hk28.card.addCard.BankName")
-                          : i18n.t("card.addCard.BankName")
-                      }
-                      maxLength={255}
-                    ></Textbox>
-                    {(() => {
-                      if (config.features.AddCard_BankBranch) {
-                        return (
-                          <Textbox
-                            style={{ margin: "20px auto 20px auto" }}
-                            value={this.state.bankBranch}
-                            onChange={this.handleBankBranchChange}
-                            type={"text"}
-                            placeholder={i18n.t(
-                              "card.addCard.branchPlaceHolder"
-                            )}
-                            label={i18n.t("card.addCard.branch")}
-                            maxLength={255}
-                          ></Textbox>
-                        );
-                      }
-                    })()}
-                  </>
-                )}
-
-                <Textbox
-                  style={{ margin: "20px auto 20px auto" }}
-                  value={this.state.bankAccountName}
-                  onChange={this.handleBankAccountNameChange}
-                  type={"text"}
-                  placeholder={
-                    eWalletCustom
-                      ? i18n.t("card.addCard.eWalletAccount")
-                      : config.features.AddCard_DisplayFPS
-                      ? i18n.t("hk28.card.addCard.BankAccountName")
-                      : i18n.t("card.addCard.BankAccountName")
-                  }
-                  label={
-                    eWalletCustom
-                      ? i18n.t("card.addCard.eWalletAccount")
-                      : config.features.AddCard_DisplayFPS
-                      ? i18n.t("hk28.card.addCard.BankAccountName")
-                      : i18n.t("card.addCard.BankAccountName")
-                  }
-                  maxLength={255}
-                  disabled={this.state.disableBankAccountNameInput}
-                ></Textbox>
-              </React.Fragment>
-            );
-          }
-        })()}
-        {((!this.state.isDeposit &&
-          this.props.wallet.withdrawalList.length > 0 &&
-          this.props.wallet.withdrawalList[this.state.selectedBankTypeIndex]
-            .banktype === "EWallet") ||
+                .banktype === "EWallet")) && (
+            <Textfield
+              style={{ margin: "20px auto 20px auto" }}
+              value={this.state.bankAccountName}
+              onChange={this.handleBankAccountNameChange}
+              type={"text"}
+              placeholder={
+                eWalletCustom
+                  ? i18n.t("card.addCard.eWalletAccount")
+                  : config.features.AddCard_DisplayFPS
+                  ? i18n.t("hk28.card.addCard.BankAccountName")
+                  : i18n.t("card.addCard.BankAccountName")
+              }
+              title={
+                eWalletCustom
+                  ? i18n.t("card.addCard.eWalletAccount")
+                  : config.features.AddCard_DisplayFPS
+                  ? i18n.t("hk28.card.addCard.BankAccountName")
+                  : i18n.t("card.addCard.BankAccountName")
+              }
+              maxLength={255}
+              disabled={this.state.disableBankAccountNameInput}
+            ></Textfield>
+          )}
+          {(!this.state.isDeposit &&
+            this.props.wallet.withdrawalList.length > 0 &&
+            (this.props.wallet.withdrawalList[this.state.selectedBankTypeIndex]
+              .banktype === "ThirdParty" ||
+              this.props.wallet.withdrawalList[this.state.selectedBankTypeIndex]
+                .banktype === "FPS")) ||
           (this.state.isDeposit &&
             this.props.wallet.depositList.length > 0 &&
-            this.props.wallet.depositList[this.state.selectedBankTypeIndex]
-              .banktype === "EWallet")) && (
-          <Textbox
-            style={{ margin: "20px auto 20px auto" }}
-            value={this.state.bankAccountName}
-            onChange={this.handleBankAccountNameChange}
-            type={"text"}
-            placeholder={
-              eWalletCustom
-                ? i18n.t("card.addCard.eWalletAccount")
-                : config.features.AddCard_DisplayFPS
-                ? i18n.t("hk28.card.addCard.BankAccountName")
-                : i18n.t("card.addCard.BankAccountName")
-            }
-            label={
-              eWalletCustom
-                ? i18n.t("card.addCard.eWalletAccount")
-                : config.features.AddCard_DisplayFPS
-                ? i18n.t("hk28.card.addCard.BankAccountName")
-                : i18n.t("card.addCard.BankAccountName")
-            }
-            maxLength={255}
-            disabled={this.state.disableBankAccountNameInput}
-          ></Textbox>
-        )}
-        {(!this.state.isDeposit &&
-          this.props.wallet.withdrawalList.length > 0 &&
-          (this.props.wallet.withdrawalList[this.state.selectedBankTypeIndex]
-            .banktype === "ThirdParty" ||
-            this.props.wallet.withdrawalList[this.state.selectedBankTypeIndex]
-              .banktype === "FPS")) ||
-        (this.state.isDeposit &&
-          this.props.wallet.depositList.length > 0 &&
-          (this.props.wallet.depositList[this.state.selectedBankTypeIndex]
-            .banktype === "ThirdParty" ||
-            this.props.wallet.depositList[this.state.selectedBankTypeIndex]
-              .banktype === "FPS")) ? (
-          <div>
-            <Textbox
-              style={{ margin: "20px auto 20px auto" }}
-              value={this.state.name}
-              onChange={(e) => {
-                let value = e.target.value;
-                this.setState({
-                  ...this.state,
-                  name: value,
-                });
-              }}
-              type={"text"}
-              placeholder={
-                config.features.AddCard_InputAddFPS
-                  ? i18n.t("custom.addcard.msgPlsEnterName")
-                  : i18n.t("profile.nameVerify.msgPlsEnterName")
-              }
-              label={
-                config.features.AddCard_InputAddFPS
-                  ? i18n.t("custom.addcard.name")
-                  : i18n.t("profile.nameVerify.title")
-              }
-            ></Textbox>
-            <Textbox
-              style={{ margin: "20px auto 20px auto" }}
-              value={this.state.phone}
-              onChange={(e) => {
-                let value = e.target.value;
-                value = value.replace(/[^0-9]/gi, "");
-                this.setState({
-                  ...this.state,
-                  phone: value,
-                });
-              }}
-              type={"text"}
-              maxLength={config.features.MAX_PHONE_LENGTH || 10}
-              placeholder={
-                config.features.AddCard_InputAddFPS
-                  ? i18n.t("custom.addcard.msgEnterPhone")
-                  : config.features.AddCard_DisplayFPS
-                  ? i18n.t("bet28.msgEnterPhone")
-                  : i18n.t("common.msgEnterPhone")
-              }
-              label={
-                config.features.AddCard_InputAddFPS
-                  ? i18n.t("custom.addcard.phoneNumber")
-                  : config.features.AddCard_DisplayFPS
-                  ? i18n.t("bet28.phoneNumber")
-                  : i18n.t("common.phoneNumber")
-              }
-            ></Textbox>
-            <BottomInfo>{i18n.t("card.addCard.desc")}</BottomInfo>
-            <Button
-              style={{ margin: "40px auto 0 auto" }}
-              label={
-                config.features.Register_CustomFlow_IDR && !this.state.isDeposit
-                  ? i18n.t("common.register")
-                  : i18n.t("common.confirm")
-              }
-              onClick={this.handleNextClick}
-              disabled={this.state.name === "" || this.state.phone === ""}
-            ></Button>
-          </div>
-        ) : (
-          <div>
-            <Textbox
-              style={{ margin: "20px auto 20px auto" }}
-              value={this.state.number}
-              onChange={(e) => {
-                let value = e.target.value;
-                value = value.replace(/[^A-Za-z0-9]/gi, "");
-                this.setState({
-                  ...this.state,
-                  number: value,
-                });
-              }}
-              type={"text"}
-              maxLength={
-                (selectedBankType("ThirdParty") ||
-                  selectedBankType("Pulsa") ||
-                  selectedBankType("FPS")) &&
-                (config.features.MAX_PHONE_LENGTH || 10)
-              }
-              placeholder={
-                eWalletCustom || selectedBankType("Pulsa")
-                  ? i18n.t("card.addCard.msgEnterPhone")
-                  : config.features.AddCard_DisplayGCash
-                  ? i18n.t("piso.msgEnterWithdrawalNumber")
-                  : config.features.AddCard_DisplayFPS
-                  ? i18n.t("hk28.msgEnterWithdrawalNumber")
-                  : config.features.AddCard_Bank_Custom_IDR
-                  ? i18n.t("idr.msgEnterWithdrawalNumber")
-                  : i18n.t("common.msgEnterWithdrawalNumber")
-              }
-              label={
-                eWalletCustom || selectedBankType("Pulsa")
-                  ? i18n.t("card.addCard.phone")
-                  : config.features.AddCard_DisplayGCash
-                  ? i18n.t("piso.withdrawalNumber")
-                  : config.features.AddCard_DisplayFPS
-                  ? i18n.t("hk28.withdrawalNumber")
-                  : config.features.AddCard_Bank_Custom_IDR
-                  ? i18n.t("idr.withdrawalNumber")
-                  : i18n.t("common.withdrawalNumber")
-              }
-            ></Textbox>
-            <BottomInfo>{i18n.t("card.addCard.desc")}</BottomInfo>
-            <Button
-              style={{ margin: "40px auto 0 auto" }}
-              label={
-                config.features.Register_CustomFlow_IDR && !this.state.isDeposit
-                  ? i18n.t("web.register.btn")
-                  : i18n.t("common.confirm")
-              }
-              onClick={this.handleNextClick}
-              disabled={(() => {
-                if (
-                  (!this.state.isDeposit &&
-                    this.props.wallet.withdrawalList.length <= 0) ||
-                  (this.state.isDeposit &&
-                    this.props.wallet.depositList.length <= 0)
-                ) {
-                  return true;
+            (this.props.wallet.depositList[this.state.selectedBankTypeIndex]
+              .banktype === "ThirdParty" ||
+              this.props.wallet.depositList[this.state.selectedBankTypeIndex]
+                .banktype === "FPS")) ? (
+            <div>
+              <Textfield
+                style={{ margin: "20px auto 20px auto" }}
+                value={this.state.name}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  this.setState({
+                    ...this.state,
+                    name: value,
+                  });
+                }}
+                type={"text"}
+                placeholder={
+                  config.features.AddCard_InputAddFPS
+                    ? i18n.t("custom.addcard.msgPlsEnterName")
+                    : i18n.t("profile.nameVerify.msgPlsEnterName")
                 }
-
-                var bankType = !this.state.isDeposit
-                  ? this.props.wallet.withdrawalList[
-                      this.state.selectedBankTypeIndex
-                    ].banktype
-                  : this.props.wallet.depositList[
-                      this.state.selectedBankTypeIndex
-                    ].banktype;
-
-                var bankAccountName = this.state.bankAccountName;
-
-                var number = this.state.number;
-
-                if (bankType === "Bank") {
-                  if (bankAccountName === "" || number === "") {
+                title={
+                  config.features.AddCard_InputAddFPS
+                    ? i18n.t("custom.addcard.name")
+                    : i18n.t("profile.nameVerify.title")
+                }
+              ></Textfield>
+              <Textfield
+                style={{ margin: "20px auto 20px auto" }}
+                value={this.state.phone}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  value = value.replace(/[^0-9]/gi, "");
+                  this.setState({
+                    ...this.state,
+                    phone: value,
+                  });
+                }}
+                type={"text"}
+                maxLength={config.features.MAX_PHONE_LENGTH || 10}
+                placeholder={
+                  config.features.AddCard_InputAddFPS
+                    ? i18n.t("custom.addcard.msgEnterPhone")
+                    : config.features.AddCard_DisplayFPS
+                    ? i18n.t("bet28.msgEnterPhone")
+                    : i18n.t("common.msgEnterPhone")
+                }
+                title={
+                  config.features.AddCard_InputAddFPS
+                    ? i18n.t("custom.addcard.phoneNumber")
+                    : config.features.AddCard_DisplayFPS
+                    ? i18n.t("bet28.phoneNumber")
+                    : i18n.t("common.phoneNumber")
+                }
+              ></Textfield>
+              <BottomInfo>{i18n.t("card.addCard.desc")}</BottomInfo>
+              <Button
+                style={{ margin: "40px auto 0 auto" }}
+                label={
+                  config.features.Register_CustomFlow_IDR &&
+                  !this.state.isDeposit
+                    ? i18n.t("common.register")
+                    : i18n.t("common.confirm")
+                }
+                onClick={this.handleNextClick}
+                disabled={this.state.name === "" || this.state.phone === ""}
+              ></Button>
+            </div>
+          ) : (
+            <div>
+              <Textfield
+                style={{ margin: "20px auto 20px auto" }}
+                value={this.state.number}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  value = value.replace(/[^A-Za-z0-9]/gi, "");
+                  this.setState({
+                    ...this.state,
+                    number: value,
+                  });
+                }}
+                type={"text"}
+                maxLength={
+                  (selectedBankType("ThirdParty") ||
+                    selectedBankType("Pulsa") ||
+                    selectedBankType("FPS")) &&
+                  (config.features.MAX_PHONE_LENGTH || 10)
+                }
+                placeholder={
+                  eWalletCustom || selectedBankType("Pulsa")
+                    ? i18n.t("card.addCard.msgEnterPhone")
+                    : config.features.AddCard_DisplayGCash
+                    ? i18n.t("piso.msgEnterWithdrawalNumber")
+                    : config.features.AddCard_DisplayFPS
+                    ? i18n.t("hk28.msgEnterWithdrawalNumber")
+                    : config.features.AddCard_Bank_Custom_IDR
+                    ? i18n.t("idr.msgEnterWithdrawalNumber")
+                    : i18n.t("common.msgEnterWithdrawalNumber")
+                }
+                title={
+                  eWalletCustom || selectedBankType("Pulsa")
+                    ? i18n.t("card.addCard.phone")
+                    : config.features.AddCard_DisplayGCash
+                    ? i18n.t("piso.withdrawalNumber")
+                    : config.features.AddCard_DisplayFPS
+                    ? i18n.t("hk28.withdrawalNumber")
+                    : config.features.AddCard_Bank_Custom_IDR
+                    ? i18n.t("idr.withdrawalNumber")
+                    : i18n.t("common.withdrawalNumber")
+                }
+              ></Textfield>
+              <BottomInfo>{i18n.t("card.addCard.desc")}</BottomInfo>
+              <Button
+                style={{ margin: "40px auto 0 auto" }}
+                label={
+                  config.features.Register_CustomFlow_IDR &&
+                  !this.state.isDeposit
+                    ? i18n.t("web.register.btn")
+                    : i18n.t("common.confirm")
+                }
+                onClick={this.handleNextClick}
+                disabled={(() => {
+                  if (
+                    (!this.state.isDeposit &&
+                      this.props.wallet.withdrawalList.length <= 0) ||
+                    (this.state.isDeposit &&
+                      this.props.wallet.depositList.length <= 0)
+                  ) {
                     return true;
                   }
-                } else if (bankType === "Crypto") {
-                  if (number === "") {
-                    return true;
-                  }
-                }
-                return false;
-              })()}
-            ></Button>
-          </div>
-        )}
 
+                  var bankType = !this.state.isDeposit
+                    ? this.props.wallet.withdrawalList[
+                        this.state.selectedBankTypeIndex
+                      ].banktype
+                    : this.props.wallet.depositList[
+                        this.state.selectedBankTypeIndex
+                      ].banktype;
+
+                  var bankAccountName = this.state.bankAccountName;
+
+                  var number = this.state.number;
+
+                  if (bankType === "Bank") {
+                    if (bankAccountName === "" || number === "") {
+                      return true;
+                    }
+                  } else if (bankType === "Crypto") {
+                    if (number === "") {
+                      return true;
+                    }
+                  }
+                  return false;
+                })()}
+              ></Button>
+            </div>
+          )}
+        </ContentPadding>
         <StyledModalBank
           onClose={() => this.setState({ ...this.state, bankTypeOpen: false })}
           open={this.state.bankTypeOpen}

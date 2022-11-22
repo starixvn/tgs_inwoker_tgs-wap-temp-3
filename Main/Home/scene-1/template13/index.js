@@ -283,7 +283,15 @@ const Template13 = ({
                           />
                         </MaintenanceContentHolder>
                       </Maintenance>
-                      <LogoOverlay>
+                      <LogoOverlay
+                        onClick={() =>
+                          handleGameClick(
+                            row.type,
+                            row.gpcode,
+                            row.game_platform_id
+                          )
+                        }
+                      >
                         <img
                           src={
                             process.env.PUBLIC_URL +
