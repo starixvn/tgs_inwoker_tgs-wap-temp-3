@@ -40,7 +40,7 @@ const BalanceLabel = styled.div`
 const StyledAppBar = withStyles({
   root: {
     top: "89px",
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "transparent",
     boxShadow: "none",
   },
 })(AppBar);
@@ -86,8 +86,66 @@ const ButtonConfirm = styled.div`
   color: #ffffff;
 `;
 
-const CustomTabs = styled(Tabs)`
-  background: ${({ theme }) => theme.tabbar};
+const CustomTabs = styled.div`
+  background: transparent;
+  position: relative;
+  display: -webkit-box;
+  overflow-x: auto;
+}
+`;
+
+const CustomTabButton = styled.div`
+  font-size: 28px;
+  background: #27273f;
+  padding: 20px 40px;
+  border-radius: 50px;
+`;
+
+const ArrowLeft = styled.div`
+  mask: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/btn-back-white.png`})
+    no-repeat center;
+  background: ${({ theme }) => theme.primaryText};
+  width: 40px;
+  height: 30px;
+  position: sticky;
+  top: 30px;
+  left: 10px;
+
+  ${({ display }) => {
+    return display ? "display: none" : "display: block";
+  }}
+`;
+
+const ArrowRight = styled.div`
+  mask: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/btn-back-white.png`})
+    no-repeat center;
+  background: ${({ theme }) => theme.primaryText};
+  width: 40px;
+  height: 30px;
+  position: sticky;
+  top: 30px;
+  right: 10px;
+  rotate: 180deg;
+
+  ${({ display }) => {
+    return display ? "display: none" : "display: block";
+  }}
+`;
+
+const CustomTab = styled.div`
+  padding: 10px;
+
+  ${({ theme, selected }) => {
+    return selected
+      ? `
+    
+    ${CustomTabButton}{
+      background: ${theme.primary};
+    }`
+      : ``;
+  }}
 `;
 
 const TabButtonContainer = styled.div`
@@ -142,10 +200,42 @@ class Deposit extends Component {
       playerNote: "",
       selectedBankCard: "",
       showTabContainer: true,
+      hideRight: false,
+      hideLeft: false,
     };
     this.state = { ...this.initialState, name: "", account: "" };
   }
   bankInfo = null;
+
+  //create new ref variable
+  tabs = React.createRef();
+
+  //check if tabs ref is scroll to the front
+  checkScrollFront = () => {
+    if (this.tabs.current.scrollLeft === 0) {
+      this.setState({ hideLeft: true });
+    } else {
+      this.setState({ hideLeft: false });
+    }
+  };
+
+  //check if tabs ref is scrolled to the end
+  isScrolledToTheEnd = () => {
+    const tabs = this.tabs.current;
+
+    return tabs.scrollWidth - tabs.scrollLeft === tabs.clientWidth
+      ? this.setState({
+          hideRight: true,
+        })
+      : this.setState({
+          hideRight: false,
+        });
+  };
+
+  checkScrolling = () => {
+    this.checkScrollFront();
+    this.isScrolledToTheEnd();
+  };
 
   async componentDidMount() {
     if (this.props.token != null) {
@@ -571,7 +661,7 @@ class Deposit extends Component {
     }, 1000);
   };
 
-  handlePaymentChange = (e, value) => {
+  handlePaymentChange = (value) => {
     if (this.state.step === 1) {
       this.setState({
         ...this.state,
@@ -956,24 +1046,32 @@ class Deposit extends Component {
                   <CustomTabs
                     value={this.state.selectedPaymentIndex}
                     onChange={this.handlePaymentChange}
-                    variant="scrollable"
-                    scrollButtons="auto"
+                    ref={this.tabs}
+                    onScroll={this.checkScrolling}
                   >
+                    <ArrowLeft display={this.state.hideLeft} />
                     {this.props.wallet.depositTypeList
                       .sort(function (a, b) {
                         return a.displayorder - b.displayorder;
                       })
                       .map((item, index) => {
                         return (
-                          <Tab
+                          <CustomTab
                             key={index}
                             value={index}
+                            selected={this.state.selectedPaymentIndex === index}
+                            onClick={() => {
+                              this.handlePaymentChange(index);
+                            }}
                             label={i18n.t(item.paymentcode)}
                           >
-                            {i18n.t(item.paymentcode)}
-                          </Tab>
+                            <CustomTabButton>
+                              {i18n.t(item.paymentcode)}
+                            </CustomTabButton>
+                          </CustomTab>
                         );
                       })}
+                    <ArrowRight display={this.state.hideRight} />
                   </CustomTabs>
                 </StyledAppBar>
               )}
