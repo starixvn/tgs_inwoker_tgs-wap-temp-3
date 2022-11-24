@@ -58,7 +58,7 @@ const ColumnGameBalance = styled.div`
 const DialogHeader = styled.div`
   color: #4a4a4a;
   font-weight: 600;
-  font-size: 32px;
+  font-size: 28px;
   margin-bottom: 10px;
 `;
 const StyledModal = withStyles((theme) => ({
@@ -123,28 +123,32 @@ const CustomSwitch = withStyles((theme) => ({
   );
 });
 
-const AutoTransferContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+const CustomCustomSwitch = styled(CustomSwitch)`
+  transform: scale(1.5);
+  padding-bottom: 1.5px;
+  margin-left: 20px;
+  .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track {
+    background: ${({ theme }) => theme.primary};
+  }
 `;
 
+const AutoTransferContainer = styled.div``;
+
 const CustomSwitchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  font-weight: normal;
   padding: 10px 20px;
   color: ${({ theme }) =>
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
-  zoom: 1.75;
+  font-size: 28px;
+  line-height: 2;
 `;
 
 const CustomTextField = styled.div`
   display: grid;
-  grid-template-columns: 40vw auto;
-  background: white;
-  font-size: 32px;
-  height: 80px;
-  border-bottom: solid 1px rgba(0, 0, 0, 0.5);
+  grid-template-columns: 35vw auto;
+  position: relative;
+  font-size: 28px;
+  height: 70px;
+  color: #fff;
   padding-right: 20px;
 `;
 
@@ -152,36 +156,58 @@ const CustomTextFieldLabel = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
-  font-size: 32px;
+  font-size: 28px;
   padding: 0px 20px;
 `;
 
 const CustomTextInput = styled.input`
-  font-size: 32px;
-  border: solid 0px black;
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  color: #fff;
+
+  &::placeholder {
+    font-size: 28px;
+  }
 `;
 
 const CustomSelect = styled.select`
-  font-size: 32px;
-  border: solid 0px black;
-`;
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  color: #fff;
 
-const ButtonWrapper = styled.div`
-  display: block;
-  padding-left: 30px;
-  font-size: 24px;
+  &:focus {
+    outline: none;
+  }
+
+  option {
+    color: #000;
+  }
 `;
 
 const CustomButton = styled.div`
-  background: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${({theme})=> theme.customButtonText?theme.customButtonText: "#ffffff"};
-  width: 200px;
-  padding: 20px;
+  color: #fff;
+  display: inline;
+  padding: 10px 20px;
+  box-shadow: rgb(100 100 111 / 20%) 0px 3px 3px 0px;
+  font-size: 20px;
+  border-radius: 30px;
+  margin-left: 20px;
+`;
+
+const ArrowDown = styled.div`
+  mask: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/btn-back-white.png`})
+    no-repeat center;
+  background: ${({ theme }) => theme.primaryText};
+  width: 40px;
+  height: 30px;
+  position: absolute;
+  right: 0;
+  top: 16px;
+  mask-size: 25%;
+  rotate: 270deg;
 `;
 
 class Transfer extends Component {
@@ -440,132 +466,146 @@ class Transfer extends Component {
           title={i18n.t("transfer.title")}
         ></Header>{" "}
         <div style={{ height: 90 }} />
-        <CustomTextField>
-          <CustomTextFieldLabel>
-            {i18n.t("transfer.mainAccount")}
-          </CustomTextFieldLabel>
-          <CustomTextFieldLabel>
-            {Common.formatNumberWithCommas(this.props.wallet.mainBalance)}
-          </CustomTextFieldLabel>
-        </CustomTextField>
-        <CustomTextField>
-          <CustomTextFieldLabel>
-            {i18n.t("transfer.transferFromWallet")}
-          </CustomTextFieldLabel>
-          <CustomSelect
-            onChange={this.handleFromWallet}
-            value={this.state.fromWallet}
-          >
-            <option value={this.state.mainAccountId}>
-              {i18n.t("transfer.mainAccount")}
-            </option>
-            {this.props.game.providerList
-              .filter(
-                (item) => item.status === 0 && item.transferwallet === true
-              )
-              .filter((e) => {
-                if (config.features.MergeEVORTNT) {
-                  if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF")) {
-                    return e;
-                  }
-                } else {
-                  return e;
-                }
-              })
-              .map((item, index) => (
-                <option value={item.gpcode} key={index}>
-                  {this.gpNameSwitcher(item)}{" "}
-                  {`(${this.state.walletBalance
-                    .filter((data) => data.abbreviation === item.abbreviation)
-
-                    .map((e) => Common.formatNumberWithThousand(e.balance))})`}
+        <div style={{ padding: 25 }}>
+          <div style={{ padding: 60 }}>
+            <CustomTextField>
+              <CustomTextFieldLabel>
+                {i18n.t("transfer.mainAccount")}
+              </CustomTextFieldLabel>
+              <CustomTextFieldLabel>
+                {Common.formatNumberWithCommas(this.props.wallet.mainBalance)}
+              </CustomTextFieldLabel>
+            </CustomTextField>
+            <CustomTextField>
+              <CustomTextFieldLabel>
+                {i18n.t("transfer.transferFromWallet")}
+              </CustomTextFieldLabel>
+              <CustomSelect
+                onChange={this.handleFromWallet}
+                value={this.state.fromWallet}
+              >
+                <option value={this.state.mainAccountId}>
+                  {i18n.t("transfer.mainAccount")}
                 </option>
-              ))}
-          </CustomSelect>
-        </CustomTextField>
-        <CustomTextField>
-          <CustomTextFieldLabel>
-            {i18n.t("transfer.transferToWallet")}
-          </CustomTextFieldLabel>
-          <CustomSelect
-            onChange={this.handleToWallet}
-            value={this.state.toWallet}
-          >
-            <option value={this.state.mainAccountId}>
-              {i18n.t("transfer.mainAccount")}
-            </option>
-            {this.props.game.providerList
-              .filter(
-                (item) => item.status === 0 && item.transferwallet === true
-              )
-              .filter((e) => {
-                if (config.features.MergeEVORTNT) {
-                  if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF")) {
-                    return e;
-                  }
-                } else {
-                  return e;
-                }
-              })
+                {this.props.game.providerList
+                  .filter(
+                    (item) => item.status === 0 && item.transferwallet === true
+                  )
+                  .filter((e) => {
+                    if (config.features.MergeEVORTNT) {
+                      if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF")) {
+                        return e;
+                      }
+                    } else {
+                      return e;
+                    }
+                  })
+                  .map((item, index) => (
+                    <option value={item.gpcode} key={index}>
+                      {this.gpNameSwitcher(item)}{" "}
+                      {`(${this.state.walletBalance
+                        .filter(
+                          (data) => data.abbreviation === item.abbreviation
+                        )
 
-              .map((item, index) => (
-                <option value={item.gpcode} key={index}>
-                  {this.gpNameSwitcher(item)}{" "}
-                  {`(${this.state.walletBalance
-                    .filter((data) => data.abbreviation === item.abbreviation)
-
-                    .map((e) => Common.formatNumberWithThousand(e.balance))})`}
+                        .map((e) =>
+                          Common.formatNumberWithThousand(e.balance)
+                        )})`}
+                    </option>
+                  ))}
+              </CustomSelect>
+              <ArrowDown />
+            </CustomTextField>
+            <CustomTextField>
+              <CustomTextFieldLabel>
+                {i18n.t("transfer.transferToWallet")}
+              </CustomTextFieldLabel>
+              <CustomSelect
+                onChange={this.handleToWallet}
+                value={this.state.toWallet}
+              >
+                <option value={this.state.mainAccountId}>
+                  {i18n.t("transfer.mainAccount")}
                 </option>
-              ))}{" "}
-          </CustomSelect>
-        </CustomTextField>
-        <CustomTextField>
-          <CustomTextFieldLabel>{i18n.t("common.amount")}</CustomTextFieldLabel>
-          <CustomTextInput
-            type={"number"}
-            placeholder={i18n.t("transfer.msgEnterAmount")}
-            onChange={this.handleTransferAmountChanged}
-            value={this.state.transferAmount}
-          />
-        </CustomTextField>
-        <AutoTransferContainer>
-          <div></div>
-          <CustomSwitchContainer>
-            <div>
-              {i18n.t("transfer.autoTransfer")} (
-              {this.props.wallet.autotransfer === true
-                ? i18n.t("transfer.on")
-                : i18n.t("transfer.off")}
-              )
-            </div>
-            <CustomSwitch
-              checked={this.props.wallet.autotransfer === true}
-              onChange={this.handleSwitchAutoTransfer}
-            />
-          </CustomSwitchContainer>
-        </AutoTransferContainer>
-        <ButtonWrapper>
-          <CustomButton
-            onClick={() => {
-              this.props.performWithdrawFromEveryBrand();
-            }}
-          >
-            {i18n.t("transfer.oneKeyTransferOut")}
-          </CustomButton>
-        </ButtonWrapper>
-        <Button
-          style={{ margin: "40px auto 40px auto" }}
-          label={i18n.t("common.confirm")}
-          onClick={this.handleSubmitClicked}
-          disabled={(() => {
-            return (
-              this.state.transferAmount === 0 ||
-              this.state.transferAmount === "" ||
-              this.state.toWallet === this.state.fromWallet ||
-              this.state.disabled === true
-            );
-          })()}
-        ></Button>
+                {this.props.game.providerList
+                  .filter(
+                    (item) => item.status === 0 && item.transferwallet === true
+                  )
+                  .filter((e) => {
+                    if (config.features.MergeEVORTNT) {
+                      if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF")) {
+                        return e;
+                      }
+                    } else {
+                      return e;
+                    }
+                  })
+
+                  .map((item, index) => (
+                    <option value={item.gpcode} key={index}>
+                      {this.gpNameSwitcher(item)}{" "}
+                      {`(${this.state.walletBalance
+                        .filter(
+                          (data) => data.abbreviation === item.abbreviation
+                        )
+
+                        .map((e) =>
+                          Common.formatNumberWithThousand(e.balance)
+                        )})`}
+                    </option>
+                  ))}{" "}
+              </CustomSelect>
+              <ArrowDown />
+            </CustomTextField>
+            <CustomTextField>
+              <CustomTextFieldLabel>
+                {i18n.t("common.amount")}
+              </CustomTextFieldLabel>
+              <CustomTextInput
+                type={"number"}
+                placeholder={i18n.t("transfer.msgEnterAmount")}
+                onChange={this.handleTransferAmountChanged}
+                value={this.state.transferAmount}
+              />
+            </CustomTextField>
+          </div>
+          <AutoTransferContainer>
+            <CustomSwitchContainer>
+              {i18n.t("transfer.autoTransfer")}{" "}
+              <div style={{ display: "inline-table", minWidth: 80 }}>
+                (
+                {this.props.wallet.autotransfer === true
+                  ? i18n.t("transfer.on")
+                  : i18n.t("transfer.off")}
+                )
+              </div>
+              <CustomCustomSwitch
+                checked={this.props.wallet.autotransfer === true}
+                onChange={this.handleSwitchAutoTransfer}
+              />
+              <CustomButton
+                onClick={() => {
+                  this.props.performWithdrawFromEveryBrand();
+                }}
+              >
+                {i18n.t("transfer.oneKeyTransferOut")}
+              </CustomButton>
+            </CustomSwitchContainer>
+          </AutoTransferContainer>
+          <Button
+            style={{ margin: "40px auto 40px auto" }}
+            label={i18n.t("common.confirm")}
+            onClick={this.handleSubmitClicked}
+            disabled={(() => {
+              return (
+                this.state.transferAmount === 0 ||
+                this.state.transferAmount === "" ||
+                this.state.toWallet === this.state.fromWallet ||
+                this.state.disabled === true
+              );
+            })()}
+          ></Button>
+        </div>
         <StyledModal onClose={this.handleClose} open={this.state.open}>
           <DialogHeader>温馨提示</DialogHeader>
           以下产品无需转账， <br />

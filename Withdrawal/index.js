@@ -17,6 +17,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import i18n from "../../../utils/i18n";
 import Slide from "@material-ui/core/Slide";
 import config from "../../../config/config";
+import Select from "../components/select";
+import Textfield from "../components/textfield";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -39,47 +41,49 @@ const InnerContainer = styled.div`
   margin: 40px auto 40px auto;
 
   width: 688px;
-  background-color: #ffffff;
+
   border-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(35, 31, 27, 0.1);
-  padding 20px 0 20px 10px;
+  padding 40px;
 `;
 const RowContainer = styled.div`
   min-height: 80px;
-  margin: 10px 0 10px 30px;
+  margin: 10px 0 30px 30px;
+  border-left: 10px solid #707070;
 `;
 
 const LeftLabel = styled.div`
   float: left;
-  border-left: 3px solid #000;
 
   font-size: 32px;
   padding-left: 30px;
-  color: #4a4a4a;
+  padding-bottom: 10px;
+  color: #fff;
   width: 450px;
-  margin: 10px 0 0 0;
 `;
 const LeftLabelValue = styled.div`
   float: left;
   font-size: 28px;
   width: 450px;
+  color: #fff;
 
-  padding-left: 30px;
+  padding-left: 35px;
 `;
 
 const BottomDesc = styled.div`
   margin: 0 auto;
   width: 86%;
-  font-size: 26px;
+  font-size: 18px;
+  opacity: 0.65;
 
   color: ${({ theme }) =>
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
 `;
 const ButtonCardManage = styled.div`
-  float: right;
-  margin: 0px 50px 20px 0;
   font-size: 26px;
   display: flex;
+  justify-content: flex-end;
+  padding-right: 40px;
   color: ${({ theme }) =>
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
 `;
@@ -150,16 +154,6 @@ const Icon = styled.div`
     return `url(${icon}) no-repeat center /
     contain;`;
   }};
-`;
-
-const CustomSelect = styled.select`
-  height: 104px;
-  font-size: 28px;
-  margin-top: 18px;
-  border-radius: 16px;
-  border: solid 1px transparent;
-  width: 100%;
-  padding: 16px 32px;
 `;
 
 const CustomLabel = styled.div`
@@ -512,39 +506,40 @@ class Withdrawal extends Component {
             </LeftLabelValue>
           </RowContainer>
         </InnerContainer>
-        <ButtonCardManage
-          onClick={() =>
-            this.props.appHistory.push("/" + i18n.language + "/card")
-          }
-        >
-          <Icon
-            icon={
-              process.env.PUBLIC_URL +
-              `/assets/images/wapp//icon-card-manage.png`
+        <div style={{ padding: "0 40px" }}>
+          <ButtonCardManage
+            onClick={() =>
+              this.props.appHistory.push("/" + i18n.language + "/card")
             }
-          />{" "}
-          {i18n.t("withdrawal.manageBank")}
-        </ButtonCardManage>
-        {config.features.NewTransferUI && (
-          <CustomSelectContainer>
-            <CustomLabel>{i18n.t("transfer.msgTransferOutFromGP")}</CustomLabel>
-            <ButtonWrapper>
-              <GameWalletButton
-                style={{ marginTop: 0, marginLeft: 10 }}
-                onClick={() => {
-                  this.props.performWithdrawFromEveryBrand().then((e) => {
-                    this.getAllGameBalance();
-                  });
-                }}
-              >
-                {i18n.t("transfer.oneKeyTransferAll")}
-              </GameWalletButton>
-            </ButtonWrapper>
-          </CustomSelectContainer>
-        )}
-        <CustomSelectContainer>
-          <CustomLabel>{i18n.t("withdrawal.bankCard")}</CustomLabel>
-          <CustomSelect
+          >
+            <Icon
+              icon={
+                process.env.PUBLIC_URL + `/assets/images/wapp/addBankCard.svg`
+              }
+            />{" "}
+            {i18n.t("withdrawal.manageBank")}
+          </ButtonCardManage>
+          {config.features.NewTransferUI && (
+            <CustomSelectContainer>
+              <CustomLabel>
+                {i18n.t("transfer.msgTransferOutFromGP")}
+              </CustomLabel>
+              <ButtonWrapper>
+                <GameWalletButton
+                  style={{ marginTop: 0, marginLeft: 10 }}
+                  onClick={() => {
+                    this.props.performWithdrawFromEveryBrand().then((e) => {
+                      this.getAllGameBalance();
+                    });
+                  }}
+                >
+                  {i18n.t("transfer.oneKeyTransferAll")}
+                </GameWalletButton>
+              </ButtonWrapper>
+            </CustomSelectContainer>
+          )}
+          <Select
+            title={i18n.t("card.addCard.branch")}
             value={this.state.selectedBankCardIndex}
             native
             onChange={(e) => {
@@ -572,117 +567,92 @@ class Withdrawal extends Component {
                 );
               }
             )}
-          </CustomSelect>
-        </CustomSelectContainer>
-        <CustomPlaceholderWrapper>
-          <Textbox
-            style={{ margin: "50px auto 20px auto" }}
-            value={this.state.amount}
-            onChange={this.handleChangeAmount}
-            placeholder={
-              this.state.selectedBankCardIndex
-                ? i18n.t("withdrawal.enterAmount") +
-                  ` (${Common.formatNumberWithThousand(
-                    this.state.min
-                  )} - ${Common.formatNumberWithThousand(this.state.max)})`
-                : i18n.t("withdrawal.enterAmount")
+          </Select>
+          <CustomPlaceholderWrapper>
+            <Textfield
+              style={{ margin: "50px auto 20px auto" }}
+              value={this.state.amount}
+              onChange={this.handleChangeAmount}
+              placeholder={
+                this.state.selectedBankCardIndex
+                  ? i18n.t("withdrawal.enterAmount") +
+                    ` (${Common.formatNumberWithThousand(
+                      this.state.min
+                    )} - ${Common.formatNumberWithThousand(this.state.max)})`
+                  : i18n.t("withdrawal.enterAmount")
+              }
+              title={i18n.t("common.amount")}
+              type={"number"}
+            ></Textfield>
+          </CustomPlaceholderWrapper>
+          {(() => {
+            if (
+              this.handleFilterCardList(this.props.wallet.bankCardList)[
+                this.state.selectedBankCardIndex
+              ] &&
+              this.handleFilterCardList(this.props.wallet.bankCardList)[
+                this.state.selectedBankCardIndex
+              ].banktype === "Usdt"
+            ) {
+              return (
+                <React.Fragment>
+                  <Textfield
+                    style={{ margin: "50px auto 20px auto" }}
+                    value={
+                      isNaN(this.state.amount) === false
+                        ? (this.state.amount * this.state.exchangeRate).toFixed(
+                            2
+                          )
+                        : 0
+                    }
+                    title={i18n.t("withdrawal.usdtAmount")}
+                    type={"number"}
+                    disabled={true}
+                  ></Textfield>
+                </React.Fragment>
+              );
             }
-            label={i18n.t("common.amount")}
-            type={"number"}
-            //  custom={
-            //    <>
-            //      <FeeSpot>
-            //        {i18n.t("fees.withdraw")}: <span>{this.state.fees}%</span>
-            //      </FeeSpot>
-            //    </>
-            //  }
-          ></Textbox>
-        </CustomPlaceholderWrapper>
-        {(() => {
-          if (
+          })()}
+          {config.features.Deposit_Withdrawal_PlayerNote &&
             this.handleFilterCardList(this.props.wallet.bankCardList)[
               this.state.selectedBankCardIndex
             ] &&
-            this.handleFilterCardList(this.props.wallet.bankCardList)[
+            (this.handleFilterCardList(this.props.wallet.bankCardList)[
               this.state.selectedBankCardIndex
-            ].banktype === "Usdt"
-          ) {
-            return (
-              <React.Fragment>
-                {/* <ExchangeRateContainer
-                  style={{ marginTop: "4px", whiteSpace: "break-spaces" }}
-                >
-                  <LimitLabel>{i18n.t("deposit.exchangeRate")} : </LimitLabel>
-                  <LimitAmount>1</LimitAmount>
-                  <LimitLabel> {"\t"} USDT : </LimitLabel>
-                  <LimitAmount>{`${this.state.exchangeRate}`}</LimitAmount>
-                </ExchangeRateContainer> */}
-                <Textbox
-                  style={{ margin: "50px auto 20px auto" }}
-                  value={
-                    isNaN(this.state.amount) === false
-                      ? (this.state.amount * this.state.exchangeRate).toFixed(2)
-                      : 0
-                  }
-                  label={i18n.t("withdrawal.usdtAmount")}
-                  type={"number"}
-                  disabled={true}
-                ></Textbox>
-              </React.Fragment>
-            );
-          }
-        })()}
-        {/* {config.brand !== 'HKJP' && config.brand !== 'GPI' ? (
-          <Textbox
-            style={{ margin: '50px auto 20px auto' }}
-            onChange={this.handlePasswordChange}
-            value={this.state.password}
-            placeholder={i18n.t(
-              'withdrawal.msgEnterWithdrawalPass'
+            ].banktype.toUpperCase() === "BANK" ||
+              this.handleFilterCardList(this.props.wallet.bankCardList)[
+                this.state.selectedBankCardIndex
+              ].banktype.toUpperCase() === "EWALLET" ||
+              this.handleFilterCardList(this.props.wallet.bankCardList)[
+                this.state.selectedBankCardIndex
+              ].banktype.toUpperCase() === "PULSA") && (
+              <Textbox
+                style={{ margin: "50px auto 20px auto" }}
+                value={this.state.playerNote}
+                onChange={this.handlePlayerNoteChange}
+                placeholder={i18n.t("withdrawal.plsEnterPlayerNote")}
+                label={i18n.t("withdrawal.playerNote")}
+              ></Textbox>
             )}
-            label={i18n.t('common.withdrawalPassword')}
-            type={'password'}
-          ></Textbox>
-        ) : null} */}
-        {config.features.Deposit_Withdrawal_PlayerNote &&
-          this.handleFilterCardList(this.props.wallet.bankCardList)[
-            this.state.selectedBankCardIndex
-          ] &&
-          (this.handleFilterCardList(this.props.wallet.bankCardList)[
-            this.state.selectedBankCardIndex
-          ].banktype.toUpperCase() === "BANK" ||
-            this.handleFilterCardList(this.props.wallet.bankCardList)[
-              this.state.selectedBankCardIndex
-            ].banktype.toUpperCase() === "EWALLET" ||
-            this.handleFilterCardList(this.props.wallet.bankCardList)[
-              this.state.selectedBankCardIndex
-            ].banktype.toUpperCase() === "PULSA") && (
-            <Textbox
-              style={{ margin: "50px auto 20px auto" }}
-              value={this.state.playerNote}
-              onChange={this.handlePlayerNoteChange}
-              placeholder={i18n.t("withdrawal.plsEnterPlayerNote")}
-              label={i18n.t("withdrawal.playerNote")}
-            ></Textbox>
-          )}
-        <BottomDesc>{i18n.t("withdrawal.notice")}</BottomDesc>
-        <Button
-          style={{ margin: "40px auto 0 auto" }}
-          label={i18n.t("common.submit")}
-          onClick={this.handleSubmitClick}
-          disabled={(() => {
-            return (
-              isNaN(
-                parseFloat(this.state.amount.toString().replace(/,/g, ""))
-              ) ||
-              parseFloat(this.state.amount.toString().replace(/,/g, "")) <
-                this.state.min ||
-              parseFloat(this.state.amount.toString().replace(/,/g, "")) >
-                this.state.max ||
-              this.state.disabled === true
-            );
-          })()}
-        ></Button>
+          <BottomDesc>{i18n.t("withdrawal.notice")}</BottomDesc>
+          <Button
+            style={{ margin: "40px auto 0 auto" }}
+            label={i18n.t("common.submit")}
+            onClick={this.handleSubmitClick}
+            disabled={(() => {
+              return (
+                isNaN(
+                  parseFloat(this.state.amount.toString().replace(/,/g, ""))
+                ) ||
+                parseFloat(this.state.amount.toString().replace(/,/g, "")) <
+                  this.state.min ||
+                parseFloat(this.state.amount.toString().replace(/,/g, "")) >
+                  this.state.max ||
+                this.state.disabled === true
+              );
+            })()}
+          ></Button>
+        </div>
         <StyledModalBank
           onClose={() => this.setState({ ...this.state, bankOpen: false })}
           open={this.state.bankOpen}
@@ -720,25 +690,6 @@ class Withdrawal extends Component {
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
-          {/* <DialoTitle>{i18n.t("common.withdrawalPassword")}</DialoTitle>
-          <Textbox
-            style={{ margin: "50px auto 20px auto" }}
-            onChange={this.handlePasswordChange}
-            value={this.state.password}
-            label={i18n.t("common.withdrawalPassword")}
-            type={"password"}
-          ></Textbox> */}
-          {/* <OTPContainer>
-            <OTPTextBox
-              type={"password"}
-              inputmode="numeric"
-              minLength={6}
-              maxLength={6}
-              size={6}
-              onChange={this.handlePasswordChange}
-              value={this.state.password}
-            ></OTPTextBox>
-          </OTPContainer> */}
           <Button
             style={{
               width: "250px",
