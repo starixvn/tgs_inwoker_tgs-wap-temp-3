@@ -517,8 +517,8 @@ class Deposit extends Component {
     };
 
     if (
-      payment.paymentcode.toUpperCase() === "USDT" &&
-      config.features.Deposit_SplitUsdt
+      config.features.Deposit_SplitUsdt &&
+      payment.paymentcode.toUpperCase() === "USDT"
     ) {
       this.props.doUsdtDeposit(
         this.state.amount.replace(/,/g, ""),
