@@ -77,10 +77,10 @@ const StyledModal = withStyles((theme) => ({
     borderRadius: "50px",
     fontSize: "28px",
     color: "#666666",
-    padding: "30px",
+    padding: "0",
     width: "500px",
     maxWidth: "690px",
-
+    background: "transparent",
     display: "block",
   },
 }))(Modal);
@@ -100,29 +100,33 @@ const DialoTitle = styled.div`
   font-size: 36px;
   font-weight: 600;
   margin: 30px 0 20px 45px;
-  color: #4a4a4a;
+  color: #fff;
 `;
 const DialoMessage = styled.div`
   font-size: 26px;
   margin: 20px 45px;
-  color: #4a4a4a;
+  color: #fff;
   line-height: 1.8em;
   text-align: center;
 `;
 const ButtonConfirm = styled.div`
   width: 250px;
   height: 90px;
-  border-radius: 20px;
   font-size: 34px;
   text-align: center;
   padding-top: 24px;
   margin: 10px auto;
-  background-image: linear-gradient(
-    to top,
-    ${({ theme }) => theme.primaryGradient},
-    ${({ theme }) => (theme.wapPrimary ? theme.wapPrimary : theme.primary)}
-  );
+  border-radius: 50px;
+  background: ${({ theme }) => theme.primary};
   color: #ffffff;
+  filter: drop-shadow(0 0 4px ${({ theme }) => theme.primary})
+    drop-shadow(0 0 4px ${({ theme }) => theme.primary}) contrast(1)
+    brightness(1);
+`;
+
+const ModalBackground = styled.div`
+  background: ${({ theme }) => theme.body};
+  padding: 30px;
 `;
 const ButtonCancel = styled(ButtonConfirm)``;
 const RouteMapping = [
@@ -1012,38 +1016,41 @@ class Wap extends Component {
             )}
 
           <StyledModal onClose={this.handleClose} open={this.state.open}>
-            <DialoTitle>{this.state.title}</DialoTitle>
-            <DialoMessage>{this.state.message}</DialoMessage>
-            {(() => {
-              if (this.state.message === "无法连接，请检查您的网络") {
-                return (
-                  <ButtonConfirm onClick={() => window.location.reload()}>
-                    {i18n.t("common.reload")}
-                  </ButtonConfirm>
-                );
-              } else {
-                return (
-                  <div>
-                    <ButtonConfirm
-                      onClick={() =>
-                        this.setState({ ...this.state, open: false })
-                      }
-                    >
-                      {i18n.t("common.confirm")}
+            <ModalBackground>
+              <DialoTitle>{this.state.title}</DialoTitle>
+              <DialoMessage>{this.state.message}</DialoMessage>
+              {(() => {
+                if (this.state.message === "无法连接，请检查您的网络") {
+                  return (
+                    <ButtonConfirm onClick={() => window.location.reload()}>
+                      {i18n.t("common.reload")}
                     </ButtonConfirm>
-                    {this.state.action && (
-                      <div
+                  );
+                } else {
+                  return (
+                    <div>
+                      <ButtonConfirm
                         onClick={() =>
                           this.setState({ ...this.state, open: false })
                         }
                       >
-                        {this.state.action}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-            })()}
+                        {i18n.t("common.confirm")}
+                      </ButtonConfirm>
+
+                      {this.state.action && (
+                        <div
+                          onClick={() =>
+                            this.setState({ ...this.state, open: false })
+                          }
+                        >
+                          {this.state.action}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+              })()}
+            </ModalBackground>
           </StyledModal>
           <StyledModalPopup
             onClose={this.handleClosePopup}

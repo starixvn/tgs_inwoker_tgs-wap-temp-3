@@ -67,7 +67,7 @@ const CustomLabel = styled.div`
   font-size: 24px;
   font-weight: 600;
   margin-left: 3px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   color: ${({ black, theme }) => {
     return black
       ? "#000"

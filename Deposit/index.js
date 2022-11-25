@@ -101,15 +101,18 @@ const CustomTabButton = styled.div`
   border-radius: 50px;
 `;
 
-const ArrowLeft = styled.div`
+const Arrow = styled.div`
+  width: 40px;
+  height: 90px;
+  position: sticky;
+`;
+
+const ArrowLeft = styled(Arrow)`
   mask: url(${process.env.PUBLIC_URL +
     `/assets/images/wapp/btn-back-white.png`})
     no-repeat center;
   background: ${({ theme }) => theme.primaryText};
-  width: 40px;
-  height: 30px;
-  position: sticky;
-  top: 30px;
+
   left: 10px;
 
   ${({ display }) => {
@@ -117,15 +120,12 @@ const ArrowLeft = styled.div`
   }}
 `;
 
-const ArrowRight = styled.div`
+const ArrowRight = styled(Arrow)`
   mask: url(${process.env.PUBLIC_URL +
     `/assets/images/wapp/btn-back-white.png`})
     no-repeat center;
   background: ${({ theme }) => theme.primaryText};
-  width: 40px;
-  height: 30px;
-  position: sticky;
-  top: 30px;
+
   right: 10px;
   rotate: 180deg;
 
@@ -518,7 +518,7 @@ class Deposit extends Component {
 
     if (
       config.features.Deposit_SplitUsdt &&
-      payment.paymentcode.toUpperCase() === "USDT"
+      payment.alteredpaymentcode.toUpperCase() === "USDT"
     ) {
       this.props.doUsdtDeposit(
         this.state.amount.replace(/,/g, ""),
