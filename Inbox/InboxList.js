@@ -58,11 +58,11 @@ const MsgTitleSpan = styled.span`
 const MsgDate = styled.div`
   font-size: 28px;
   opacity: 0.5;
-  padding: 20px 0;
 `;
 
 const AnotherMsgDate = styled(MsgDate)`
   text-align: center;
+  padding: 20px 0;
 `;
 
 const ItemContainer = styled.div`
