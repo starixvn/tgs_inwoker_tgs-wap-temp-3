@@ -22,7 +22,7 @@ const ContentContainer = styled.div`
   background: #202137;
   color: #fff;
   border-radius: 75px;
-  padding: 20px 85px;
+  padding: 40px 70px;
 
   ${({ opened }) =>
     opened
@@ -56,10 +56,13 @@ const MsgTitleSpan = styled.span`
   width: 100%;
 `;
 const MsgDate = styled.div`
-  float: left;
   font-size: 28px;
   opacity: 0.5;
   padding: 20px 0;
+`;
+
+const AnotherMsgDate = styled(MsgDate)`
+  text-align: center;
 `;
 
 const ItemContainer = styled.div`
@@ -84,7 +87,7 @@ const CheckboxCircle = styled.div`
 
 const LetterContent = styled.div`
   font-size: 30px;
-  padding: 0 85px 20px 85px;
+  padding: 0 20px;
   background: #202137;
   color: #fff;
 
@@ -109,12 +112,24 @@ const ArrowDown = styled.div`
 const Lettercontainer = styled.div`
   background: #202137;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 40px 40px 40px;
 `;
 
 const LetterTitle = styled.div`
   font-size: 60px;
   font-weight: bold;
   text-align: center;
+  justify-content: center;
+`;
+
+const CustomDialog = styled(Dialog)`
+  .MuiPaper-root {
+    background: none;
+    border-radius: 25px;
+    min-width: 80vw;
+  }
 `;
 
 const InboxList = ({
@@ -146,7 +161,7 @@ const InboxList = ({
           opened={opened}
         >
           <div>
-            <MsgTitle isread={row.isread}>
+            <div isread={row.isread}>
               <MsgTitleSpan>
                 <div
                   dangerouslySetInnerHTML={{
@@ -157,47 +172,46 @@ const InboxList = ({
                   }}
                 />
               </MsgTitleSpan>
-            </MsgTitle>
+            </div>
             <MsgDate>
               {moment(row.createon).format("YYYY-MM-DD hh:mm a")}
             </MsgDate>
           </div>
-          {!opened && <ArrowDown />}
         </ContentContainer>
-        <Dialog
-          open={opened}
-          onClose={() => {
-            setOpened(false);
-          }}
-        >
-          <Lettercontainer>
-            <LetterTitle>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html:
-                    row.localization !== null && row.localization.subject
-                      ? row.localization.subject
-                      : row.subject,
-                }}
-              />
-            </LetterTitle>
-            <MsgDate>
-              {moment(row.createon).format("YYYY-MM-DD hh:mm a")}
-            </MsgDate>
-            <LetterContent
-              opened={opened}
+      </ItemContainer>{" "}
+      <CustomDialog
+        open={opened}
+        onClose={() => {
+          setOpened(false);
+        }}
+      >
+        <Lettercontainer>
+          <LetterTitle>
+            <div
               dangerouslySetInnerHTML={{
                 __html:
-                  "<div style='width: 100%; height: 1px; background: #efefef;margin-top: 2px;'>123</div>" +
-                    row.localization !==
-                    null && row.localization.content
-                    ? row.localization.content
-                    : row.content,
+                  row.localization !== null && row.localization.subject
+                    ? row.localization.subject
+                    : row.subject,
               }}
             />
-          </Lettercontainer>
-        </Dialog>
-      </ItemContainer>
+          </LetterTitle>
+          <AnotherMsgDate>
+            {moment(row.createon).format("YYYY-MM-DD hh:mm a")}
+          </AnotherMsgDate>
+          <LetterContent
+            opened={opened}
+            dangerouslySetInnerHTML={{
+              __html:
+                "<div style='width: 100%; height: 1px; background: #efefef;margin-top: 2px;'>123</div>" +
+                  row.localization !==
+                  null && row.localization.content
+                  ? row.localization.content
+                  : row.content,
+            }}
+          />
+        </Lettercontainer>
+      </CustomDialog>
     </ListItem>
   );
 };
