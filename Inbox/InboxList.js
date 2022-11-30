@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import styled from "styled-components";
 
-import { Collapse } from "@material-ui/core";
+import { Collapse, Dialog } from "@material-ui/core";
 const moment = require("moment");
 const CheckboxContainer = styled.div`
   float: left;
@@ -87,7 +87,6 @@ const LetterContent = styled.div`
   padding: 0 85px 20px 85px;
   background: #202137;
   color: #fff;
-  border-radius: 0 0 75px 75px;
 
   ${({ opened }) =>
     opened
@@ -105,6 +104,17 @@ const ArrowDown = styled.div`
   background: url(${process.env.PUBLIC_URL +
   `/assets/images/wapp/arrow-down.svg`});
   margin-right: 20px;
+`;
+
+const Lettercontainer = styled.div`
+  background: #202137;
+  color: #fff;
+`;
+
+const LetterTitle = styled.div`
+  font-size: 60px;
+  font-weight: bold;
+  text-align: center;
 `;
 
 const InboxList = ({
@@ -154,19 +164,39 @@ const InboxList = ({
           </div>
           {!opened && <ArrowDown />}
         </ContentContainer>
-        <Collapse in={opened}>
-          <LetterContent
-            opened={opened}
-            dangerouslySetInnerHTML={{
-              __html:
-                "<div style='width: 100%; height: 1px; background: #efefef;margin-top: 2px;'>123</div>" +
-                  row.localization !==
-                  null && row.localization.content
-                  ? row.localization.content
-                  : row.content,
-            }}
-          />
-        </Collapse>
+        <Dialog
+          open={opened}
+          onClose={() => {
+            setOpened(false);
+          }}
+        >
+          <Lettercontainer>
+            <LetterTitle>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html:
+                    row.localization !== null && row.localization.subject
+                      ? row.localization.subject
+                      : row.subject,
+                }}
+              />
+            </LetterTitle>
+            <MsgDate>
+              {moment(row.createon).format("YYYY-MM-DD hh:mm a")}
+            </MsgDate>
+            <LetterContent
+              opened={opened}
+              dangerouslySetInnerHTML={{
+                __html:
+                  "<div style='width: 100%; height: 1px; background: #efefef;margin-top: 2px;'>123</div>" +
+                    row.localization !==
+                    null && row.localization.content
+                    ? row.localization.content
+                    : row.content,
+              }}
+            />
+          </Lettercontainer>
+        </Dialog>
       </ItemContainer>
     </ListItem>
   );
