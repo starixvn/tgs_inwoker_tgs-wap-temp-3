@@ -9,6 +9,7 @@ import config from "../../../../config/config";
 import IMHandler from "./IMHandler";
 import Header from "../../Share/Header";
 import PageTitle from "../../components/pagetitle";
+import { AppHistory } from "../../../../history/History";
 
 const ButtonContainer = styled.div`
   display: grid;
@@ -220,7 +221,7 @@ const Support = (props) => {
       <div>
         <Header
           onBackClick={() => {
-            this.props.appHistory.goBack();
+            AppHistory.goBack();
           }}
           title={i18n.t("common.cs")}
           position={"sticky"}
