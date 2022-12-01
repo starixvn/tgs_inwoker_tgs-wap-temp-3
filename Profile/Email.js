@@ -11,6 +11,7 @@ import BottomNote from "../Share/BottomNote";
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import TextfieldWithButton from "../components/textfieldwithbutton";
+import Textfield from "../components/textfield";
 class Email extends BaseProfile {
   state = {
     countdownToken: 0,
@@ -192,14 +193,14 @@ class Email extends BaseProfile {
     return this.setupContent(
       i18n.t("common.emailAddress"),
       <React.Fragment>
-        <Textbox
+        <Textfield
           style={{ margin: "50px auto 20px auto" }}
           value={this.state.email}
           onChange={this.handleChangeEmail}
           placeholder={i18n.t("common.msgEnterEmail")}
-          label={i18n.t("common.emailAddress")}
+          title={i18n.t("common.emailAddress")}
           disabled={this.state.isConfigured}
-        ></Textbox>
+        ></Textfield>
         {(() => {
           if (
             !(

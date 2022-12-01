@@ -7,36 +7,10 @@ import { Dialog } from "@material-ui/core";
 import { generalAction } from "../../../../api-services/actions/generalAction";
 import config from "../../../../config/config";
 import IMHandler from "./IMHandler";
-
-const SupportBackground = styled.div`
-  z-index: 10;
-  overflow-y: scroll;
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  top: 0;
-
-  ${({ theme, language }) => {
-    if (config.features.Wap_SupportCustomBackground) {
-      const prefix = config.features.Wap_SupportCustomBackground ? "-hk28" : "";
-      return ` background: url(${
-        process.env.PUBLIC_URL +
-        `/assets/images/wapp/resource/T${config.wapVersion}/support/${language}${prefix}.png`
-      })
-      no-repeat;`;
-    } else {
-      return `background:` + theme.supportBg;
-    }
-  }};
-  background-size: cover;
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow-y: scroll;
-`;
+import Header from "../../Share/Header";
+import PageTitle from "../../components/pagetitle";
 
 const ButtonContainer = styled.div`
-  margin-top: 40vh;
   display: grid;
   grid-template-columns: auto;
   padding-bottom: 100px;
@@ -44,8 +18,8 @@ const ButtonContainer = styled.div`
 
 const TheSupportButton = styled.div`
   margin: 10px 20px;
-  color: #707070;
-  background: white;
+  color: #fff;
+  background: #212237;
   height: 100px;
   border-radius: 10px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
@@ -53,7 +27,8 @@ const TheSupportButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 50px;
+  padding: 0px 20px;
+  border-radius: 50px;
   font-size: 30px;
 `;
 
@@ -64,7 +39,11 @@ const TheRedText = styled.div`
       : theme.wapPrimary
       ? theme.wapPrimary
       : theme.primary};
-  font-weight: bold;
+  background: ${({ theme }) => {
+    return theme.primary;
+  }};
+  padding: 10px 20px;
+  border-radius: 50px;
 `;
 const TitleHeader = styled.div`
   background: ${({ theme }) =>
@@ -238,18 +217,17 @@ const Support = (props) => {
     };
 
     return (
-      <SupportBackground language={i18n.language}>
-        <TheGirlHolder language={i18n.language} />
-        {config.features.DisplayPhone && (
-          <PhoneHolder>
-            <IconPhone
-              src={process.env.PUBLIC_URL + `/assets/images/wapp/phone.png`}
-            ></IconPhone>
-            {props.general.brandsSupport &&
-              props.general.brandsSupport.length >= 1 &&
-              props.general.brandsSupport[0].phone}
-          </PhoneHolder>
-        )}
+      <div>
+        <Header
+          onBackClick={() => {
+            this.props.appHistory.goBack();
+          }}
+          title={i18n.t("common.cs")}
+          position={"sticky"}
+          backgroundColor={"transparent"}
+        ></Header>
+        <PageTitle>{i18n.t("common.customerService")}</PageTitle>
+
         <ButtonContainer>
           {(config.features.LiveChatVendor ||
             (props.general.livechat.setting &&
@@ -305,7 +283,7 @@ const Support = (props) => {
             );
           })}
         </ButtonContainer>
-      </SupportBackground>
+      </div>
     );
   };
 
