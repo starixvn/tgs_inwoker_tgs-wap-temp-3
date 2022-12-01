@@ -9,6 +9,9 @@ import TextboxWithButton from "../../Wap/Share/TextboxWithButton";
 import Button from "../../Wap/Share/Button";
 import config from "../../../config/config";
 import i18n from "../../../utils/i18n";
+import PhoneField from "../components/phonefield";
+import TextfieldWithButton from "../components/textfieldwithbutton";
+import Textfield from "../components/textfield";
 
 const Container = styled.div`
   margin: 0 auto;
@@ -210,67 +213,53 @@ class ForgotPassword extends Component {
             if (this.state.step === 1) {
               return config.features.SMSVerification ? (
                 <React.Fragment>
-                  <CustomText>
-                    <CustomLabel>{i18n.t("common.phoneNumber")}</CustomLabel>
-                    <Container
-                      style={{
-                        margin: "18px 5px 0 0",
-                        width: "180px",
-                        float: "left",
-                        padding: "10px",
-                      }}
-                    >
-                      <SelectContainer
-                        value={this.state.areaCode}
-                        onChange={(e) => {
-                          this.setState({
-                            ...this.state,
-                            areaCode: e.target.value,
-                          });
-                        }}
-                      >
-                        <option value={config.features.PhonePrefix}>
-                          {config.features.PhonePrefix}
-                        </option>
-                      </SelectContainer>
-                    </Container>
-                    <CustomInput
-                      value={this.state.phone}
-                      onChange={this.handlePhoneChange}
-                      placeholder={i18n.t("common.msgEnterPhone")}
-                      type={"text"}
-                      label={i18n.t("common.msgEnterPhone")}
-                    ></CustomInput>
-                  </CustomText>
+                  <PhoneField
+                    title={i18n.t("common.phoneNumber")}
+                    placeholder={i18n.t("common.msgEnterPhone")}
+                    value={this.state.phone}
+                    onChange={this.handlePhoneChange}
+                    maxLength={config.features.MAX_PHONE_LENGTH || 10}
+                    phonePrefix={this.state.areaCode}
+                    onSelect={(e) => {
+                      this.setState({
+                        ...this.state,
+                        areaCode: e.target.value,
+                      });
+                    }}
+                  >
+                    <option value={config.features.PhonePrefix}>
+                      {config.features.PhonePrefix}
+                    </option>
+                  </PhoneField>
 
-                  <TextboxWithButton
+                  <TextfieldWithButton
                     buttonlabel={i18n.t("common.msgSendToken")}
                     style={{ margin: "20px auto 20px auto" }}
                     value={this.state.code}
                     onChange={this.handleCodeChange}
                     placeholder={i18n.t("common.msgEnterCode")}
-                    label={i18n.t("common.token")}
+                    title={i18n.t("common.token")}
                     onClick={this.handleGetCodeClick}
                     type={"text"}
-                  ></TextboxWithButton>
+                  ></TextfieldWithButton>
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <Textbox
+                  <Textfield
                     style={{ margin: "20px auto 20px auto" }}
                     value={this.state.email}
                     onChange={this.handleEmailChange}
                     placeholder={i18n.t("common.msgEnterEmail")}
                     type={"text"}
-                    label={i18n.t("common.emailAddress")}
-                  ></Textbox>
+                    title={i18n.t("common.emailAddress")}
+                  ></Textfield>
                   <TextboxWithButton
                     buttonlabel={i18n.t("common.msgSendToken")}
                     style={{ margin: "20px auto 20px auto" }}
                     value={this.state.code}
                     onChange={this.handleCodeChange}
                     placeholder={i18n.t("common.msgEnterCodeEmail")}
-                    label={i18n.t("common.token")}
+                    title={i18n.t("common.token")}
                     onClick={this.handleGetCodeClick}
                     type={"text"}
                   ></TextboxWithButton>
@@ -279,23 +268,23 @@ class ForgotPassword extends Component {
             } else if (this.state.step === 2) {
               return (
                 <React.Fragment>
-                  <Textbox
+                  <Textfield
                     style={{ margin: "20px auto 20px auto" }}
                     value={this.state.password}
                     onChange={this.handlePasswordChange}
                     placeholder={i18n.t("wap.register.password")}
                     type={"password"}
-                    label={i18n.t("common.NewPass")}
-                  ></Textbox>
+                    title={i18n.t("common.NewPass")}
+                  ></Textfield>
 
-                  <Textbox
+                  <Textfield
                     style={{ margin: "20px auto 20px auto" }}
                     value={this.state.password2}
                     onChange={this.handlePassword2Change}
                     placeholder={i18n.t("common.msgEnterConfirmPass")}
                     type={"password"}
-                    label={i18n.t("common.ConfirmPass")}
-                  ></Textbox>
+                    title={i18n.t("common.ConfirmPass")}
+                  ></Textfield>
                 </React.Fragment>
               );
             }

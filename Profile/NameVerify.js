@@ -11,6 +11,7 @@ import { accountAction } from "../../../api-services/actions/accountAction";
 import { RESET_ACCOUNTRESULT } from "../../../api-services/constant/actionType";
 import config from "../../../config/config";
 import { AccountService } from "../../../api-services/services/AccountService";
+import DocumentUploader from "../components/documentuploader";
 
 const AnotherWrapper = styled.div`
   width: 700px;
@@ -204,27 +205,16 @@ class NameVerify extends BaseProfile {
 
         {this.state.isConfigured === false &&
         config.features.ICVerificationUpload ? (
-          <AnotherWrapper>
-            <CustomLabel>{i18n.t("common.upload")}</CustomLabel>
-            <InputWrapper style={{}}>
-              <button
-                onClick={() => {
-                  document.getElementById("getFile").click();
-                }}
-                style={{ marginRight: 10 }}
-              >
-                {i18n.t("common.upload")}
-              </button>
-              <input
-                type="file"
-                id="getFile"
-                onChange={this.handleFileChange}
-                accept="image/jpg, image/jpeg, image/png, image/tiff"
-                style={{ display: "none" }}
-              />
-              {this.props.icUpload ? this.props.icUpload[0].name : ""}
-            </InputWrapper>
-          </AnotherWrapper>
+          <>
+            <DocumentUploader
+              title={i18n.t("common.upload")}
+              onClick={() => {
+                document.getElementById("getFile").click();
+              }}
+              onChange={this.handleFileChange}
+              upload={this.props.icUpload ? this.props.icUpload[0].name : ""}
+            />
+          </>
         ) : (
           <React.Fragment></React.Fragment>
         )}

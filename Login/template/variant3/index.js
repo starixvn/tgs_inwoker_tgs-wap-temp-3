@@ -11,6 +11,8 @@ import ButtonWap from "../../../../Share/ButtonWap";
 import i18n from "../../../../../utils/i18n";
 import config from "../../../../../config/config";
 import { AppHistory } from "../../../../../history/History";
+import PhoneField from "../../../components/phonefield";
+import TextfieldWithButton from "../../../components/textfieldwithbutton";
 
 const RememberPassContainer = styled.div`
   float: left;
@@ -505,32 +507,39 @@ const Variant3 = ({
         } else if (selected === 2) {
           return (
             <React.Fragment>
-              <Select
-                type={"text"}
-                placeholder={i18n.t("forgotPassword.plsEnterPhoneNumber")}
-                selectValue={areaCode}
-                onSelectChange={handleAreaCodeChange}
+              <PhoneField
+                title={i18n.t("common.phoneNumber")}
+                placeholder={i18n.t("common.msgEnterPhone")}
                 value={phone}
                 onChange={handlePhoneChange}
-                leaveGap={config.features.SkipSMSVerification}
-                inputStyle={{ ...customVerificationInputStyle }}
-                style={{ ...customSelectInputContainerStyle }}
-                primaryBg={true}
-              ></Select>
+                maxLength={config.features.MAX_PHONE_LENGTH || 10}
+                phonePrefix={areaCode}
+                onSelect={handleAreaCodeChange}
+              >
+                <option value={config.features.PhonePrefix}>
+                  {config.features.PhonePrefix}
+                </option>
+              </PhoneField>
+
               {!config.features.SkipSMSVerification && (
                 <>
-                  <VerificationCode
+                  <TextfieldWithButton
+                    buttonlabel={
+                      countdown <= 0
+                        ? i18n.t("common.msgSendToken")
+                        : i18n.t("common.btnTokenResendLabel") +
+                          "(" +
+                          countdown +
+                          "s)"
+                    }
+                    style={{ margin: "20px auto 20px auto" }}
                     value={code}
                     onChange={handleCodeChange}
-                    countdown={countdown}
                     placeholder={i18n.t("common.msgEnterCode")}
-                    handleGetCodeClick={handleGetCodeClick}
-                    inputStyle={{ ...customVerificationInputStyle }}
-                    style={{ ...customVerificationInputContainerStyle }}
-                    customWapButton={(props) => (
-                      <ButtonWap {...props}></ButtonWap>
-                    )}
-                  ></VerificationCode>
+                    title={i18n.t("common.token")}
+                    onClick={handleGetCodeClick}
+                  ></TextfieldWithButton>
+
                   {config.features.Custom_Temp_show_verify_SMS_hints && (
                     <Description>
                       {i18n.t("web.register.errorCustomDesc")}

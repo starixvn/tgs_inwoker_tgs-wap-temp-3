@@ -5,6 +5,7 @@ import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import { AccountService } from "../../../api-services/services/AccountService";
 import { Textfit } from "react-textfit";
+import PhoneField from "../components/phonefield";
 
 const Wrapper = styled.div`
   padding: 20px 10px;
@@ -197,11 +198,24 @@ const ForcedVerification = ({ forcedverify, alert }) => {
   return (
     <CustomDialog open={open} maxWidth="" fullWidth="xs">
       <Wrapper>
+        <PhoneField
+          title={i18n.t("common.phoneNumber")}
+          placeholder={i18n.t("common.msgEnterPhone")}
+          value={this.state.phone}
+          onChange={this.handleChangePhone}
+          maxLength={config.features.MAX_PHONE_LENGTH || 10}
+          phonePrefix={this.state.areacode}
+          onSelect={(e) => {
+            this.setState({ ...this.state, areacode: e.target.value });
+          }}
+        >
+          <option value={config.features.PhonePrefix}>
+            {config.features.PhonePrefix}
+          </option>
+        </PhoneField>
         <Title>{i18n.t("web.register.activation")}</Title>
         <InputRow>
-          <CustomSelect>
-            <option>{areaCode}</option>
-          </CustomSelect>
+          <CustomSelect></CustomSelect>
           <CustomTextField
             type="text"
             value={phone}
