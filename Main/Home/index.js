@@ -1500,20 +1500,21 @@ class Home extends Component {
                         this.props.general.brandsSupport.length > 0 &&
                         this.props.general.brandsSupport[0].phone}
 
-                      {this.props.account.token && config.features.CustomVIP && (
-                        <React.Fragment>
-                          <Icon
-                            style={{ marginLeft: "10px" }}
-                            src={
-                              process.env.PUBLIC_URL +
-                              `/assets/images/wapp/vip.png`
-                            }
-                          ></Icon>
-                          {this.getVIPName(
-                            this.props.account.info.member_level_id
-                          )}
-                        </React.Fragment>
-                      )}
+                      {this.props.account.token &&
+                        config.features.CustomVIP && (
+                          <React.Fragment>
+                            <Icon
+                              style={{ marginLeft: "10px" }}
+                              src={
+                                process.env.PUBLIC_URL +
+                                `/assets/images/wapp/vip.png`
+                              }
+                            ></Icon>
+                            {this.getVIPName(
+                              this.props.account.info.member_level_id
+                            )}
+                          </React.Fragment>
+                        )}
                     </LeftContainer>
                     <RightContainer></RightContainer>
                   </PhoneHolder>
@@ -1607,7 +1608,7 @@ class Home extends Component {
                     "DEPOSITACCUMULATEROULETTE"
                 )
                 .map((roulette, index) => {
-                  return roulette.roulettecount > 0 && index === 0 ? (
+                  return roulette.roulettecount >= 0 && index === 0 ? (
                     <PromotionRoulette
                       rouletteType={roulette.promotiontype.toUpperCase()}
                       promotionDetail={{
