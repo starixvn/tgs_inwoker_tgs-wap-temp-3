@@ -45,8 +45,7 @@ const Button = styled.div`
   right: 16px;
   height: 47px;
   border-radius: 10px;
-  background: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
+  background: ${({ theme }) => theme.primary};
 `;
 
 const TextFieldWrapper = styled.div`

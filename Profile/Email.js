@@ -10,6 +10,7 @@ import BottomNote from "../Share/BottomNote";
 
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
+import TextfieldWithButton from "../components/textfieldwithbutton";
 class Email extends BaseProfile {
   state = {
     countdownToken: 0,
@@ -208,7 +209,7 @@ class Email extends BaseProfile {
             !this.state.isConfigured
           ) {
             return (
-              <TextboxWithButton
+              <TextfieldWithButton
                 buttonlabel={
                   this.state.countdownToken <= 0
                     ? i18n.t("common.msgSendToken")
@@ -221,11 +222,11 @@ class Email extends BaseProfile {
                 value={this.state.code}
                 onChange={this.handleChangeCode}
                 placeholder={i18n.t("common.msgEnterEmailCode")}
-                label={i18n.t("common.token")}
+                title={i18n.t("common.token")}
                 onClick={this.handleGetCodeClick}
                 maxLength={6}
                 type={"text"}
-              ></TextboxWithButton>
+              ></TextfieldWithButton>
             );
           }
         })()}

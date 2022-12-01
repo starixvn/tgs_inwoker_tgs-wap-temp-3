@@ -10,6 +10,8 @@ import BottomNote from "../Share/BottomNote";
 
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
+import TextfieldWithButton from "../components/textfieldwithbutton";
+import PhoneField from "../components/phonefield";
 const Container = styled.div`
   margin: 0 auto;
   width: 635px;
@@ -270,43 +272,21 @@ class Phone extends BaseProfile {
     return this.setupContent(
       i18n.t("common.phoneNumber"),
       <React.Fragment>
-        <CustomText>
-          <CustomLabel>{i18n.t("common.phoneNumber")}</CustomLabel>
-          <Container
-            style={{
-              margin: "18px 5px 0 0",
-              width: "180px",
-              float: "left",
-              padding: "10px",
-            }}
-          >
-            <SelectContainer
-              value={this.state.areacode}
-              onChange={(e) => {
-                this.setState({ ...this.state, areacode: e.target.value });
-              }}
-              disabled={
-                this.state.isConfigured ? this.state.isConfigured : false
-              }
-            >
-              <option value={config.features.PhonePrefix}>
-                {config.features.PhonePrefix}
-              </option>
-            </SelectContainer>
-          </Container>
-          <CustomInput
-            style={this.props.color ? { color: this.props.color } : {}}
-            type={"text"}
-            value={this.state.phone}
-            placeholder={i18n.t("common.msgEnterPhone")}
-            disabled={
-              (this.state.isConfigured ? this.state.isConfigured : false) ||
-              config.features.Profile_DisableVerifyPhone
-            }
-            onChange={this.handleChangePhone}
-            maxLength={config.features.MAX_PHONE_LENGTH || 10}
-          ></CustomInput>
-        </CustomText>
+        <PhoneField
+          title={i18n.t("common.phoneNumber")}
+          placeholder={i18n.t("common.msgEnterPhone")}
+          value={this.state.phone}
+          onChange={this.handleChangePhone}
+          maxLength={config.features.MAX_PHONE_LENGTH || 10}
+          phonePrefix={this.state.areacode}
+          onSelect={(e) => {
+            this.setState({ ...this.state, areacode: e.target.value });
+          }}
+        >
+          <option value={config.features.PhonePrefix}>
+            {config.features.PhonePrefix}
+          </option>
+        </PhoneField>
 
         {(() => {
           if (
@@ -319,7 +299,7 @@ class Phone extends BaseProfile {
             return (
               !config.features.Profile_DisableVerifyPhone &&
               !config.features.InitPhone_WithoutVerify && (
-                <TextboxWithButton
+                <TextfieldWithButton
                   buttonlabel={
                     this.state.countdownToken <= 0
                       ? i18n.t("common.msgSendToken")
@@ -332,9 +312,9 @@ class Phone extends BaseProfile {
                   value={this.state.code}
                   onChange={this.handleChangeCode}
                   placeholder={i18n.t("common.msgEnterPhoneCode")}
-                  label={i18n.t("common.token")}
+                  title={i18n.t("common.token")}
                   onClick={this.handleGetCodeClick}
-                ></TextboxWithButton>
+                ></TextfieldWithButton>
               )
             );
           }

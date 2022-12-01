@@ -10,6 +10,8 @@ import { AccountService } from "../../../api-services/services/AccountService";
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import styled from "styled-components";
+import TextfieldWithButton from "../components/textfieldwithbutton";
+import PhoneField from "../components/phonefield";
 const Container = styled.div`
   margin: 0 auto;
   width: 635px;
@@ -210,40 +212,23 @@ class ChangePhone extends BaseProfile {
           ]}
           currentStep={this.state.currentStep}
         ></Step>
-        <CustomText>
-          <CustomLabel>{i18n.t("common.phoneNumber")}</CustomLabel>
-          <Container
-            style={{
-              margin: "18px 5px 0 0",
-              width: "180px",
-              float: "left",
-              padding: "10px",
-            }}
-          >
-            <SelectContainer
-              value={this.state.areacode}
-              onChange={(e) => {
-                this.setState({ ...this.state, areacode: e.target.value });
-              }}
-              disabled={this.state.currentStep === 1}
-            >
-              <option value={config.features.PhonePrefix}>
-                {config.features.PhonePrefix}
-              </option>
-            </SelectContainer>
-          </Container>
-          <CustomInput
-            style={this.props.color ? { color: this.props.color } : {}}
-            type={"text"}
-            value={this.state.phone}
-            placeholder={i18n.t("common.msgEnterPhone")}
-            disabled={this.state.currentStep === 1}
-            onChange={this.handleChangePhone}
-            maxLength={config.features.MAX_PHONE_LENGTH || 10}
-          ></CustomInput>
-        </CustomText>
 
-        <TextboxWithButton
+        <PhoneField
+          title={i18n.t("common.phoneNumber")}
+          placeholder={i18n.t("common.msgEnterPhone")}
+          value={this.state.phone}
+          onChange={this.handleChangePhone}
+          maxLength={config.features.MAX_PHONE_LENGTH || 10}
+          phonePrefix={this.state.areacode}
+          onSelect={(e) => {
+            this.setState({ ...this.state, areacode: e.target.value });
+          }}
+        >
+          <option value={config.features.PhonePrefix}>
+            {config.features.PhonePrefix}
+          </option>
+        </PhoneField>
+        <TextfieldWithButton
           buttonlabel={
             this.state.countdownToken <= 0
               ? i18n.t("common.msgSendToken")
@@ -256,10 +241,10 @@ class ChangePhone extends BaseProfile {
           value={this.state.code}
           onChange={this.handleChangeCode}
           placeholder={i18n.t("common.msgEnterPhoneCode")}
-          label={i18n.t("common.token")}
+          title={i18n.t("common.token")}
           onClick={this.handleGetCodeClick}
           maxLength={6}
-        ></TextboxWithButton>
+        ></TextfieldWithButton>
       </React.Fragment>,
       this.state.currentStep === 1
         ? i18n.t("common.nextStep")
