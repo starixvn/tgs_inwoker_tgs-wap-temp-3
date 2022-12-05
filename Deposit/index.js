@@ -27,6 +27,7 @@ import MainHKJP from "./MainHKJP";
 import PopupAnnouncement from "../../Share/PopupAnnouncement";
 const Container = styled.div`
   padding-top: 85px;
+  padding-bottom: 120px;
 `;
 const BalanceLabel = styled.div`
   float: right;
@@ -87,7 +88,7 @@ const ButtonConfirm = styled.div`
 `;
 
 const CustomTabs = styled.div`
-  background: transparent;
+  background: #1b1d30 ;
   position: relative;
   display: -webkit-box;
   overflow-x: auto;

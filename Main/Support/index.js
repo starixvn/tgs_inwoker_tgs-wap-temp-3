@@ -99,31 +99,12 @@ const IDText = styled.div`
   font-size: 24px;
 `;
 
-const TheGirlHolder = styled.div`
-  height: 575px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  opacity: 1;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-
-  ${({ language }) => {
-    if (!config.features.Wap_SupportCustomBackground) {
-      return `background: url(${
-        process.env.PUBLIC_URL +
-        `/assets/images/wapp/resource/support/${language}.png`
-      })
-      no-repeat;`;
-    }
-  }};
-  background-size: cover;
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: cover;
+const CustomDialog = styled(Dialog)`
+  .MuiDialog-paper {
+    background: #1b1d30;
+    color: #fff;
+    border-radius: 30px;
+  }
 `;
 
 const iconSwitcher = (icon) => {
@@ -168,33 +149,6 @@ const Icon = styled.div`
       process.env.PUBLIC_URL + "/assets/images/wapp/" + iconSwitcher(icon)
     }) no-repeat center /
     contain;`;
-  }};
-`;
-
-const PhoneHolder = styled.div`
-  font-size: 20px;
-  color: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
-  padding-bottom: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  font-weight: bold;
-  top: 485px;
-  left: 130px;
-`;
-
-const IconPhone = styled.div`
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-  background: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
-  margin-right: 10px;
-  mask: ${({ src }) => {
-    return `url(${src}) no-repeat center /
-contain;`;
   }};
 `;
 
@@ -267,7 +221,7 @@ const Support = (props) => {
                   </IconTextContainer>
                   <div>{<TheRedText>{i18n.t("support.join")}</TheRedText>}</div>
                 </TheSupportButton>
-                <Dialog open={open === index} onClose={handleClose}>
+                <CustomDialog open={open === index} onClose={handleClose}>
                   {data.qrcodeurl ? (
                     <QRCodeHolder>
                       <QRCodeImage src={data.qrcodeurl} />
@@ -279,7 +233,7 @@ const Support = (props) => {
                       <IDText>ID: {data.appid}</IDText>
                     </QRCodeHolder>
                   )}
-                </Dialog>
+                </CustomDialog>
               </div>
             );
           })}

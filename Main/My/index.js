@@ -24,6 +24,7 @@ const Container = styled.div`
   width: 100%;
 
   min-height: 100vh;
+  padding-bottom: 120px;
 `;
 const LevelContainer = styled.div`
   float: right;
@@ -78,7 +79,7 @@ const WalletAmount = styled.div`
 `;
 
 const ListView = styled.div`
-  padding: 10px 30px 90px 30px;
+  padding: 10px 30px 130px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;

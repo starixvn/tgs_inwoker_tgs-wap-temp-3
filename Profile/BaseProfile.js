@@ -12,6 +12,7 @@ const Container = styled.div`
   width: 100%;
   overflow: hidden;
   min-height: 100vh;
+  padding-bottom: 120px;
 `;
 
 class BaseProfile extends Component {

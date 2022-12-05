@@ -11,6 +11,7 @@ const Container = styled.div`
   overflow: hidden;
 
   min-height: 100vh;
+  padding-bottom: 120px;
 `;
 
 const BlockLabel = styled.div`
