@@ -16,6 +16,7 @@ const CustomCustomAppBar = styled(StyledBottomAppBar)`
   }};
   height: 90px;
   display: block;
+  top: 0;
 `;
 
 const HeaderTitle = styled.div`

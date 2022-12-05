@@ -22,25 +22,7 @@ const Container = styled.div`
 `;
 
 const ContentPadding = styled.div`
-  padding: 20px;
-`;
-
-const BalanceLabel = styled.div`
-  font-size: 36px;
-  background: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
-  text-align: center;
-  color: ${({ theme }) =>
-    theme.customProfileText ? theme.customProfileText : "#ffffff"};
-  padding: 15px;
-`;
-
-const SubTitle = styled.div`
-  font-size: 34px;
-  font-weight: 550;
-  margin: 40px 0 0 50px;
-  color: ${({ theme }) =>
-    theme.wapSecondary ? theme.wapSecondary : theme.secondary};
+  padding: 120px 20px 120px 20px;
 `;
 
 const BottomInfo = styled.div`
@@ -542,7 +524,7 @@ class AddCard extends Component {
         <Header
           onBackClick={this.handleBackClick}
           title={i18n.t("card.addCard.title")}
-          position={"sticky"}
+          position={"fixed"}
           backgroundColor={"transparent"}
         ></Header>
         <ContentPadding>

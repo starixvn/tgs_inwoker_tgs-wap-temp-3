@@ -13,29 +13,12 @@ import Common from "../../../../utils/Common";
 import i18n from "../../../../utils/i18n";
 import config from "../../../../config/config";
 import Header from "../../Share/Header";
-const StyledAppBar = withStyles((theme) => ({
-  root: {
-    display: "block",
-    background: "transparent",
-    boxShadow: "none",
-  },
-}))(AppBar);
+
 const Container = styled.div`
   width: 100%;
 
   min-height: 100vh;
-  padding-bottom: 120px;
-`;
-const LevelContainer = styled.div`
-  float: right;
-
-  margin: 30px 20px 0 0;
-`;
-const VipLevelLabel = styled.span`
-  font-size: 28px;
-  margin-top: 2px;
-  display: inline-block;
-  color: #01f1fe;
+  padding: 120px 0;
 `;
 
 const InfoContainer = styled.div`
@@ -306,8 +289,8 @@ class My extends Component {
       <Container>
         <Header
           onBackClick={this.handleBackClick}
-          title={"123"}
-          position={"sticky"}
+          title={"我"}
+          position={"fixed"}
           backgroundColor={"transparent"}
         ></Header>
         <TheUserContainer>

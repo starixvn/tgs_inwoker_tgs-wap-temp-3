@@ -110,7 +110,7 @@ const GameListItemIcon = styled.div`
 `;
 
 const AnnouncementSection = styled.div`
-  background: #27273f;
+  background: #0e0f1a;
   margin: 15px 20px;
   color: #fff;
   padding: 10px 20px;
