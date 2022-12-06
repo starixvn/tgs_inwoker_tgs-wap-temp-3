@@ -31,7 +31,7 @@ const localeMap = {
 };
 const Container = styled.div`
   width: 100%;
-  padding-top: 100px;
+  padding: 100px 0;
   min-height: 100vh;
 `;
 const StyledAppBar = withStyles((theme) => ({
@@ -75,14 +75,12 @@ const DateRangSelection = styled.div`
 `;
 const DataContent = styled.div`
   width: 690px;
-
-  margin: 0 auto;
-
-  border: solid 2px #f9f9f9;
-  background-color: #fff;
+  margin: 30px auto;
+  background-color: #27273f;
   font-size: 26px;
-  color: #4a4a4a;
+  color: #fff;
   padding: 0 20px;
+  border-radius: 20px;
 `;
 const DataHeader = styled.div`
   width: 690px;
@@ -106,7 +104,6 @@ const IDCell = styled.span`
   font-size: 26px;
 `;
 const DataRow = styled.div`
-  border-bottom: 2px solid #d7d7d7;
   width: 100%;
   min-height: 78px;
   padding: 20px 0;
@@ -1512,10 +1509,10 @@ class Report extends Component {
                     return <NoRecordContainer language={i18n.language} />;
                   } else {
                     return (
-                      <DataContent>
+                      <div>
                         {this.state.dataList.map((row, index) => {
                           return (
-                            <div key={index}>
+                            <DataContent key={index}>
                               <DataRowId>
                                 {i18n.t("report.transfer.table.from")} :{" "}
                                 <IDCell>
@@ -1539,10 +1536,10 @@ class Report extends Component {
                                   )}
                                 </DateTimeDisplay>
                               </DataRow>
-                            </div>
+                            </DataContent>
                           );
                         })}
-                      </DataContent>
+                      </div>
                     );
                   }
                 })()}
@@ -1556,13 +1553,13 @@ class Report extends Component {
                     return <NoRecordContainer language={i18n.language} />;
                   } else {
                     return (
-                      <DataContent>
+                      <div>
                         {this.state.dataList.map((row, index) => {
                           const date = moment(row.joinedOn).format(
                             "YYYY-MM-DD hh:mm a"
                           );
                           return (
-                            <div key={index}>
+                            <DataContent key={index}>
                               <DataRow>
                                 <DataRowId>
                                   {i18n.t("report.dateTime")} :{" "}
@@ -1573,10 +1570,10 @@ class Report extends Component {
                                   <IDCell>{row.promotionName}</IDCell>
                                 </DataRowId>
                               </DataRow>
-                            </div>
+                            </DataContent>
                           );
                         })}
-                      </DataContent>
+                      </div>
                     );
                   }
                 })()}
