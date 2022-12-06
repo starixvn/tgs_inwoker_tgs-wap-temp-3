@@ -1,0 +1,61 @@
+import React from "react";
+import styled from "styled-components";
+
+const Content = styled.div`
+  ${(props) =>
+    props.disabled
+      ? `background-color: #A5A5A5;`
+      : `background-color: ${props.theme.primary};
+         filter: drop-shadow(0 0 5px ${props.theme.primary})
+      drop-shadow(0 0 5px ${props.theme.primary}) contrast(1)
+      brightness(1);`}
+  height: 105px;
+  border-radius: 50px;
+  width: fit-content;
+  font-size: 34px;
+  min-width: fit-content;
+  color: ${({ theme }) =>
+    theme.customButtonText ? theme.customButtonText : "#ffffff"};
+  text-align: center;
+
+  display: flex;
+  padding: 0 50px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SelectContainer = styled.div`
+  position: relative;
+  display: flex;
+  padding: 10px;
+`;
+
+const CustomInput = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+
+  margin: 20px auto;
+  flex: auto;
+
+  min-width: fit-content;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Button = (props) => {
+  return (
+    <CustomInput>
+      <SelectContainer>
+        <Content
+          onClick={props.disabled === true ? null : props.onClick}
+          disabled={props.disabled ? props.disabled : false}
+        >
+          {props.label}
+        </Content>
+      </SelectContainer>
+    </CustomInput>
+  );
+};
+
+export default Button;

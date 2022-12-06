@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import Header from "../../Wap/Share/Header";
 import { withStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Dialog";
-import Button from "../../Wap/Share/Button";
 import Switch from "@material-ui/core/Switch";
 import DynamicFont from "react-dynamic-font";
 import { accountAction } from "../../../api-services/actions/accountAction";
@@ -16,6 +14,11 @@ import Loading from "../../Wap/Share/Loading";
 import Common from "../../../utils/Common";
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
+import Select from "../components/select";
+import Textfield from "../components/textfield";
+import Button from "../components/button";
+import PageTitle from "../components/pagetitle";
+import { Textfit } from "react-textfit";
 const Container = styled.div`
   width: 100%;
   overflow: hidden;
@@ -54,21 +57,6 @@ const ColumnGameBalance = styled.div`
   text-align: center;
   margin-top: 10px;
 `;
-
-const DialogHeader = styled.div`
-  color: #4a4a4a;
-  font-weight: 600;
-  font-size: 28px;
-  margin-bottom: 10px;
-`;
-const StyledModal = withStyles((theme) => ({
-  paper: {
-    borderRadius: "15px",
-    fontSize: "28px",
-    color: "#666666",
-    padding: "30px",
-  },
-}))(Modal);
 
 const CustomSwitch = withStyles((theme) => ({
   root: {
@@ -132,7 +120,9 @@ const CustomCustomSwitch = styled(CustomSwitch)`
   }
 `;
 
-const AutoTransferContainer = styled.div``;
+const AutoTransferContainer = styled.div`
+  padding: 10px;
+`;
 
 const CustomSwitchContainer = styled.div`
   padding: 10px 20px;
@@ -140,50 +130,6 @@ const CustomSwitchContainer = styled.div`
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
   font-size: 28px;
   line-height: 2;
-`;
-
-const CustomTextField = styled.div`
-  display: grid;
-  grid-template-columns: 35vw auto;
-  position: relative;
-  font-size: 28px;
-  height: 70px;
-  color: #fff;
-  padding-right: 20px;
-`;
-
-const CustomTextFieldLabel = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  font-size: 28px;
-  padding: 0px 20px;
-`;
-
-const CustomTextInput = styled.input`
-  font-size: 28px;
-  background: transparent;
-  border: none;
-  color: #fff;
-
-  &::placeholder {
-    font-size: 28px;
-  }
-`;
-
-const CustomSelect = styled.select`
-  font-size: 28px;
-  background: transparent;
-  border: none;
-  color: #fff;
-
-  &:focus {
-    outline: none;
-  }
-
-  option {
-    color: #000;
-  }
 `;
 
 const CustomButton = styled.div`
@@ -203,11 +149,62 @@ const ArrowDown = styled.div`
   background: ${({ theme }) => theme.primaryText};
   width: 40px;
   height: 30px;
-  position: absolute;
-  right: 0;
-  top: 16px;
+
   mask-size: 25%;
-  rotate: 270deg;
+  rotate: 180deg;
+`;
+
+const InputRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ProviderContainer = styled.div`
+  padding: 0 40px;
+  color: #fff;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 30px;
+`;
+
+const ProviderWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 55% 45%;
+`;
+
+const TheProviderImages = styled.div`
+  background: url(${({ src }) => src}) center no-repeat;
+  height: 150px;
+  width: 150px;
+  background-size: 100%;
+`;
+
+const GameProviderName = styled.div`
+  text-align: center;
+  font-size: 28px;
+`;
+
+const TransferInButton = styled.div`
+  background: #27273f;
+  padding: 10px 20px;
+  border-radius: 50px;
+`;
+
+const TheBalance = styled.div`
+  font-size: 30px;
+  text-align: center;
+`;
+
+const ItemAligner = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ItemAlignerWithGap = styled(ItemAligner)`
+  gap: 10px;
 `;
 
 class Transfer extends Component {
@@ -396,6 +393,10 @@ class Transfer extends Component {
     this.props.doWithdrawAll();
   };
 
+  handleTranferIn = (gpcode) => {
+    this.props.doTransfer(gpcode, this.props.wallet.mainBalance);
+  };
+
   handleFromWallet = (e) => {
     const fromWallet = e.target.value;
 
@@ -466,109 +467,95 @@ class Transfer extends Component {
           title={i18n.t("transfer.title")}
         ></Header>{" "}
         <div style={{ height: 90 }} />
-        <div style={{ padding: 25 }}>
-          <div style={{ padding: 60 }}>
-            <CustomTextField>
-              <CustomTextFieldLabel>
+        <div>
+          <PageTitle position="left">Quick Transfer</PageTitle>
+          <InputRow>
+            <Select
+              onChange={this.handleFromWallet}
+              value={this.state.fromWallet}
+            >
+              <option value={this.state.mainAccountId}>
                 {i18n.t("transfer.mainAccount")}
-              </CustomTextFieldLabel>
-              <CustomTextFieldLabel>
-                {Common.formatNumberWithCommas(this.props.wallet.mainBalance)}
-              </CustomTextFieldLabel>
-            </CustomTextField>
-            <CustomTextField>
-              <CustomTextFieldLabel>
-                {i18n.t("transfer.transferFromWallet")}
-              </CustomTextFieldLabel>
-              <CustomSelect
-                onChange={this.handleFromWallet}
-                value={this.state.fromWallet}
-              >
-                <option value={this.state.mainAccountId}>
-                  {i18n.t("transfer.mainAccount")}
-                </option>
-                {this.props.game.providerList
-                  .filter(
-                    (item) => item.status === 0 && item.transferwallet === true
-                  )
-                  .filter((e) => {
-                    if (config.features.MergeEVORTNT) {
-                      if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF")) {
-                        return e;
-                      }
-                    } else {
+              </option>
+              {this.props.game.providerList
+                .filter(
+                  (item) => item.status === 0 && item.transferwallet === true
+                )
+                .filter((e) => {
+                  if (config.features.MergeEVORTNT) {
+                    if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF")) {
                       return e;
                     }
-                  })
-                  .map((item, index) => (
-                    <option value={item.gpcode} key={index}>
-                      {this.gpNameSwitcher(item)}{" "}
-                      {`(${this.state.walletBalance
-                        .filter(
-                          (data) => data.abbreviation === item.abbreviation
-                        )
+                  } else {
+                    return e;
+                  }
+                })
+                .map((item, index) => (
+                  <option value={item.gpcode} key={index}>
+                    {this.gpNameSwitcher(item)}{" "}
+                    {`(${this.state.walletBalance
+                      .filter((data) => data.abbreviation === item.abbreviation)
 
-                        .map((e) =>
-                          Common.formatNumberWithThousand(e.balance)
-                        )})`}
-                    </option>
-                  ))}
-              </CustomSelect>
-              <ArrowDown />
-            </CustomTextField>
-            <CustomTextField>
-              <CustomTextFieldLabel>
-                {i18n.t("transfer.transferToWallet")}
-              </CustomTextFieldLabel>
-              <CustomSelect
-                onChange={this.handleToWallet}
-                value={this.state.toWallet}
-              >
-                <option value={this.state.mainAccountId}>
-                  {i18n.t("transfer.mainAccount")}
-                </option>
-                {this.props.game.providerList
-                  .filter(
-                    (item) => item.status === 0 && item.transferwallet === true
-                  )
-                  .filter((e) => {
-                    if (config.features.MergeEVORTNT) {
-                      if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF")) {
-                        return e;
-                      }
-                    } else {
+                      .map((e) =>
+                        Common.formatNumberWithThousand(e.balance)
+                      )})`}
+                  </option>
+                ))}
+            </Select>{" "}
+            <ArrowDown />
+            <Select onChange={this.handleToWallet} value={this.state.toWallet}>
+              <option value={this.state.mainAccountId}>
+                {i18n.t("transfer.mainAccount")}
+              </option>
+              {this.props.game.providerList
+                .filter(
+                  (item) => item.status === 0 && item.transferwallet === true
+                )
+                .filter((e) => {
+                  if (config.features.MergeEVORTNT) {
+                    if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF")) {
                       return e;
                     }
-                  })
+                  } else {
+                    return e;
+                  }
+                })
 
-                  .map((item, index) => (
-                    <option value={item.gpcode} key={index}>
-                      {this.gpNameSwitcher(item)}{" "}
-                      {`(${this.state.walletBalance
-                        .filter(
-                          (data) => data.abbreviation === item.abbreviation
-                        )
+                .map((item, index) => (
+                  <option value={item.gpcode} key={index}>
+                    {this.gpNameSwitcher(item)}{" "}
+                    {`(${this.state.walletBalance
+                      .filter((data) => data.abbreviation === item.abbreviation)
 
-                        .map((e) =>
-                          Common.formatNumberWithThousand(e.balance)
-                        )})`}
-                    </option>
-                  ))}{" "}
-              </CustomSelect>
-              <ArrowDown />
-            </CustomTextField>
-            <CustomTextField>
-              <CustomTextFieldLabel>
-                {i18n.t("common.amount")}
-              </CustomTextFieldLabel>
-              <CustomTextInput
-                type={"number"}
-                placeholder={i18n.t("transfer.msgEnterAmount")}
-                onChange={this.handleTransferAmountChanged}
-                value={this.state.transferAmount}
-              />
-            </CustomTextField>
-          </div>
+                      .map((e) =>
+                        Common.formatNumberWithThousand(e.balance)
+                      )})`}
+                  </option>
+                ))}
+            </Select>
+          </InputRow>
+          <InputRow>
+            <Textfield
+              placeholder={i18n.t("transfer.msgEnterAmount")}
+              onChange={this.handleTransferAmountChanged}
+              value={this.state.transferAmount}
+            />
+            <Button
+              label={i18n.t("common.confirm")}
+              onClick={this.handleSubmitClicked}
+              disabled={(() => {
+                return (
+                  this.state.transferAmount === 0 ||
+                  this.state.transferAmount === "" ||
+                  this.state.toWallet === this.state.fromWallet ||
+                  this.state.disabled === true
+                );
+              })()}
+            />
+          </InputRow>
+
+          <PageTitle position="left">Transfer Wallet</PageTitle>
+
           <AutoTransferContainer>
             <CustomSwitchContainer>
               {i18n.t("transfer.autoTransfer")}{" "}
@@ -592,31 +579,46 @@ class Transfer extends Component {
               </CustomButton>
             </CustomSwitchContainer>
           </AutoTransferContainer>
-          <Button
-            style={{ margin: "40px auto 40px auto" }}
-            label={i18n.t("common.confirm")}
-            onClick={this.handleSubmitClicked}
-            disabled={(() => {
-              return (
-                this.state.transferAmount === 0 ||
-                this.state.transferAmount === "" ||
-                this.state.toWallet === this.state.fromWallet ||
-                this.state.disabled === true
-              );
-            })()}
-          ></Button>
+          <ProviderContainer>
+            {this.props.game.providerList
+              .filter(
+                (item) => item.status === 0 && item.transferwallet === true
+              )
+
+              .map((item, index) => (
+                <ProviderWrapper value={item.gpcode} key={index}>
+                  <ItemAligner>
+                    <TheProviderImages
+                      src={
+                        process.env.PUBLIC_URL +
+                        `/assets/images/provider/${item.abbreviation.toLowerCase()}.png`
+                      }
+                    />
+                    <GameProviderName>
+                      <Textfit max={25}>{this.gpNameSwitcher(item)}</Textfit>
+                    </GameProviderName>
+                  </ItemAligner>
+                  <ItemAlignerWithGap>
+                    <TransferInButton
+                      onClick={() => this.handleTranferIn(item.gpcode)}
+                    >
+                      {i18n.t("transfer.oneKeyTransferIn")}
+                    </TransferInButton>
+                    <TheBalance>
+                      {`${this.state.walletBalance
+                        .filter(
+                          (data) => data.abbreviation === item.abbreviation
+                        )
+
+                        .map((e) =>
+                          Common.formatNumberWithThousand(e.balance)
+                        )}`}
+                    </TheBalance>
+                  </ItemAlignerWithGap>
+                </ProviderWrapper>
+              ))}
+          </ProviderContainer>
         </div>
-        <StyledModal onClose={this.handleClose} open={this.state.open}>
-          <DialogHeader>温馨提示</DialogHeader>
-          以下产品无需转账， <br />
-          直接使用主账户馀额进行游戏。
-          <br />
-          <div
-            dangerouslySetInnerHTML={{
-              __html: this.state.singleWalletGameName,
-            }}
-          ></div>
-        </StyledModal>
         <Loading
           show={
             this.state.loading ||

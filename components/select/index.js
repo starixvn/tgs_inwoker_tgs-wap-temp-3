@@ -35,6 +35,7 @@ const CustomInput = styled.div`
   border-radius: 20px;
   padding: 20px 20px 0 20px;
   margin: 20px auto;
+  flex: auto;
 `;
 
 const DropdownSection = styled.div`
@@ -90,7 +91,8 @@ const ArrowDown = styled.div`
 const Select = ({ title, value, onChange, children, variant }) => {
   return (
     <CustomInput>
-      <CustomLabel>{title}</CustomLabel>
+      {title && <CustomLabel>{title}</CustomLabel>}
+
       <SelectContainer>
         <CustomSelect value={value} onChange={onChange}>
           {children}

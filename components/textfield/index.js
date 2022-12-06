@@ -28,8 +28,12 @@ const CustomInput = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  padding: 20px 20px 0 20px;
+  padding: ${({ leaveTopGap }) => {
+    return leaveTopGap ? `0 20px` : `20px 20px 0 20px`;
+  }};
   margin: 20px auto;
+  flex: auto;
+  min-width: fit-content;
 `;
 
 const DropdownSection = styled.div`
@@ -84,12 +88,11 @@ const Textfield = ({
   custom,
   variant,
   placeholder,
-  onClick,
 }) => {
   return (
-    <CustomInput>
-      <CustomLabel>{title}</CustomLabel>
-      <SelectContainer onClick={onClick}>
+    <CustomInput leaveTopGap={title !== ""}>
+      {title && <CustomLabel>{title}</CustomLabel>}
+      <SelectContainer>
         <CustomInputfield
           value={value}
           onChange={onChange}

@@ -14,15 +14,15 @@ const Content = styled.div`
          filter: drop-shadow(0 0 5px ${props.theme.primary})
       drop-shadow(0 0 5px ${props.theme.primary}) contrast(1)
       brightness(1);`}
-  height: 93px;
+  height: 105px;
   border-radius: 50px;
   width: fit-content;
   font-size: 34px;
-
+  min-width: fit-content;
   color: ${({ theme }) =>
     theme.customButtonText ? theme.customButtonText : "#ffffff"};
   text-align: center;
-  min-width: 400px;
+
   display: flex;
   padding: 0 50px;
   align-items: center;
@@ -30,8 +30,16 @@ const Content = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  margin: 20px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 0 20px;
+  margin: 20px auto;
+  flex: auto;
+
+  min-width: fit-content;
+  align-items: center;
+  justify-content: center;
 `;
 class CustomButton extends Component {
   render() {
