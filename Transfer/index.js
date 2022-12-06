@@ -468,7 +468,9 @@ class Transfer extends Component {
         ></Header>{" "}
         <div style={{ height: 90 }} />
         <div>
-          <PageTitle position="left">Quick Transfer</PageTitle>
+          <PageTitle position="left">
+            {i18n.t("transfer.quickTransfer")}
+          </PageTitle>
           <InputRow>
             <Select
               onChange={this.handleFromWallet}
@@ -554,7 +556,9 @@ class Transfer extends Component {
             />
           </InputRow>
 
-          <PageTitle position="left">Transfer Wallet</PageTitle>
+          <PageTitle position="left">
+            {i18n.t("transfer.transferWallet")}
+          </PageTitle>
 
           <AutoTransferContainer>
             <CustomSwitchContainer>
