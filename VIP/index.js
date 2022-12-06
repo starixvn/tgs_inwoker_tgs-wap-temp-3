@@ -6,6 +6,7 @@ import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import Header from "../Share/Header";
 import Common from "../../../utils/Common";
+import VIPTable from "./table";
 
 const Container = styled.div`
   width: 100%;
@@ -16,7 +17,6 @@ const Container = styled.div`
 
 const Contents = styled.div`
   font-size: 25px;
-
   padding: 20px;
   background-color: #fff;
   border-radius: 20px;
@@ -119,6 +119,7 @@ const VIP = (props) => {
     <Container>
       <Header title="VIP" onBackClick={handleBackClick}></Header>
       <div style={{ height: 90 }} />
+      <VIPTable data={vipBenefitList} />
 
       {vipBenefit.items && vipBenefit.items.length > 0 && (
         <Contents>
