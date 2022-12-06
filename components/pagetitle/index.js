@@ -3,7 +3,9 @@ import styled from "styled-components";
 
 const PageLabel = styled.div`
   padding: 30px;
-  text-align: ${({ position }) => position};
+  text-align: ${({ position }) => {
+    return position ? position : "center";
+  }};
   width: 100%;
   font-size: 30px;
   color: ${({ theme }) =>
