@@ -11,7 +11,10 @@ const TableWrapper = styled.div`
   font-size: 28px;
 `;
 
-const TheLogo = styled.div``;
+const TheLogo = styled.div`
+  display: grid;
+  gap: 40px;
+`;
 
 const TheRewards = styled.div`
   overflow: auto;
@@ -26,7 +29,7 @@ const TheRewardStuffs = styled.div`
 `;
 
 const Data = styled.div`
-  min-width: fit-content;
+  min-width: max-content;
 `;
 
 const VipEmlemContainer = styled.div`
@@ -53,9 +56,7 @@ const VIPText = styled.div`
   font-weight: bold;
 `;
 
-const WithMinHeight = styled(Data)`
-  height: 220px;
-`;
+const WithMinHeight = styled(Data)``;
 
 const getVIPTitle = (level) => {
   if (config.features.VIP_CustomLevel_BUNNY && level < 7)

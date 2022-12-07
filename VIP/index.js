@@ -119,7 +119,9 @@ const VIP = (props) => {
     <Container>
       <Header title="VIP" onBackClick={handleBackClick}></Header>
       <div style={{ height: 90 }} />
-      <VIPTable data={vipBenefitList} />
+      {
+        // <VIPTable data={vipBenefitList} />
+      }
 
       {vipBenefit.items && vipBenefit.items.length > 0 && (
         <Contents>
