@@ -152,7 +152,7 @@ const Title = styled.div`
 const ContentGap = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 635px;
+  width: 620px;
   margin-bottom: 100px;
 `;
 
@@ -394,20 +394,19 @@ const Variant3 = ({
                 onChange={handleConfirmPasswordChange}
               ></Textbox>
               {config.features.Register_ShowPhone && (
-                <CustomWrapper>
-                  <Select
-                    type={"text"}
-                    placeholder={i18n.t("forgotPassword.plsEnterPhoneNumber")}
-                    selectValue={areaCode}
-                    onSelectChange={handleAreaCodeChange}
-                    value={phone}
-                    maxLength={config.features.MAX_PHONE_LENGTH || 10}
-                    onChange={handlePhoneChange}
-                    inputStyle={{ ...customVerificationInputStyle }}
-                    style={{ ...customSelectInputContainerStyle }}
-                    primaryBg={true}
-                  ></Select>
-                </CustomWrapper>
+                <PhoneField
+                  variant="loginregister"
+                  placeholder={i18n.t("common.msgEnterPhone")}
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  maxLength={config.features.MAX_PHONE_LENGTH || 10}
+                  phonePrefix={areaCode}
+                  onSelect={handleAreaCodeChange}
+                >
+                  <option value={config.features.PhonePrefix}>
+                    {config.features.PhonePrefix}
+                  </option>
+                </PhoneField>
               )}
               {config.features.Register_ShowEmail && (
                 <CustomWrapper>

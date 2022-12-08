@@ -6,10 +6,10 @@ const CustomInputfield = styled.input`
   min-height: 105px;
   border: none;
   color: #fff;
-  border-radius: 50px;
-  border: solid 1px #fff;
+  border-radius: ${({ variant }) => borderRadius(variant)};
+  border: ${({ variant }) => border(variant)};
   padding: 0px 50px;
-  background: none;
+  background: ${({ variant }) => background(variant)};
   width: 100%;
 
   ::placeholder {
@@ -28,9 +28,9 @@ const InputContainer = styled.div`
 const CustomInput = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
-  padding: 20px 20px 0 20px;
-  margin: 20px auto;
+  border-radius: ${({ variant }) => borderRadius(variant)};
+  padding: ${({ variant }) => padding(variant)};
+  margin: ${({ variant }) => gapLeaver(variant)};
 `;
 
 const DropdownSection = styled.div`
@@ -89,10 +89,10 @@ const CustomSelect = styled.select`
   min-height: 105px;
   border: none;
   color: #fff;
-  border-radius: 50px;
-  border: solid 1px #fff;
+  border-radius: ${({ variant }) => borderRadius(variant)};
+  border: ${({ variant }) => border(variant)};
   padding: 0px 50px;
-  background: none;
+  background: ${({ variant }) => background(variant)};
   width: 100%;
 
   -webkit-appearance: none;
@@ -116,6 +116,51 @@ const ArrowDown = styled.div`
   rotate: 270deg;
 `;
 
+const gapLeaver = (variant) => {
+  switch (variant) {
+    case "loginregister":
+      return "";
+    default:
+      return "20px auto";
+  }
+};
+
+const borderRadius = (variant) => {
+  switch (variant) {
+    case "loginregister":
+      return "30px";
+    default:
+      return "50px";
+  }
+};
+
+const padding = (variant) => {
+  switch (variant) {
+    case "loginregister":
+      return "20px 0 0 0";
+    default:
+      return "20px 20px 0 20px";
+  }
+};
+
+const background = (variant) => {
+  switch (variant) {
+    case "loginregister":
+      return "0% 0% / 635px 100px rgba(207, 32, 41, 0.5)";
+    default:
+      return "none";
+  }
+};
+
+const border = (variant) => {
+  switch (variant) {
+    case "loginregister":
+      return "none";
+    default:
+      return "solid 1px #fff";
+  }
+};
+
 const PhoneField = ({
   title,
   value,
@@ -128,23 +173,28 @@ const PhoneField = ({
   phonePrefix,
 }) => {
   return (
-    <CustomInput>
-      <CustomLabel>{title}</CustomLabel>
+    <CustomInput variant={variant}>
+      {title && <CustomLabel>{title}</CustomLabel>}
+
       <InputContainer>
         <SelectContainer>
-          <CustomSelect value={phonePrefix} onChange={onSelect}>
+          <CustomSelect
+            value={phonePrefix}
+            onChange={onSelect}
+            variant={variant}
+          >
             {children}
           </CustomSelect>
-          <DropdownSection variant={variant}>
+          <DropdownSection>
             <ArrowDown />
           </DropdownSection>
         </SelectContainer>
         <CustomInputfield
+          variant={variant}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
         />
-        <DropdownSection variant={variant} />
       </InputContainer>
       {custom && <CustomContainer>{custom}</CustomContainer>}
     </CustomInput>

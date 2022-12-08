@@ -968,6 +968,7 @@ class Home extends Component {
             handleSignupClick={this.handleSignupClick}
             listOfGame={this.state.listOfGame}
             getBannerTemplate={this.getBannerTemplate}
+            token={this.props.account.token}
           />
         );
       case 2:

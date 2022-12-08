@@ -12,14 +12,13 @@ const MaintenanceBg = styled.div`
   height: 100%;
   position: absolute;
   top: 0;
-  background: url(${({ image }) => {
-      return process.env.PUBLIC_URL + `/assets/images/wapp/${image}.jpg`;
-    }})
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/maintenance/maintenance.svg`})
     no-repeat;
-  background-size: cover;
+
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   overflow-y: scroll;
 `;
 

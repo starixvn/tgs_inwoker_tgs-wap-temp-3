@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { withRouter } from "react-router-dom";
 import Header from "../Share/Header";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -32,19 +32,35 @@ const EmptyPromo = styled.div`
   width: 690px;
   height: 240px;
 `;
-const PromoEmptyText = styled.div`
-  width: 350px;
-  padding-top: 62px;
+
+const PulseEffect = keyframes`
+  @-webkit-keyframes pulsate {
+    0% {
+      box-shadow: 0 0 0 red;
+    }
+    50% {
+      box-shadow: 0 0 17px red;
+    }
+    100% {
+      box-shadow: 0 0 0 red;
+    }
+  }
 `;
+
 const PromoEmptyTextLine = styled.div`
   font-size: 34px;
   text-align: center;
   font-weight: bold;
-  text-shadow: ${({ gradient }) => gradient};
-  background: -webkit-linear-gradient(${({ template }) => template});
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #fff;
+
+  animation: ${PulseEffect} 1s ease-out infinite;
 `;
+
+const ChestBoxContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 class Promotion extends Component {
   state = {
     list: [],
@@ -130,30 +146,37 @@ class Promotion extends Component {
           onBackClick={this.handleBackClick}
           title={i18n.t("promotion.title")}
         ></Header>{" "}
-        <div style={{ height: 90 }} />
+        <div style={{ height: 110 }} />
         <ListView>
-          {this.props.general.promotionList.items.length <= 0 ? (
-            <EmptyPromo image={this.imageSwitcher(config.wapVersion)}>
-              <PromoEmptyText>
-                <PromoEmptyTextLine
-                  template={this.gradientSwitcher(config.wapVersion)}
-                  gradient={this.textGradient(config.wapVersion)}
-                  style={
-                    i18n.language === "en-US"
-                      ? { fontSize: "26px", padding: "0px 32px" }
-                      : {}
+          {this.props.general.promotionList.items.length > 0 ? (
+            <>
+              <ChestBoxContainer>
+                <img
+                  style={{ width: 600 }}
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/assets/images/promotion/chestbox.svg"
                   }
-                >
-                  {i18n.t("promotion.emptyLine1")}
-                </PromoEmptyTextLine>
-                <PromoEmptyTextLine
-                  template={this.gradientSwitcher(config.wapVersion)}
-                  gradient={this.textGradient(config.wapVersion)}
-                >
-                  {i18n.t("promotion.emptyLine2")}
-                </PromoEmptyTextLine>
-              </PromoEmptyText>
-            </EmptyPromo>
+                />
+              </ChestBoxContainer>
+              <PromoEmptyTextLine
+                template={this.gradientSwitcher(config.wapVersion)}
+                gradient={this.textGradient(config.wapVersion)}
+                style={
+                  i18n.language === "en-US"
+                    ? { fontSize: "26px", padding: "0px 32px" }
+                    : {}
+                }
+              >
+                {i18n.t("promotion.emptyLine1")}
+              </PromoEmptyTextLine>
+              <PromoEmptyTextLine
+                template={this.gradientSwitcher(config.wapVersion)}
+                gradient={this.textGradient(config.wapVersion)}
+              >
+                {i18n.t("promotion.emptyLine2")}
+              </PromoEmptyTextLine>
+            </>
           ) : (
             layoutSwitcher(config.wapVersion)
           )}

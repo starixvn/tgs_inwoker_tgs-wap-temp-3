@@ -90,7 +90,7 @@ const TheWrapperContents = () => {
   );
 };
 
-const ContentWrapper = ({ title, content }) => {
+const ContentWrapper = ({ title, children, icon }) => {
   return (
     <ContentWrapperx>
       <TitleSection>
@@ -98,15 +98,21 @@ const ContentWrapper = ({ title, content }) => {
           src={
             process.env.PUBLIC_URL +
             "/assets/images/wapp/resource/T13/homepage/wrapper-icon/" +
-            title +
-            ".png"
+            icon +
+            ".svg"
           }
         />
         <div>{title}</div>
       </TitleSection>
       <ContentHolder>
-        <TheWrapperContents /> <TheWrapperContents /> <TheWrapperContents />{" "}
-        <TheWrapperContents />
+        {children ? (
+          children
+        ) : (
+          <>
+            <TheWrapperContents /> <TheWrapperContents /> <TheWrapperContents />{" "}
+            <TheWrapperContents />
+          </>
+        )}
       </ContentHolder>
     </ContentWrapperx>
   );

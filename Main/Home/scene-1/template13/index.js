@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect, Provider } from "react-redux";
 import styled from "styled-components";
+import { GameService } from "../../../../../../api-services/services/GameService";
+import { GameTypeEnum } from "../../../../../../api-services/utils/Enum";
 import config from "../../../../../../config/config";
+import { AppHistory } from "../../../../../../history/History";
+import Common from "../../../../../../utils/Common";
 import i18n from "../../../../../../utils/i18n";
 import Marquee from "../../Marquee";
 import { shared } from "../shared";
@@ -201,15 +206,96 @@ const MaintenanceContentHolder = styled.div`
   align-items: flex-end;
 `;
 
+const SlotGameTypeWrapper = styled.div`
+  font-size: 28px;
+  color: #fff;
+`;
+
+const SearchSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
+const ProviderListWrapper = styled.div`
+  background: #24253c;
+  border-radius: 50px;
+  width: -webkit-fill-available;
+`;
+const ProviderList = styled.select`
+  background: #24253c;
+  border: none;
+  border-radius: 50px;
+  padding: 20px 40px;
+  color: #fff;
+  font-size: 28px;
+  width: -webkit-fill-available;
+`;
+
+const SearchBar = styled.input`
+  background: #24253c;
+  border: none;
+  border-radius: 50px;
+  padding: 20px 40px;
+  color: #fff;
+  font-size: 28px;
+
+  ::placeholder {
+    color: #fff;
+    font-size: 28px;
+    opacity: 1;
+  }
+`;
+
+const WrapTheGames = styled.div`
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 20px;
+`;
+
+const Title = styled.div`
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+`;
+
 const Template13 = ({
   gameMenu2,
   changeShowGame,
   homePageGameList,
   getImgPrefix,
   handleGameClick,
+  token,
 }) => {
   const [selected, setSelected] = useState("");
   var currentType = -1;
+
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [keyword, setKeyword] = useState("");
+  const [gameList, setGameList] = useState([]);
+
+  var gameTypeToDisplayDifferently = (selectedGameType) => {
+    return (
+      selectedGameType[0] === GameTypeEnum.FISH ||
+      selectedGameType[0] === GameTypeEnum.SLOT ||
+      selectedGameType[0] === GameTypeEnum.TABLEGAME
+    );
+  };
+
+  useEffect(() => {
+    if (gameTypeToDisplayDifferently(selected)) {
+      var result = GameService.GetGameList(selectedBrand, selected);
+      result.then((e) => {
+        if (e.IsSuccess) {
+          setGameList(e.data);
+        }
+      });
+    }
+  }, [selected, selectedBrand]);
 
   return (
     <TheContainer>
@@ -234,6 +320,7 @@ const Template13 = ({
                     } else {
                       changeShowGame(i.type);
                       setSelected(i.type);
+                      setKeyword("");
                     }
                   }}
                 >
@@ -250,7 +337,90 @@ const Template13 = ({
       </AnnouncementSection>
 
       <GridWrapper>
-        {selected ? (
+        {selected && gameTypeToDisplayDifferently(selected) ? (
+          <SlotGameTypeWrapper>
+            <SearchSection>
+              <SearchBar
+                placeholder={i18n.t("slot.search")}
+                value={keyword}
+                onChange={(e) => {
+                  setKeyword(e.target.value);
+                }}
+              />
+              <ProviderListWrapper>
+                <ProviderList
+                  onChange={(e) => {
+                    setSelectedBrand(e.target.value);
+                  }}
+                >
+                  <option value="" selected>
+                    {i18n.t("report.all")}
+                  </option>
+                  {homePageGameList
+                    .filter((game) => selected.indexOf(game.type) >= 0)
+                    .sort((a, b) => {
+                      if (config.features.LiveGame_Sorting_SKY) {
+                        var sortDGFirst = ["DG"];
+                        return (
+                          sortDGFirst.indexOf(b.abbreviation) -
+                          sortDGFirst.indexOf(a.abbreviation)
+                        );
+                      } else return b - a;
+                    })
+                    .map((data, index) => {
+                      return (
+                        <option key={index} value={data.gpcode}>
+                          {data.gpcode}
+                        </option>
+                      );
+                    })}
+                </ProviderList>
+              </ProviderListWrapper>
+            </SearchSection>
+            <WrapTheGames>
+              {gameList
+                .filter((a) => {
+                  if (keyword === "") return true;
+                  else
+                    return a.name.toUpperCase().includes(keyword.toUpperCase());
+                })
+                .filter((s) => {
+                  return s.isactive === true; // show only active game.
+                })
+                .map((row, index) => {
+                  return (
+                    <NewWrapper
+                      key={index}
+                      onClick={() => {
+                        if (token) {
+                          Common.PopupCenter(
+                            `/${i18n.language}/joingame/${selected}/${row.gpcode}/${row.id}`,
+                            "gamewindow"
+                          );
+                        } else {
+                          AppHistory.push("/" + i18n.language + "/login");
+                        }
+                      }}
+                    >
+                      <Title>{row.name}</Title>
+                      <GameFrameImg
+                        src={`${
+                          config.sourceUrl
+                        }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+                          row.code
+                        }.jpg`}
+                        id={
+                          currentType !== row.type
+                            ? `gameType${row.type}`
+                            : `gameId${row.id}`
+                        }
+                      ></GameFrameImg>
+                    </NewWrapper>
+                  );
+                })}
+            </WrapTheGames>
+          </SlotGameTypeWrapper>
+        ) : selected ? (
           <GameButtonWrapper>
             {(() => {
               return homePageGameList
@@ -266,7 +436,7 @@ const Template13 = ({
                 })
                 .map((row, index) => {
                   return (
-                    <NewWrapper maintenance={row.status !== 0}>
+                    <NewWrapper maintenance={row.status !== 0} key={index}>
                       <Maintenance>
                         <MaintenanceContentHolder>
                           <img
@@ -327,12 +497,40 @@ const Template13 = ({
           </GameButtonWrapper>
         ) : (
           <>
-            <ContentWrapper title="topgames" type="game" />
-            <ContentWrapper title="topgames" type="game" />
-            <ContentWrapper title="topgames" type="game" />
-            <ContentWrapper title="topgames" type="game" />
-            <ContentWrapper title="topgames" type="game" />
-            <ContentWrapper title="topgames" type="game" />
+            <ContentWrapper title="topgames" type="game" icon="games" />
+            <ContentWrapper title="topgames" type="game" icon="games" />
+            <ContentWrapper title="topgames" type="game" icon="games" />
+            <ContentWrapper title="topgames" type="game" icon="games" />
+            <ContentWrapper title="topgames" type="game" icon="games" />
+            <ContentWrapper title="topgames" type="game" icon="games" />
+            <ContentWrapper title="Promotions" type="game" icon="promotions">
+              123
+            </ContentWrapper>
+            <ContentWrapper title="jackpot" type="game" icon="jackpot">
+              123
+            </ContentWrapper>
+            <ContentWrapper title="winners" type="game" icon="winners">
+              123
+            </ContentWrapper>
+            <ContentWrapper title="top news" type="game" icon="news">
+              123
+            </ContentWrapper>
+            <ContentWrapper
+              title="pega gaming: a winning casino! "
+              type="game"
+              icon="pg"
+            >
+              123
+            </ContentWrapper>
+            <ContentWrapper title="About us " type="game" icon="about">
+              123
+            </ContentWrapper>
+            <ContentWrapper title="Quick link" type="game" icon="links">
+              123
+            </ContentWrapper>
+            <ContentWrapper title="Partners" type="game" icon="partners">
+              123
+            </ContentWrapper>
           </>
         )}
       </GridWrapper>
@@ -340,4 +538,10 @@ const Template13 = ({
   );
 };
 
-export default Template13;
+const mapStateToProps = (state) => {
+  return {
+    token: state.account.token,
+  };
+};
+
+export default connect(mapStateToProps, null)(Template13);
