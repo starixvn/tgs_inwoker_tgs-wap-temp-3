@@ -25,7 +25,9 @@ const IconHolder = styled.img`
 
 const ContentHolder = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: ${({ content }) => {
+    return content ? "" : "1fr 1fr";
+  }};
   gap: 20px;
 `;
 
@@ -104,7 +106,7 @@ const ContentWrapper = ({ title, children, icon }) => {
         />
         <div>{title}</div>
       </TitleSection>
-      <ContentHolder>
+      <ContentHolder content={children}>
         {children ? (
           children
         ) : (

@@ -523,7 +523,9 @@ const Template13 = ({
               123
             </ContentWrapper>
             <ContentWrapper title="About us " type="game" icon="about">
-              123
+              This website belongs to（PAGCOR）Philippine Amusement and Gaming
+              Corporation Authorization and supervision PGG Copyright© 2020 PGG
+              Casino Co.Group All Rights Reserved Version 1.35.01
             </ContentWrapper>
             <ContentWrapper title="Quick link" type="game" icon="links">
               123
