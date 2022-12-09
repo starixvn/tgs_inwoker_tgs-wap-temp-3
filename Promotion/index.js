@@ -155,7 +155,7 @@ class Promotion extends Component {
                   style={{ width: 600 }}
                   src={
                     process.env.PUBLIC_URL +
-                    "/assets/images/promotion/chestbox.svg"
+                    "/assets/images/promotion/chestbox.gif"
                   }
                 />
               </ChestBoxContainer>

@@ -13,23 +13,27 @@ const MaintenanceBg = styled.div`
   position: absolute;
   top: 0;
   background: url(${process.env.PUBLIC_URL +
-    `/assets/images/maintenance/maintenance.svg`})
+    `/assets/images/maintenance/maintenance.png`})
     no-repeat;
 
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   overflow-y: scroll;
 `;
 
-const CustomContainer = styled(Grid)`
-  padding: 140px 0px 0px 0px;
+const CustomContainer = styled.div`
+  padding: 70px 0px 20px 0px;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;
 `;
 const Text = styled.div`
   color: white;
   font-size: 30px;
-  text-align: center;
-  padding: 20px 40px;
+
+  padding: 5px 40px;
   white-space: pre-wrap;
 `;
 
@@ -100,26 +104,36 @@ const Icon = styled.div`
 `;
 const ButtonContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  padding-left: 40px;
+  gap: 20px;
 `;
 const Button = styled.div`
   color: white;
   font-size: 30px;
-  background: #ff8e39;
+  background: ${({ theme }) => {
+    return theme.primary;
+  }};
   color: #fff;
   padding: 10px;
-  border-radius: 4px;
+  border-radius: 50px;
+  width: max-content;
   min-width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px;
 `;
 
 const AnotherButton = styled(Button)`
-  color: #ff8e39;
+  color: ${({ theme }) => {
+    return theme.primary;
+  }};
   background: none;
-  border: solid 1px #ff8e39;
+  border: solid 1px
+    ${({ theme }) => {
+      return theme.primary;
+    }};
 `;
 
 const SMType = styled.div`
@@ -231,17 +245,6 @@ const Maintenance = (props) => {
           如您有任何问题，请
           <Hyperlink onClick={csClick}>联系客服</Hyperlink>。
         </Text>
-        <Text>
-          維修時間 :{" "}
-          {beginTime
-            ? beginTime
-            : formatTime(config.features.Maintenance_Detail.startTime)}{" "}
-          ~{" "}
-          {endTime
-            ? endTime
-            : formatTime(config.features.Maintenance_Detail.endTime)}{" "}
-          (GMT+8){" "}
-        </Text>
         {(() => {
           if (i18n.language === "vi-VN") {
             return (
@@ -249,30 +252,10 @@ const Maintenance = (props) => {
                 <Text>
                   Chúng tôi hiện đang được bảo trì, vui lòng thử lại sau.
                 </Text>
-                <Text>
-                  Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi{" "}
-                  <Hyperlink onClick={csClick}>dịch vụ khách hàng</Hyperlink>。
-                </Text>
-                <Text>
-                  thời gian bảo trì :{" "}
-                  {beginTime
-                    ? beginTime
-                    : formatTime(
-                        config.features.Maintenance_Detail.startTime
-                      )}{" "}
-                  ~{" "}
-                  {endTime
-                    ? endTime
-                    : formatTime(
-                        config.features.Maintenance_Detail.endTime
-                      )}{" "}
-                  (GMT+8){" "}
-                </Text>
               </React.Fragment>
             );
           }
         })()}
-
         <Text>
           We are currently under maintenance, <br /> please try again later.
         </Text>
@@ -280,17 +263,6 @@ const Maintenance = (props) => {
           If you have any questions, <br />
           please contact our{" "}
           <Hyperlink onClick={csClick}>customer service</Hyperlink>.
-        </Text>
-        <Text>
-          Maintenance Time :{" "}
-          {beginTime
-            ? beginTime
-            : formatTime(config.features.Maintenance_Detail.startTime)}{" "}
-          ~{" "}
-          {endTime
-            ? endTime
-            : formatTime(config.features.Maintenance_Detail.endTime)}{" "}
-          (GMT+8){" "}
         </Text>
       </>
     );
