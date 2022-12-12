@@ -148,7 +148,7 @@ class Promotion extends Component {
         ></Header>{" "}
         <div style={{ height: 110 }} />
         <ListView>
-          {this.props.general.promotionList.items.length > 0 ? (
+          {this.props.general.promotionList.items.length <= 0 ? (
             <>
               <ChestBoxContainer>
                 <img

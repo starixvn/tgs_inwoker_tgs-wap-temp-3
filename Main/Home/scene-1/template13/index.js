@@ -10,7 +10,7 @@ import i18n from "../../../../../../utils/i18n";
 import Marquee from "../../Marquee";
 import { shared } from "../shared";
 import ContentWrapper from "./contentwrapper";
-
+import Slick from "react-slick";
 import Partners from "./partners";
 import QuickLinks from "./quicklinks";
 
@@ -333,6 +333,13 @@ const WinnerListItemPrize = styled.div`
 const HighlightText = styled.span`
   color: #fff;
 `;
+const ListItem = styled.div`
+  background: url(${(props) => props.src}) no-repeat right top;
+  background-size: 100% 100%;
+  position: relative;
+  width: 100%;
+  height: 280px;
+`;
 
 const Template13 = ({
   gameMenu2,
@@ -342,6 +349,7 @@ const Template13 = ({
   handleGameClick,
   token,
   game,
+  general,
 }) => {
   const [selected, setSelected] = useState("");
   var currentType = -1;
@@ -518,8 +526,42 @@ const Template13 = ({
 
   const checking = (variant) => {
     return gameList.filter((a) => {
-      return a.tag.[variant] === true;
+      return a.tag[variant] === true;
     });
+  };
+
+  const settings = {
+    dots: true,
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "0",
+    slidesToShow: 1,
+    speed: 500,
+    arrows: false,
+    autoplay: true,
+    appendDots: (dots) => (
+      <div
+        style={{
+          marginBottom: "30px",
+        }}
+      >
+        <ul style={{ margin: "0px" }}> {dots} </ul>
+      </div>
+    ),
+    customPaging: (a) => {
+      return (
+        <div
+          style={{
+            border: "2px solid #fff",
+            borderRadius: "50%",
+            width: "12px",
+            height: "12px",
+          }}
+        ></div>
+      );
+    },
+    beforeChange: (current, next) => {},
   };
 
   return (
@@ -715,34 +757,51 @@ const Template13 = ({
           </GameButtonWrapper>
         ) : (
           <>
-        
-          {checking("hot").length &&  <ContentWrapper
-              title="Top Games"
-              type="game"
-              icon="games"
-              joinGame={handleJoinGameClick}
-              games={checking("hot")}
-            /> }
+            {checking("hot").length && (
+              <ContentWrapper
+                title="Top Games"
+                type="game"
+                icon="games"
+                joinGame={handleJoinGameClick}
+                games={checking("hot")}
+              />
+            )}
 
-            {checking("recommend").length &&  <ContentWrapper
-              title="Top Games"
-              type="game"
-              icon="games"
-              joinGame={handleJoinGameClick}
-              games={checking("recommend")}
-            /> }
-            {checking("new").length &&    <ContentWrapper
-            title="New Games"
-            type="game"
-            icon="games"
-            joinGame={handleJoinGameClick}
-            games={checking("new")}
-          />}
-        
-           
-          
+            {checking("recommend").length && (
+              <ContentWrapper
+                title="Top Games"
+                type="game"
+                icon="games"
+                joinGame={handleJoinGameClick}
+                games={checking("recommend")}
+              />
+            )}
+            {checking("new").length && (
+              <ContentWrapper
+                title="New Games"
+                type="game"
+                icon="games"
+                joinGame={handleJoinGameClick}
+                games={checking("new")}
+              />
+            )}
+
             <ContentWrapper title="Promotions" type="game" icon="promotions">
-              123
+              <Slick {...settings}>
+                {general.promotionList.items.length > 0 &&
+                  general.promotionList.items.map((data, index) => {
+                    return (
+                      <ListItem
+                        src={
+                          data.localization[i18n.language] &&
+                          (data.localization[i18n.language].mobileBanner ||
+                            data.mobileBanner)
+                        }
+                        alt={index}
+                      />
+                    );
+                  })}
+              </Slick>
             </ContentWrapper>
             <ContentWrapper title="jackpot" type="game" icon="jackpot">
               <Jackpot />
@@ -800,6 +859,7 @@ const mapStateToProps = (state) => {
   return {
     game: state.game,
     token: state.account.token,
+    general: state.general,
   };
 };
 
