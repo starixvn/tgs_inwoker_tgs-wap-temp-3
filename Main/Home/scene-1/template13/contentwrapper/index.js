@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import config from "../../../../../../../config/config";
+import Common from "../../../../../../../utils/Common";
 
 const ContentWrapperx = styled.div`
   background: #0e0f1a;
@@ -12,10 +14,11 @@ const ContentWrapperx = styled.div`
 
 const TitleSection = styled.div`
   display: flex;
-  font-size: 50px;
+  font-size: 40px;
   gap: 10px;
   align-items: center;
   padding: 0 0 20px 0;
+  text-transform: uppercase;
 `;
 
 const IconHolder = styled.img`
@@ -34,7 +37,9 @@ const ContentHolder = styled.div`
 `;
 
 const TheGamesOrContent = styled.div`
-  background: green;
+  background: url(${({ background }) => {
+    return background;
+  }});
   height: 300px;
   position: relative;
   border-radius: 50px;
@@ -83,18 +88,18 @@ const JoinButton = styled.div`
 
 const TheContent = styled.div``;
 
-const TheWrapperContents = () => {
+const TheWrapperContents = ({ src, onClick }) => {
   return (
-    <TheGamesOrContent oncontextmenu="return false">
-      <TheContent>123</TheContent>
+    <TheGamesOrContent background={src} oncontextmenu="return false">
+      <TheContent />
       <TheOverlay>
-        <JoinButton>Play</JoinButton>
+        <JoinButton onClick={onClick}>Play</JoinButton>
       </TheOverlay>
     </TheGamesOrContent>
   );
 };
 
-const ContentWrapper = ({ title, children, icon }) => {
+const ContentWrapper = ({ title, children, icon, games, joinGame }) => {
   return (
     <ContentWrapperx>
       <TitleSection>
@@ -109,14 +114,24 @@ const ContentWrapper = ({ title, children, icon }) => {
         <div>{title}</div>
       </TitleSection>
       <ContentHolder content={children}>
-        {children ? (
-          children
-        ) : (
-          <>
-            <TheWrapperContents /> <TheWrapperContents /> <TheWrapperContents />{" "}
-            <TheWrapperContents />
-          </>
-        )}
+        {children
+          ? children
+          : games.length >= 0 &&
+            games.map((row, index) => {
+              return (
+                <TheWrapperContents
+                  key={index}
+                  onClick={() => {
+                    joinGame(row);
+                  }}
+                  src={`${
+                    config.sourceUrl
+                  }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+                    row.code
+                  }.jpg`}
+                />
+              );
+            })}
       </ContentHolder>
     </ContentWrapperx>
   );

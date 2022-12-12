@@ -10,7 +10,7 @@ import i18n from "../../../../../../utils/i18n";
 import Marquee from "../../Marquee";
 import { shared } from "../shared";
 import ContentWrapper from "./contentwrapper";
-import { playerList, gameList } from "./../template11/hardcode";
+
 import Partners from "./partners";
 import QuickLinks from "./quicklinks";
 
@@ -476,6 +476,17 @@ const Template13 = ({
   };
 
   useEffect(() => {
+    if (gameList.length <= 0) {
+      var result = GameService.GetGameList("", GameTypeEnum.SLOT);
+      result.then((e) => {
+        if (e.IsSuccess) {
+          setGameList(e.data);
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     if (gameTypeToDisplayDifferently(selected)) {
       var result = GameService.GetGameList(selectedBrand, selected);
       result.then((e) => {
@@ -491,6 +502,25 @@ const Template13 = ({
       generateList();
     }
   });
+
+  const handleJoinGameClick = (row) => {
+    if (token) {
+      Common.PopupCenter(
+        `/${i18n.language}/joingame/${selected || GameTypeEnum.SLOT}/${
+          row.gpcode
+        }/${row.id}`,
+        "gamewindow"
+      );
+    } else {
+      AppHistory.push("/" + i18n.language + "/login");
+    }
+  };
+
+  const checking = (variant) => {
+    return gameList.filter((a) => {
+      return a.tag.[variant] === true;
+    });
+  };
 
   return (
     <TheContainer>
@@ -587,14 +617,7 @@ const Template13 = ({
                     <NewWrapper
                       key={index}
                       onClick={() => {
-                        if (token) {
-                          Common.PopupCenter(
-                            `/${i18n.language}/joingame/${selected}/${row.gpcode}/${row.id}`,
-                            "gamewindow"
-                          );
-                        } else {
-                          AppHistory.push("/" + i18n.language + "/login");
-                        }
+                        handleJoinGameClick(row);
                       }}
                     >
                       <Title>{row.name}</Title>
@@ -692,12 +715,32 @@ const Template13 = ({
           </GameButtonWrapper>
         ) : (
           <>
-            <ContentWrapper title="topgames" type="game" icon="games" />
-            <ContentWrapper title="topgames" type="game" icon="games" />
-            <ContentWrapper title="topgames" type="game" icon="games" />
-            <ContentWrapper title="topgames" type="game" icon="games" />
-            <ContentWrapper title="topgames" type="game" icon="games" />
-            <ContentWrapper title="topgames" type="game" icon="games" />
+        
+          {checking("hot").length &&  <ContentWrapper
+              title="Top Games"
+              type="game"
+              icon="games"
+              joinGame={handleJoinGameClick}
+              games={checking("hot")}
+            /> }
+
+            {checking("recommend").length &&  <ContentWrapper
+              title="Top Games"
+              type="game"
+              icon="games"
+              joinGame={handleJoinGameClick}
+              games={checking("recommend")}
+            /> }
+            {checking("new").length &&    <ContentWrapper
+            title="New Games"
+            type="game"
+            icon="games"
+            joinGame={handleJoinGameClick}
+            games={checking("new")}
+          />}
+        
+           
+          
             <ContentWrapper title="Promotions" type="game" icon="promotions">
               123
             </ContentWrapper>
