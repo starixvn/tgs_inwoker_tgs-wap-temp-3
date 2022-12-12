@@ -13,6 +13,8 @@ import ContentWrapper from "./contentwrapper";
 import Slick from "react-slick";
 import Partners from "./partners";
 import QuickLinks from "./quicklinks";
+import Button from "../../../../components/button";
+import { playerList, gameList as gameListx } from "./../template11/hardcode";
 
 const TheContainer = styled.div``;
 
@@ -309,6 +311,7 @@ const WinnerListItem = styled.div`
   border-radius: 25px;
   background: #232323;
   align-items: center;
+  justify-content: space-between;
 `;
 const WinnerListItemImage = styled.img`
   width: 50px;
@@ -327,7 +330,7 @@ const WinnerListItemPrize = styled.div`
   width: 150px;
   font-size: 25px;
   font-weight: bold;
-  color: ${({ theme }) => theme.accent};
+  color: ${({ theme }) => theme.primary};
   text-align: right;
 `;
 const HighlightText = styled.span`
@@ -339,6 +342,11 @@ const ListItem = styled.div`
   position: relative;
   width: 100%;
   height: 280px;
+`;
+
+const WinnerListxx = styled.div`
+  display: flex;
+  gap: 20px;
 `;
 
 const Template13 = ({
@@ -405,58 +413,58 @@ const Template13 = ({
   };
 
   const generateList = () => {
-    //  let tempList = [];
-    //  for (var i = 0; i < 10; i++) {
-    //    let name = randomize(playerList);
-    //    let game = randomize(gameList);
-    //    let prize = Math.floor(
-    //      Math.random() * (prizeMax - prizeMin + 1) + prizeMin
-    //    );
-    //    tempList.push({
-    //      id: Math.random().toString(16).slice(2),
-    //        img: `${
-    //          config.sourceUrl
-    //        }${game.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
-    //          game.code
-    //        }.jpg`,
-    //      playerName: name,
-    //      gameName: game.name,
-    //      prize: Common.formatNumberWithThousand(prize),
-    //    });
-    //  }
-    //  setList(tempList);
+    let tempList = [];
+    for (var i = 0; i < 10; i++) {
+      let name = randomize(playerList);
+      let game = randomize(gameListx);
+      let prize = Math.floor(
+        Math.random() * (prizeMax - prizeMin + 1) + prizeMin
+      );
+      tempList.push({
+        id: Math.random().toString(16).slice(2),
+        img: `${
+          config.sourceUrl
+        }${game.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+          game.code
+        }.jpg`,
+        playerName: name,
+        gameName: game.name,
+        prize: Common.formatNumberWithThousand(prize),
+      });
+    }
+    setList(tempList);
   };
 
   const WinnerList = ({ list }) => {
     const [winnerList, setWinnerList] = useState(list);
-    //  useEffect(() => {
-    //    const updateList = () => {
-    //      let newList = [...winnerList];
-    //      newList.pop();
-    //      let name = randomize(playerList);
-    //      let game = randomize(gameList);
-    //      let prize = Math.floor(
-    //        Math.random() * (prizeMax - prizeMin + 1) + prizeMin
-    //      );
-    //      newList.unshift({
-    //        id: Math.random().toString(16).slice(2),
-    //        img: `${
-    //          config.sourceUrl
-    //        }${game.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
-    //          game.code
-    //        }.jpg`,
-    //        playerName: name,
-    //        gameName: game.name,
-    //        prize: Common.formatNumberWithThousand(prize),
-    //      });
-    //      setWinnerList(newList);
-    //    };
-    //
-    //     const interval = setInterval(updateList, 10000);
-    //     return () => {
-    //       clearInterval(interval);
-    //     };
-    //   }, [winnerList]);
+    useEffect(() => {
+      const updateList = () => {
+        let newList = [...winnerList];
+        newList.pop();
+        let name = randomize(playerList);
+        let game = randomize(gameListx);
+        let prize = Math.floor(
+          Math.random() * (prizeMax - prizeMin + 1) + prizeMin
+        );
+        newList.unshift({
+          id: Math.random().toString(16).slice(2),
+          img: `${
+            config.sourceUrl
+          }${game.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+            game.code
+          }.jpg`,
+          playerName: name,
+          gameName: game.name,
+          prize: Common.formatNumberWithThousand(prize),
+        });
+        setWinnerList(newList);
+      };
+
+      const interval = setInterval(updateList, 10000);
+      return () => {
+        clearInterval(interval);
+      };
+    }, [winnerList]);
     return (
       <WinnerListWrapper>
         <WinnerListContainer>
@@ -472,11 +480,13 @@ const Template13 = ({
     return list.map((item, index) => {
       return (
         <WinnerListItem key={item.id}>
-          <WinnerListItemImage src={item.img}></WinnerListItemImage>
-          <WinnerListItemDescription>
-            Player <HighlightText>{item.playerName}</HighlightText> at{"\n"}
-            <HighlightText>{item.gameName}</HighlightText> won
-          </WinnerListItemDescription>
+          <WinnerListxx>
+            <WinnerListItemImage src={item.img}></WinnerListItemImage>
+            <WinnerListItemDescription>
+              Player <HighlightText>{item.playerName}</HighlightText> at{"\n"}
+              <HighlightText>{item.gameName}</HighlightText> won
+            </WinnerListItemDescription>
+          </WinnerListxx>
           <WinnerListItemPrize>₱ {item.prize}</WinnerListItemPrize>
         </WinnerListItem>
       );
@@ -531,7 +541,7 @@ const Template13 = ({
   };
 
   const settings = {
-    dots: true,
+    dots: false,
     className: "center",
     centerMode: true,
     infinite: true,
@@ -802,6 +812,14 @@ const Template13 = ({
                     );
                   })}
               </Slick>
+              <div>
+                <Button
+                  label="See more"
+                  onClick={() => {
+                    AppHistory.push(i18n.language + "/promotion-list");
+                  }}
+                />
+              </div>
             </ContentWrapper>
             <ContentWrapper title="jackpot" type="game" icon="jackpot">
               <Jackpot />
