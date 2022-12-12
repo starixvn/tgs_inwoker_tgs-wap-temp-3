@@ -15,6 +15,7 @@ import Partners from "./partners";
 import QuickLinks from "./quicklinks";
 import Button from "../../../../components/button";
 import { playerList, gameList as gameListx } from "./../template11/hardcode";
+import News from "./news";
 
 const TheContainer = styled.div``;
 
@@ -299,6 +300,7 @@ const WinnerListContainer = styled.div``;
 const WinnerListScroll = styled.div`
   height: 588px;
   overflow-y: scroll;
+  margin: 0 15px;
 `;
 const WinnerListItem = styled.div`
   display: flex;
@@ -827,7 +829,17 @@ const Template13 = ({
               <WinnerList list={list} />
             </ContentWrapper>
             <ContentWrapper title="top news" type="game" icon="news">
-              123
+              <div>
+                <News />
+              </div>
+              <div>
+                <Button
+                  label="See more"
+                  onClick={() => {
+                    AppHistory.push(i18n.language + "/promotion-list");
+                  }}
+                />
+              </div>
             </ContentWrapper>
             <ContentWrapper
               title="pega gaming: a winning casino! "
