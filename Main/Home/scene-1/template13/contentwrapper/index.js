@@ -29,6 +29,8 @@ const ContentHolder = styled.div`
     return content ? "" : "1fr 1fr";
   }};
   gap: 20px;
+  padding: 0 20px;
+  font-size: 24px;
 `;
 
 const TheGamesOrContent = styled.div`

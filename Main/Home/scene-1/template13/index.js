@@ -11,6 +11,7 @@ import Marquee from "../../Marquee";
 import { shared } from "../shared";
 import ContentWrapper from "./contentwrapper";
 import { playerList, gameList } from "./../template11/hardcode";
+import Partners from "./partners";
 
 const TheContainer = styled.div``;
 
@@ -282,7 +283,7 @@ const JackpotContainer = styled.div`
     no-repeat center / contain;
   margin: 0 auto;
   height: 180px;
-  width: 650px;
+  width: 610px;
   padding-top: 65px;
   text-align: center;
   font-size: 45px;
@@ -339,6 +340,7 @@ const Template13 = ({
   getImgPrefix,
   handleGameClick,
   token,
+  game,
 }) => {
   const [selected, setSelected] = useState("");
   var currentType = -1;
@@ -710,9 +712,27 @@ const Template13 = ({
               type="game"
               icon="pg"
             >
-              123
+              Pega Gaming is the leading destination for all online casino
+              players who are looking for a touch of class and elegance in their
+              gaming environment. Our casino provides you with over 400 online
+              casino games – some traditional with modern twists, and some
+              completely new, innovative, and exotic. With irresistible weekly
+              bonus promotions and attractive loyalty and VIP programs, we're
+              sure you'll be sticking around for a while to come. All of our
+              software is developed and maintained by the industry's foremost
+              online gaming software company, Pegasus. Because of this, we are
+              able to offer you the newest cutting-edge games, of the highest
+              quality and ultimate security in a sophisticated, yet engaging
+              atmosphere.
             </ContentWrapper>
             <ContentWrapper title="About us " type="game" icon="about">
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  `/assets/images/wapp/resource/T13/homepage/logo.svg`
+                }
+                alt="logo"
+              />
               This website belongs to（PAGCOR）Philippine Amusement and Gaming
               Corporation Authorization and supervision PGG Copyright© 2020 PGG
               Casino Co.Group All Rights Reserved Version 1.35.01
@@ -721,7 +741,7 @@ const Template13 = ({
               123
             </ContentWrapper>
             <ContentWrapper title="Partners" type="game" icon="partners">
-              123
+              <Partners provider={game.providerList} />
             </ContentWrapper>
           </>
         )}
@@ -732,6 +752,7 @@ const Template13 = ({
 
 const mapStateToProps = (state) => {
   return {
+    game: state.game,
     token: state.account.token,
   };
 };
