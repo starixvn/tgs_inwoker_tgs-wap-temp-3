@@ -12,6 +12,7 @@ import { shared } from "../shared";
 import ContentWrapper from "./contentwrapper";
 import { playerList, gameList } from "./../template11/hardcode";
 import Partners from "./partners";
+import QuickLinks from "./quicklinks";
 
 const TheContainer = styled.div``;
 
@@ -344,7 +345,9 @@ const Template13 = ({
 }) => {
   const [selected, setSelected] = useState("");
   var currentType = -1;
-
+  const navigateTo = (to) => {
+    AppHistory.push("/" + i18n.language + "/" + to);
+  };
   const [selectedBrand, setSelectedBrand] = useState("");
   const [keyword, setKeyword] = useState("");
   const [gameList, setGameList] = useState([]);
@@ -738,7 +741,7 @@ const Template13 = ({
               Casino Co.Group All Rights Reserved Version 1.35.01
             </ContentWrapper>
             <ContentWrapper title="Quick link" type="game" icon="links">
-              123
+              <QuickLinks navigateTo={navigateTo} />
             </ContentWrapper>
             <ContentWrapper title="Partners" type="game" icon="partners">
               <Partners provider={game.providerList} />
