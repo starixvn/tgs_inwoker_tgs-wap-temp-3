@@ -299,7 +299,6 @@ const WinnerListContainer = styled.div``;
 const WinnerListScroll = styled.div`
   height: 588px;
   overflow-y: scroll;
-  margin: 0 15px;
 `;
 const WinnerListItem = styled.div`
   display: flex;
