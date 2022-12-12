@@ -10,6 +10,7 @@ import i18n from "../../../../../../utils/i18n";
 import Marquee from "../../Marquee";
 import { shared } from "../shared";
 import ContentWrapper from "./contentwrapper";
+import { playerList, gameList } from "./../template11/hardcode";
 
 const TheContainer = styled.div``;
 
@@ -263,6 +264,74 @@ const Title = styled.div`
   text-align: center;
 `;
 
+const SectionWrapper = styled.div`
+  position: relative;
+  color: #fff;
+`;
+
+const JackpotWrapper = styled(SectionWrapper)``;
+const JackpotGif = styled.div`
+  height: 345px;
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/resource/T13/homepage/jackpot.svg`})
+    no-repeat center / contain;
+`;
+const JackpotContainer = styled.div`
+  background: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/resource/T13/homepage/jackpotcontainer.svg`})
+    no-repeat center / contain;
+  margin: 0 auto;
+  height: 180px;
+  width: 650px;
+  padding-top: 65px;
+  text-align: center;
+  font-size: 45px;
+  line-height: 45px;
+`;
+
+const WinnerListWrapper = styled(SectionWrapper)``;
+const WinnerListContainer = styled.div``;
+
+const WinnerListScroll = styled.div`
+  height: 588px;
+  overflow-y: scroll;
+  margin: 0 15px;
+`;
+const WinnerListItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 125px;
+  margin: 20px 5px;
+  padding: 0px 20px;
+  border: 1px solid #fff;
+  border-radius: 25px;
+  background: #232323;
+  align-items: center;
+`;
+const WinnerListItemImage = styled.img`
+  width: 50px;
+  height: 50px;
+  margin: 0 5px;
+  border-radius: 15px;
+  border: 1px solid #ea427b;
+`;
+const WinnerListItemDescription = styled.div`
+  width: 200px;
+  font-size: 20px;
+  color: #7a7a7a;
+  white-space: break-spaces;
+`;
+const WinnerListItemPrize = styled.div`
+  width: 150px;
+  font-size: 25px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.accent};
+  text-align: right;
+`;
+const HighlightText = styled.span`
+  color: #fff;
+`;
+
 const Template13 = ({
   gameMenu2,
   changeShowGame,
@@ -277,6 +346,25 @@ const Template13 = ({
   const [selectedBrand, setSelectedBrand] = useState("");
   const [keyword, setKeyword] = useState("");
   const [gameList, setGameList] = useState([]);
+  const [prizeMin, sePrizeMin] = useState(5000);
+  const [prizeMax, setPrizeMax] = useState(5);
+  const [list, setList] = useState([]);
+
+  const generateJackpotAmount = ({ min, max }) => {
+    let date = new Date();
+    let dayIndex = date.getDay() === 0 ? 6 : date.getDay() - 1;
+    let maxPerDay = (max - min) / 7;
+    let minWithDay = Math.floor(min + maxPerDay * dayIndex);
+    let maxWithDay = Math.floor(max * ((dayIndex + 1) / 7));
+    let amount = Math.floor(
+      Math.random() * (maxWithDay - minWithDay + 1) + minWithDay
+    );
+    return Common.formatNumberWithCommas(amount);
+  };
+
+  const [jackpotAmount, setJackpotAmount] = useState(
+    generateJackpotAmount({ min: 200000, max: 5000000 })
+  );
 
   var gameTypeToDisplayDifferently = (selectedGameType) => {
     return (
@@ -284,6 +372,102 @@ const Template13 = ({
       selectedGameType[0] === GameTypeEnum.SLOT ||
       selectedGameType[0] === GameTypeEnum.TABLEGAME
     );
+  };
+
+  const randomize = (array) => {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    const item = array[randomIndex];
+    return item;
+  };
+
+  const Jackpot = () => {
+    return (
+      <JackpotWrapper>
+        <JackpotGif></JackpotGif>
+        <JackpotContainer>
+          {config.currency} {jackpotAmount}
+        </JackpotContainer>
+      </JackpotWrapper>
+    );
+  };
+
+  const generateList = () => {
+    //  let tempList = [];
+    //  for (var i = 0; i < 10; i++) {
+    //    let name = randomize(playerList);
+    //    let game = randomize(gameList);
+    //    let prize = Math.floor(
+    //      Math.random() * (prizeMax - prizeMin + 1) + prizeMin
+    //    );
+    //    tempList.push({
+    //      id: Math.random().toString(16).slice(2),
+    //        img: `${
+    //          config.sourceUrl
+    //        }${game.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+    //          game.code
+    //        }.jpg`,
+    //      playerName: name,
+    //      gameName: game.name,
+    //      prize: Common.formatNumberWithThousand(prize),
+    //    });
+    //  }
+    //  setList(tempList);
+  };
+
+  const WinnerList = ({ list }) => {
+    const [winnerList, setWinnerList] = useState(list);
+    //  useEffect(() => {
+    //    const updateList = () => {
+    //      let newList = [...winnerList];
+    //      newList.pop();
+    //      let name = randomize(playerList);
+    //      let game = randomize(gameList);
+    //      let prize = Math.floor(
+    //        Math.random() * (prizeMax - prizeMin + 1) + prizeMin
+    //      );
+    //      newList.unshift({
+    //        id: Math.random().toString(16).slice(2),
+    //        img: `${
+    //          config.sourceUrl
+    //        }${game.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+    //          game.code
+    //        }.jpg`,
+    //        playerName: name,
+    //        gameName: game.name,
+    //        prize: Common.formatNumberWithThousand(prize),
+    //      });
+    //      setWinnerList(newList);
+    //    };
+    //
+    //     const interval = setInterval(updateList, 10000);
+    //     return () => {
+    //       clearInterval(interval);
+    //     };
+    //   }, [winnerList]);
+    return (
+      <WinnerListWrapper>
+        <WinnerListContainer>
+          <WinnerListScroll>
+            <FakeWinners list={winnerList}></FakeWinners>
+          </WinnerListScroll>
+        </WinnerListContainer>
+      </WinnerListWrapper>
+    );
+  };
+
+  const FakeWinners = ({ list }) => {
+    return list.map((item, index) => {
+      return (
+        <WinnerListItem key={item.id}>
+          <WinnerListItemImage src={item.img}></WinnerListItemImage>
+          <WinnerListItemDescription>
+            Player <HighlightText>{item.playerName}</HighlightText> at{"\n"}
+            <HighlightText>{item.gameName}</HighlightText> won
+          </WinnerListItemDescription>
+          <WinnerListItemPrize>₱ {item.prize}</WinnerListItemPrize>
+        </WinnerListItem>
+      );
+    });
   };
 
   useEffect(() => {
@@ -296,6 +480,12 @@ const Template13 = ({
       });
     }
   }, [selected, selectedBrand]);
+
+  useEffect(() => {
+    if (list.length <= 0) {
+      generateList();
+    }
+  });
 
   return (
     <TheContainer>
@@ -507,10 +697,10 @@ const Template13 = ({
               123
             </ContentWrapper>
             <ContentWrapper title="jackpot" type="game" icon="jackpot">
-              123
+              <Jackpot />
             </ContentWrapper>
             <ContentWrapper title="winners" type="game" icon="winners">
-              123
+              <WinnerList list={list} />
             </ContentWrapper>
             <ContentWrapper title="top news" type="game" icon="news">
               123
