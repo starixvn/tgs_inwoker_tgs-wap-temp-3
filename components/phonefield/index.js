@@ -137,7 +137,7 @@ const borderRadius = (variant) => {
 const padding = (variant) => {
   switch (variant) {
     case "loginregister":
-      return "20px 0 0 0";
+      return "0 20px 0 20px";
     default:
       return "20px 20px 0 20px";
   }
@@ -146,7 +146,7 @@ const padding = (variant) => {
 const background = (variant) => {
   switch (variant) {
     case "loginregister":
-      return "0% 0% / 635px 100px rgba(207, 32, 41, 0.5)";
+      return "none";
     default:
       return "none";
   }
@@ -155,7 +155,7 @@ const background = (variant) => {
 const border = (variant) => {
   switch (variant) {
     case "loginregister":
-      return "none";
+      return "solid 1px #fff";
     default:
       return "solid 1px #fff";
   }
@@ -171,6 +171,7 @@ const PhoneField = ({
   onSelect,
   children,
   phonePrefix,
+  maxLength,
 }) => {
   return (
     <CustomInput variant={variant}>
@@ -190,6 +191,7 @@ const PhoneField = ({
           </DropdownSection>
         </SelectContainer>
         <CustomInputfield
+          maxLength={maxLength}
           variant={variant}
           value={value}
           onChange={onChange}

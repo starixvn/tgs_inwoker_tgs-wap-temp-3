@@ -768,7 +768,7 @@ const Template13 = ({
           </GameButtonWrapper>
         ) : (
           <>
-            {checking("hot").length && (
+            {checking("hot").length > 0 && (
               <ContentWrapper
                 title={i18n.t("T13.topGames")}
                 type="game"
@@ -778,7 +778,7 @@ const Template13 = ({
               />
             )}
 
-            {checking("recommend").length && (
+            {checking("recommend").length > 0 && (
               <ContentWrapper
                 title={i18n.t("T13.recommeneddGames")}
                 type="game"
@@ -787,7 +787,7 @@ const Template13 = ({
                 games={checking("recommend")}
               />
             )}
-            {checking("new").length && (
+            {checking("new").length > 0 && (
               <ContentWrapper
                 title={i18n.t("T13.newGames")}
                 type="game"
@@ -799,7 +799,6 @@ const Template13 = ({
 
             <ContentWrapper
               title={i18n.t("common.promotion")}
-              type="game"
               icon="promotions"
             >
               <Slick {...settings}>
@@ -821,22 +820,18 @@ const Template13 = ({
                 <Button
                   label={i18n.t("common.more")}
                   onClick={() => {
-                    AppHistory.push(i18n.language + "/promotion-list");
+                    AppHistory.push("/" + i18n.language + "/promotion-list");
                   }}
                 />
               </div>
             </ContentWrapper>
-            <ContentWrapper title="jackpot" type="game" icon="jackpot">
+            <ContentWrapper title="jackpot" icon="jackpot">
               <Jackpot />
             </ContentWrapper>
-            <ContentWrapper title="winners" type="game" icon="winners">
+            <ContentWrapper title="winners" icon="winners">
               <WinnerList list={list} />
             </ContentWrapper>
-            <ContentWrapper
-              title={i18n.t("T13.topNews")}
-              type="game"
-              icon="news"
-            >
+            <ContentWrapper title={i18n.t("T13.topNews")} icon="news">
               <div>
                 <News />
               </div>

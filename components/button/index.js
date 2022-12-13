@@ -22,6 +22,9 @@ const Content = styled.div`
   padding: 0 50px;
   align-items: center;
   justify-content: center;
+  min-width: ${({ minWidth }) => {
+    return minWidth ? minWidth : " fit-content";
+  }};
 `;
 
 const SelectContainer = styled.div`
@@ -38,7 +41,6 @@ const CustomInput = styled.div`
   margin: 20px auto;
   flex: auto;
 
-  min-width: fit-content;
   align-items: center;
   justify-content: center;
 `;
@@ -48,6 +50,7 @@ const Button = (props) => {
     <CustomInput>
       <SelectContainer>
         <Content
+          minWidth={props.minWidth}
           onClick={props.disabled === true ? null : props.onClick}
           disabled={props.disabled ? props.disabled : false}
         >

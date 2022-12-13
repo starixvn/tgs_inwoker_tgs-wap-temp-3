@@ -24,7 +24,9 @@ const HeaderTitle = styled.div`
   color: ${({ theme }) => theme.primaryText};
   font-weight: normal;
   font-size: 34px;
-  text-align: center;
+  text-align: ${({ textposition }) => {
+    return textposition ? textposition : "center";
+  }};
 
   margin-top: 20px;
   width: calc(100% - 80px - 80px);
@@ -86,7 +88,9 @@ function Header(props) {
           onClick={props.noBack ? "" : props.onBackClick}
         ></HeaderBack>
 
-        <HeaderTitle>{props.title}</HeaderTitle>
+        <HeaderTitle textposition={props.textposition}>
+          {props.title}
+        </HeaderTitle>
         <RightContentContainer>{props.rightContent}</RightContentContainer>
       </CustomCustomAppBar>
     </ElevationScroll>

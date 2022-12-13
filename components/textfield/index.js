@@ -6,9 +6,10 @@ const CustomInputfield = styled.input`
   min-height: 105px;
   border: none;
   color: #fff;
-  border-radius: 50px;
-  border: solid 1px #fff;
-  padding: 0px 50px;
+
+  padding: ${({ withIcon }) => {
+    return withIcon ? " 0px 50px 0 25px " : " 0px 50px";
+  }};
   background: none;
   width: 100%;
 
@@ -16,12 +17,6 @@ const CustomInputfield = styled.input`
     font-size: 28px;
     opacity: 0.76;
   }
-`;
-
-const SelectContainer = styled.div`
-  width: 100%;
-  position: relative;
-  display: flex;
 `;
 
 const CustomInput = styled.div`
@@ -81,25 +76,58 @@ const CustomContainer = styled.div`
   gap: 10px;
 `;
 
+const CustomWrapper = styled.div`
+  border: solid 1px #fff;
+  width: 100%;
+  position: relative;
+  display: flex;
+  border-radius: ${({ borderRadius }) => {
+    return borderRadius ? borderRadius : "50px";
+  }};
+  align-items: center;
+`;
+
+const Icon = styled.div`
+  margin-left: 20px;
+  mask: url(${({ icon }) => icon});
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 80%;
+  background: #fff;
+  width: 105px;
+  height: 75px;
+`;
+
 const Textfield = ({
   title,
   value,
   onChange,
   custom,
   variant,
+  icon,
+  type,
   placeholder,
+  borderRadius,
 }) => {
   return (
     <CustomInput leaveTopGap={title !== ""}>
       {title && <CustomLabel>{title}</CustomLabel>}
-      <SelectContainer>
+
+      <CustomWrapper borderRadius={borderRadius}>
+        {icon && <Icon icon={icon} />}
+
         <CustomInputfield
+          withIcon={icon}
           value={value}
+          type={type}
           onChange={onChange}
           placeholder={placeholder}
         />
-        <DropdownSection variant={variant} />
-      </SelectContainer>
+        <div>
+          <DropdownSection variant={variant} />
+        </div>
+      </CustomWrapper>
+
       {custom && <CustomContainer>{custom}</CustomContainer>}
     </CustomInput>
   );

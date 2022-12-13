@@ -14,6 +14,7 @@ import InboxList from "./InboxList";
 
 const BodyColor = styled.div`
   min-height: 100vh;
+  padding-bottom: 100px;
 `;
 
 class Inbox extends Component {
@@ -87,7 +88,7 @@ class Inbox extends Component {
   handleReadClick = () => {};
   render() {
     return (
-      <BodyColor style={{ paddingBottom: this.state.edit ? 120 : 0 }}>
+      <BodyColor>
         <Header
           token={null}
           balance={0}

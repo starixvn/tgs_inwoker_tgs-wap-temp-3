@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ButtonSwitch from "../../ButtonSwitch";
-import Textbox from "../../Textbox";
-import Select from "../../Select";
-import VerificationCode from "../../VerificationCode";
+
 import Checkbox from "@material-ui/core/Checkbox";
 import { withStyles } from "@material-ui/core/styles";
 import ButtonWap from "../../../../Share/ButtonWap";
@@ -13,6 +10,9 @@ import config from "../../../../../config/config";
 import { AppHistory } from "../../../../../history/History";
 import PhoneField from "../../../components/phonefield";
 import TextfieldWithButton from "../../../components/textfieldwithbutton";
+import Textfield from "../../../components/textfield";
+import Button from "../../../components/button";
+import Header from "../../../Share/Header";
 
 const RememberPassContainer = styled.div`
   float: left;
@@ -49,7 +49,7 @@ const LanguageWrap = styled.div`
 const ButtonHolder = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 const DownloadButton = styled(LanguageWrap)`
@@ -133,18 +133,19 @@ const Description = styled.div`
 `;
 
 const Container = styled.div`
-  display: flex;
   flex-direction: column;
   align-items: center;
+  display: flex-root;
+  padding: 0px 20px;
 `;
 
 const Title = styled.div`
-  color: ${({ theme }) => theme.primary};
-  font-size: 130px;
+  color: #fff;
+  font-size: 88px;
   font-weight: bold;
   font-style: italic;
   text-align: center;
-  padding: 100px 0;
+  padding: 200px 0 100px 0;
   text-transform: uppercase;
   width: 100%;
 `;
@@ -152,15 +153,12 @@ const Title = styled.div`
 const ContentGap = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 620px;
+  padding: 0 30px 0 20px;
   margin-bottom: 100px;
 `;
 
 const Variant3 = ({
-  template,
-  logoImg,
   handleChangeSelection,
-  isUpdate,
   selected,
   username,
   password,
@@ -185,9 +183,7 @@ const Variant3 = ({
   handleRememberMeChange,
   handleForgotpasswordClick,
   handleLoginClick,
-  handleBackToHomeClick,
-  handleChangeLanguage,
-  handleGoDownloadPage,
+
   handleToggleConfirmPasswordShow,
   handleConfirmPasswordChange,
   handleAreaCodeChange,
@@ -201,50 +197,9 @@ const Variant3 = ({
   handleCodeChange,
   handleGetCodeClick,
   handleActivationClick,
-  brandLanguage,
 }) => {
-  const customInputContainerStyle = {
-    background: "rgb(207, 32, 41, 0.5)",
-    backgroundSize: "635px 100px",
-    borderRadius: "30px",
-    border: "none",
-    height: "100px",
-  };
-  const customIconStyle = {
-    margin: "25px 15px 0 40px",
-    width: "50px",
-    height: "50px",
-    mask: "none",
-    WebkitMask: "none",
-  };
-  const customInputStyle = {
-    color: "#fff",
-    marginTop: "32px",
-    placeHolderStyle: ` 
-      font-size: 28px;
-    `,
-  };
-  const customRightIconStyle = {
-    marginTop: "34px",
-  };
-  const customVerificationInputContainerStyle = {
-    background: `url(${process.env.PUBLIC_URL}/assets/images/wapp/btn-input-T11.png) no-repeat`,
-    backgroundSize: "395px 80px",
-    border: "none",
-    height: "80px",
-  };
-  const customVerificationInputStyle = {
-    color: "#fff",
-    marginLeft: "20px",
-    placeHolderStyle: ` 
-    font-size: 28px;
-    `,
-  };
-  const customSelectInputContainerStyle = {
-    background: `url(${process.env.PUBLIC_URL}/assets/images/wapp/btn-input-T11.png) no-repeat`,
-    backgroundSize: "445px 80px",
-    border: "none",
-    height: "80px",
+  const handleBackClick = () => {
+    AppHistory.push("/");
   };
 
   return (
@@ -253,37 +208,34 @@ const Variant3 = ({
         if (selected === 0) {
           return (
             <Container>
+              <Header
+                token={null}
+                balance={0}
+                background={true}
+                textposition="left"
+                onBackClick={handleBackClick}
+                title={i18n.t("common.back")}
+              ></Header>
               <Title>Login</Title>
-              <Textbox
+              <Textfield
                 icon={
                   process.env.PUBLIC_URL +
                   `/assets/images/wapp/icon-user-T11.png`
                 }
-                style={{ ...customInputContainerStyle, marginTop: "60px" }}
-                inputStyle={{ ...customInputStyle }}
-                iconStyle={{
-                  ...customIconStyle,
-                  background: `url(${process.env.PUBLIC_URL}/assets/images/wapp/icon-user-T11.png) no-repeat center / contain`,
-                }}
                 type={"text"}
+                borderRadius="30px"
                 placeholder={i18n.t("common.username")}
                 value={username}
                 maxLength="16"
                 onChange={handleUsernameChange}
-              ></Textbox>
+              ></Textfield>
 
-              <Textbox
+              <Textfield
                 icon={
                   process.env.PUBLIC_URL +
                   `/assets/images/wapp/icon-unlock-T11.png`
                 }
-                style={{ ...customInputContainerStyle, marginTop: "20px" }}
-                inputStyle={{ ...customInputStyle }}
-                iconStyle={{
-                  ...customIconStyle,
-                  background: `url(${process.env.PUBLIC_URL}/assets/images/wapp/icon-unlock-T11.png) no-repeat center / contain`,
-                }}
-                rightIconStyle={{ ...customRightIconStyle }}
+                borderRadius="30px"
                 type={hidePassword ? "password" : "text"}
                 hidePassword={hidePassword}
                 placeholder={i18n.t("common.password")}
@@ -291,7 +243,7 @@ const Variant3 = ({
                 toggleShow={handleToggleShow}
                 value={password}
                 onChange={handlePasswordChange}
-              ></Textbox>
+              ></Textfield>
               <ContentGap>
                 <RememberPassContainer>
                   <CustomCheck
@@ -312,10 +264,11 @@ const Variant3 = ({
                 </ForgotPassContainer>
               </ContentGap>
 
-              <ButtonWap
-                name={i18n.t("common.login")}
+              <Button
+                minWidth="400px"
+                label={i18n.t("common.login")}
                 onClick={handleLoginClick}
-              ></ButtonWap>
+              ></Button>
 
               <ButtonHolder>
                 <div style={{ color: "white", fontSize: 24 }}>
@@ -334,73 +287,64 @@ const Variant3 = ({
         } else if (selected === 1) {
           return (
             <Container>
+              <Header
+                token={null}
+                balance={0}
+                textposition="left"
+                background={true}
+                onBackClick={handleBackClick}
+                title={i18n.t("common.back")}
+              ></Header>
               <Title>Register</Title>
-              <Textbox
+              <Textfield
                 icon={
                   process.env.PUBLIC_URL +
                   `/assets/images/wapp/icon-user-T11.png`
                 }
-                style={{ ...customInputContainerStyle, marginTop: "60px" }}
-                inputStyle={{ ...customInputStyle }}
-                iconStyle={{
-                  ...customIconStyle,
-                  background: `url(${process.env.PUBLIC_URL}/assets/images/wapp/icon-user-T11.png) no-repeat center / contain`,
-                }}
-                rightIconStyle={{ ...customRightIconStyle }}
+                borderRadius="30px"
                 type={"text"}
                 placeholder={i18n.t("wap.register.username")}
                 maxLength="16"
                 value={username}
                 onChange={handleUsernameChange}
-              ></Textbox>
-              <Textbox
+              ></Textfield>
+              <Textfield
                 icon={
                   process.env.PUBLIC_URL +
                   `/assets/images/wapp/icon-unlock-T11.png`
                 }
-                style={{ ...customInputContainerStyle, marginTop: "20px" }}
-                inputStyle={{ ...customInputStyle }}
-                iconStyle={{
-                  ...customIconStyle,
-                  background: `url(${process.env.PUBLIC_URL}/assets/images/wapp/icon-unlock-T11.png) no-repeat center / contain`,
-                }}
-                rightIconStyle={{ ...customRightIconStyle }}
                 type={hidePassword ? "password" : "text"}
                 hidePassword={hidePassword}
                 placeholder={i18n.t("wap.register.password")}
                 password={true}
                 maxLength="20"
+                borderRadius="30px"
                 toggleShow={handleToggleShow}
                 value={password}
                 onChange={handlePasswordChange}
-              ></Textbox>
-              <Textbox
+              ></Textfield>
+              <Textfield
                 icon={
                   process.env.PUBLIC_URL +
                   `/assets/images/wapp/icon-unlock-2-T11.png`
                 }
-                style={{ ...customInputContainerStyle, marginTop: "20px" }}
-                inputStyle={{ ...customInputStyle }}
-                iconStyle={{
-                  ...customIconStyle,
-                  background: `url(${process.env.PUBLIC_URL}/assets/images/wapp/icon-unlock-2-T11.png) no-repeat center / contain`,
-                }}
-                rightIconStyle={{ ...customRightIconStyle }}
                 type={hideConfirmPassword ? "password" : "text"}
                 hidePassword={hideConfirmPassword}
                 placeholder={i18n.t("wap.register.confirmPassword")}
                 password={true}
                 maxLength="20"
+                borderRadius="30px"
                 toggleShow={handleToggleConfirmPasswordShow}
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
-              ></Textbox>
+              ></Textfield>
               {config.features.Register_ShowPhone && (
                 <PhoneField
                   variant="loginregister"
                   placeholder={i18n.t("common.msgEnterPhone")}
                   value={phone}
                   onChange={handlePhoneChange}
+                  borderRadius="30px"
                   maxLength={config.features.MAX_PHONE_LENGTH || 10}
                   phonePrefix={areaCode}
                   onSelect={handleAreaCodeChange}
@@ -411,44 +355,28 @@ const Variant3 = ({
                 </PhoneField>
               )}
               {config.features.Register_ShowEmail && (
-                <CustomWrapper>
-                  <Textbox
-                    icon={
-                      process.env.PUBLIC_URL +
-                      `/assets/images/wapp/icon-email.png`
-                    }
-                    style={{ ...customInputContainerStyle, marginTop: "20px" }}
-                    inputStyle={{ ...customInputStyle }}
-                    iconStyle={{
-                      ...customIconStyle,
-                      background: `url(${process.env.PUBLIC_URL}/assets/images/wapp/icon-email.png) no-repeat center / contain`,
-                    }}
-                    rightIconStyle={{ ...customRightIconStyle }}
-                    type={"text"}
-                    placeholder={i18n.t("wap.register.email")}
-                    maxLength="50"
-                    value={email}
-                    onChange={handleEmailChange}
-                  ></Textbox>
-                </CustomWrapper>
+                <Textfield
+                  borderRadius="30px"
+                  icon={
+                    process.env.PUBLIC_URL +
+                    `/assets/images/wapp/icon-email.png`
+                  }
+                  type={"text"}
+                  placeholder={i18n.t("wap.register.email")}
+                  maxLength="50"
+                  value={email}
+                  onChange={handleEmailChange}
+                ></Textfield>
               )}
               {!(
                 config.features.Register_HideInvitation && fromCustomDomain
               ) && (
-                <CustomWrapper>
-                  <Textbox
+                <>
+                  <Textfield
                     icon={
                       process.env.PUBLIC_URL +
                       `/assets/images/wapp/icon-promo.png`
                     }
-                    style={{ ...customInputContainerStyle, marginTop: "20px" }}
-                    inputStyle={{ ...customInputStyle }}
-                    iconStyle={{
-                      ...customIconStyle,
-                      width: "0px",
-                    }}
-                    rightIconStyle={{ ...customRightIconStyle }}
-                    type={"text"}
                     placeholder={i18n.t("wap.register.promoteCode")}
                     value={promoteType === "a" ? promoId : upper}
                     onChange={
@@ -457,7 +385,8 @@ const Variant3 = ({
                         : handleUpperChange
                     }
                     disabled={prefill}
-                  ></Textbox>
+                    borderRadius="30px"
+                  ></Textfield>
                   {config.features.HaveAffiliateFeature && (
                     <CustomInvitationSelect
                       disabled={prefill}
@@ -469,9 +398,9 @@ const Variant3 = ({
                       <option value="p">{i18n.t("usertype.player")}</option>
                     </CustomInvitationSelect>
                   )}
-                </CustomWrapper>
+                </>
               )}
-              <div style={{ padding: "10px 40px" }}>
+              <div style={{ padding: "10px 40px 0 10px" }}>
                 <RememberPassContainer>
                   <CustomCheck
                     style={{ fontSize: "30px" }}
@@ -483,16 +412,16 @@ const Variant3 = ({
                   <TNC>{i18n.t("web.register.contract")}</TNC>
                 </RememberPassContainer>
               </div>
-              <ButtonWap
-                style={{ margin: "150px auto 0px auto" }}
-                name={
+              <Button
+                label={
                   config.features.Register_CustomFlow_IDR
                     ? i18n.t("common.nextStep")
                     : i18n.t("common.register")
                 }
+                minWidth="400px"
                 onClick={handleRegisterClick}
                 disableButton={!tnc}
-              ></ButtonWap>
+              ></Button>
               <ButtonHolder>
                 <div style={{ color: "white", fontSize: 24 }}>
                   {i18n.t("T13.proceedLogin")}

@@ -92,7 +92,12 @@ contain;`;
 
 const BottomNavBar = (props) => {
   const [currentPage, setCurrentPage] = React.useState("");
-  const hideAppBar = ["login", "register", "forgot-password"];
+  const hideAppBar = [
+    "login",
+    "register",
+    "forgot-password",
+    "login?do=register",
+  ];
   const currentPath = props.link.split("/");
   const currentPathName = currentPath[currentPath.length - 1];
 
