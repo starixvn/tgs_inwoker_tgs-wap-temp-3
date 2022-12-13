@@ -770,7 +770,7 @@ const Template13 = ({
           <>
             {checking("hot").length && (
               <ContentWrapper
-                title="Top Games"
+                title={i18n.t("T13.topGames")}
                 type="game"
                 icon="games"
                 joinGame={handleJoinGameClick}
@@ -780,7 +780,7 @@ const Template13 = ({
 
             {checking("recommend").length && (
               <ContentWrapper
-                title="Top Games"
+                title={i18n.t("T13.recommeneddGames")}
                 type="game"
                 icon="games"
                 joinGame={handleJoinGameClick}
@@ -789,7 +789,7 @@ const Template13 = ({
             )}
             {checking("new").length && (
               <ContentWrapper
-                title="New Games"
+                title={i18n.t("T13.newGames")}
                 type="game"
                 icon="games"
                 joinGame={handleJoinGameClick}
@@ -797,7 +797,11 @@ const Template13 = ({
               />
             )}
 
-            <ContentWrapper title="Promotions" type="game" icon="promotions">
+            <ContentWrapper
+              title={i18n.t("common.promotion")}
+              type="game"
+              icon="promotions"
+            >
               <Slick {...settings}>
                 {general.promotionList.items.length > 0 &&
                   general.promotionList.items.map((data, index) => {
@@ -815,7 +819,7 @@ const Template13 = ({
               </Slick>
               <div>
                 <Button
-                  label="See more"
+                  label={i18n.t("common.more")}
                   onClick={() => {
                     AppHistory.push(i18n.language + "/promotion-list");
                   }}
@@ -828,13 +832,17 @@ const Template13 = ({
             <ContentWrapper title="winners" type="game" icon="winners">
               <WinnerList list={list} />
             </ContentWrapper>
-            <ContentWrapper title="top news" type="game" icon="news">
+            <ContentWrapper
+              title={i18n.t("T13.topNews")}
+              type="game"
+              icon="news"
+            >
               <div>
                 <News />
               </div>
               <div>
                 <Button
-                  label="See more"
+                  label={i18n.t("common.more")}
                   onClick={() => {
                     AppHistory.push(i18n.language + "/promotion-list");
                   }}
@@ -842,22 +850,13 @@ const Template13 = ({
               </div>
             </ContentWrapper>
             <ContentWrapper
-              title="pega gaming: a winning casino! "
+              title={i18n
+                .t("T13.brandTag")
+                .replace("{brandName}", config.brandName)}
               type="game"
               icon="pg"
             >
-              Pega Gaming is the leading destination for all online casino
-              players who are looking for a touch of class and elegance in their
-              gaming environment. Our casino provides you with over 400 online
-              casino games – some traditional with modern twists, and some
-              completely new, innovative, and exotic. With irresistible weekly
-              bonus promotions and attractive loyalty and VIP programs, we're
-              sure you'll be sticking around for a while to come. All of our
-              software is developed and maintained by the industry's foremost
-              online gaming software company, Pegasus. Because of this, we are
-              able to offer you the newest cutting-edge games, of the highest
-              quality and ultimate security in a sophisticated, yet engaging
-              atmosphere.
+              {i18n.t("T13.brandDescription")}
             </ContentWrapper>
             <ContentWrapper title="About us " type="game" icon="about">
               <img
@@ -867,9 +866,9 @@ const Template13 = ({
                 }
                 alt="logo"
               />
-              This website belongs to（PAGCOR）Philippine Amusement and Gaming
-              Corporation Authorization and supervision PGG Copyright© 2020 PGG
-              Casino Co.Group All Rights Reserved Version 1.35.01
+              {i18n
+                .t("T13.belongTo")
+                .replace("{version}", process.env.REACT_APP_VERSION)}
             </ContentWrapper>
             <ContentWrapper title="Quick link" type="game" icon="links">
               <QuickLinks navigateTo={navigateTo} />
