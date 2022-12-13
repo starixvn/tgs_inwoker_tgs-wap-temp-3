@@ -19,7 +19,7 @@ const Container = styled.div`
 const Contents = styled.div`
   font-size: 25px;
   padding: 20px;
-  background-color: #27273f;
+
   border-radius: 20px;
 `;
 
@@ -59,9 +59,13 @@ const ContentDisplayer = styled.div`
 `;
 
 const CustomTable = styled.div`
+  margin-top: 20px;
   display: grid;
-  grid-template-columns: auto 300px;
+  grid-template-columns: auto 225px;
   padding: 20px 0px;
+  background-color: #27273f;
+  padding: 20px 40px;
+  border-radius: 40px;
 `;
 
 const Left = styled.div`
