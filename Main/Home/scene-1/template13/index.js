@@ -839,7 +839,7 @@ const Template13 = ({
                 <Button
                   label={i18n.t("common.more")}
                   onClick={() => {
-                    AppHistory.push(i18n.language + "/promotion-list");
+                    AppHistory.push("/" + i18n.language + "/news");
                   }}
                 />
               </div>

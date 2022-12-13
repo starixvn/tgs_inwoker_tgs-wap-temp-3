@@ -142,7 +142,7 @@ const NoRecordContainer = styled.div`
 
   width: 96px;
   height: 136px;
-  margin: 30px auto;
+  margin: 300px auto;
 `;
 
 const CustomFormControl = withStyles((theme) => ({

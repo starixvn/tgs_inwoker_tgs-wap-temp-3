@@ -70,6 +70,7 @@ import CustomSportPage from "./CustomSportPage";
 import LiveChat from "../Share/live-chat";
 import ForcedVerification from "./ForcedVerification";
 import BottomNavBar from "./components/navigationbar";
+import News from "./News";
 
 const baseRouteUrl = Common.baseRouteUrl;
 const StyledModal = withStyles((theme) => ({
@@ -400,6 +401,12 @@ const RouteMapping = [
   {
     path: "/sports/:platform",
     component: CustomSportPage,
+    alert: true,
+    navigate: true,
+  },
+  {
+    path: "/news",
+    component: News,
     alert: true,
     navigate: true,
   },

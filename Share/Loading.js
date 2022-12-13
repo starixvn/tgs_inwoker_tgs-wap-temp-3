@@ -13,11 +13,11 @@ const Container = styled.div`
     0,
     0,
     0,
-    ${(props) => (props.opacity ? props.opacity : 0.5)}
+    ${(props) => (props.opacity ? props.opacity : 0.7)}
   );
   ${(props) =>
     props.open ? "opacity:1;height: 100%;" : "opacity:0;height:0px;"};
-  z-index: 3;
+  z-index: 9999;
 `;
 const Inner = styled.div`
   margin: 0;
