@@ -59,7 +59,7 @@ const TheOverlay = styled.div`
   align-items: center;
   justify-content: center;
   opacity: 0;
-  background: rgba(27, 29, 48, 0.25);
+  background: rgba(27, 29, 48, 0.75);
   :active {
     opacity: 1;
   }

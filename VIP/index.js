@@ -13,12 +13,13 @@ const Container = styled.div`
   overflow: hidden;
   min-height: 100vh;
   padding: 20px;
+  color: #fff;
 `;
 
 const Contents = styled.div`
   font-size: 25px;
   padding: 20px;
-  background-color: #fff;
+  background-color: #27273f;
   border-radius: 20px;
 `;
 
@@ -32,6 +33,7 @@ const VipEmlemContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   min-width: 150px;
+  color: #fff;
   flex-direction: column;
   align-items: center;
   padding: 10px 20px;
@@ -39,7 +41,7 @@ const VipEmlemContainer = styled.div`
   ${({ selected, theme }) => {
     return (
       selected &&
-      ` background: #fff;border-radius: 20px;border: solid 3px ${
+      ` background: #1b1d30;border-radius: 20px;border: solid 3px ${
         theme.wapPrimary ? theme.wapPrimary : theme.primary
       };`
     );
@@ -140,7 +142,7 @@ const VIP = (props) => {
                       }}
                       src={
                         process.env.PUBLIC_URL +
-                        `/assets/images/vip/${data.level}.png`
+                        `/assets/images/vip/${data.level}.svg`
                       }
                     />
                     <VIPText>{getVIPTitle(data.level)}</VIPText>
