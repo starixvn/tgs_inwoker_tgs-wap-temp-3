@@ -1070,7 +1070,7 @@ class Wap extends Component {
               {i18n.t("common.cancel")}
             </ButtonCancel>
           </StyledModalPopup>
-          <BottomNavBar />
+          <BottomNavBar link={window.location.href} />
         </>
       );
     }

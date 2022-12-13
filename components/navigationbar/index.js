@@ -93,8 +93,9 @@ contain;`;
 const BottomNavBar = (props) => {
   const [currentPage, setCurrentPage] = React.useState("");
   const hideAppBar = ["login", "register", "forgot-password"];
-  const currentPath = window.location.pathname.split("/");
+  const currentPath = props.link.split("/");
   const currentPathName = currentPath[currentPath.length - 1];
+
   const handleChangeSelection = (value, resetPage) => {
     if (
       !(value === "/promotion-list" || value === "/") &&
