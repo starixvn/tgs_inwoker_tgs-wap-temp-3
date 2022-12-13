@@ -47,15 +47,23 @@ const QuickLinks = ({ navigateTo }) => {
   return (
     <Section>
       <LinkContainer>
-        <Link onClick={() => navigateTo("cs")}>24/7 Customer Service</Link>
-        <Link onClick={() => navigateTo("faq")}>FAQs</Link>
-        <Link onClick={() => navigateTo("privacy")}>Privacy Policy</Link>
-        <Link onClick={() => navigateTo("terms")}>Terms and Conditions</Link>
+        <Link onClick={() => navigateTo("cs")}>
+          {i18n.t("T13.quickLink.247")}
+        </Link>
+        <Link onClick={() => navigateTo("faq")}>
+          {i18n.t("T13.quickLink.faq")}
+        </Link>
+        <Link onClick={() => navigateTo("privacy")}>
+          {i18n.t("T13.quickLink.privacy")}
+        </Link>
+        <Link onClick={() => navigateTo("terms")}>
+          {i18n.t("T13.quickLink.tnc")}
+        </Link>
         <Link onClick={() => alert(i18n.t("common.comingSoon"))}>
-          Responsible Gaming
+          {i18n.t("T13.quickLink.reponsible")}
         </Link>
       </LinkContainer>
-      <SectionTitle>Follow Us</SectionTitle>
+      <SectionTitle> {i18n.t("T13.quickLink.follow")}</SectionTitle>
       <SocialMediaContainer>
         <SocialMedia
           src="facebook"

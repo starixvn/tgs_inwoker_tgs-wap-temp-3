@@ -318,7 +318,9 @@ const Variant3 = ({
               ></ButtonWap>
 
               <ButtonHolder>
-                <div style={{ color: "white" }}>Don't have an account?</div>{" "}
+                <div style={{ color: "white", fontSize: 24 }}>
+                  {i18n.t("T13.proceedRegister")}
+                </div>{" "}
                 <DownloadButton
                   onClick={() => {
                     handleChangeSelection(1);
@@ -492,7 +494,9 @@ const Variant3 = ({
                 disableButton={!tnc}
               ></ButtonWap>
               <ButtonHolder>
-                <div style={{ color: "white" }}>Already have an acocunt?</div>{" "}
+                <div style={{ color: "white", fontSize: 24 }}>
+                  {i18n.t("T13.proceedLogin")}
+                </div>{" "}
                 <DownloadButton
                   onClick={() => {
                     handleChangeSelection(0);

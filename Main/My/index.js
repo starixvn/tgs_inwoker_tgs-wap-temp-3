@@ -289,7 +289,7 @@ class My extends Component {
       <Container>
         <Header
           onBackClick={this.handleBackClick}
-          title={"我"}
+          title={i18n.t("T13.me")}
           position={"fixed"}
           backgroundColor={"transparent"}
         ></Header>

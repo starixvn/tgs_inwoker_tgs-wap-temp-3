@@ -856,16 +856,12 @@ const Template13 = ({
               type="game"
               icon="pg"
             >
-              {i18n.t("T13.brandDescription")}
+              {i18n
+                .t("T13.brandDescription")
+                .replace("{brandName}", config.brandName)}
             </ContentWrapper>
             <ContentWrapper title="About us " type="game" icon="about">
-              <img
-                src={
-                  process.env.PUBLIC_URL +
-                  `/assets/images/wapp/resource/T13/homepage/logo.svg`
-                }
-                alt="logo"
-              />
+              <img src={general.brand.mobileLogoUrl} alt="logo" />
               {i18n
                 .t("T13.belongTo")
                 .replace("{version}", process.env.REACT_APP_VERSION)}

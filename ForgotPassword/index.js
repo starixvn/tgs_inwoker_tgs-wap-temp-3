@@ -253,7 +253,8 @@ class ForgotPassword extends Component {
                     type={"text"}
                     title={i18n.t("common.emailAddress")}
                   ></Textfield>
-                  <TextboxWithButton
+
+                  <TextfieldWithButton
                     buttonlabel={i18n.t("common.msgSendToken")}
                     style={{ margin: "20px auto 20px auto" }}
                     value={this.state.code}
@@ -262,7 +263,7 @@ class ForgotPassword extends Component {
                     title={i18n.t("common.token")}
                     onClick={this.handleGetCodeClick}
                     type={"text"}
-                  ></TextboxWithButton>
+                  ></TextfieldWithButton>
                 </React.Fragment>
               );
             } else if (this.state.step === 2) {
