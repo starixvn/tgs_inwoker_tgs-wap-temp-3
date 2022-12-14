@@ -1,6 +1,7 @@
 export const hardcodeNews = [
   {
     title: "5 TIPS TO WIN ONLINE CASINO GAMES",
+    writer: "Pega News Team    ",
     content:
       "Looking for ways to beat online casinos featuring online slots? I’m sure you’ve come across lots of advice. There are endless Online Slot Tips and tricks out there, some might be good, others not too much. Which ones are worth your time? Backed by experience, we have come up with the 5 best online slot tips and tricks for 2022.",
     image: "1",
@@ -20,6 +21,7 @@ export const hardcodeNews = [
     content:
       "(PRESS RELEASE) Red Tiger has today launched an exciting new Arabian dream with 10,001 Nights Megaways, and with a decadent display of ornate genie lamps players will be transported into the world of Scheherazade.",
     image: "2",
+    writer: "Pega News Team    ",
     id: "2",
     content2: `
     <div>(PRESS RELEASE) Red Tiger has today launched an exciting new Arabian dream with 10,001 Nights Megaways, and with a decadent display of ornate genie lamps players will be transported into the world of Scheherazade.</div>
@@ -35,6 +37,7 @@ export const hardcodeNews = [
     content:
       "JDB Gaming was founded in 2010 (under the name JDB168) and ever since then has endeavored to create only the very best content for its clients and customers. The brand goes by the principle of ‘Just Do the Best’. This means that their standards are incredibly high, ensuring all JDB games are fair, safe, surprising, and refined. As a result of their hard work and high-quality games, JDB slots have become some of the most popular in Asia.",
     image: "3",
+    writer: "Pega News Team    ",
     id: "3",
     content2: `
     <div>Best Online Slots by JDB Gaming</div>

@@ -26,6 +26,14 @@ const ContentText = styled.div`
 
 const Title = styled.div`
   font-size: 40px;
+  text-align: center;
+  padding: 20px 0 0px 0;
+`;
+
+const ByWho = styled.div`
+  font-size: 28px;
+  text-align: center;
+  padding: 20px 0;
 `;
 
 const DetailedNews = ({ newsid }) => {
@@ -73,6 +81,7 @@ const DetailedNews = ({ newsid }) => {
           }
         />
         <Title>{reference("title")}</Title>
+        <ByWho>{reference("writer")}</ByWho>
         <div>{reference("content2")}</div>
       </Container>
     </div>
