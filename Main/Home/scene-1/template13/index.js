@@ -16,6 +16,7 @@ import QuickLinks from "./quicklinks";
 import Button from "../../../../components/button";
 import { playerList, gameList as gameListx } from "./../template11/hardcode";
 import News from "./news";
+import { hardcodeNews } from "./news/hardcoded";
 
 const TheContainer = styled.div``;
 
@@ -832,9 +833,18 @@ const Template13 = ({
               <WinnerList list={list} />
             </ContentWrapper>
             <ContentWrapper title={i18n.t("T13.topNews")} icon="news">
-              <div>
-                <News />
-              </div>
+              {hardcodeNews.map((data, index) => {
+                return (
+                  <News
+                    key={index}
+                    data={data}
+                    onClick={() => {
+                      AppHistory.push("/" + i18n.language + "/news/" + data.id);
+                    }}
+                  />
+                );
+              })}
+
               <div>
                 <Button
                   label={i18n.t("common.more")}
