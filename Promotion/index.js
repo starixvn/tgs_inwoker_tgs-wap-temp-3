@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import { withRouter } from "react-router-dom";
-import Header from "../Share/Header";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import LayoutOne from "./layout/layout-one";
 import LayoutTwo from "./layout/layout-two";
+import AppBarExtrator from "./../../Wap/components/appbar";
 const Container = styled.div`
   width: 100%;
   overflow: hidden;
@@ -131,10 +131,7 @@ class Promotion extends Component {
 
     return (
       <Container>
-        <Header
-          onBackClick={this.handleBackClick}
-          title={i18n.t("promotion.title")}
-        ></Header>{" "}
+        <AppBarExtrator />
         <div style={{ height: 110 }} />
         <ListView>
           {this.props.general.promotionList.items.length <= 0 ? (

@@ -807,6 +807,12 @@ const Template13 = ({
                   general.promotionList.items.map((data, index) => {
                     return (
                       <ListItem
+                        onClick={() => {
+                          AppHistory.push({
+                            pathname:
+                              "/" + i18n.language + "/promotion/" + data.id,
+                          });
+                        }}
                         src={
                           data.localization[i18n.language] &&
                           (data.localization[i18n.language].mobileBanner ||

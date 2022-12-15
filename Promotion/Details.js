@@ -7,6 +7,7 @@ import Button from "../../Wap/Share/Button";
 import { generalAction } from "../../../api-services/actions/generalAction";
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
+import AppBarExtrator from "./../../Wap/components/appbar";
 const moment = require("moment");
 const PromoDetailImage = styled.div`
   height: 300px;
@@ -298,110 +299,106 @@ class Details extends Component {
     };
 
     return (
-      <TheEntireWrapper>
-        <Header
-          token={null}
-          balance={0}
-          background={true}
-          onBackClick={this.handleBackClick}
-          title={i18n.t("promotion.promoDetail")}
-        ></Header>
+      <>
+        <AppBarExtrator />
+        <TheEntireWrapper>
+          <TitleContainer>
+            <ArrowLeft
+              onClick={() => {
+                navigatePromotion(true);
+              }}
+            />
+            <Title>{simplifyCode("name")}</Title>
+            <ArrowRight
+              onClick={() => {
+                navigatePromotion(false);
+              }}
+            />
+          </TitleContainer>
 
-        <TitleContainer>
-          <ArrowLeft
-            onClick={() => {
-              navigatePromotion(true);
-            }}
-          />
-          <Title>{simplifyCode("name")}</Title>
-          <ArrowRight
-            onClick={() => {
-              navigatePromotion(false);
-            }}
-          />
-        </TitleContainer>
-
-        {(() => {
-          if (this.state.details.localization !== null) {
-            return (
-              <PromoDetailImage
-                img={
-                  checkIfExist
-                    ? checkIfExist.mobileBanner
-                    : this.state.details.mobileBanner
-                }
-              />
-            );
-          } else {
-            return <PromoDetailImage img={this.state.details.mobileBanner} />;
-          }
-        })()}
-
-        <SubTitle>{simplifyCode("subSubject")}</SubTitle>
-        <TheActualContent>
-          {config.features.HaveVIPFeature && (
-            <EventText>
-              {i18n.t("promotion.promoTarget")}：
-              <br />
-              {this.state.details.vipLevels
-                .sort((a, b) => {
-                  return a - b;
-                })
-                .map((a, index) => {
-                  return (
-                    <span key={index}>
-                      VIP{a}
-                      {index < this.state.details.vipLevels.length - 1 && ", "}
-                    </span>
-                  );
-                })}
-            </EventText>
-          )}
-          <EventText>
-            {i18n.t("promotion.promoDate")}：
-            <br />
-            {moment(this.state.details.from).format("YYYY/MM/DD HH:mm:ss")}
-            {" - "}
-            {moment(this.state.details.to).format("YYYY/MM/DD HH:mm:ss")}
-          </EventText>
-          <PromoDesc
-            dangerouslySetInnerHTML={{
-              __html: "<div>" + simplifyCode("content") + "</div>",
-            }}
-          />
-        </TheActualContent>
-
-        {this.state.term !== "" && (
-          <>
-            <TNCToggle
-              onClick={this.handleToggleTnC}
-              active={this.state.isTNCToggled}
-            >
-              <span>{i18n.t("common.termsAndCondition")}</span>
-            </TNCToggle>
-            {this.state.isTNCToggled && (
-              <TNCContainer
-                dangerouslySetInnerHTML={{
-                  __html: "<div >" + simplifyCode("terms") + "</div>",
-                }}
-              ></TNCContainer>
-            )}
-          </>
-        )}
-
-        {!isDummy && (
-          <Button
-            style={{ margin: "40px auto 0 auto" }}
-            label={i18n.t("promotion.joinPromo")}
-            onClick={() =>
-              this.handleJoinClick(
-                this.state.details.id,
-                this.state.details.promotionType
-              )
+          {(() => {
+            if (this.state.details.localization !== null) {
+              return (
+                <PromoDetailImage
+                  img={
+                    checkIfExist
+                      ? checkIfExist.mobileBanner
+                      : this.state.details.mobileBanner
+                  }
+                />
+              );
+            } else {
+              return <PromoDetailImage img={this.state.details.mobileBanner} />;
             }
-          ></Button>
-        )}
-      </TheEntireWrapper>
+          })()}
+
+          <SubTitle>{simplifyCode("subSubject")}</SubTitle>
+          <TheActualContent>
+            {config.features.HaveVIPFeature && (
+              <EventText>
+                {i18n.t("promotion.promoTarget")}：
+                <br />
+                {this.state.details.vipLevels
+                  .sort((a, b) => {
+                    return a - b;
+                  })
+                  .map((a, index) => {
+                    return (
+                      <span key={index}>
+                        VIP{a}
+                        {index < this.state.details.vipLevels.length - 1 &&
+                          ", "}
+                      </span>
+                    );
+                  })}
+              </EventText>
+            )}
+            <EventText>
+              {i18n.t("promotion.promoDate")}：
+              <br />
+              {moment(this.state.details.from).format("YYYY/MM/DD HH:mm:ss")}
+              {" - "}
+              {moment(this.state.details.to).format("YYYY/MM/DD HH:mm:ss")}
+            </EventText>
+            <PromoDesc
+              dangerouslySetInnerHTML={{
+                __html: "<div>" + simplifyCode("content") + "</div>",
+              }}
+            />
+          </TheActualContent>
+
+          {this.state.term !== "" && (
+            <>
+              <TNCToggle
+                onClick={this.handleToggleTnC}
+                active={this.state.isTNCToggled}
+              >
+                <span>{i18n.t("common.termsAndCondition")}</span>
+              </TNCToggle>
+              {this.state.isTNCToggled && (
+                <TNCContainer
+                  dangerouslySetInnerHTML={{
+                    __html: "<div >" + simplifyCode("terms") + "</div>",
+                  }}
+                ></TNCContainer>
+              )}
+            </>
+          )}
+
+          {!isDummy && (
+            <Button
+              style={{ margin: "40px auto 0 auto" }}
+              label={i18n.t("promotion.joinPromo")}
+              onClick={() =>
+                this.handleJoinClick(
+                  this.state.details.id,
+                  this.state.details.promotionType
+                )
+              }
+            ></Button>
+          )}
+        </TheEntireWrapper>
+      </>
     );
   }
 }
