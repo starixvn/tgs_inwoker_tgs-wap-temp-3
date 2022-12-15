@@ -5,9 +5,11 @@ import { Dialog } from "@material-ui/core";
 import config from "../../../config/config";
 import QRCode from "react-qr-code";
 import { utility } from "../../../utils/utility";
+import Header from "../Share/Header";
 
 const Container = styled.div`
   width: 100%;
+  padding: 110px 0;
   height: 100vh;
   position: relative;
   background: url(${({ language }) => {
@@ -29,18 +31,6 @@ const TheFirstSection = styled.div`
   margin-top: 10px;
   display: flex;
   min-height: 150px;
-  justify-content: flex-end;
-`;
-
-const TheSecondSection = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const FirstSectionContent = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
   justify-content: center;
 `;
 
@@ -50,9 +40,9 @@ const SectionContentItem = styled.div`
 
 const InstallationGuideButton = styled.div`
   color: #fff;
-  background: #000;
+  background: #cf2029;
   border-radius: 75px;
-  padding: 10px 20px;
+  padding: 10px 40px;
   font-size: 30px;
   cursor: pointer;
   user-select: none;
@@ -60,13 +50,14 @@ const InstallationGuideButton = styled.div`
 
 const Text = styled.div`
   font-size: 40px;
+  color: #fff;
 `;
 
 const Icons = styled.div`
   width: 60px;
   height: 60px;
 
-  background: #000;
+  background: #fff;
   mask: url(${({ icon }) => {
       return (
         process.env.PUBLIC_URL + `/assets/images/download/icons/${icon}.png`
@@ -76,38 +67,22 @@ const Icons = styled.div`
   background-size: 100%;
 `;
 
-const DownloadTitleSection = styled.div`
-  display: flex;
-  align-items: center;
-  padding-bottom: 20px;
-`;
-
-const DownloadIcon = styled(Icons)`
-  height: 50px;
-  width: 50px;
-`;
-
-const TitleText = styled(Text)`
-  font-size: 45px;
-  margin-left: 10px;
-  font-weight: bold;
-`;
-
 const CustomModal = styled(Dialog)`
   .MuiBackdrop-root {
   }
 
   .MuiDialog-paper {
     min-width: 80vw;
+    color: #fff;
 
     border-radius: 16px;
-    background: #f6f8f7;
+    background: #1b1d30;
     min-height: 200px;
   }
 `;
 
 const DialogTitle = styled.div`
-  background: #f6f8f7;
+  background: #1b1d30;
   min-height: 50px;
   display: flex;
   align-items: center;
@@ -123,8 +98,7 @@ const DialogContent = styled.div`
 `;
 
 const DialogTitle2 = styled(DialogTitle)`
-  background: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
+  background: #1b1d30;
   color: white;
 `;
 
@@ -141,6 +115,10 @@ const DeviceGuide = styled.div`
 const DownloadSection = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  width: 700px;
+  align-items: flex-end;
+  padding-right: 125px;
 `;
 
 const QRCodeContainer = styled.div`
@@ -153,26 +131,23 @@ const QRCodeContainer = styled.div`
 const DeviceText = styled.div`
   padding: 20px 0px;
   font-size: 30px;
+  color: #fff;
 `;
 
 const QRCodeHolder = styled.div`
-  height: 200px;
-  width: 200px;
-  padding: 10px;
-  border-radius: 36px;
+  height: 240px;
+  width: 240px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 20px;
   border: solid 1px rgba(0, 0, 0, 0.5);
-`;
-
-const ResponsiveQRCode = styled.img`
-  width: 100%;
-  height: 100%;
 `;
 
 const DownloadButton = styled.div`
   color: #fff;
-  background: #000;
+  background: #cf2029;
   border-radius: 75px;
-  padding: 10px 20px;
+  padding: 10px 40px;
   cursor: pointer;
   font-size: 30px;
   user-select: none;
@@ -183,7 +158,7 @@ const DownloadButton = styled.div`
 const TheGuide = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 75px;
+  padding: 50px 0;
 `;
 
 const PointlessShit = styled.div`
@@ -206,6 +181,20 @@ const Links = styled.div`
   opacity: 0.75;
   font-size: 24px;
   cursor: pointer;
+`;
+
+const FirstPart = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const IconsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 30px;
 `;
 
 const Download = ({ alert }) => {
@@ -249,21 +238,45 @@ const Download = ({ alert }) => {
         return "PB";
     }
   }
+  const handleBackClick = () => {
+    this.props.appHistory.replace("/" + i18n.language + "/promotion-list");
+  };
+
+  const fakeData = [
+    {
+      link: "https://google.com",
+      platform: "android",
+    },
+    {
+      link: "https://google.com",
+      platform: "ios",
+    },
+    {
+      link: "https://google.com",
+      platform: "android",
+    },
+  ];
+
   return (
     <Container language={i18n.language}>
+      <Header
+        token={null}
+        balance={0}
+        background={true}
+        onBackClick={handleBackClick}
+        title={i18n.t("common.download")}
+      ></Header>
       <ContentPlacedHere>
         <TheFirstSection>
-          <FirstSectionContent>
-            <SectionContentItem>
-              <Text>{i18n.t("download.supported")}:</Text>
-            </SectionContentItem>
-            <SectionContentItem>
-              <Icons icon="android" />
-            </SectionContentItem>
-            <SectionContentItem>
-              <Icons icon="ios" />
-            </SectionContentItem>
-          </FirstSectionContent>
+          <FirstPart>
+            <Text style={{ display: "flex", alignItems: "center", gap: 30 }}>
+              <Icons icon="support" />
+              {i18n.t("download.supported")}
+            </Text>
+            <IconsContainer>
+              <Icons icon="android" /> <Icons icon="ios" />
+            </IconsContainer>
+          </FirstPart>
         </TheFirstSection>
         <TheGuide>
           <SectionContentItem>
@@ -276,12 +289,6 @@ const Download = ({ alert }) => {
             </InstallationGuideButton>
           </SectionContentItem>
         </TheGuide>
-        <TheSecondSection>
-          <DownloadTitleSection>
-            <DownloadIcon icon="download" />
-            <TitleText>{i18n.t("download.downloadMethod")}</TitleText>
-          </DownloadTitleSection>
-        </TheSecondSection>
         <DownloadSection>
           {download.map((data, index) => {
             return (
@@ -362,15 +369,7 @@ const Download = ({ alert }) => {
             </>
           )}
         </HiddenDialogContainer>
-        <div>
-          <img
-            style={{ height: 500, marginBottom: 100 }}
-            src={process.env.PUBLIC_URL + `/assets/images/download/girl.png`}
-            alt="girl"
-          />
-        </div>
       </ContentPlacedHere>
-
       <CustomModal
         open={open}
         onClose={() => {
