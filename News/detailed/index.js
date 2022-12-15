@@ -8,7 +8,7 @@ import { useParams } from "react-router";
 import { hardcodeNews } from "../../Main/Home/scene-1/template13/news/hardcoded";
 
 const Container = styled.div`
-  padding: 110px 40px;
+  padding: 110px 40px 220px 40px;
   color: #fff;
 `;
 
@@ -25,8 +25,9 @@ const ContentText = styled.div`
   display: grid;
   grid-template-column: 1fr;
   gap: 20px;
-  line-break: anywhere;
+  text-align: justify;
   line-height: 40px;
+  opacity: 0.8;
 `;
 
 const Arrow = styled.div`
@@ -61,6 +62,7 @@ const ByWho = styled.div`
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
+  padding-top: 30px;
 `;
 
 const Content = styled.div`
