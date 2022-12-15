@@ -96,6 +96,7 @@ const ArrowRight = styled(Arrow)`
 
 const Title = styled.div`
   font-size: 40px;
+  padding: 0 40px;
   text-align: center;
 `;
 
