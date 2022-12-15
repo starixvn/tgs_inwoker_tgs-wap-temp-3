@@ -145,7 +145,7 @@ const DetailedNews = ({ newsid }) => {
           />
         </TitleContainer>
 
-        <ByWho>{reference("writer")}</ByWho>
+        <ByWho>By {reference("writer")}</ByWho>
         <Content>{reference("content2")}</Content>
       </Container>
     </div>
