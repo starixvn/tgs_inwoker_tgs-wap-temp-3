@@ -282,7 +282,7 @@ const RouteMapping = [
     navigate: true,
   },
   {
-    path: "/promotion/:id?",
+    path: "/promotion/:id",
     component: PromotionDetails,
     alert: true,
     navigate: true,

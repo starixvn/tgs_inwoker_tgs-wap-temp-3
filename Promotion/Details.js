@@ -6,11 +6,8 @@ import Header from "../../Wap/Share/Header";
 import Button from "../../Wap/Share/Button";
 import { generalAction } from "../../../api-services/actions/generalAction";
 import i18n from "../../../utils/i18n";
-
 import config from "../../../config/config";
-import { AppHistory } from "../../../history/History";
 const moment = require("moment");
-
 const PromoDetailImage = styled.div`
   height: 300px;
   width: 100%;
@@ -153,6 +150,54 @@ class Details extends Component {
         }
       }
     }
+
+    if (
+      prevProps.match.params.id !== null &&
+      this.props.match.params.id != null &&
+      prevProps.match.params.id !== this.props.match.params.id
+    ) {
+      for (var i = 0; i < this.props.general.promotionList.items.length; i++) {
+        if (
+          this.props.general.promotionList.items[i].id ===
+          this.props.match.params.id
+        ) {
+          var term = "";
+          if (this.props.general.promotionList.items[i]) {
+            if (
+              JSON.stringify(
+                this.props.general.promotionList.items[i].localization
+              ) !== "{}" &&
+              (this.props.general.promotionList.items[i].localization[
+                i18n.language
+              ] !== "" ||
+                this.props.general.promotionList.items[i].localization[
+                  i18n.language
+                ] !== null)
+            ) {
+              term = this.props.general.promotionList.items[i].localization[
+                i18n.language
+              ].terms
+                ? this.props.general.promotionList.items[i].localization[
+                    i18n.language
+                  ].terms
+                : this.props.general.promotionList.items[i].terms;
+            } else {
+              term = this.props.general.promotionList.items[i].terms || "";
+            }
+          }
+          this.setState({
+            ...this.state,
+            index: i,
+            details: this.props.general.promotionList.items[i],
+            term: term,
+            joined: false,
+            openDialog: false,
+            isTNCToggled: false,
+          });
+          break;
+        }
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -228,7 +273,7 @@ class Details extends Component {
 
     var checkIfExist = this.state.details.localization[i18n.language];
 
-    const changePage = (isLeft) => {
+    const navigatePromotion = (isLeft) => {
       var newPromotionId = "";
       var newIndex;
       if (isLeft) {
@@ -245,7 +290,9 @@ class Details extends Component {
         newPromotionId = this.props.general.promotionList.items[newIndex].id;
       }
       if (newPromotionId !== "") {
-        AppHistory.push("/" + i18n.language + "/promotion/" + newPromotionId);
+        this.props.appHistory.push({
+          pathname: "/" + i18n.language + "/promotion/" + newPromotionId,
+        });
       }
     };
 
@@ -262,13 +309,13 @@ class Details extends Component {
         <TitleContainer>
           <ArrowLeft
             onClick={() => {
-              changePage(true);
+              navigatePromotion(true);
             }}
           />
           <Title>{simplifyCode("name")}</Title>
           <ArrowRight
             onClick={() => {
-              changePage(false);
+              navigatePromotion(false);
             }}
           />
         </TitleContainer>
@@ -282,19 +329,13 @@ class Details extends Component {
                     ? checkIfExist.mobileBanner
                     : this.state.details.mobileBanner
                 }
-                onClick={() => this.handlePromoClick(this.state.details.id)}
-              ></PromoDetailImage>
+              />
             );
           } else {
-            return (
-              <PromoDetailImage
-                img={this.state.details.mobileBanner}
-                onClick={() => this.handlePromoClick(this.state.details.id)}
-              ></PromoDetailImage>
-            );
+            return <PromoDetailImage img={this.state.details.mobileBanner} />;
           }
         })()}
-        {console.log(this.state.details)}
+
         <SubTitle>{simplifyCode("subSubject")}</SubTitle>
         <TheActualContent>
           {config.features.HaveVIPFeature && (
