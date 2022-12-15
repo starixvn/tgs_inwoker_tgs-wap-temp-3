@@ -21,8 +21,7 @@ const CustomText = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  padding: 40px 20px 0 20px;
-  margin: 20px auto;
+  padding: 40px;
 `;
 
 const CustomLabel = styled.div`
@@ -41,7 +40,7 @@ const CustomLabel = styled.div`
 `;
 
 const LimitLabel = styled.span`
-  color: #747474;
+  color: #fff;
 `;
 
 const LimitAmount = styled.span`
@@ -53,16 +52,18 @@ const TransferContainer = styled.div`
   align-items: center;
 `;
 const TransferLabel = styled.div`
-  color ${GMOstyle ? "#e9a60b" : "#747474"};
+  color: #fff;
   font-size: 28px;
   float: left;
   font-weight: bold;
+  opacity: 0.8;
 `;
 const TransferValue = styled.div`
-color ${GMOstyle ? "#e9a60b" : "#747474"};
+  color: #fff;
   font-size: 28px;
   float: left;
   margin-left: 10px;
+  opacity: 0.8;
 `;
 
 const ExchangeRateContainer = styled.div`
