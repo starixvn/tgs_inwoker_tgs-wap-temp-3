@@ -5,7 +5,7 @@ import i18n from "../../../../utils/i18n";
 const AnotherWrapper = styled.div`
   width: 700px;
   min-height: 170px;
-  padding: 20px 20px 0 20px;
+  padding: 20px 0 0 0;
   margin: 20px auto;
   display: flex;
   flex-direction: column;

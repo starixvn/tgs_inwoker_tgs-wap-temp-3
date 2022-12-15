@@ -12,6 +12,7 @@ import config from "../../../config/config";
 import { utility } from "../../../utils/utility";
 import Select from "../components/select";
 import Textfield from "../components/textfield";
+import DocumentUploader from "../components/documentuploader";
 
 const GMOstyle = config.brand === "GMO";
 
@@ -514,7 +515,7 @@ class Main extends Component {
                           })}
                         </Select>
                       ) : (
-                        <Textbox
+                        <Textfield
                           style={{ margin: "20px auto 20px auto" }}
                           type={"text"}
                           placeholder={
@@ -522,7 +523,7 @@ class Main extends Component {
                               ? i18n.t("idr1.pleaseEnterAccountName")
                               : i18n.t("common.pleaseEnterAccountName")
                           }
-                          label={
+                          title={
                             config.features.Deposit_OriginAccount
                               ? i18n.t("idr1.pleaseEnterAccountName")
                               : i18n.t("common.pleaseEnterAccountName") +
@@ -537,7 +538,7 @@ class Main extends Component {
                             this.props.wallet.bankCardList.length > 1
                           }
                           onChange={(e) => this.props.handleAccountChange(e)}
-                        ></Textbox>
+                        ></Textfield>
                       )}
                     </>
                   )}
@@ -746,38 +747,15 @@ class Main extends Component {
           if (paymentCode("manual") || alteredPaymentCode("usdt")) {
             return (
               <>
-                <CustomText>
-                  <CustomLabel>{i18n.t("deposit.uploadReceipt")}</CustomLabel>
-                  <InputWrapper style={{ padding: 10 }}>
-                    <button
-                      onClick={() => {
-                        document.getElementById("getFile").click();
-                      }}
-                      style={{
-                        marginRight: 10,
-                        height: 75,
-                        minWidth: 200,
-                        fontSize: 24,
-                      }}
-                    >
-                      {i18n.t("common.upload")}
-                    </button>
-                    <input
-                      type="file"
-                      id="getFile"
-                      onChange={this.props.handleFileChange}
-                      accept="image/jpg, image/jpeg, image/png, image/tiff"
-                      style={{ display: "none" }}
-                    />
-                    {this.props.files ? (
-                      <div style={{ fontSize: 24 }}>
-                        {this.props.files[0].name}
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </InputWrapper>
-                </CustomText>
+                <DocumentUploader
+                  title={i18n.t("common.upload")}
+                  onClick={() => {
+                    document.getElementById("getFile").click();
+                  }}
+                  onChange={this.props.handleFileChange}
+                  upload={this.props.files ? this.props.files[0].name : ""}
+                />
+
                 <Remark>
                   {i18n.t(
                     config.features.Deposit_UploadRequired
