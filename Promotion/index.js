@@ -16,21 +16,10 @@ const Container = styled.div`
 `;
 
 const ListView = styled.div`
-  padding-top: 10px;
-`;
-
-const EmptyPromo = styled.div`
-  background: url(${({ image }) => {
-      return process.env.PUBLIC_URL + `/assets/images/wapp/${image}`;
-    }})
-    no-repeat;
-  background-size: cover;
-  position: relative;
-
-  margin: 10px auto;
-  border-radius: 10px;
-  width: 690px;
-  height: 240px;
+  padding-top: 20px;
+  display: grid;
+  gap: 30px;
+  padding: 0 30px;
 `;
 
 const PulseEffect = keyframes`
@@ -157,6 +146,7 @@ class Promotion extends Component {
                     process.env.PUBLIC_URL +
                     "/assets/images/promotion/chestbox.gif"
                   }
+                  alt="chestbox"
                 />
               </ChestBoxContainer>
               <PromoEmptyTextLine

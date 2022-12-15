@@ -8,33 +8,20 @@ import { generalAction } from "../../../api-services/actions/generalAction";
 import i18n from "../../../utils/i18n";
 
 import config from "../../../config/config";
+import { AppHistory } from "../../../history/History";
 const moment = require("moment");
-const Content = styled.div`
-  width: 100%;
 
-  padding: 0 30px 30px 30px;
-`;
 const PromoDetailImage = styled.div`
-  width: 750px;
-  height: 304px;
-  margin-top: 90px;
+  height: 300px;
+  width: 100%;
   background: url(${(props) => props.img}) no-repeat;
   background-size: 100% 100%;
-  position: relative;
-  margin-bottom: 20px;
-`;
-
-const EventTitle = styled.div`
-  color: #7e0000;
-  margin-bottom: 10px;
-  font-size: 28px;
-  font-family: AdobeHeitiR;
-  margin-left: -16px;
+  border-radius: 40px;
 `;
 
 const EventText = styled.div`
   font-size: 22px;
-  color: #4f4f4f;
+
   font-family: AdobeHeitiR;
   line-height: 26px;
   margin-bottom: 20px;
@@ -42,6 +29,86 @@ const EventText = styled.div`
 const PromoDesc = styled.div`
   font-size: 22px;
 `;
+
+const TheEntireWrapper = styled.div`
+  padding: 110px 30px 220px 30px;
+  background: #1b1d30;
+  color: #fff;
+  min-height: 100vh;
+`;
+
+const SubTitle = styled.div`
+  color: #fff;
+  font-size: 40px;
+  text-align: center;
+  width: 100%;
+  padding: 20px 0;
+`;
+
+const TheActualContent = styled.div`
+  padding: 40px;
+  background: #0e0f1a;
+  border-radius: 40px;
+  color: #fff;
+`;
+const TNCToggle = styled.div`
+  display: flex;
+  color: #ffffff;
+  font-weight: bold;
+  place-self: flex-start;
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+  span {
+    font-size: 28px;
+  }
+  &:before {
+    content: ${(props) => (props.active ? `"—"` : `"+"`)};
+    color: ${({ theme }) => theme.primary};
+    width: 28px;
+    height: 28px;
+    margin: 0 5px;
+    font-size: ${(props) => (props.active ? `13px` : `18px`)};
+    text-align: center;
+  }
+`;
+
+const TNCContainer = styled.div`
+  color: #ffffff;
+  padding: 0 35px;
+  margin-bottom: 40px;
+  font-size: 28px;
+`;
+
+const Arrow = styled.div`
+  mask: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/btn-back-white.png`})
+    no-repeat center;
+  background: ${({ theme }) => theme.primaryText};
+  width: 40px;
+  height: 30px;
+`;
+
+const ArrowLeft = styled(Arrow)`
+  rotate: 0deg;
+`;
+
+const ArrowRight = styled(Arrow)`
+  rotate: 180deg;
+`;
+
+const Title = styled.div`
+  font-size: 40px;
+  text-align: center;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 30px 0;
+  justify-content: space-between;
+`;
+
 class Details extends Component {
   constructor(props) {
     super(props);
@@ -68,6 +135,7 @@ class Details extends Component {
       details: details,
       index: index,
       loading: false,
+      isTNCToggled: false,
     };
 
     document.getElementsByTagName("body")[0].style.background = "#fff";
@@ -138,6 +206,10 @@ class Details extends Component {
     this.props.appHistory.replace("/" + i18n.language + "/promotion-list");
   };
 
+  handleToggleTnC = () => {
+    this.setState({ ...this.state, isTNCToggled: !this.state.isTNCToggled });
+  };
+
   render() {
     if (this.state.details === null) return <React.Fragment></React.Fragment>;
     var isDummy = this.state.details.promotionType.toUpperCase() === "DUMMY";
@@ -145,19 +217,40 @@ class Details extends Component {
     var checkIfLocalizationIsEmpty =
       JSON.stringify(this.state.details.localization) === "{}";
 
-    var contentToDisplay =
-      (!checkIfLocalizationIsEmpty &&
-        this.state.details.localization[i18n.language].content) ||
-      this.state.details.content ||
-      "";
+    const simplifyCode = (item) => {
+      return (
+        (!checkIfLocalizationIsEmpty &&
+          this.state.details.localization[i18n.language][item]) ||
+        this.state.details[item] ||
+        ""
+      );
+    };
 
-    var termsToDisplay =
-      (!checkIfLocalizationIsEmpty &&
-        this.state.details.localization[i18n.language].terms) ||
-      this.state.details.terms ||
-      "";
+    var checkIfExist = this.state.details.localization[i18n.language];
+
+    const changePage = (isLeft) => {
+      var newPromotionId = "";
+      var newIndex;
+      if (isLeft) {
+        newIndex =
+          this.state.index - 1 < 0
+            ? this.props.general.promotionList.items.length - 1
+            : this.state.index - 1;
+        newPromotionId = this.props.general.promotionList.items[newIndex].id;
+      } else {
+        newIndex =
+          this.state.index + 1 >= this.props.general.promotionList.items.length
+            ? 0
+            : this.state.index + 1;
+        newPromotionId = this.props.general.promotionList.items[newIndex].id;
+      }
+      if (newPromotionId !== "") {
+        AppHistory.push("/" + i18n.language + "/promotion/" + newPromotionId);
+      }
+    };
+
     return (
-      <div style={{ paddingBottom: 120 }}>
+      <TheEntireWrapper>
         <Header
           token={null}
           balance={0}
@@ -165,9 +258,23 @@ class Details extends Component {
           onBackClick={this.handleBackClick}
           title={i18n.t("promotion.promoDetail")}
         ></Header>
+
+        <TitleContainer>
+          <ArrowLeft
+            onClick={() => {
+              changePage(true);
+            }}
+          />
+          <Title>{simplifyCode("name")}</Title>
+          <ArrowRight
+            onClick={() => {
+              changePage(false);
+            }}
+          />
+        </TitleContainer>
+
         {(() => {
           if (this.state.details.localization !== null) {
-            var checkIfExist = this.state.details.localization[i18n.language];
             return (
               <PromoDetailImage
                 img={
@@ -187,9 +294,9 @@ class Details extends Component {
             );
           }
         })()}
-
-        <Content>
-          <EventTitle>【{i18n.t("promotion.promoDetail")}】</EventTitle>
+        {console.log(this.state.details)}
+        <SubTitle>{simplifyCode("subSubject")}</SubTitle>
+        <TheActualContent>
           {config.features.HaveVIPFeature && (
             <EventText>
               {i18n.t("promotion.promoTarget")}：
@@ -217,15 +324,29 @@ class Details extends Component {
           </EventText>
           <PromoDesc
             dangerouslySetInnerHTML={{
-              __html: "<div>" + contentToDisplay + "</div>",
+              __html: "<div>" + simplifyCode("content") + "</div>",
             }}
           />
-          <PromoDesc
-            dangerouslySetInnerHTML={{
-              __html: "<div>" + termsToDisplay + "</div>",
-            }}
-          />
-        </Content>
+        </TheActualContent>
+
+        {this.state.term !== "" && (
+          <>
+            <TNCToggle
+              onClick={this.handleToggleTnC}
+              active={this.state.isTNCToggled}
+            >
+              <span>{i18n.t("common.termsAndCondition")}</span>
+            </TNCToggle>
+            {this.state.isTNCToggled && (
+              <TNCContainer
+                dangerouslySetInnerHTML={{
+                  __html: "<div >" + simplifyCode("terms") + "</div>",
+                }}
+              ></TNCContainer>
+            )}
+          </>
+        )}
+
         {!isDummy && (
           <Button
             style={{ margin: "40px auto 0 auto" }}
@@ -238,7 +359,7 @@ class Details extends Component {
             }
           ></Button>
         )}
-      </div>
+      </TheEntireWrapper>
     );
   }
 }

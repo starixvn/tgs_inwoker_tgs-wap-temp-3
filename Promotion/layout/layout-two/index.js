@@ -7,6 +7,7 @@ const ListItem = styled.div`
   background-size: 100% 100%;
   position: relative;
   width: 100%;
+  border-radius: 40px;
   height: 280px;
 `;
 

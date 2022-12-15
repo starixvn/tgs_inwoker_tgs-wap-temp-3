@@ -6,11 +6,13 @@ const ListItem = styled.div`
   background: url(${(props) => props.src}) no-repeat right top;
   background-size: 100% 100%;
   position: relative;
+  border-radius: 40px;
 
-  margin: 10px auto;
-  border-radius: 10px;
-  width: 690px;
-  height: 280px;
+  height: 300px;
+  width: 100%;
+
+  background-size: 100% 100%;
+  border-radius: 40px;
 `;
 const LayoutOne = (props) => {
   return props.promotionList.items
