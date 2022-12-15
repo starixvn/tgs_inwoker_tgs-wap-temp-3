@@ -9,6 +9,7 @@ import { accountAction } from "../../../api-services/actions/accountAction";
 import { AccountService } from "../../../api-services/services/AccountService";
 
 import i18n from "../../../utils/i18n";
+import TextfieldWithButton from "../components/textfieldwithbutton";
 class ChangeEmail extends BaseProfile {
   componentDidMount() {
     this.setState({
@@ -157,7 +158,7 @@ class ChangeEmail extends BaseProfile {
           disabled={this.state.currentStep === 1}
           label={i18n.t("common.emailAddress")}
         ></Textbox>
-        <TextboxWithButton
+        <TextfieldWithButton
           buttonlabel={
             this.state.countdownToken <= 0
               ? i18n.t("common.msgSendToken")
@@ -174,7 +175,7 @@ class ChangeEmail extends BaseProfile {
           label={i18n.t("common.token")}
           onClick={this.handleGetCodeClick}
           maxLength={6}
-        ></TextboxWithButton>
+        ></TextfieldWithButton>
       </React.Fragment>,
       this.state.currentStep === 1
         ? i18n.t("common.nextStep")

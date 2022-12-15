@@ -32,27 +32,6 @@ const CustomInput = styled.div`
   margin: 20px auto;
 `;
 
-const DropdownSection = styled.div`
-  height: 100%;
-  width: 125px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 0 50px 50px 0;
-  z-index: 0;
-
-  ${({ variant }) => {
-    switch (variant) {
-      case "bordered":
-        return "border-left: solid 2px #fff;";
-      case "secondary":
-        return "background: #fff;";
-      default:
-        return "";
-    }
-  }};
-`;
-
 const CustomLabel = styled.div`
   font-size: 24px;
   font-weight: 600;
@@ -66,15 +45,6 @@ const CustomLabel = styled.div`
       : theme.secondary;
   }};
   float: left;
-`;
-
-const CustomContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 20px 0;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
 `;
 
 const Button = styled.div`
@@ -102,7 +72,8 @@ const TextfieldWithButton = ({
 }) => {
   return (
     <CustomInput>
-      <CustomLabel>{title}</CustomLabel>
+      {title && <CustomLabel>{title}</CustomLabel>}
+
       <SelectContainer>
         <CustomInputfield
           value={value}

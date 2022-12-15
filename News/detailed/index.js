@@ -22,18 +22,49 @@ const ImageWrapper = styled.div`
 
 const ContentText = styled.div`
   font-size: 28px;
+  display: grid;
+  grid-template-column: 1fr;
+  gap: 20px;
+  line-break: anywhere;
+  line-height: 40px;
+`;
+
+const Arrow = styled.div`
+  mask: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/btn-back-white.png`})
+    no-repeat center;
+  background: ${({ theme }) => theme.primaryText};
+  width: 40px;
+  height: 30px;
+`;
+
+const ArrowLeft = styled(Arrow)`
+  rotate: 0deg;
+`;
+
+const ArrowRight = styled(Arrow)`
+  rotate: 180deg;
 `;
 
 const Title = styled.div`
   font-size: 40px;
   text-align: center;
-  padding: 20px 0 0px 0;
+  padding: 20px 40px 0px 40px;
 `;
 
 const ByWho = styled.div`
   font-size: 28px;
   text-align: center;
   padding: 20px 0;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Content = styled.div`
+  padding-top: 20px;
 `;
 
 const DetailedNews = ({ newsid }) => {
@@ -53,7 +84,7 @@ const DetailedNews = ({ newsid }) => {
           return (
             <ContentText
               dangerouslySetInnerHTML={{
-                __html: "<div>" + data[content] + "</div>",
+                __html: data[content],
               }}
             ></ContentText>
           );
@@ -61,6 +92,24 @@ const DetailedNews = ({ newsid }) => {
           return data[content];
         }
       });
+  };
+
+  const changePage = (nextprev) => {
+    if (nextprev === "next") {
+      if (parseInt(id) + 1 > hardcodeNews.length) {
+        AppHistory.push("/" + i18n.language + "/news/1");
+      } else {
+        AppHistory.push("/" + i18n.language + "/news/" + (parseInt(id) + 1));
+      }
+    }
+
+    if (nextprev === "prev") {
+      if (parseInt(id) - 1 <= 0) {
+        AppHistory.push("/" + i18n.language + "/news/" + hardcodeNews.length);
+      } else {
+        AppHistory.push("/" + i18n.language + "/news/" + (parseInt(id) - 1));
+      }
+    }
   };
 
   return (
@@ -80,9 +129,22 @@ const DetailedNews = ({ newsid }) => {
             ".jpg"
           }
         />
-        <Title>{reference("title")}</Title>
+        <TitleContainer>
+          <ArrowLeft
+            onClick={() => {
+              changePage("prev");
+            }}
+          />
+          <Title>{reference("title")}</Title>
+          <ArrowRight
+            onClick={() => {
+              changePage("next");
+            }}
+          />
+        </TitleContainer>
+
         <ByWho>{reference("writer")}</ByWho>
-        <div>{reference("content2")}</div>
+        <Content>{reference("content2")}</Content>
       </Container>
     </div>
   );
