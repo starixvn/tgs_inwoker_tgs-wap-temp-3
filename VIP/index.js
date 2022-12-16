@@ -13,6 +13,7 @@ const Container = styled.div`
   overflow: hidden;
   min-height: 100vh;
   padding: 20px;
+  padding-bottom: 120px;
   color: #fff;
 `;
 
@@ -125,92 +126,92 @@ const VIP = (props) => {
     <Container>
       <Header title="VIP" onBackClick={handleBackClick}></Header>
       <div style={{ height: 90 }} />
+      {<VIPTable data={vipBenefitList} />}
+
       {
-        // <VIPTable data={vipBenefitList} />
+        //
+        //
+        //  vipBenefit.items && vipBenefit.items.length > 0 && (
+        //    <Contents>
+        //      {vipBenefit.items && vipBenefit.items.length > 0 && (
+        //        <VipEmblemHolder>
+        //          {vipBenefitList.map((data, index) => {
+        //            return (
+        //              <VipEmlemContainer
+        //                key={index}
+        //                total={vipBenefit.items.length}
+        //                selected={display === index}
+        //              >
+        //                <VipEmblem
+        //                  onClick={() => {
+        //                    setDisplay(index);
+        //                  }}
+        //                  src={
+        //                    process.env.PUBLIC_URL +
+        //                    `/assets/images/vip/${data.level}.svg`
+        //                  }
+        //                />
+        //                <VIPText>{getVIPTitle(data.level)}</VIPText>
+        //              </VipEmlemContainer>
+        //            );
+        //          })}
+        //        </VipEmblemHolder>
+        //      )}
+        //      {vipBenefit.items && vipBenefit.items.length > 0 && (
+        //        <div>
+        //          {vipBenefitList.map((data, index) => {
+        //            return (
+        //              <ContentDisplayer show={index === display}>
+        //                <CustomTable>
+        //                  <Left style={{ marginTop: 15 }}>
+        //                    {i18n.t("vip.levelKeepAccumulateBetAmount")}
+        //                  </Left>
+        //                  <Right style={{ marginTop: 15 }}>
+        //                    {Common.addComma(data.levelKeepAccumulateBetAmount)}
+        //                  </Right>
+        //                  <Left> {i18n.t("vip.levelKeepAccumulateDeposit")}</Left>
+        //                  <Right>
+        //                    {Common.addComma(data.levelKeepAccumulateDeposit)}
+        //                  </Right>
+        //                  <Left>{i18n.t("vip.levelUpAccumulateBetAmount")}</Left>
+        //                  <Right>
+        //                    {Common.addComma(data.levelUpAccumulateBetAmount)}
+        //                  </Right>
+        //                  <Left>{i18n.t("vip.levelUpAccumulateDeposit")}</Left>
+        //                  <Right>
+        //                    {Common.addComma(data.levelUpAccumulateDeposit)}
+        //                  </Right>
+        //                  <Left> {i18n.t("vip.birthBenefit")}</Left>
+        //                  <Right>{Common.addComma(data.birthBenefit)}</Right>
+        //                  <Left>{i18n.t("vip.promotionBenefit")}</Left>
+        //                  <Right>{Common.addComma(data.promotionBenefit)}</Right>
+        //                  <Left> {i18n.t("vip.quarterlyBenefit")}</Left>
+        //                  <Right>{Common.addComma(data.quarterlyBenefit)}</Right>
+        //                  <Left style={{ marginTop: 50 }}>
+        //                    <BoldText>{i18n.t("vip.vipBenefit")}</BoldText>
+        //                  </Left>
+        //                  <Right></Right>
+        //                  <Left>{i18n.t("vip.cardGameRebate")} </Left>
+        //                  <Right>{data.cardGameRebate}% </Right>
+        //                  <Left>{i18n.t("vip.liveDealerRebate")} </Left>
+        //                  <Right>{data.liveDealerRebate}% </Right>
+        //                  <Left>{i18n.t("vip.lotteryRebate")} </Left>
+        //                  <Right>{data.lotteryRebate}% </Right>
+        //                  <Left>{i18n.t("vip.slotRebate")} </Left>
+        //                  <Right>{data.slotRebate}% </Right>
+        //                  <Left>{i18n.t("vip.sportsRebate")} </Left>
+        //                  <Right>{data.sportsRebate}% </Right>
+        //                  <Left>{i18n.t("vip.virtualSportsRebate")} </Left>
+        //                  <Right>{data.virtualSportsRebate}% </Right>
+        //                </CustomTable>
+        //              </ContentDisplayer>
+        //            );
+        //          })}
+        //        </div>
+        //      )}
+        //    </Contents>
+        //  )
       }
-
-      {vipBenefit.items && vipBenefit.items.length > 0 && (
-        <Contents>
-          {vipBenefit.items && vipBenefit.items.length > 0 && (
-            <VipEmblemHolder>
-              {vipBenefitList.map((data, index) => {
-                return (
-                  <VipEmlemContainer
-                    key={index}
-                    total={vipBenefit.items.length}
-                    selected={display === index}
-                  >
-                    <VipEmblem
-                      onClick={() => {
-                        setDisplay(index);
-                      }}
-                      src={
-                        process.env.PUBLIC_URL +
-                        `/assets/images/vip/${data.level}.svg`
-                      }
-                    />
-                    <VIPText>{getVIPTitle(data.level)}</VIPText>
-                  </VipEmlemContainer>
-                );
-              })}
-            </VipEmblemHolder>
-          )}
-          {vipBenefit.items && vipBenefit.items.length > 0 && (
-            <div>
-              {vipBenefitList.map((data, index) => {
-                return (
-                  <ContentDisplayer show={index === display}>
-                    <CustomTable>
-                      <Left style={{ marginTop: 15 }}>
-                        {i18n.t("vip.levelKeepAccumulateBetAmount")}
-                      </Left>
-                      <Right style={{ marginTop: 15 }}>
-                        {Common.addComma(data.levelKeepAccumulateBetAmount)}
-                      </Right>
-                      <Left> {i18n.t("vip.levelKeepAccumulateDeposit")}</Left>
-                      <Right>
-                        {Common.addComma(data.levelKeepAccumulateDeposit)}
-                      </Right>
-                      <Left>{i18n.t("vip.levelUpAccumulateBetAmount")}</Left>
-                      <Right>
-                        {Common.addComma(data.levelUpAccumulateBetAmount)}
-                      </Right>
-                      <Left>{i18n.t("vip.levelUpAccumulateDeposit")}</Left>
-                      <Right>
-                        {Common.addComma(data.levelUpAccumulateDeposit)}
-                      </Right>
-                      <Left> {i18n.t("vip.birthBenefit")}</Left>
-                      <Right>{Common.addComma(data.birthBenefit)}</Right>
-                      <Left>{i18n.t("vip.promotionBenefit")}</Left>
-                      <Right>{Common.addComma(data.promotionBenefit)}</Right>
-                      <Left> {i18n.t("vip.quarterlyBenefit")}</Left>
-                      <Right>{Common.addComma(data.quarterlyBenefit)}</Right>
-
-                      <Left style={{ marginTop: 50 }}>
-                        <BoldText>{i18n.t("vip.vipBenefit")}</BoldText>
-                      </Left>
-                      <Right></Right>
-
-                      <Left>{i18n.t("vip.cardGameRebate")} </Left>
-                      <Right>{data.cardGameRebate}% </Right>
-                      <Left>{i18n.t("vip.liveDealerRebate")} </Left>
-                      <Right>{data.liveDealerRebate}% </Right>
-                      <Left>{i18n.t("vip.lotteryRebate")} </Left>
-                      <Right>{data.lotteryRebate}% </Right>
-                      <Left>{i18n.t("vip.slotRebate")} </Left>
-                      <Right>{data.slotRebate}% </Right>
-                      <Left>{i18n.t("vip.sportsRebate")} </Left>
-                      <Right>{data.sportsRebate}% </Right>
-                      <Left>{i18n.t("vip.virtualSportsRebate")} </Left>
-                      <Right>{data.virtualSportsRebate}% </Right>
-                    </CustomTable>
-                  </ContentDisplayer>
-                );
-              })}
-            </div>
-          )}
-        </Contents>
-      )}
     </Container>
   );
 };

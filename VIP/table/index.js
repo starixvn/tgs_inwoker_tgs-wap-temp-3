@@ -24,12 +24,19 @@ const TheRewards = styled.div`
 const TheRewardStuffs = styled.div`
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
+  grid-template-rows: 77px ${({ total }) => {
+      total.map((data, index) => {
+        return "auto ";
+      });
+    }};
   overflow: auto;
-  gap: 40px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Data = styled.div`
   min-width: max-content;
+  text-align: center;
 `;
 
 const VipEmlemContainer = styled.div`
@@ -56,7 +63,19 @@ const VIPText = styled.div`
   font-weight: bold;
 `;
 
-const WithMinHeight = styled(Data)``;
+const WithMinHeight = styled(Data)`
+  max-height: 77px;
+  background: #27273f;
+  padding: 20px 40px;
+`;
+
+const WithLeftBorderRadius = styled(WithMinHeight)`
+  border-radius: 40px 0 0 40px;
+`;
+
+const WithRightBorderRadius = styled(WithMinHeight)`
+  border-radius: 0 40px 40px 0;
+`;
 
 const getVIPTitle = (level) => {
   if (config.features.VIP_CustomLevel_BUNNY && level < 7)
@@ -68,7 +87,7 @@ const VIPTable = ({ data }) => {
   return (
     <TableWrapper>
       <TheLogo>
-        <WithMinHeight>{i18n.t("vip.level")}</WithMinHeight>
+        <WithLeftBorderRadius>{i18n.t("vip.level")}</WithLeftBorderRadius>
         {data &&
           data.length &&
           data.map((data, index) => {
@@ -87,7 +106,7 @@ const VIPTable = ({ data }) => {
       </TheLogo>
 
       <TheRewards>
-        <TheRewardStuffs>
+        <TheRewardStuffs total={data}>
           <WithMinHeight>
             {i18n.t("vip.levelKeepAccumulateBetAmount")}
           </WithMinHeight>
@@ -108,7 +127,9 @@ const VIPTable = ({ data }) => {
           <WithMinHeight>{i18n.t("vip.lotteryRebate")}</WithMinHeight>
           <WithMinHeight>{i18n.t("vip.slotRebate")}</WithMinHeight>
           <WithMinHeight>{i18n.t("vip.sportsRebate")}</WithMinHeight>
-          <WithMinHeight>{i18n.t("vip.virtualSportsRebate")}</WithMinHeight>
+          <WithRightBorderRadius>
+            {i18n.t("vip.virtualSportsRebate")}
+          </WithRightBorderRadius>
           {data &&
             data.length &&
             data.map((data, index) => {
