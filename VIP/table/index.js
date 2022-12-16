@@ -6,7 +6,7 @@ import i18n from "../../../../utils/i18n";
 
 const TableWrapper = styled.div`
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 35% 65%;
   color: #fff;
   font-size: 28px;
 `;
@@ -25,9 +25,10 @@ const TheRewardStuffs = styled.div`
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
   grid-template-rows: 77px ${({ total }) => {
-      total.map((data, index) => {
-        return "auto ";
-      });
+      total &&
+        total.map((data, index) => {
+          return "auto ";
+        });
     }};
   overflow: auto;
   justify-content: center;
