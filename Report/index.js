@@ -95,7 +95,7 @@ const DataHeader = styled.div`
 const DataRowId = styled.div`
   width: 100%;
   min-height: 40px;
-  padding: 14px 0px 0px 0px;
+  padding: 8px;
   font-weight: 600;
   font-size: 26px;
 `;
@@ -145,6 +145,11 @@ const NoRecordContainer = styled.div`
   margin: 300px auto;
 `;
 
+const DatePickerTitle = styled.div`
+  color: #fff;
+  font-size: 24px;
+  padding: 10px 0;
+`;
 const CustomFormControl = withStyles((theme) => ({
   root: {
     "& fieldset": {
@@ -229,7 +234,7 @@ const CustomTab = styled.div`
 const CustomDatepicker = styled.div`
   background: transparent;
   border: solid 1px #fff;
-
+  position: relative;
   border-radius: 50px;
 
   padding: 10px 20px;
@@ -248,6 +253,19 @@ const CustomDatepicker = styled.div`
 
 const DateTimeDisplay = styled.div``;
 
+const CalendarIcon = styled.div`
+  mask: url(${process.env.PUBLIC_URL +
+  "/assets/images/wapp/icons/calendar.svg"});
+  background: #fff;
+  height: 30px;
+  width: 30px;
+  mask-repeat: no-repeat;
+  mask-size: 100%;
+  position: absolute;
+  right: 20px;
+  top: 18px;
+`;
+
 const CustomWinLose = styled.span`
   color: ${({ value }) => {
     return value === 0 ? "" : value > 0 ? "rgb(3,189, 0)" : "rgb(255, 0, 0)";
@@ -264,7 +282,6 @@ const AnotherCustomDataRow = styled.div`
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
   padding-bottom: 20px;
-  border-bottom: 2px solid #d7d7d7;
 `;
 
 const FlatStraightLine = styled.div`
@@ -1057,6 +1074,7 @@ class Report extends Component {
         </CustomTabs>
 
         <DateContainer>
+          <DatePickerTitle>{i18n.t("report.date")}</DatePickerTitle>
           <FlatStraightLine>
             <DateInner>
               <CustomDatepicker>
@@ -1074,6 +1092,7 @@ class Report extends Component {
                     onChange={this.handleDateFromChange}
                   />
                 </MuiPickersUtilsProvider>
+                <CalendarIcon />
               </CustomDatepicker>
             </DateInner>
             <DateSpliter>-</DateSpliter>
@@ -1093,7 +1112,8 @@ class Report extends Component {
                     value={this.state.dateTo}
                     onChange={this.handleDateToChange}
                   />
-                </MuiPickersUtilsProvider>
+                </MuiPickersUtilsProvider>{" "}
+                <CalendarIcon />
               </CustomDatepicker>
             </DateInner>
           </FlatStraightLine>
@@ -1312,13 +1332,13 @@ class Report extends Component {
                     return <NoRecordContainer language={i18n.language} />;
                   } else {
                     return (
-                      <DataContent>
+                      <>
                         {this.state.dataList.map((row, index) => {
                           const date = moment(row.createdOn).format(
                             "YYYY-MM-DD hh:mm a"
                           );
                           return (
-                            <React.Fragment key={index}>
+                            <DataContent key={index}>
                               <DataRowId>
                                 {i18n.t("report.betid")} :{" "}
                                 <IDCell>{row.id}</IDCell>
@@ -1350,10 +1370,10 @@ class Report extends Component {
                                   </IDCell>
                                 </AnotherCustomDataRow>
                               </DataRowId>
-                            </React.Fragment>
+                            </DataContent>
                           );
                         })}
-                      </DataContent>
+                      </>
                     );
                   }
                 })()}
@@ -1377,13 +1397,13 @@ class Report extends Component {
                     return <NoRecordContainer language={i18n.language} />;
                   } else {
                     return (
-                      <DataContent>
+                      <>
                         {this.state.dataList.map((row, index) => {
                           const date = moment(row.createdon).format(
                             "YYYY-MM-DD hh:mm a"
                           );
                           return (
-                            <React.Fragment key={index}>
+                            <DataContent key={index}>
                               <DataRowId>
                                 {i18n.t("report.NewOrderNumber")} :{" "}
                                 <IDCell>{row.orderno}</IDCell>
@@ -1399,10 +1419,10 @@ class Report extends Component {
                                   {row.amount}
                                 </DataDateCellAmount>
                               </DataRow>
-                            </React.Fragment>
+                            </DataContent>
                           );
                         })}
-                      </DataContent>
+                      </>
                     );
                   }
                 })()}
@@ -1416,13 +1436,13 @@ class Report extends Component {
                     return <NoRecordContainer language={i18n.language} />;
                   } else {
                     return (
-                      <DataContent>
+                      <>
                         {this.state.dataList.map((row, index) => {
                           const date = moment(row.createdon).format(
                             "YYYY-MM-DD hh:mm a"
                           );
                           return (
-                            <React.Fragment key={index}>
+                            <DataContent key={index}>
                               <DataRowId>
                                 {i18n.t("report.NewOrderNumber")} :{" "}
                                 <IDCell>{row.orderno}</IDCell>
@@ -1449,10 +1469,10 @@ class Report extends Component {
                                   <DateTimeDisplay>{date}</DateTimeDisplay>
                                 </DataRowId>
                               </DataRow>
-                            </React.Fragment>
+                            </DataContent>
                           );
                         })}
-                      </DataContent>
+                      </>
                     );
                   }
                 })()}
