@@ -14,14 +14,13 @@ import Select from "../components/select";
 import Textfield from "../components/textfield";
 import DocumentUploader from "../components/documentuploader";
 
-const GMOstyle = config.brand === "GMO";
-
 const CustomText = styled.div`
   width: 700px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  padding: 40px;
+  padding: 40px 20px 0 20px;
+  opacity: 0.75;
 `;
 
 const CustomLabel = styled.div`
