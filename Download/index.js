@@ -6,6 +6,7 @@ import config from "../../../config/config";
 import QRCode from "react-qr-code";
 import { utility } from "../../../utils/utility";
 import Header from "../Share/Header";
+import { AppHistory } from "../../../history/History";
 
 const Container = styled.div`
   width: 100%;
@@ -239,7 +240,7 @@ const Download = ({ alert }) => {
     }
   }
   const handleBackClick = () => {
-    this.props.appHistory.replace("/" + i18n.language + "/promotion-list");
+    AppHistory.push("/" + i18n.language + "/promotion-list");
   };
 
   const fakeData = [
