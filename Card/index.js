@@ -13,6 +13,7 @@ import Common from "../../../utils/Common";
 import config from "../../../config/config";
 const Container = styled.div`
   width: 100%;
+  padding: 110px 0px 200px 0;
 `;
 
 const BalanceLabel = styled.div`
@@ -171,7 +172,7 @@ class Card extends Component {
         <Header
           onBackClick={this.handleBackClick}
           title={i18n.t("wap.main.account.manageBank")}
-          position={"sticky"}
+          position={"fixed"}
           backgroundColor={"transparent"}
         ></Header>
         <BalanceLabel>
