@@ -8,6 +8,7 @@ const PageLabel = styled.div`
   }};
   width: 100%;
   font-size: 30px;
+  text-transform: uppercase;
   color: ${({ theme }) =>
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
 `;
