@@ -305,35 +305,52 @@ class Login extends Component {
       }
     });
   };
-  doLoginWithHp = async (username, password, phone, areacode) => {
+  doLoginWithHp = async (
+    username,
+    password,
+    phone,
+    areacode,
+    setPhoneDontCareDuplicate
+  ) => {
     this.setState({ ...this.state, loading: true });
     const result = await this.props.accountLogin(username, password);
     if (result.IsSuccess) {
-      this.props
-        .newRegister("InitPhone", {
-          input: "Init",
-          data: {
+      if (setPhoneDontCareDuplicate) {
+        await this.props
+          .newRegister("SetPhoneDontCareDuplicate", {
             areacode: areacode,
             phone: phone,
-          },
-        })
-        .then(async (response) => {
-          if (response.IsSuccess) {
-            this.props
-              .newRegister("InitPhone", {
-                input: "Valid",
-                data: {
-                  securitykey: response.data.stepResponse,
-                  validatecode: "123456",
-                },
-              })
-              .then(async (response) => {
-                this.handleLoginSuccess(result.data);
-              });
-          } else {
+          })
+          .then(async (response) => {
             this.handleLoginSuccess(result.data);
-          }
-        });
+          });
+      } else {
+        this.props
+          .newRegister("InitPhone", {
+            input: "Init",
+            data: {
+              areacode: areacode,
+              phone: phone,
+            },
+          })
+          .then(async (response) => {
+            if (response.IsSuccess) {
+              this.props
+                .newRegister("InitPhone", {
+                  input: "Valid",
+                  data: {
+                    securitykey: response.data.stepResponse,
+                    validatecode: "123456",
+                  },
+                })
+                .then(async (response) => {
+                  this.handleLoginSuccess(result.data);
+                });
+            } else {
+              this.handleLoginSuccess(result.data);
+            }
+          });
+      }
     }
   };
   doLoginWithHpEmail = async (username, password, phone, areacode, email) => {
@@ -341,16 +358,38 @@ class Login extends Component {
 
     const result = await this.props.accountLogin(username, password);
     if (result.IsSuccess) {
-      AccountService.Activation(username, password, areacode, phone).then(
-        async (response) => {
-          if (response.IsSuccess) {
-            AccountService.VerifyActivation(response.data, "123456");
-          }
-        }
-      );
-      AccountService.ActivationEmail(email).then(async (response) => {
+      AccountService.NewRegister("InitPhone", {
+        input: "Init",
+        data: {
+          areacode: areacode,
+          phone: phone,
+        },
+      }).then(async (response) => {
         if (response.IsSuccess) {
-          AccountService.VerifyActivationEmail(response.data, "123456");
+          AccountService.NewRegister("InitPhone", {
+            input: "Valid",
+            data: {
+              securitykey: response.data,
+              validatecode: "123456",
+            },
+          });
+        }
+      });
+
+      AccountService.NewRegister("InitMail", {
+        input: "Init",
+        data: {
+          email: email,
+        },
+      }).then(async (response) => {
+        if (response.IsSuccess) {
+          AccountService.NewRegister("InitMail", {
+            input: "Init",
+            data: {
+              securitykey: response.data,
+              validatecode: "123456",
+            },
+          });
         }
       });
       this.handleLoginSuccess(result.data);
@@ -550,12 +589,14 @@ class Login extends Component {
       const result = await this.props.accountLogin(username, password);
       if (result.IsSuccess) {
         this.props.getAccountInfo();
-        AccountService.Activation(
-          "",
-          "",
-          this.state.areaCode,
-          this.state.phone
-        ).then(async (response) => {
+
+        AccountService.NewRegister("InitPhone", {
+          input: "Init",
+          data: {
+            areacode: this.state.areaCode,
+            phone: this.state.phone,
+          },
+        }).then(async (response) => {
           if (response.IsSuccess) {
             this.smsVerification(securityKey, "123456");
           } else {
@@ -585,9 +626,11 @@ class Login extends Component {
   handleGetCodeClick = async () => {
     const username = this.state.username;
     const password = this.state.password;
+
     const countdown = this.state.countdown;
     const areacode = this.state.areaCode;
     const phone = this.state.phone;
+
     var result = null;
 
     if (countdown <= 0) {
@@ -614,25 +657,30 @@ class Login extends Component {
         );
         return;
       }
-
+      // if(!isLoggedIn)
+      // {
       result = await AccountService.Login(username, password);
-
+      // }
       if (result !== null && result.IsSuccess /*|| isLoggedIn*/) {
-        AccountService.Activation("", "", areacode, phone).then(
-          async (response) => {
-            if (response.IsSuccess) {
-              this.props.alert("", i18n.t("common.msgTokenSent"));
-              this.setState({
-                ...this.state,
-                countdown: 60,
-                securityKey: response.data,
-              });
-              this.checkCountdown();
-            } else {
-              this.props.alert("", response.info);
-            }
+        AccountService.NewRegister("InitPhone", {
+          input: "Init",
+          data: {
+            areacode: areacode,
+            phone: phone,
+          },
+        }).then(async (response) => {
+          if (response.IsSuccess) {
+            this.props.alert("", i18n.t("common.msgTokenSent"));
+            this.setState({
+              ...this.state,
+              countdown: 60,
+              securityKey: response.data,
+            });
+            this.checkCountdown();
+          } else {
+            this.props.alert("", response.info);
           }
-        );
+        });
       }
     }
   };
@@ -829,7 +877,13 @@ class Login extends Component {
                 setPhoneDontCareDuplicate
               );
             } else if (config.features.Register_ShowPhone) {
-              this.doLoginWithHp(username, password, phone, areaCode);
+              this.doLoginWithHp(
+                username,
+                password,
+                phone,
+                areaCode,
+                setPhoneDontCareDuplicate
+              );
             } else {
               this.doLogin(username, password);
             }
