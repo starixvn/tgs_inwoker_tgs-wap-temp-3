@@ -164,7 +164,7 @@ const ProviderContainer = styled.div`
   padding: 0 40px;
   color: #fff;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
 `;
 
