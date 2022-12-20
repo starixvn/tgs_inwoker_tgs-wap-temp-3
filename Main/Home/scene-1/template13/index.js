@@ -346,6 +346,20 @@ const ListItem = styled.div`
   height: 280px;
 `;
 
+const WhiteLogo = styled.div`
+  width: 200px;
+  height: 120px;
+
+  background: #ffffff;
+  background-position: left center;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  mask: url("${(props) => props.src}");
+  mask-position: left center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+`;
 const WinnerListxx = styled.div`
   display: flex;
   gap: 20px;
@@ -867,6 +881,13 @@ const Template13 = ({
               type="game"
               icon="pg"
             >
+              <div style={{ display: "flex", justifyContent: " center" }}>
+                <img
+                  src={general.brand.mobileLogoUrl}
+                  alt="logo"
+                  style={{ height: 100 }}
+                />
+              </div>
               {i18n
                 .t("T13.brandDescription")
                 .replace("{brandName}", config.brandName)}
@@ -876,7 +897,7 @@ const Template13 = ({
               type="game"
               icon="about"
             >
-              <img
+              <WhiteLogo
                 src={general.brand.mobileLogoUrl}
                 alt="logo"
                 style={{ height: 100 }}
