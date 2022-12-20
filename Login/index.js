@@ -369,7 +369,7 @@ class Login extends Component {
           AccountService.NewRegister("InitPhone", {
             input: "Valid",
             data: {
-              securitykey: response.data,
+              securitykey: response.data.stepResponse,
               validatecode: "123456",
             },
           });
@@ -386,7 +386,7 @@ class Login extends Component {
           AccountService.NewRegister("InitMail", {
             input: "Init",
             data: {
-              securitykey: response.data,
+              securitykey: response.data.stepResponse,
               validatecode: "123456",
             },
           });
@@ -674,7 +674,7 @@ class Login extends Component {
             this.setState({
               ...this.state,
               countdown: 60,
-              securityKey: response.data,
+              securitykey: response.data.stepResponse,
             });
             this.checkCountdown();
           } else {
