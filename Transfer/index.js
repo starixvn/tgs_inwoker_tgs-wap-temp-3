@@ -166,6 +166,7 @@ const ProviderContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
+  padding-bottom: 200px;
 `;
 
 const ProviderWrapper = styled.div`
