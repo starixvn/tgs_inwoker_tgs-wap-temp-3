@@ -216,7 +216,7 @@ const Variant3 = ({
                 onBackClick={handleBackClick}
                 title={i18n.t("common.back")}
               ></Header>
-              <Title>Login</Title>
+              <Title>{i18n.t("common.login")}</Title>
               <Textfield
                 icon={
                   process.env.PUBLIC_URL +
@@ -295,7 +295,7 @@ const Variant3 = ({
                 onBackClick={handleBackClick}
                 title={i18n.t("common.back")}
               ></Header>
-              <Title>Register</Title>
+              <Title>{i18n.t("common.register")}</Title>
               <Textfield
                 icon={
                   process.env.PUBLIC_URL +

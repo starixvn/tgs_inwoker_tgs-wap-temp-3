@@ -472,7 +472,9 @@ class My extends Component {
             </ProfileMenuWrapper>
           </ProfileMenuHolder>
           <div className="clear"></div>
-          <LogoutButton onClick={this.handleLogoutClick}>SIGN OUT</LogoutButton>
+          <LogoutButton onClick={this.handleLogoutClick}>
+            {i18n.t("web.header.logout")}
+          </LogoutButton>
         </ListView>
       </Container>
     );

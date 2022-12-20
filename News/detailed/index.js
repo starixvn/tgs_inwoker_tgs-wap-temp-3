@@ -119,7 +119,7 @@ const DetailedNews = ({ newsid }) => {
       <Header
         background={true}
         onBackClick={goBack}
-        title={i18n.t("T2.marquee")}
+        title={i18n.t("T13.topNews")}
       ></Header>
       <Container>
         <ImageWrapper

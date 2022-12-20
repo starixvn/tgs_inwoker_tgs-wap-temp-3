@@ -835,7 +835,7 @@ const Template13 = ({
             <ContentWrapper title="jackpot" icon="jackpot">
               <Jackpot />
             </ContentWrapper>
-            <ContentWrapper title="winners" icon="winners">
+            <ContentWrapper title={i18n.t("T13.winner")} icon="winners">
               <WinnerList list={list} />
             </ContentWrapper>
             <ContentWrapper title={i18n.t("T13.topNews")} icon="news">
@@ -871,7 +871,11 @@ const Template13 = ({
                 .t("T13.brandDescription")
                 .replace("{brandName}", config.brandName)}
             </ContentWrapper>
-            <ContentWrapper title="About us " type="game" icon="about">
+            <ContentWrapper
+              title={i18n.t("T13.aboutUs")}
+              type="game"
+              icon="about"
+            >
               <img
                 src={general.brand.mobileLogoUrl}
                 alt="logo"
@@ -881,10 +885,18 @@ const Template13 = ({
                 .t("T13.belongTo")
                 .replace("{version}", process.env.REACT_APP_VERSION)}
             </ContentWrapper>
-            <ContentWrapper title="Quick link" type="game" icon="links">
+            <ContentWrapper
+              title={i18n.t("T13.quickLink.title")}
+              type="game"
+              icon="links"
+            >
               <QuickLinks navigateTo={navigateTo} />
             </ContentWrapper>
-            <ContentWrapper title="Partners" type="game" icon="partners">
+            <ContentWrapper
+              title={i18n.t("T13.partners")}
+              type="game"
+              icon="partners"
+            >
               <Partners provider={game.providerList} />
             </ContentWrapper>
           </>
