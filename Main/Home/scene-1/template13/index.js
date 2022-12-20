@@ -649,7 +649,7 @@ const Template13 = ({
                     .map((data, index) => {
                       return (
                         <option key={index} value={data.gpcode}>
-                          {data.gpcode}
+                          {data.name}
                         </option>
                       );
                     })}
