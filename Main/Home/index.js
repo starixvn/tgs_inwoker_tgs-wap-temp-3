@@ -81,8 +81,7 @@ const DownloadButton = styled.div`
     theme.downloadButtonBorder
       ? theme.downloadButtonBorder
       : `solid 3px ${theme.wapPrimary ? theme.wapPrimary : theme.primary}`}
-  background: ${({ theme }) =>
-    theme.downloadButtonBg ? theme.downloadButtonBg : `#fff`};
+  background: ${({ theme }) => theme.primary};
   border-radius:  ${({ theme }) =>
     theme.downloadButtonBorderRad ? theme.downloadButtonBorderRad : `50px`};
   width: 100px;
