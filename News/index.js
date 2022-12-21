@@ -31,6 +31,7 @@ const NewsSite = () => {
               data={data}
               onClick={() => {
                 AppHistory.push("/" + i18n.language + "/news/" + data.id);
+                window.scrollTo(0, 0);
               }}
             />
           );
