@@ -586,9 +586,19 @@ class Transfer extends Component {
           </AutoTransferContainer>
           <ProviderContainer>
             {this.props.game.providerList
+
               .filter(
                 (item) => item.status === 0 && item.transferwallet === true
               )
+              .filter((e) => {
+                if (config.features.MergeEVORTNT) {
+                  if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF")) {
+                    return e;
+                  }
+                } else {
+                  return e;
+                }
+              })
 
               .map((item, index) => (
                 <ProviderWrapper value={item.gpcode} key={index}>
@@ -615,9 +625,11 @@ class Transfer extends Component {
                           (data) => data.abbreviation === item.abbreviation
                         )
 
-                        .map((e) =>
-                          Common.formatNumberWithThousand(e.balance)
-                        )}`}
+                        .map((e) => {
+                          return Common.formatNumberWithThousand(
+                            e.balance || 0
+                          );
+                        })}`}
                     </TheBalance>
                   </ItemAlignerWithGap>
                 </ProviderWrapper>
