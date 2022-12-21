@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import config from "../../../../config/config";
 import Common from "../../../../utils/Common";
@@ -38,6 +38,18 @@ const TheRewardStuffs = styled.div`
 const Data = styled.div`
   min-width: max-content;
   text-align: center;
+`;
+
+const AnotherData = styled(Data)`
+  @supports (-webkit-touch-callout: none) {
+    min-height: ${({ height }) => {
+      return height + 100 + "px";
+    }};
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const VipEmlemContainer = styled.div`
@@ -85,6 +97,13 @@ const getVIPTitle = (level) => {
 };
 
 const VIPTable = ({ data }) => {
+  const emblemref = useRef();
+  var emblemheight = emblemref.current && emblemref.current.clientHeight;
+
+  const DataWrapper = ({ children }) => {
+    return <AnotherData height={emblemheight}>{children}</AnotherData>;
+  };
+
   return (
     <TableWrapper>
       <TheLogo>
@@ -95,6 +114,7 @@ const VIPTable = ({ data }) => {
             return (
               <VipEmlemContainer>
                 <VipEmblem
+                  ref={emblemref}
                   src={
                     process.env.PUBLIC_URL +
                     `/assets/images/vip/${data.level}.svg`
@@ -136,25 +156,43 @@ const VIPTable = ({ data }) => {
             data.map((data, index) => {
               return (
                 <>
-                  <Data>
+                  <DataWrapper>
                     {Common.addComma(data.levelKeepAccumulateBetAmount)}
-                  </Data>
-                  <Data>
+                  </DataWrapper>
+                  <DataWrapper>
                     {Common.addComma(data.levelKeepAccumulateDeposit)}
-                  </Data>
-                  <Data>
+                  </DataWrapper>
+                  <DataWrapper>
                     {Common.addComma(data.levelUpAccumulateBetAmount)}
-                  </Data>
-                  <Data>{Common.addComma(data.levelUpAccumulateDeposit)}</Data>
-                  <Data>{Common.addComma(data.birthBenefit)}</Data>
-                  <Data>{Common.addComma(data.promotionBenefit)}</Data>
-                  <Data>{Common.addComma(data.quarterlyBenefit)}</Data>
-                  <Data>{Common.addComma(data.cardGameRebate)}</Data>
-                  <Data>{Common.addComma(data.liveDealerRebate)}</Data>
-                  <Data>{Common.addComma(data.lotteryRebate)}</Data>
-                  <Data>{Common.addComma(data.slotRebate)}</Data>
-                  <Data>{Common.addComma(data.sportsRebate)}</Data>
-                  <Data>{Common.addComma(data.virtualSportsRebate)}</Data>
+                  </DataWrapper>
+                  <DataWrapper>
+                    {Common.addComma(data.levelUpAccumulateDeposit)}
+                  </DataWrapper>
+                  <DataWrapper>
+                    {Common.addComma(data.birthBenefit)}
+                  </DataWrapper>
+                  <DataWrapper>
+                    {Common.addComma(data.promotionBenefit)}
+                  </DataWrapper>
+                  <DataWrapper>
+                    {Common.addComma(data.quarterlyBenefit)}
+                  </DataWrapper>
+                  <DataWrapper>
+                    {Common.addComma(data.cardGameRebate)}
+                  </DataWrapper>
+                  <DataWrapper>
+                    {Common.addComma(data.liveDealerRebate)}
+                  </DataWrapper>
+                  <DataWrapper>
+                    {Common.addComma(data.lotteryRebate)}
+                  </DataWrapper>
+                  <DataWrapper>{Common.addComma(data.slotRebate)}</DataWrapper>
+                  <DataWrapper>
+                    {Common.addComma(data.sportsRebate)}
+                  </DataWrapper>
+                  <DataWrapper>
+                    {Common.addComma(data.virtualSportsRebate)}
+                  </DataWrapper>
                 </>
               );
             })}
