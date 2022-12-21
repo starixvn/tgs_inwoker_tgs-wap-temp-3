@@ -38,8 +38,10 @@ const ContentHolder = styled.div`
 
 const TheGamesOrContent = styled.div`
   background: url(${({ background }) => {
-    return background;
-  }});
+      return background;
+    }})
+    no-repeat center;
+  background-size: 100%;
   height: 300px;
   position: relative;
   border-radius: 50px;
