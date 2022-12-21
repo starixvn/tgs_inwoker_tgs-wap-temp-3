@@ -600,40 +600,52 @@ class Transfer extends Component {
                 }
               })
 
-              .map((item, index) => (
-                <ProviderWrapper value={item.gpcode} key={index}>
-                  <ItemAligner>
-                    <TheProviderImages
-                      src={
-                        process.env.PUBLIC_URL +
-                        `/assets/images/provider/${item.abbreviation.toLowerCase()}.png`
-                      }
-                    />
-                    <GameProviderName>
-                      <Textfit max={25}>{this.gpNameSwitcher(item)}</Textfit>
-                    </GameProviderName>
-                  </ItemAligner>
-                  <ItemAlignerWithGap>
-                    <TransferInButton
-                      onClick={() => this.handleTranferIn(item.gpcode)}
-                    >
-                      {i18n.t("transfer.oneKeyTransferIn")}
-                    </TransferInButton>
-                    <TheBalance>
-                      {`${this.state.walletBalance
-                        .filter(
-                          (data) => data.abbreviation === item.abbreviation
-                        )
+              .map((item, index) => {
+                const displayLogo = () => {
+                  if (
+                    item.gpcode.toLowerCase() === "evotf" &&
+                    config.features.MergeEVORTNT
+                  ) {
+                    return "evontrt";
+                  } else {
+                    return item.abbreviation.toLowerCase();
+                  }
+                };
+                return (
+                  <ProviderWrapper value={item.gpcode} key={index}>
+                    <ItemAligner>
+                      <TheProviderImages
+                        src={
+                          process.env.PUBLIC_URL +
+                          `/assets/images/provider/${displayLogo()}.png`
+                        }
+                      />
+                      <GameProviderName>
+                        <Textfit max={25}>{this.gpNameSwitcher(item)}</Textfit>
+                      </GameProviderName>
+                    </ItemAligner>
+                    <ItemAlignerWithGap>
+                      <TransferInButton
+                        onClick={() => this.handleTranferIn(item.gpcode)}
+                      >
+                        {i18n.t("transfer.oneKeyTransferIn")}
+                      </TransferInButton>
+                      <TheBalance>
+                        {`${this.state.walletBalance
+                          .filter(
+                            (data) => data.abbreviation === item.abbreviation
+                          )
 
-                        .map((e) => {
-                          return Common.formatNumberWithThousand(
-                            e.balance || 0
-                          );
-                        })}`}
-                    </TheBalance>
-                  </ItemAlignerWithGap>
-                </ProviderWrapper>
-              ))}
+                          .map((e) => {
+                            return Common.formatNumberWithThousand(
+                              e.balance || 0
+                            );
+                          })}`}
+                      </TheBalance>
+                    </ItemAlignerWithGap>
+                  </ProviderWrapper>
+                );
+              })}
           </ProviderContainer>
         </div>
         <Loading
