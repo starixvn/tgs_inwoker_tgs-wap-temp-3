@@ -97,7 +97,7 @@ const VIPTable = ({ data }) => {
                 <VipEmblem
                   src={
                     process.env.PUBLIC_URL +
-                    `/assets/images/vip/${data.level}.png`
+                    `/assets/images/vip/${data.level}.svg`
                   }
                 />
                 <VIPText>{getVIPTitle(data.level)}</VIPText>
