@@ -842,6 +842,7 @@ const Template13 = ({
                   label={i18n.t("common.more")}
                   onClick={() => {
                     AppHistory.push("/" + i18n.language + "/promotion-list");
+                    window.scrollTo(0, 0);
                   }}
                 />
               </div>
