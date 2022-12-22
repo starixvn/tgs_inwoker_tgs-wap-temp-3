@@ -572,7 +572,9 @@ class Withdrawal extends Component {
             <Textfield
               style={{ margin: "50px auto 20px auto" }}
               value={this.state.amount}
+              pattern="\d*"
               onChange={this.handleChangeAmount}
+              type={"number"}
               placeholder={
                 this.state.selectedBankCardIndex
                   ? i18n.t("withdrawal.enterAmount") +
@@ -582,7 +584,6 @@ class Withdrawal extends Component {
                   : i18n.t("withdrawal.enterAmount")
               }
               title={i18n.t("common.amount")}
-              type={"number"}
             ></Textfield>
           </CustomPlaceholderWrapper>
           {(() => {
@@ -607,6 +608,7 @@ class Withdrawal extends Component {
                     }
                     title={i18n.t("withdrawal.usdtAmount")}
                     type={"number"}
+                    pattern="\d*"
                     disabled={true}
                   ></Textfield>
                 </React.Fragment>

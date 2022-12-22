@@ -581,6 +581,7 @@ class Main extends Component {
           value={this.props.amount}
           onChange={this.props.handleAmountChange}
           type={"number"}
+          pattern="\d*"
           placeholder={i18n.t("deposit.plsEnterDepositAmount")}
           title={i18n.t("deposit.depositAmount")}
           custom={

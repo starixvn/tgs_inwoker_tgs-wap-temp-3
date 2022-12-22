@@ -544,6 +544,8 @@ class Transfer extends Component {
               placeholder={i18n.t("transfer.msgEnterAmount")}
               onChange={this.handleTransferAmountChanged}
               value={this.state.transferAmount}
+              type={"number"}
+              pattern="\d*"
             />
             <Button
               label={i18n.t("common.confirm")}
