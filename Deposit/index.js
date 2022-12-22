@@ -242,7 +242,9 @@ class Deposit extends Component {
   async componentDidMount() {
     if (this.props.token != null) {
       await this.props.getDepositMethod().then((e) => {
-        this.props.alert("", ErrorSwitcher.getTranslation(e.data.errmsgid));
+        if (!e.IsSuccess) {
+          this.props.alert("", ErrorSwitcher.getTranslation(e.data.errmsgid));
+        }
       });
       this.props.getPromotion();
       if (this.state.paymentId) {
