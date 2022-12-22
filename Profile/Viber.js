@@ -34,7 +34,7 @@ class Viber extends BaseProfile {
     const viber = this.state.viber;
     this.showLoading(true);
     //api
-    AccountService.UpdateIM(viber, "viber")
+    AccountService.UpdateIM(viber, "viber", "viber")
       .then((response) => {
         if (response.IsSuccess) {
           this.props.getAccountProfile().then((responseUpdate) => {

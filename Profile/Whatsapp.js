@@ -38,7 +38,7 @@ class Whatsapp extends BaseProfile {
 
     this.showLoading(true);
     //api
-    AccountService.UpdateIM(whatsapp, "whatsapp")
+    AccountService.UpdateIM(whatsapp, "whatsapp", "whatsapp")
       .then((response) => {
         if (response.IsSuccess) {
           this.props.getAccountProfile().then((responseUpdate) => {

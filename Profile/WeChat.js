@@ -42,7 +42,7 @@ class WeChat extends BaseProfile {
 
     this.showLoading(true);
     //api
-    AccountService.UpdateIM(wechat, "wechat")
+    AccountService.UpdateIM(wechat, "wechat", "wechat")
       .then((response) => {
         if (response.IsSuccess) {
           this.props.getAccountProfile().then((responseUpdate) => {
