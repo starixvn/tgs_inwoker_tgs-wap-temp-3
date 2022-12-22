@@ -42,6 +42,7 @@ const Data = styled.div`
 
 const AnotherData = styled(Data)`
   @supports (-webkit-touch-callout: none) {
+    min-height: 300px;
     min-height: ${({ height }) => {
       return height + 100 + "px";
     }};
