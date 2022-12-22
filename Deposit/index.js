@@ -25,6 +25,7 @@ import config from "../../../config/config";
 import Main from "./Main";
 import MainHKJP from "./MainHKJP";
 import PopupAnnouncement from "../../Share/PopupAnnouncement";
+import ErrorSwitcher from "../../../utils/ErrorSwitcher";
 const Container = styled.div`
   padding-top: 85px;
   padding-bottom: 120px;
@@ -240,7 +241,9 @@ class Deposit extends Component {
 
   async componentDidMount() {
     if (this.props.token != null) {
-      await this.props.getDepositMethod();
+      await this.props.getDepositMethod().then((e) => {
+        this.props.alert("", ErrorSwitcher.getTranslation(e.data.errmsgid));
+      });
       this.props.getPromotion();
       if (this.state.paymentId) {
         WalletService.PerformGetManualDepositDetail(this.state.paymentId).then(
@@ -1082,16 +1085,6 @@ class Deposit extends Component {
             </React.Fragment>
           );
         })()}
-        <StyledModalPopup
-          onClose={this.props.hideAlert}
-          open={this.props.wallet.message !== ""}
-        >
-          <DialoTitle>{i18n.t("common.info")}</DialoTitle>
-          <DialoMessage>{this.props.wallet.message}</DialoMessage>
-          <ButtonConfirm onClick={this.props.hideAlert}>
-            {i18n.t("common.confirm")}
-          </ButtonConfirm>
-        </StyledModalPopup>
         <Loading show={this.props.wallet.depositLoading}></Loading>
       </Container>
     );
