@@ -17,6 +17,7 @@ import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import Common from "../../../utils/Common";
 import Textfield from "../components/textfield";
+import Select from "../components/select";
 const Container = styled.div`
   width: 100%;
 `;
@@ -529,44 +530,43 @@ class AddCard extends Component {
         ></Header>
         <ContentPadding>
           {!config.features.AddCard_HideCertainField && (
-            <Textfield
+            <Select
               style={{ margin: "20px auto 20px auto" }}
-              value={
-                !this.state.isDeposit &&
-                this.props.wallet.withdrawalList.length > 0
-                  ? this.props.wallet.withdrawalList[
-                      this.state.selectedBankTypeIndex
-                    ].banktype
-                  : this.state.isDeposit &&
-                    this.props.wallet.depositList.length > 0
-                  ? this.props.wallet.depositList[
-                      this.state.selectedBankTypeIndex
-                    ].banktype
-                  : ""
-              }
-              onClick={() =>
-                this.setState({ ...this.state, bankTypeOpen: true })
-              }
+              value={this.state.selectedBankTypeIndex}
+              onChange={(e) => this.handleBankTypeClick(e.target.value)}
               type={"text"}
               title={i18n.t("common.withdrawalBankType")}
               disabled={true}
-            ></Textfield>
+            >
+              {!this.state.isDeposit
+                ? this.props.wallet.withdrawalList.length > 0 &&
+                  this.props.wallet.withdrawalList.map((item, index) => {
+                    return (
+                      <option button value={index} key={index}>
+                        {item.banktype}
+                      </option>
+                    );
+                  })
+                : this.props.wallet.depositList.length > 0 &&
+                  this.props.wallet.depositList.map((item, index) => {
+                    return (
+                      <option
+                        button
+                        key={index}
+                        onClick={() => this.handleBankTypeClick(index)}
+                      >
+                        {item.banktype}
+                      </option>
+                    );
+                  })}
+            </Select>
           )}
 
           {!config.features.AddCard_HideChannel && (
-            <Textfield
+            <Select
               style={{ margin: "20px auto 20px auto" }}
-              value={
-                this.state.channelList.length > 0
-                  ? i18n.t(
-                      this.state.channelList[this.state.selectedChannelIndex]
-                        .channelname
-                    )
-                  : ""
-              }
-              onClick={() =>
-                this.setState({ ...this.state, channelOpen: true })
-              }
+              value={this.state.selectedChannelIndex}
+              onChange={(e) => this.handleChannelClick(e.target.value)}
               type={"text"}
               title={
                 config.features.AddCard_Bank_Custom_IDR &&
@@ -584,7 +584,15 @@ class AddCard extends Component {
                   : i18n.t("common.withdrawalChannel")
               }
               disabled={true}
-            ></Textfield>
+            >
+              {this.state.channelList.map((item, index) => {
+                return (
+                  <option button value={index} key={index}>
+                    {i18n.t(item.channelname)}
+                  </option>
+                );
+              })}
+            </Select>
           )}
 
           {(() => {
