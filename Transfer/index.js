@@ -478,7 +478,8 @@ class Transfer extends Component {
               value={this.state.fromWallet}
             >
               <option value={this.state.mainAccountId}>
-                {i18n.t("transfer.mainAccount")}
+                {i18n.t("transfer.mainAccount")} (
+                {Common.formatNumberWithCommas(this.props.wallet.mainBalance)})
               </option>
               {this.props.game.providerList
                 .filter(
@@ -508,7 +509,8 @@ class Transfer extends Component {
             <ArrowDown />
             <Select onChange={this.handleToWallet} value={this.state.toWallet}>
               <option value={this.state.mainAccountId}>
-                {i18n.t("transfer.mainAccount")}
+                {i18n.t("transfer.mainAccount")} (
+                {Common.formatNumberWithCommas(this.props.wallet.mainBalance)})
               </option>
               {this.props.game.providerList
                 .filter(
