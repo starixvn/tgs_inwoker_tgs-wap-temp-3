@@ -231,11 +231,7 @@ const AppBarExtrator = ({
   };
 
   const handleLogout = () => {
-    accountLogout(account.token).then((response) => {
-      if (response.IsSuccess) {
-        navigate("/" + i18n.language + "/login");
-      }
-    });
+    accountLogout(account.token).then((response) => {});
   };
 
   return (

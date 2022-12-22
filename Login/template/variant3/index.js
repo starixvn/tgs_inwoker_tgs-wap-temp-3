@@ -419,8 +419,9 @@ const Variant3 = ({
                     : i18n.t("common.register")
                 }
                 minWidth="400px"
-                onClick={handleRegisterClick}
-                disableButton={!tnc}
+                onClick={() => {
+                  handleRegisterClick();
+                }}
               ></Button>
               <ButtonHolder>
                 <div style={{ color: "white", fontSize: 24 }}>

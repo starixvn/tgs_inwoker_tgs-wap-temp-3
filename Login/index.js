@@ -71,7 +71,7 @@ class Login extends Component {
     withdrawalPassword: "",
     confirmWithdrawalPassword: "",
     confirmPassword: "",
-    tnc: true,
+    tnc: false,
     rememberMe: false,
     loading: false,
     code: "",
@@ -709,6 +709,7 @@ class Login extends Component {
     const promotion_id = this.state.promoId;
     const upper = this.state.upper;
     const tnc = this.state.tnc;
+
     var expr = /^[a-zA-Z0-9]{6,16}$/;
     if (!expr.test(username)) {
       this.props.alert("", i18n.t("common.msgRegisterUserNameInvalid"));
@@ -726,6 +727,7 @@ class Login extends Component {
 
       return;
     }
+
     var expr = new RegExp(
       `^[0-9]{8,${config.features.MAX_PHONE_LENGTH || 10}}`
     );
@@ -787,6 +789,8 @@ class Login extends Component {
             this.setState({ ...this.state, loading: false });
           }
         });
+    } else {
+      this.props.alert("", i18n.t("common.msgRegisterTermAndCondition"));
     }
   };
 
@@ -837,6 +841,10 @@ class Login extends Component {
 
         return;
       }
+    }
+
+    if (tnc === false) {
+      this.props.alert("", i18n.t("common.msgRegisterTermAndCondition"));
     }
 
     if (tnc) {
