@@ -399,9 +399,9 @@ const Template13 = ({
     return Common.formatNumberWithCommas(amount);
   };
 
-  const [jackpotAmount, setJackpotAmount] = useState(
-    generateJackpotAmount({ min: 200000, max: 5000000 })
-  );
+  const initialJackpotAmount = 1822085;
+
+  const [jackpotAmount, setJackpotAmount] = useState(initialJackpotAmount);
 
   var gameTypeToDisplayDifferently = (selectedGameType) => {
     return (
@@ -410,6 +410,21 @@ const Template13 = ({
       selectedGameType[0] === GameTypeEnum.TABLEGAME
     );
   };
+
+  useEffect(() => {
+    const updateJackpotAmount = () => {
+      if (jackpotAmount < 9999999.99) {
+        setJackpotAmount((currentJackpotAmount) => currentJackpotAmount + 0.01);
+      } else {
+        setJackpotAmount(initialJackpotAmount);
+      }
+    };
+
+    const interval = setInterval(updateJackpotAmount, 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  });
 
   const randomize = (array) => {
     const randomIndex = Math.floor(Math.random() * array.length);
@@ -422,7 +437,7 @@ const Template13 = ({
       <JackpotWrapper>
         <JackpotGif></JackpotGif>
         <JackpotContainer>
-          {config.currency} {jackpotAmount}
+          {config.currency} {Common.formatNumberWithCommas(jackpotAmount)}
         </JackpotContainer>
       </JackpotWrapper>
     );
