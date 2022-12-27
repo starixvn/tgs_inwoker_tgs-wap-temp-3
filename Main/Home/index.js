@@ -280,6 +280,8 @@ class Home extends Component {
     return list.filter((val) => this.state.gameTypeListSorting.includes(val));
   }
 
+  cockfightBrandList = ["SM01"];
+
   formatSortedGameList() {
     var currentType = -1;
     var gameTypeListSorting = [];
@@ -297,6 +299,10 @@ class Home extends Component {
         return a.type - b.type;
       })
       .map((row, index) => {
+        if (this.cockfightBrandList.includes(row.game_platform_name)) {
+          row.type = GameTypeEnum.COCKFIGHT;
+        }
+
         if (currentType !== row.type) {
           gameTypeListSorting.push(row.type);
         }
@@ -450,6 +456,8 @@ class Home extends Component {
 
   convertGameTypeToText = (gameType) => {
     switch (gameType) {
+      case GameTypeEnum.COCKFIGHT:
+        return i18n.t("common.cockfight");
       case GameTypeEnum.LIVE:
         return i18n.t("wap.main.home.gameTab.live");
       case GameTypeEnum.LIVELOBBY:
@@ -505,6 +513,8 @@ class Home extends Component {
         return "slot";
       case GameTypeEnum.TABLEGAME:
         return "table";
+      case GameTypeEnum.COCKFIGHT:
+        return "cockfight";
       default:
         return "";
     }
@@ -624,6 +634,19 @@ class Home extends Component {
       sortingSKY: 2,
       sortingWLGHK: 2,
       sortingPISO: 7,
+    },
+    {
+      path: `cockfight`,
+      title: "common.cockfight",
+      type: [GameTypeEnum.COCKFIGHT],
+      big: false,
+      sorting: 9,
+      sortingGMO: 9,
+      sortingHK28: 9,
+      sortingPB: 9,
+      sortingSKY: 9,
+      sortingWLGHK: 9,
+      sortingBUNNY: 9,
     },
   ];
 
@@ -750,6 +773,19 @@ class Home extends Component {
       sortingWLGHK: 8,
       sortingPISO: 8,
       sortingBUNNY: 7,
+    },
+    {
+      path: `cockfight`,
+      title: "common.cockfight",
+      type: [GameTypeEnum.COCKFIGHT],
+      big: false,
+      sorting: 9,
+      sortingGMO: 9,
+      sortingHK28: 9,
+      sortingPB: 9,
+      sortingSKY: 9,
+      sortingWLGHK: 9,
+      sortingBUNNY: 9,
     },
   ];
 
