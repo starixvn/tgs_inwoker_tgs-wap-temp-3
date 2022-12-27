@@ -294,28 +294,30 @@ const Variant3 = ({
                   {i18n.t("wap.main.home.steps.step1")}
                 </DownloadButton>
               </ButtonHolder>
-              <LanguageWrapper>
-                {(() => {
-                  return brandLanguage.map((lang, index) => {
-                    return (
-                      <React.Fragment>
-                        <div
-                          selected={i18n.language === lang.culturecode}
-                          onClick={() => handleChangeLanguage(lang)}
-                        >
-                          {i18n.t("lang." + lang.culturecode)}
-                        </div>
-
-                        {brandLanguage.length - 1 !== index ? (
-                          <div> | </div>
-                        ) : (
-                          ""
-                        )}
-                      </React.Fragment>
-                    );
-                  });
-                })()}
-              </LanguageWrapper>
+              {
+                //     <LanguageWrapper>
+                //     {(() => {
+                //       return brandLanguage.map((lang, index) => {
+                //         return (
+                //           <React.Fragment>
+                //             <div
+                //               selected={i18n.language === lang.culturecode}
+                //               onClick={() => handleChangeLanguage(lang)}
+                //             >
+                //               {i18n.t("lang." + lang.culturecode)}
+                //             </div>
+                //
+                //             {brandLanguage.length - 1 !== index ? (
+                //               <div> | </div>
+                //             ) : (
+                //               ""
+                //             )}
+                //           </React.Fragment>
+                //         );
+                //       });
+                //     })()}
+                //   </LanguageWrapper>
+              }
             </Container>
           );
         } else if (selected === 1) {
@@ -468,28 +470,30 @@ const Variant3 = ({
                   {i18n.t("common.login")}
                 </DownloadButton>
               </ButtonHolder>{" "}
-              <LanguageWrapper>
-                {(() => {
-                  return brandLanguage.map((lang, index) => {
-                    return (
-                      <React.Fragment>
-                        <div
-                          selected={i18n.language === lang.culturecode}
-                          onClick={() => handleChangeLanguage(lang)}
-                        >
-                          {i18n.t("lang." + lang.culturecode)}
-                        </div>
-
-                        {brandLanguage.length - 1 !== index ? (
-                          <div> | </div>
-                        ) : (
-                          ""
-                        )}
-                      </React.Fragment>
-                    );
-                  });
-                })()}
-              </LanguageWrapper>
+              {
+                //     <LanguageWrapper>
+                //     {(() => {
+                //       return brandLanguage.map((lang, index) => {
+                //         return (
+                //           <React.Fragment>
+                //             <div
+                //               selected={i18n.language === lang.culturecode}
+                //               onClick={() => handleChangeLanguage(lang)}
+                //             >
+                //               {i18n.t("lang." + lang.culturecode)}
+                //             </div>
+                //
+                //             {brandLanguage.length - 1 !== index ? (
+                //               <div> | </div>
+                //             ) : (
+                //               ""
+                //             )}
+                //           </React.Fragment>
+                //         );
+                //       });
+                //     })()}
+                //   </LanguageWrapper>
+              }
             </Container>
           );
         } else if (selected === 2) {
