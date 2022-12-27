@@ -145,7 +145,7 @@ const Title = styled.div`
   font-weight: bold;
   font-style: italic;
   text-align: center;
-  padding: 200px 0 100px 0;
+  padding: 150px 0 100px 0;
   text-transform: uppercase;
   width: 100%;
 `;
@@ -155,6 +155,16 @@ const ContentGap = styled.div`
   justify-content: space-between;
   padding: 0 30px 0 20px;
   margin-bottom: 100px;
+`;
+
+const LanguageWrapper = styled.div`
+  display: flex;
+  text-align: center;
+  color: ${({ theme }) => theme.loginText};
+  font-size: 28px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Variant3 = ({
@@ -197,6 +207,8 @@ const Variant3 = ({
   handleCodeChange,
   handleGetCodeClick,
   handleActivationClick,
+  brandLanguage,
+  handleChangeLanguage,
 }) => {
   const handleBackClick = () => {
     AppHistory.push("/");
@@ -282,6 +294,28 @@ const Variant3 = ({
                   {i18n.t("wap.main.home.steps.step1")}
                 </DownloadButton>
               </ButtonHolder>
+              <LanguageWrapper>
+                {(() => {
+                  return brandLanguage.map((lang, index) => {
+                    return (
+                      <React.Fragment>
+                        <div
+                          selected={i18n.language === lang.culturecode}
+                          onClick={() => handleChangeLanguage(lang)}
+                        >
+                          {i18n.t("lang." + lang.culturecode)}
+                        </div>
+
+                        {brandLanguage.length - 1 !== index ? (
+                          <div> | </div>
+                        ) : (
+                          ""
+                        )}
+                      </React.Fragment>
+                    );
+                  });
+                })()}
+              </LanguageWrapper>
             </Container>
           );
         } else if (selected === 1) {
@@ -419,9 +453,8 @@ const Variant3 = ({
                     : i18n.t("common.register")
                 }
                 minWidth="400px"
-                onClick={() => {
-                  handleRegisterClick();
-                }}
+                onClick={handleRegisterClick}
+                disableButton={!tnc}
               ></Button>
               <ButtonHolder>
                 <div style={{ color: "white", fontSize: 24 }}>
@@ -434,7 +467,29 @@ const Variant3 = ({
                 >
                   {i18n.t("common.login")}
                 </DownloadButton>
-              </ButtonHolder>
+              </ButtonHolder>{" "}
+              <LanguageWrapper>
+                {(() => {
+                  return brandLanguage.map((lang, index) => {
+                    return (
+                      <React.Fragment>
+                        <div
+                          selected={i18n.language === lang.culturecode}
+                          onClick={() => handleChangeLanguage(lang)}
+                        >
+                          {i18n.t("lang." + lang.culturecode)}
+                        </div>
+
+                        {brandLanguage.length - 1 !== index ? (
+                          <div> | </div>
+                        ) : (
+                          ""
+                        )}
+                      </React.Fragment>
+                    );
+                  });
+                })()}
+              </LanguageWrapper>
             </Container>
           );
         } else if (selected === 2) {
