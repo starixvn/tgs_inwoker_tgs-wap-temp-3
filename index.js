@@ -470,6 +470,10 @@ class Wap extends Component {
   async componentDidMount() {
     const urlpath = this.props.location.pathname.split("/");
 
+    document.addEventListener("gesturestart", function (e) {
+      e.preventDefault();
+    });
+
     if (urlpath.length === 4) {
       if (urlpath[2] === "a") {
         localStorage.setItem("promotionId", urlpath[3] || "");
