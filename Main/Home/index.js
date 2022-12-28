@@ -17,6 +17,7 @@ import PromotionRoulette from "./PromotionRoulette";
 import { walletAction } from "../../../../api-services/actions/walletAction";
 
 import AppBarExtrator from "../../components/appbar";
+import { GameService } from "../../../../api-services/services/GameService";
 const StyledAppBar = withStyles({
   root: {
     boxShadow: "none",
@@ -407,7 +408,18 @@ class Home extends Component {
       this.props.appHistory.push("/" + i18n.language + "/login");
       return;
     }
-    if (
+    if (type === GameTypeEnum.COCKFIGHT && params === "SM01") {
+      this.popup = window.open("", "Cockfight");
+      GameService.GetCockfight()
+        .then((e) => {
+          this.popup.document.write(e.data);
+          this.popup.document.close();
+          this.popup.focus();
+        })
+        .catch((e) => {
+          this.popup.close();
+        });
+    } else if (
       type === GameTypeEnum.SLOT ||
       type === GameTypeEnum.TIGERSLOT ||
       type === GameTypeEnum.TABLEGAME ||
@@ -418,6 +430,7 @@ class Home extends Component {
       if (document.getElementById("audio") != null)
         document.getElementById("audio").volume = 0;
       Common.closePreviousPopup();
+      // this.performBalanceRefresh();
       Common.PopupCenter(
         "/" + i18n.language + "/joinlobbygame/" + type + "/" + params,
         "gamewindow"
