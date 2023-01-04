@@ -281,7 +281,7 @@ class Home extends Component {
     return list.filter((val) => this.state.gameTypeListSorting.includes(val));
   }
 
-  cockfightBrandList = ["SM01"];
+  cockfightBrandList = ["SM01", "AWC_COCKFIGHT"];
 
   formatSortedGameList() {
     var currentType = -1;
