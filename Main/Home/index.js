@@ -408,17 +408,31 @@ class Home extends Component {
       this.props.appHistory.push("/" + i18n.language + "/login");
       return;
     }
-    if (type === GameTypeEnum.COCKFIGHT && params === "SM01") {
-      this.popup = window.open("", "Cockfight");
-      GameService.GetCockfight()
-        .then((e) => {
-          this.popup.document.write(e.data);
-          this.popup.document.close();
-          this.popup.focus();
-        })
-        .catch((e) => {
-          this.popup.close();
-        });
+    if (type === GameTypeEnum.COCKFIGHT) {
+      if (params === "SM01") {
+        this.popup = window.open("", "Cockfight");
+        GameService.GetCockfight()
+          .then((e) => {
+            this.popup.document.write(e.data);
+            this.popup.document.close();
+            this.popup.focus();
+          })
+          .catch((e) => {
+            this.popup.close();
+          });
+      } else {
+        Common.closePreviousPopup();
+        // this.performBalanceRefresh();
+        Common.PopupCenter(
+          "/" +
+            i18n.language +
+            "/joinlobbygame/" +
+            GameTypeEnum.SPORTS +
+            "/" +
+            params,
+          "gamewindow"
+        );
+      }
     } else if (
       type === GameTypeEnum.SLOT ||
       type === GameTypeEnum.TIGERSLOT ||
