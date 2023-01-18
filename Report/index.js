@@ -22,7 +22,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
-
+import ErrorSwitcher from "../../../utils/ErrorSwitcher";
 const moment = require("moment");
 const localeMap = {
   zh: zhLocale,
@@ -305,7 +305,7 @@ class Report extends Component {
       selectedType:
         this.props.match.params.tab &&
         parseInt(this.props.match.params.tab) > 0 &&
-        parseInt(this.props.match.params.tab) <= 6
+        parseInt(this.props.match.params.tab) <= 8
           ? parseInt(this.props.match.params.tab)
           : 2,
       loading: false,
@@ -353,6 +353,11 @@ class Report extends Component {
         dateTo: today,
         dateRange: 0,
       },
+      tab8: {
+        dateFrom: today,
+        dateTo: today,
+        dateRange: 0,
+      },
 
       dateRange: 0,
       pageSize: 20,
@@ -387,6 +392,10 @@ class Report extends Component {
       label: i18n.t("common.transfer"),
     },
     {
+      index: 8,
+      label: i18n.t("report.balanceChanges.title"),
+    },
+    {
       index: 7,
       label: i18n.t("report.joinedPromo.title"),
     },
@@ -404,6 +413,10 @@ class Report extends Component {
     {
       index: 4,
       label: i18n.t("report.depositDetails"),
+    },
+    {
+      index: 8,
+      label: i18n.t("report.balanceChanges.title"),
     },
     {
       index: 7,
@@ -441,6 +454,8 @@ class Report extends Component {
       this.handleGetTransferReportTrigger(this.state.page);
     } else if (this.state.selectedType === 7) {
       this.handleGetJoinedPromo(this.state.page);
+    } else if (this.state.selectedType === 8) {
+      this.handleBalanceChanges(this.state.page);
     }
   }
   componentDidUpdate(preProps, preState) {
@@ -516,6 +531,15 @@ class Report extends Component {
         preState.selectedType !== this.state.selectedType
       ) {
         this.handleGetJoinedPromo(this.state.page);
+      }
+    } else if (this.state.selectedType === 8) {
+      if (
+        preState.dateFrom !== this.state.dateFrom ||
+        preState.dateTo !== this.state.dateTo ||
+        preState.page !== this.state.page ||
+        preState.selectedType !== this.state.selectedType
+      ) {
+        this.handleBalanceChanges(this.state.page);
       }
     }
   }
@@ -606,6 +630,14 @@ class Report extends Component {
             dateRange: this.state.dateRange,
           },
         };
+      } else if (this.state.selectedType === 8) {
+        json = {
+          tab8: {
+            dateFrom: this.state.dateFrom,
+            dateTo: this.state.dateTo,
+            dateRange: this.state.dateRange,
+          },
+        };
       }
       if (newValue === 1) {
         setDateJson = {
@@ -652,6 +684,12 @@ class Report extends Component {
           dateFrom: this.state.tab6.dateFrom,
           dateTo: this.state.tab6.dateTo,
           dateRange: this.state.tab6.dateRange,
+        };
+      } else if (newValue === 8) {
+        setDateJson = {
+          dateFrom: this.state.tab8.dateFrom,
+          dateTo: this.state.tab8.dateTo,
+          dateRange: this.state.tab8.dateRange,
         };
       }
       window.scrollTo({ top: 0 });
@@ -973,6 +1011,37 @@ class Report extends Component {
     });
   };
 
+  handleBalanceChanges = (page) => {
+    this.setState({ ...this.state, loading: true });
+    ReportService.GetBalanceChanges(
+      moment(this.state.dateFrom).utc().format(),
+      moment(this.state.dateTo).utc().add(1, "days").format(),
+      page,
+      this.state.pageSize
+    ).then((response) => {
+      if (response.IsSuccess) {
+        const dataList =
+          page > 1
+            ? this.state.dataList.concat(response.data.items)
+            : response.data.items;
+        this.setState({
+          ...this.state,
+          dataList: dataList,
+          loading: false,
+
+          isMaxPage: response.data.totalcount === dataList.length,
+        });
+      } else {
+        this.props.alert("", response.info);
+        this.setState({
+          ...this.state,
+
+          loading: false,
+        });
+      }
+    });
+  };
+
   handleTypeChange = (e) => {
     this.setState({ ...this.state, type: e.target.value, page: 1 });
   };
@@ -1035,6 +1104,26 @@ class Report extends Component {
     return config.currency === "PHP" && label === "BTI" ? "PHSB" : label;
   };
 
+  getDateFromMinDate = () => {
+    switch (this.state.selectedType) {
+      case 8:
+        return addDays(new Date(this.state.dateTo), -44);
+      default:
+        return undefined;
+    }
+  };
+
+  getDateToMaxDate = () => {
+    switch (this.state.selectedType) {
+      case 8:
+        return addDays(new Date(this.state.dateTo), 44) > new Date()
+          ? new Date()
+          : addDays(new Date(this.state.dateTo), 44);
+      default:
+        return new Date();
+    }
+  };
+
   render() {
     return (
       <Container>
@@ -1057,6 +1146,8 @@ class Report extends Component {
                   return i18n.t("report.transfer.title");
                 case 7:
                   return i18n.t("report.joinedPromo.title");
+                case 8:
+                  return i18n.t("report.balanceChanges.title");
                 default:
                   return i18n.t("report.rebateDetails");
               }
@@ -1086,6 +1177,7 @@ class Report extends Component {
                     autoOk
                     clearable
                     disableFuture
+                    minDate={this.getDateFromMinDate()}
                     maxDate={new Date(this.state.dateTo)}
                     format="yyyy/MM/dd"
                     value={this.state.dateFrom}
@@ -1107,7 +1199,7 @@ class Report extends Component {
                     clearable
                     disableFuture
                     minDate={new Date(this.state.dateFrom)}
-                    maxDate={new Date()}
+                    maxDate={this.getDateToMaxDate()}
                     format="yyyy/MM/dd"
                     value={this.state.dateTo}
                     onChange={this.handleDateToChange}
@@ -1588,6 +1680,44 @@ class Report extends Component {
                                 <DataRowId>
                                   {i18n.t("report.joinedPromo.promoName")}:{" "}
                                   <IDCell>{row.promotionName}</IDCell>
+                                </DataRowId>
+                              </DataRow>
+                            </DataContent>
+                          );
+                        })}
+                      </div>
+                    );
+                  }
+                })()}
+              </React.Fragment>
+            );
+          } else if (this.state.selectedType === 8) {
+            return (
+              <React.Fragment>
+                {(() => {
+                  if (this.state.dataList.length <= 0) {
+                    return <NoRecordContainer language={i18n.language} />;
+                  } else {
+                    return (
+                      <div>
+                        {this.state.dataList.map((row, index) => {
+                          const date = moment(row.recordedon).format(
+                            "YYYY-MM-DD hh:mm a"
+                          );
+                          return (
+                            <DataContent key={index}>
+                              <DataRow>
+                                <DataRowId>
+                                  {i18n.t("report.dateTime")} :{" "}
+                                  <IDCell>{date}</IDCell>
+                                </DataRowId>
+                                <DataRowId>
+                                  {i18n.t("report.balanceChanges.type")}:{" "}
+                                  <IDCell>{ErrorSwitcher.getTranslation(row.type)}</IDCell>
+                                </DataRowId>
+                                <DataRowId>
+                                  {i18n.t("report.balanceChanges.amount")}:{" "}
+                                  <IDCell>{row.amount}</IDCell>
                                 </DataRowId>
                               </DataRow>
                             </DataContent>

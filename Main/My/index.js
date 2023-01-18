@@ -240,6 +240,11 @@ class My extends Component {
       to: "/report/6",
     },
     {
+      icon: "icon-profile-report-transfer",
+      title: i18n.t("report.balanceChanges.title"),
+      to: "/report/8",
+    },
+    {
       icon: "icon-vip",
       title: "VIP",
       to: "/vip",
@@ -272,6 +277,11 @@ class My extends Component {
       icon: "icon-profile-topup",
       title: i18n.t("wap.main.account.deposit"),
       to: "/report/4",
+    },
+    {
+      icon: "icon-profile-report-transfer",
+      title: i18n.t("report.balanceChanges.title"),
+      to: "/report/8",
     },
     {
       icon: "icon-vip",
