@@ -1003,7 +1003,7 @@ class Home extends Component {
             </NewAppBar>
           )}
         </CustomAppBar>
-        {this.state.scene === 1 && (
+        {this.state.scene === 1 && !config.template === 13 && (
           <Banner
             height={config.brand === "GMO" && "315px"}
             sameAsText={config.brand === "GMO"}

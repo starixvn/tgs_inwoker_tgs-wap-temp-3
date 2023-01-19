@@ -17,8 +17,11 @@ import Button from "../../../../components/button";
 import { playerList, gameList as gameListx } from "./../template11/hardcode";
 import News from "./news";
 import { hardcodeNews } from "./news/hardcoded";
+import Banner from "../banner";
 
-const TheContainer = styled.div``;
+const TheContainer = styled.div`
+  padding-top: 125px;
+`;
 
 const GameLister = styled.div`
   overflow: auto;
@@ -122,7 +125,7 @@ const GameListItemIcon = styled.div`
 `;
 
 const AnnouncementSection = styled.div`
-  background: #0e0f1a;
+  background: #27273f;
   margin: 15px 20px;
   color: #fff;
   padding: 10px 20px;
@@ -607,6 +610,9 @@ const Template13 = ({
 
   return (
     <TheContainer>
+      <AnnouncementSection>
+        <Marquee withOnlineUser />
+      </AnnouncementSection>
       <GameLister>
         {shared.theSorter(gameMenu2).map((i, index) => {
           //hide if 0 game found.
@@ -640,9 +646,6 @@ const Template13 = ({
           }
         })}
       </GameLister>
-      <AnnouncementSection>
-        <Marquee />
-      </AnnouncementSection>
 
       <GridWrapper>
         {selected && gameTypeToDisplayDifferently(selected) ? (
@@ -798,6 +801,16 @@ const Template13 = ({
           </GameButtonWrapper>
         ) : (
           <>
+            {" "}
+            <Banner
+              height={config.brand === "GMO" && "315px"}
+              sameAsText={config.brand === "GMO"}
+              noPadding={true}
+              updown="only-banner"
+              banner={general.banner}
+              // appHistory={this.props.appHistory}
+              token={token}
+            />
             {checking("hot").length > 0 && (
               <ContentWrapper
                 title={i18n.t("T13.topGames")}
@@ -807,7 +820,6 @@ const Template13 = ({
                 games={checking("hot")}
               />
             )}
-
             {checking("recommend").length > 0 && (
               <ContentWrapper
                 title={i18n.t("T13.recommeneddGames")}
@@ -826,7 +838,6 @@ const Template13 = ({
                 games={checking("new")}
               />
             )}
-
             <ContentWrapper
               title={i18n.t("common.promotion")}
               icon="promotions"

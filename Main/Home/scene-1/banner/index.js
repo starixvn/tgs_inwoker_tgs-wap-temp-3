@@ -91,10 +91,10 @@ const FixedContainer = styled.div`
 `;
 
 const ScrollContainer = styled.div`
-  padding-top: 125px;
+  padding-top: ${({ noPadding }) => (noPadding ? "0" : "125px")};
   height: 520px;
   position: relative;
-  border-radius: 20px;
+  border-radius: ${({ noBorderRadius }) => (noBorderRadius ? "0" : "20px")};
 `;
 
 const NoGapAtAllContainer = styled.div`
@@ -176,7 +176,7 @@ const settings = {
   autoplay: true,
 };
 const Banner = React.memo(
-  ({ updown, banner, height, sameAsText, appHistory, token }) => {
+  ({ updown, banner, height, sameAsText, appHistory, token, noPadding }) => {
     const SliderWrapper = ({ withPadding }) => {
       return (
         <Slider {...settings}>
@@ -363,7 +363,7 @@ const Banner = React.memo(
           );
         case "only-online-user":
           return (
-            <ScrollContainer style={{ height: 470 }}>
+            <ScrollContainer style={{ height: 470 }} noPadding={noPadding}>
               <NoGapContainer>
                 <SliderWrapper height={height} />
               </NoGapContainer>
@@ -377,6 +377,26 @@ const Banner = React.memo(
               >
                 <OnlineUserDisplayer color="#fff" />
               </AnnouncementContainer>
+            </ScrollContainer>
+          );
+        case "only-banner":
+          return (
+            <ScrollContainer
+              style={{ height: 440 }}
+              noPadding={noPadding}
+              noBorderRadius={noPadding}
+            >
+              <NoGapContainer>
+                <SliderWrapper height={height} />
+              </NoGapContainer>
+              <AnnouncementContainer
+                up={false}
+                style={{
+                  justifyContent: "center",
+                  width: "100%",
+                  paddingBottom: 10,
+                }}
+              ></AnnouncementContainer>
             </ScrollContainer>
           );
         default:

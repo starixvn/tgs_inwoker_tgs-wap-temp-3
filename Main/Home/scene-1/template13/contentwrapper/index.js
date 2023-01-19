@@ -4,12 +4,11 @@ import config from "../../../../../../../config/config";
 import Common from "../../../../../../../utils/Common";
 
 const ContentWrapperx = styled.div`
-  background: #0e0f1a;
   border-radius: 50px;
   color: #fff;
   display: flex;
   flex-direction: column;
-  padding: 20px 30px 60px 30px;
+  padding: 20px 10px 60px 10px;
 `;
 
 const TitleSection = styled.div`
