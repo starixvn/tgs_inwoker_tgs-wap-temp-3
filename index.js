@@ -1053,7 +1053,7 @@ class Wap extends Component {
                           this.setState({ ...this.state, open: false })
                         }
                       >
-                        {i18n.t("common.confirm")}
+                        {i18n.t("T13.dialog.confirm")}
                       </ButtonConfirm>
 
                       {this.state.action && (
