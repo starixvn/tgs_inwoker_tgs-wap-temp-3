@@ -230,6 +230,7 @@ const ProviderListWrapper = styled.div`
   background: #24253c;
   border-radius: 50px;
   width: -webkit-fill-available;
+  position: relative;
 `;
 const ProviderList = styled.select`
   background: #24253c;
@@ -239,6 +240,11 @@ const ProviderList = styled.select`
   color: #fff;
   font-size: 28px;
   width: -webkit-fill-available;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
 `;
 
 const SearchBar = styled.input`
@@ -248,6 +254,7 @@ const SearchBar = styled.input`
   padding: 20px 40px;
   color: #fff;
   font-size: 28px;
+  font-family: "Montserrat", sans-serif;
 
   ::placeholder {
     color: #fff;
@@ -366,6 +373,21 @@ const WhiteLogo = styled.div`
 const WinnerListxx = styled.div`
   display: flex;
   gap: 20px;
+`;
+
+const ArrowDown = styled.div`
+  mask: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/btn-back-white.png`})
+    no-repeat center;
+  background: ${({ theme }) => theme.primaryText};
+  width: 40px;
+  height: 30px;
+
+  mask-size: 25%;
+  rotate: 275deg;
+  position: absolute;
+  right: 10px;
+  bottom: 20px;
 `;
 
 const Template13 = ({
@@ -663,7 +685,7 @@ const Template13 = ({
           <SlotGameTypeWrapper>
             <SearchSection>
               <SearchBar
-                placeholder={i18n.t("slot.search")}
+                placeholder={i18n.t("T13.slot.search")}
                 value={keyword}
                 onChange={(e) => {
                   setKeyword(e.target.value);
@@ -676,7 +698,7 @@ const Template13 = ({
                   }}
                 >
                   <option value="" selected>
-                    {i18n.t("report.all")}
+                    {i18n.t("T13.slot.provider")}
                   </option>
                   {homePageGameList
                     .filter((game) => selected.indexOf(game.type) >= 0)
@@ -696,7 +718,8 @@ const Template13 = ({
                         </option>
                       );
                     })}
-                </ProviderList>
+                </ProviderList>{" "}
+                <ArrowDown />
               </ProviderListWrapper>
             </SearchSection>
             <WrapTheGames>
