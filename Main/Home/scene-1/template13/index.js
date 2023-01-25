@@ -104,7 +104,6 @@ const GridWrapper = styled.div`
   padding: 0 20px 10px 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 `;
 
 const GameListItemIcon = styled.div`
@@ -280,7 +279,7 @@ const SectionWrapper = styled.div`
 
 const JackpotWrapper = styled(SectionWrapper)``;
 const JackpotGif = styled.div`
-  height: 345px;
+  height: 355px;
   background: url(${process.env.PUBLIC_URL +
     `/assets/images/wapp/resource/T13/homepage/jackpot.svg`})
     no-repeat center / contain;
@@ -343,10 +342,11 @@ const HighlightText = styled.span`
 `;
 const ListItem = styled.div`
   background: url(${(props) => props.src}) no-repeat right top;
-  background-size: 100% 100%;
+  background-size: contain;
   position: relative;
   width: 100%;
-  height: 280px;
+  height: 260px;
+  aspect-ratio: 1/1;
 `;
 
 const WhiteLogo = styled.div`
@@ -646,6 +646,17 @@ const Template13 = ({
           }
         })}
       </GameLister>
+      {!selected && (
+        <Banner
+          height={config.brand === "GMO" && "315px"}
+          sameAsText={config.brand === "GMO"}
+          noPadding={true}
+          updown="only-banner"
+          banner={general.banner}
+          // appHistory={this.props.appHistory}
+          token={token}
+        />
+      )}
 
       <GridWrapper>
         {selected && gameTypeToDisplayDifferently(selected) ? (
@@ -801,16 +812,9 @@ const Template13 = ({
           </GameButtonWrapper>
         ) : (
           <>
-            {" "}
-            <Banner
-              height={config.brand === "GMO" && "315px"}
-              sameAsText={config.brand === "GMO"}
-              noPadding={true}
-              updown="only-banner"
-              banner={general.banner}
-              // appHistory={this.props.appHistory}
-              token={token}
-            />
+            <ContentWrapper title="jackpot" icon="jackpot">
+              <Jackpot />
+            </ContentWrapper>
             {checking("hot").length > 0 && (
               <ContentWrapper
                 title={i18n.t("T13.topGames")}
@@ -872,9 +876,6 @@ const Template13 = ({
                   }}
                 />
               </div>
-            </ContentWrapper>
-            <ContentWrapper title="jackpot" icon="jackpot">
-              <Jackpot />
             </ContentWrapper>
             <ContentWrapper title={i18n.t("T13.winner")} icon="winners">
               <WinnerList list={list} />

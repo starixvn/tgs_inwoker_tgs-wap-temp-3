@@ -15,8 +15,10 @@ const MarqueeContainer = styled.div`
   color: ${({ theme }) =>
     theme.wapSecondary ? theme.wapSecondary : theme.secondary};
 
-  line-hight: 26px;
+  line-height: 26px;
   display: grid;
+  align-items: center;
+  gap: 10px;
   grid-template-columns: auto 35%;
 `;
 

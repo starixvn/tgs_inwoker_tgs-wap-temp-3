@@ -8,7 +8,7 @@ const ContentWrapperx = styled.div`
   color: #fff;
   display: flex;
   flex-direction: column;
-  padding: 20px 10px 60px 10px;
+  padding: 20px 10px 20px 10px;
 `;
 
 const TitleSection = styled.div`
