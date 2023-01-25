@@ -28,7 +28,7 @@ const HeaderTitle = styled.div`
     return textposition ? textposition : "center";
   }};
 
-  margin-top: 20px;
+  margin-top: 25px;
   width: calc(100% - 80px - 80px);
 `;
 
