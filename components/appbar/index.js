@@ -82,7 +82,7 @@ const CustomColoredButton = styled.div`
   padding: 10px 40px;
   font-size: 28px;
   margin: 0px 10px;
-  border-radius: 15px;
+  border-radius: 30px;
 `;
 
 const UsernameContainer = styled.div`
@@ -414,7 +414,7 @@ const AppBarExtrator = ({
                         )}
                       </UsernameContainer>
                       <CustomColoredButton primary onClick={handleLogout}>
-                        {i18n.t("common.exit")}
+                        {i18n.t("web.header.logout")}
                       </CustomColoredButton>
                     </CustomButtonContainer>
                     {config.wapVersion === 11 && config.features.OnlineUser && (
