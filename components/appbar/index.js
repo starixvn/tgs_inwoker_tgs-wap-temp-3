@@ -84,13 +84,7 @@ const CustomColoredButton = styled.div`
   margin: 0px 10px;
   border-radius: 15px;
 `;
-const AnotherColoredButton = styled(CustomColoredButton)`
-  border: solid 1px
-    ${({ theme }) => (theme.wapPrimary ? theme.wapPrimary : theme.primary)};
-  background: #fff;
-  color: ${({ theme }) =>
-    theme.wapPrimary ? theme.wapPrimary : theme.primary};
-`;
+
 const UsernameContainer = styled.div`
   color: ${({ primary, theme }) => {
     return primary ? theme.buttonText2 : "";
@@ -256,18 +250,16 @@ const AppBarExtrator = ({
                     <CustomButtonContainer>
                       {config.features.HaveVIPFeature &&
                         config.features.HomePage_DisplayVIP && (
-                          <AnotherColoredButton
+                          <div
                             onClick={() => {
                               AppHistory.push("/" + i18n.language + "/vip");
                             }}
                             style={{
-                              padding: "10px",
-                              background: "#000",
-                              borderColor: "#fff",
-                              borderRadius: "50px",
-                              margin: "auto 5px",
-                              width: "62px",
-                              height: "62px",
+                              padding: "10px 20px",
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: 5,
+                              alignItems: "center",
                             }}
                           >
                             <img
@@ -276,9 +268,10 @@ const AppBarExtrator = ({
                                 "/assets/images/wapp/home-vip.png"
                               }
                               alt=""
-                              style={{ height: 28 }}
+                              style={{ height: 30 }}
                             />
-                          </AnotherColoredButton>
+                            VIP
+                          </div>
                         )}
                       <UsernameContainer
                         onClick={() => {
