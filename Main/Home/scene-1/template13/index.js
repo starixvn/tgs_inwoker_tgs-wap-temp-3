@@ -318,9 +318,10 @@ const WinnerListItem = styled.div`
   height: 125px;
   margin: 20px 5px;
   padding: 0px 20px;
-  border: 1px solid #fff;
+
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   border-radius: 25px;
-  background: #232323;
+  background: #27273f;
   align-items: center;
   justify-content: space-between;
 `;
@@ -943,6 +944,7 @@ const Template13 = ({
               </div>
             </ContentWrapper>
             <ContentWrapper
+              darktone="#0e0f1a"
               title={i18n
                 .t("T13.brandTag")
                 .replace("{brandName}", config.brandName)}
@@ -964,6 +966,7 @@ const Template13 = ({
               title={i18n.t("T13.aboutUs")}
               type="game"
               icon="about"
+              darktone="#0e0f1a"
             >
               <WhiteLogo
                 src={general.brand.mobileLogoUrl}
@@ -978,6 +981,7 @@ const Template13 = ({
               title={i18n.t("T13.quickLink.title")}
               type="game"
               icon="links"
+              darktone="#0e0f1a"
             >
               <QuickLinks navigateTo={navigateTo} />
             </ContentWrapper>
@@ -985,6 +989,7 @@ const Template13 = ({
               title={i18n.t("T13.partners")}
               type="game"
               icon="partners"
+              darktone="#0e0f1a"
             >
               <Partners provider={game.providerList} />
             </ContentWrapper>

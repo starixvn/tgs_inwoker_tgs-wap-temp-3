@@ -12,6 +12,14 @@ const ContentWrapperx = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 10px 20px 10px;
+
+  background: ${({ darktone }) => {
+    return darktone && darktone;
+  }};
+
+  margin-bottom: ${({ darktone }) => {
+    return darktone ? "20px" : "0px";
+  }};
 `;
 
 const TitleSection = styled.div`
@@ -110,9 +118,10 @@ const ContentWrapper = ({
   games,
   joinGame,
   seeMoreAt,
+  darktone,
 }) => {
   return (
-    <ContentWrapperx>
+    <ContentWrapperx darktone={darktone}>
       <TitleSection>
         <IconHolder
           src={
