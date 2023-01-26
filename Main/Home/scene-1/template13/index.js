@@ -596,6 +596,12 @@ const Template13 = ({
     });
   };
 
+  const navigateToSlot = () => {
+    setSelected([GameTypeEnum.SLOT]);
+    changeShowGame([GameTypeEnum.SLOT]);
+    window.scrollTo(0, 0);
+  };
+
   const settings = {
     dots: false,
     className: "center",
@@ -845,6 +851,9 @@ const Template13 = ({
                 icon="games"
                 joinGame={handleJoinGameClick}
                 games={checking("hot")}
+                seeMoreAt={() => {
+                  navigateToSlot();
+                }}
               />
             )}
             {checking("recommend").length > 0 && (
@@ -854,6 +863,9 @@ const Template13 = ({
                 icon="games"
                 joinGame={handleJoinGameClick}
                 games={checking("recommend")}
+                seeMoreAt={() => {
+                  navigateToSlot();
+                }}
               />
             )}
             {checking("new").length > 0 && (
@@ -863,6 +875,9 @@ const Template13 = ({
                 icon="games"
                 joinGame={handleJoinGameClick}
                 games={checking("new")}
+                seeMoreAt={() => {
+                  navigateToSlot();
+                }}
               />
             )}
             <ContentWrapper
