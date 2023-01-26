@@ -221,7 +221,7 @@ class My extends Component {
     },
     {
       icon: "icon-profile-report",
-      title: i18n.t("wap.main.account.betReport"),
+      title: i18n.t("report.bettingDetails"),
       to: "/report/2",
     },
     {
@@ -240,43 +240,9 @@ class My extends Component {
       to: "/report/6",
     },
     {
-      icon: "icon-profile-report-transfer",
-      title: i18n.t("report.balanceChanges.title"),
-      to: "/report/8",
-    },
-    {
-      icon: "icon-vip",
-      title: "VIP",
-      to: "/vip",
-    },
-  ];
-
-  noTransfer = [
-    {
-      icon: "icon-profile-profile",
-      title: i18n.t("wap.main.account.personalInfo"),
-      to: "/profile",
-    },
-    {
-      icon: "icon-profile-inbox",
-      title: i18n.t("wap.main.account.inbox"),
-      to: "/inbox",
-      notification: this.props.account.info.message_num > 0 ? true : false,
-    },
-    {
       icon: "icon-profile-report",
-      title: i18n.t("wap.main.account.betReport"),
-      to: "/report/2",
-    },
-    {
-      icon: "icon-profile-withdrawal",
-      title: i18n.t("wap.main.account.withdrawal"),
-      to: "/report/3",
-    },
-    {
-      icon: "icon-profile-topup",
-      title: i18n.t("wap.main.account.deposit"),
-      to: "/report/4",
+      title: i18n.t("report.joinedPromo.title"),
+      to: "/report/7",
     },
     {
       icon: "icon-profile-report-transfer",
@@ -299,7 +265,7 @@ class My extends Component {
       <Container>
         <Header
           onBackClick={this.handleBackClick}
-          title={i18n.t("T13.me")}
+          title={i18n.t("wap.main.my")}
           position={"fixed"}
           backgroundColor={"transparent"}
         ></Header>
@@ -310,116 +276,86 @@ class My extends Component {
             </NameContainer>
 
             <AmountWrapper>
-              {this.state.showAmount ? (
-                <div
-                  onClick={() => {
-                    this.setState({
-                      ...this.state,
-                      showAmount: false,
-                    });
-                  }}
-                >
-                  <MainWalletContainer>
-                    <WalletLabel>
-                      {i18n.t("wap.main.account.mainAccount")}
-                    </WalletLabel>
-                    <WalletAmount>
-                      {this.props.wallet.mainSymbol}
-                      {Common.formatNumberWithThousand(
-                        this.props.wallet.mainBalance
-                      )}
-                    </WalletAmount>
-                  </MainWalletContainer>
-                  <TotalWalletContainer>
-                    <WalletLabel>
-                      {i18n.t("wap.main.account.totalFund")}
-                    </WalletLabel>
-                    <WalletAmount>
-                      {(() => {
-                        if (this.state.balanceLoaded) {
-                          return (
-                            this.props.wallet.mainSymbol +
-                            Common.formatNumberWithThousand(
-                              this.props.wallet.mainBalance +
-                                this.props.game.providerList
-                                  .filter(
-                                    (item) =>
-                                      item.status === 0 &&
-                                      item.transferwallet === true
-                                  )
-                                  .reduce((a, v) => (a = a + v.balance), 0)
-                            )
-                          );
-                        } else {
-                          return (
-                            <CircularProgress
-                              size={25}
-                              color={"secondary"}
-                              style={{ margin: "6px 0 0 10px" }}
-                            ></CircularProgress>
-                          );
-                        }
-                      })()}
-                    </WalletAmount>
-                  </TotalWalletContainer>
-                </div>
-              ) : (
-                <ShowAmountContainer
-                  onClick={() => {
-                    this.setState({
-                      ...this.state,
-                      showAmount: true,
-                    });
-                  }}
-                >
-                  <div
-                    style={{ display: "flex", gap: 20, alignItems: "center" }}
-                  >
-                    <img
-                      style={{ height: 40, width: 40 }}
-                      src={
-                        process.env.PUBLIC_URL +
-                        "/assets/images/wapp/resource/T13/profilepage/walletbalance.svg"
-                      }
-                      alt=""
-                    />
-                    <div style={{ opacity: 0.7 }}>Show total funds</div>
-                  </div>
-                </ShowAmountContainer>
-              )}
+              <MainWalletContainer>
+                <WalletLabel>
+                  {i18n.t("wap.main.account.mainAccount")}
+                </WalletLabel>
+                <WalletAmount>
+                  {this.props.wallet.mainSymbol}
+                  {Common.formatNumberWithThousand(
+                    this.props.wallet.mainBalance
+                  )}
+                </WalletAmount>
+              </MainWalletContainer>
+              <TotalWalletContainer>
+                <WalletLabel>
+                  {i18n.t("wap.main.account.totalFund")}
+                </WalletLabel>
+                <WalletAmount>
+                  {(() => {
+                    if (this.state.balanceLoaded) {
+                      return (
+                        this.props.wallet.mainSymbol +
+                        Common.formatNumberWithThousand(
+                          this.props.wallet.mainBalance +
+                            this.props.game.providerList
+                              .filter(
+                                (item) =>
+                                  item.status === 0 &&
+                                  item.transferwallet === true
+                              )
+                              .reduce((a, v) => (a = a + v.balance), 0)
+                        )
+                      );
+                    } else {
+                      return (
+                        <CircularProgress
+                          size={25}
+                          color={"secondary"}
+                          style={{ margin: "6px 0 0 10px" }}
+                        ></CircularProgress>
+                      );
+                    }
+                  })()}
+                </WalletAmount>
+              </TotalWalletContainer>
             </AmountWrapper>
           </InfoContainer>
         </TheUserContainer>
         <ListView>
           <ProfileMenuHolder>
             <ProfileMenuWrapper>
-              {(this.props.game.containTransferWallet
-                ? this.profileMenu
-                : this.noTransfer
-              )
-                .filter((data) =>
-                  config.features.HaveVIPFeature ? data : data.to !== "/vip"
+              {
+                //if this.props.game.containTransferWallet is false
+                // filter out the transfer from the menu
+                (this.props.game.containTransferWallet
+                  ? this.profileMenu
+                  : this.profileMenu.filter((data) => data.to !== "/report/6")
                 )
-                .map((data, index) => {
-                  return (
-                    <ProfileMenuList
-                      onClick={() => this.props.navigate(data.to)}
-                    >
-                      <TextAndIcon>
-                        <Icon icon={data.icon} />
-                        <div>{data.title}</div>
-                      </TextAndIcon>
-                      <Notification>
-                        {data.title === i18n.t("wap.main.account.inbox") &&
-                        this.props.account.info.message_num > 0 ? (
-                          <MessageRedDot />
-                        ) : (
-                          ""
-                        )}
-                      </Notification>
-                    </ProfileMenuList>
-                  );
-                })}
+                  .filter((data) =>
+                    config.features.HaveVIPFeature ? data : data.to !== "/vip"
+                  )
+                  .map((data, index) => {
+                    return (
+                      <ProfileMenuList
+                        onClick={() => this.props.navigate(data.to)}
+                      >
+                        <TextAndIcon>
+                          <Icon icon={data.icon} />
+                          <div>{data.title}</div>
+                        </TextAndIcon>
+                        <Notification>
+                          {data.title === i18n.t("wap.main.account.inbox") &&
+                          this.props.account.info.message_num > 0 ? (
+                            <MessageRedDot />
+                          ) : (
+                            ""
+                          )}
+                        </Notification>
+                      </ProfileMenuList>
+                    );
+                  })
+              }
               {config.features.HaveDownloadFeature && (
                 <ProfileMenuList
                   onClick={() => this.props.navigate("/main/download")}
