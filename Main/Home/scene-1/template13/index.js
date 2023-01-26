@@ -439,14 +439,18 @@ const Template13 = ({
 
   useEffect(() => {
     const updateJackpotAmount = () => {
+      //random digit from 0.05 to  0.2
+      var randomDigit = Math.floor(Math.random() * 15 + 5) / 100;
       if (jackpotAmount < 9999999.99) {
-        setJackpotAmount((currentJackpotAmount) => currentJackpotAmount + 0.01);
+        setJackpotAmount(
+          (currentJackpotAmount) => currentJackpotAmount + randomDigit
+        );
       } else {
         setJackpotAmount(initialJackpotAmount);
       }
     };
 
-    const interval = setInterval(updateJackpotAmount, 5000);
+    const interval = setInterval(updateJackpotAmount, 2000);
     return () => {
       clearInterval(interval);
     };
