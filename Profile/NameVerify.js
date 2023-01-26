@@ -191,7 +191,7 @@ class NameVerify extends BaseProfile {
         config.features.ICVerificationUpload ? (
           <>
             <DocumentUploader
-              title={i18n.t("common.upload")}
+              title={i18n.t("common.upload2")}
               onClick={() => {
                 document.getElementById("getFile").click();
               }}

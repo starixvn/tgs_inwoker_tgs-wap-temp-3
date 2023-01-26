@@ -240,8 +240,8 @@ class NameVerify extends BaseProfile {
       this.state.isConfigured &&
         config.features.ICVerification &&
         this.state.scene !== "waiting-submit"
-        ? i18n.t("common.configured")
-        : i18n.t("common.complete"),
+        ? i18n.t("common.submit")
+        : i18n.t("common.submit"),
       config.features.Profile_DisplayEditNameButton
         ? this.bottomNoteSwitcher(this.state.scene)
         : null
