@@ -33,6 +33,7 @@ const CustomInput = styled.input`
   flex: 1;
   color: #fff;
   border: solid 1px #fff;
+  font-family: "Montserrat", sans-serif;
   ::placeholder,
   ::-webkit-input-placeholder {
     color: #c3c3c3;

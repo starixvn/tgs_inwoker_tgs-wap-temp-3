@@ -62,7 +62,7 @@ const DocumentUploader = ({ title, onClick, onChange, upload }) => {
           style={{ marginRight: 10 }}
           uploaded={upload}
         >
-          {upload ? upload : i18n.t("common.upload")}
+          {upload ? upload : i18n.t("common.upload2")}
         </CustomButton>
         <input
           type="file"

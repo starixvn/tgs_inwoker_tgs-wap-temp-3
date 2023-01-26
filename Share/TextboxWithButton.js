@@ -26,6 +26,7 @@ const CustomInput = styled.input`
   padding: 16px 30px 16px 32px;
   position: relative;
   display: flex;
+  font-family: "Montserrat", sans-serif;
   flex: 1;
   ::placeholder,
   ::-webkit-input-placeholder {

@@ -168,16 +168,8 @@ class NameVerify extends BaseProfile {
             this.props.account.info.check_pass_account ? this.state.name : ""
           }
           onChange={this.handleChangeName}
-          placeholder={
-            config.features.Profile_CustomIdentityPageTranslation
-              ? i18n.t("piso.profile.enterFullName")
-              : i18n.t("profile.nameVerify.title")
-          }
-          label={
-            config.features.Profile_CustomIdentityPageTranslation
-              ? i18n.t("piso.profile.fullName")
-              : i18n.t("profile.nameVerify.verifyName")
-          }
+          placeholder={i18n.t("profile.nameVerify.title")}
+          label={i18n.t("profile.nameVerify.title")}
           disabled={this.state.isConfigured === true}
           maxLength={256}
         ></Textbox>
@@ -186,16 +178,8 @@ class NameVerify extends BaseProfile {
             style={{ margin: "50px auto 20px auto" }}
             value={this.state.ic}
             onChange={this.handleChangeIC}
-            placeholder={
-              config.features.Profile_CustomIdentityPageTranslation
-                ? i18n.t("piso.profile.enterDocumentNumber")
-                : i18n.t("profile.nameVerify.msgEnterICNum")
-            }
-            label={
-              config.features.Profile_CustomIdentityPageTranslation
-                ? i18n.t("piso.profile.documentNumber")
-                : i18n.t("profile.nameVerify.icNum")
-            }
+            placeholder={i18n.t("profile.nameVerify.icNum")}
+            label={i18n.t("profile.nameVerify.icNum")}
             disabled={this.props.account.info.check_pass_account === true}
             maxLength={256}
           ></Textbox>

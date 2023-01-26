@@ -53,16 +53,8 @@ class Default extends BaseProfile {
           style={{ margin: "50px auto 20px auto" }}
           value={this.props.name}
           onChange={this.props.handleChangeName}
-          placeholder={
-            config.features.Profile_CustomIdentityPageTranslation
-              ? i18n.t("piso.profile.enterFullName")
-              : i18n.t("profile.nameVerify.title")
-          }
-          label={
-            config.features.Profile_CustomIdentityPageTranslation
-              ? i18n.t("piso.profile.fullName")
-              : i18n.t("profile.nameVerify.verifyName")
-          }
+          placeholder={i18n.t("profile.nameVerify.title")}
+          label={i18n.t("profile.nameVerify.title")}
           disabled={false}
           maxLength={256}
         ></Textbox>
@@ -71,16 +63,8 @@ class Default extends BaseProfile {
             style={{ margin: "50px auto 20px auto" }}
             value={this.props.ic}
             onChange={this.props.handleChangeIC}
-            placeholder={
-              config.features.Profile_CustomIdentityPageTranslation
-                ? i18n.t("piso.profile.enterDocumentNumber")
-                : i18n.t("profile.nameVerify.msgEnterICNum")
-            }
-            label={
-              config.features.Profile_CustomIdentityPageTranslation
-                ? i18n.t("piso.profile.documentNumber")
-                : i18n.t("profile.nameVerify.icNum")
-            }
+            placeholder={i18n.t("profile.nameVerify.icNum")}
+            label={i18n.t("profile.nameVerify.icNum")}
             disabled={false}
             maxLength={256}
           ></Textbox>
