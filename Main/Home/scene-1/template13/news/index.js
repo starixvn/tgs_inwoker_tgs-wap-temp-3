@@ -22,6 +22,9 @@ const Title = styled.div`
 
 const Description = styled.div`
   font-size: 24px;
+  line-height: 1.5em;
+  height: 4.5em;
+  overflow: hidden;
 `;
 
 const ImageWrapper = styled.div`
