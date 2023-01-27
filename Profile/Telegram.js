@@ -66,13 +66,13 @@ class Telegram extends BaseProfile {
 
   render() {
     return this.setupContent(
-      i18n.t("common.telegram"),
+      i18n.t("T13.telegram.tg_title"),
       <Textbox
         style={{ margin: "50px auto 20px auto" }}
         value={this.state.telegram}
         onChange={this.handleChangeNumber}
-        placeholder={i18n.t("profile.telegram.plsEnterTelegram")}
-        label={i18n.t("common.telegram")}
+        placeholder={i18n.t("T13.telegram.tg_placeholder")}
+        label={i18n.t("T13.telegram.tg_label")}
         disabled={
           this.state.isConfigured &&
           (config.features.ChangesNotAllowed ||
@@ -86,26 +86,12 @@ class Telegram extends BaseProfile {
         ? i18n.t("common.configured")
         : this.state.telegram !== this.props.account.member_telegram &&
             i18n.t("common.complete"),
-      (() => {
-        if (
-          this.state.isConfigured &&
-          (config.features.ChangesNotAllowed ||
-            config.features.Profile_ExistingDetails_ViewOnly)
-        ) {
-          return (
-            <BottomNote
-              text1={i18n.t("profile.telegram.toEdit")}
-              link={"../chat"}
-              text2={i18n.t(
-                config.features.ChangesNotAllowed ||
-                  config.features.Profile_ExistingDetails_ViewOnly
-                  ? "common.customerService"
-                  : "profile.telegram.here"
-              )}
-            ></BottomNote>
-          );
-        }
-      })()
+      <BottomNote
+        text1={i18n.t("T13.help_footer.break1")}
+        text2={i18n.t("T13.help_footer.break2")}
+        text3={i18n.t("T13.help_footer.break3")}
+        link={"../chat"}
+      ></BottomNote>
     );
   }
 }
