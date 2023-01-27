@@ -77,6 +77,7 @@ class BottomNote extends Component {
               );
             }
           })()}
+          {this.props.text3 && " " + this.props.text3}
         </Content>
       )
     );
