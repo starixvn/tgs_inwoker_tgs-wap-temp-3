@@ -63,15 +63,15 @@ class ChangePassword extends BaseProfile {
   };
   render() {
     return this.setupContent(
-      i18n.t("profile.changePassword.editPassword"),
+      i18n.t("T13.password.title"),
       <React.Fragment>
         <Textbox
           type={"password"}
           style={{ margin: "50px auto 20px auto" }}
           value={this.state.oldpassword}
           onChange={this.handleChangeOldPassword}
-          placeholder={i18n.t("profile.changePassword.msgEnterOriPass")}
-          label={i18n.t("profile.changePassword.OriPass")}
+          placeholder={i18n.t("T13.password.cp_placeholder")}
+          label={i18n.t("T13.password.cp_label")}
         ></Textbox>
         <Textbox
           type={"password"}
@@ -79,14 +79,14 @@ class ChangePassword extends BaseProfile {
           value={this.state.newpassword}
           onChange={this.handleChangeNewPassword}
           placeholder={i18n.t("common.msgEnterNewPass")}
-          label={i18n.t("common.NewPass")}
+          label={i18n.t("T13.password.np")}
         ></Textbox>
         <Textbox
           type={"password"}
           style={{ margin: "20px auto 20px auto" }}
           value={this.state.newpassword2}
           onChange={this.handleChangeNewPassword2}
-          placeholder={i18n.t("common.msgEnterConfirmPass")}
+          placeholder={i18n.t("T13.password.re_np")}
           label={i18n.t("common.ConfirmPass")}
         ></Textbox>
       </React.Fragment>,
