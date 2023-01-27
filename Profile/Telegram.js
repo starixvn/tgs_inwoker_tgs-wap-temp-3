@@ -83,9 +83,9 @@ class Telegram extends BaseProfile {
         maxLength={15}
       ></Textbox>,
       this.state.isConfigured && config.features.ChangesNotAllowed
-        ? i18n.t("common.configured")
+        ? i18n.t("common.submit")
         : this.state.telegram !== this.props.account.member_telegram &&
-            i18n.t("common.complete"),
+            i18n.t("common.submit"),
       <BottomNote
         text1={i18n.t("T13.help_footer.break1")}
         text2={i18n.t("T13.help_footer.break2")}
