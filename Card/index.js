@@ -248,8 +248,15 @@ class Card extends Component {
               }}
             >
               <EmptyCardAdd></EmptyCardAdd>
-              <EmptyCardTitle>{i18n.t("card.msgAddCard")}</EmptyCardTitle>
-              <EmptyCardDesc>{i18n.t("card.msgAddCardDesc")}</EmptyCardDesc>
+              <EmptyCardTitle>{i18n.t("T13.misc.addBankCard")}</EmptyCardTitle>
+              <EmptyCardDesc>
+                {i18n
+                  .t("T13.misc.msgAddCardDesc")
+                  .replace(
+                    "{maxCardCount}",
+                    config.features.AddCard_MaximumCardAllowed
+                  )}
+              </EmptyCardDesc>
             </EmptyCardItem>
           </>
         )}
