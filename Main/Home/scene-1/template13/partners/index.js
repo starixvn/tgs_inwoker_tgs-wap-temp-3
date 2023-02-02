@@ -25,25 +25,34 @@ const Chip = styled.div`
 `;
 
 const Partners = ({ provider }) => {
+  const providers = [
+    { name: "BetConstruct" },
+    { name: "Avia" },
+    { name: "TF Sports" },
+    { name: "Joker" },
+    { name: "AE Slot" },
+    { name: "FACAI" },
+    { name: "Fast Spin" },
+    { name: "Kingmaker" },
+    { name: "PGSoft" },
+    { name: "Spadegaming" },
+    { name: "Venus" },
+    { name: "YL" },
+    { name: "WM" },
+    { name: "Netent" },
+    { name: "Red Tiger" },
+    { name: "JILI" },
+    { name: "Evolution" },
+    { name: "JDB" },
+    { name: "PHSB" },
+    { name: "Habanero" },
+  ];
   return (
     <Section>
       <ChipContainer>
-        {provider
-          .filter(
-            (a) =>
-              a.abbreviation.toLowerCase() !== "wgfm" &&
-              a.abbreviation.toLowerCase() !== "wgvia"
-          )
-          .filter((gp) => {
-            if (gp.abbreviation.includes("TCG")) {
-              return gp.abbreviation === "TCG_SEA";
-            } else {
-              return gp;
-            }
-          })
-          .map((item, index) => (
-            <Chip key={index}>{item.name}</Chip>
-          ))}
+        {providers.map((item, index) => (
+          <Chip key={index}>{item.name}</Chip>
+        ))}
       </ChipContainer>{" "}
     </Section>
   );
