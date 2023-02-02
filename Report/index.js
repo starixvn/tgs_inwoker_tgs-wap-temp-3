@@ -23,6 +23,7 @@ import Select from "@material-ui/core/Select";
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import ErrorSwitcher from "../../../utils/ErrorSwitcher";
+import { utility } from "../../../utils/utility";
 const moment = require("moment");
 const localeMap = {
   zh: zhLocale,
@@ -98,10 +99,13 @@ const DataRowId = styled.div`
   padding: 8px;
   font-weight: 600;
   font-size: 26px;
+  display: flex;
 `;
 const IDCell = styled.span`
   font-weight: normal;
   font-size: 26px;
+  display: flex;
+  gap: 10px;
 `;
 const DataRow = styled.div`
   width: 100%;
@@ -1127,6 +1131,12 @@ class Report extends Component {
     }
   };
 
+  performCopy = (content) => {
+    this.props.alert("", i18n.t("affiliate.copied"));
+
+    utility.copy(content);
+  };
+
   render() {
     return (
       <Container>
@@ -1435,8 +1445,16 @@ class Report extends Component {
                           return (
                             <DataContent key={index}>
                               <DataRowId>
-                                {i18n.t("report.betid")} :{" "}
-                                <IDCell>{row.id}</IDCell>
+                                {i18n.t("report.betid")}:
+                                <IDCell
+                                  onClick={() => {
+                                    this.performCopy(row.id);
+                                  }}
+                                >
+                                  {" "}
+                                  {row.id}
+                                  <div>⎘</div>
+                                </IDCell>
                               </DataRowId>
                               <DataRowId>
                                 <CustomDataRow>
