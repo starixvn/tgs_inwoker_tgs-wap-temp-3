@@ -173,7 +173,7 @@ class Profile extends Component {
             {config.features.ICVerification &&
               ContentItem(
                 process.env.PUBLIC_URL + `/assets/images/wapp/icon-user.png`,
-                i18n.t("profile.nameVerify.icNum"),
+                i18n.t("common.realName"),
                 this.isConfigured(
                   this.props.account.info.member_name !== "" &&
                     this.props.account.info.member_name !== null
@@ -205,7 +205,7 @@ class Profile extends Component {
             {config.features.EmailVerification &&
               ContentItem(
                 process.env.PUBLIC_URL + `/assets/images/wapp/icon-email.png`,
-                i18n.t("common.emailAddress"),
+                i18n.t("extended.email"),
                 this.isConfigured(this.props.account.info.member_email),
                 () => {
                   this.handleNavigate("/profile/email");
@@ -232,7 +232,7 @@ class Profile extends Component {
               {config.features.QQWeChat &&
                 ContentItem(
                   process.env.PUBLIC_URL + `/assets/images/wapp/icon-qq.png`,
-                  i18n.t("common.qqNumber"),
+                  "QQ",
                   this.isConfigured(this.props.account.info.member_qq),
                   () => {
                     this.handleNavigate("/profile/qq");
@@ -246,7 +246,7 @@ class Profile extends Component {
                 ContentItem(
                   process.env.PUBLIC_URL +
                     `/assets/images/wapp/icon-wechat.png`,
-                  i18n.t("common.wechatNumber"),
+                  i18n.t("T13.wechat.wc_title"),
                   this.isConfigured(this.props.account.info.member_wechat),
                   () => {
                     this.handleNavigate("/profile/wechat");
