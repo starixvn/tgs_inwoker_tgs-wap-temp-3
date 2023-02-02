@@ -136,17 +136,21 @@ const DataWinlossCell = styled.div`
   text-align: right;
 `;
 const NoRecordContainer = styled.div`
-  background: url(${({ language }) => {
-      return language
-        ? process.env.PUBLIC_URL +
-            `/assets/images/wapp/no-record_${language}.png`
-        : process.env.PUBLIC_URL + `/assets/images/wapp/no-record.png`;
-    }})
-    no-repeat;
+  padding-bottom: 20px;
+  color: #fff;
 
-  width: 96px;
-  height: 136px;
   margin: 300px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const NoRecordImage = styled.img``;
+
+const NoRecordText = styled.div`
+  font-size: 24px;
+  margin-top: 20px;
+  font-family: "Montserrat", sans-serif;
 `;
 
 const DatePickerTitle = styled.div`
@@ -1145,6 +1149,17 @@ class Report extends Component {
   };
 
   render() {
+    const NoDataPlaceholder = () => {
+      return (
+        <NoRecordContainer>
+          <NoRecordImage
+            src={process.env.PUBLIC_URL + `/assets/images/wapp/no-record.png`}
+          />
+
+          <NoRecordText>{i18n.t("common.nodata")}</NoRecordText>
+        </NoRecordContainer>
+      );
+    };
     return (
       <Container>
         <StyledAppBar>
@@ -1363,7 +1378,7 @@ class Report extends Component {
                 </DataHeader>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <DataContent>
@@ -1441,7 +1456,7 @@ class Report extends Component {
                 })()}
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <>
@@ -1514,7 +1529,7 @@ class Report extends Component {
                 </DataHeader>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <>
@@ -1553,7 +1568,7 @@ class Report extends Component {
               <React.Fragment>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <>
@@ -1617,7 +1632,7 @@ class Report extends Component {
                 </DataHeader>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <DataContent>
@@ -1646,7 +1661,7 @@ class Report extends Component {
               <React.Fragment>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <div>
@@ -1690,7 +1705,7 @@ class Report extends Component {
               <React.Fragment>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <div>
@@ -1724,7 +1739,7 @@ class Report extends Component {
               <React.Fragment>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <div>
