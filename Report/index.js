@@ -183,7 +183,7 @@ const SelectContainer = styled.div`
 const SelectLabel = styled.div`
   font-size: 28px;
   color: #303030;
-  margin-left: 20px;
+
   width: 145px;
   float: left;
   margin-top: 20px;
@@ -208,6 +208,7 @@ const CustomTabs = styled.div`
   flex-flow: row wrap;
   justify-content: center;
   gap: 20px;
+  padding: 0 5px;
 `;
 
 const CustomTabText = styled.div`
@@ -216,14 +217,16 @@ const CustomTabText = styled.div`
   align-items: center;
   padding: 15px 35px;
   background: #27273f;
-  margin-right: 20px;
+
   border-radius: 50px;
 `;
 
 const CustomTab = styled.div`
   color: #fff;
   font-size: 28px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${CustomTabText} {
     ${({ selected, theme }) => {
       return selected && `background: ${theme.primary}`;
@@ -1713,7 +1716,9 @@ class Report extends Component {
                                 </DataRowId>
                                 <DataRowId>
                                   {i18n.t("report.balanceChanges.type")}:{" "}
-                                  <IDCell>{ErrorSwitcher.getTranslation(row.type)}</IDCell>
+                                  <IDCell>
+                                    {ErrorSwitcher.getTranslation(row.type)}
+                                  </IDCell>
                                 </DataRowId>
                                 <DataRowId>
                                   {i18n.t("report.balanceChanges.amount")}:{" "}
