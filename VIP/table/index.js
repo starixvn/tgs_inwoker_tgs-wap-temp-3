@@ -6,7 +6,7 @@ import i18n from "../../../../utils/i18n";
 
 const TableWrapper = styled.div`
   display: grid;
-  grid-template-columns: 35% 65%;
+  grid-template-columns: 33% 65%;
   color: #fff;
   font-size: 28px;
 `;
@@ -23,6 +23,7 @@ const TheRewards = styled.div`
 
 const TheRewardStuffs = styled.div`
   display: grid;
+  margin-top: -5px;
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
   grid-template-rows: 77px ${({ total }) => {
       total &&
@@ -80,7 +81,15 @@ const VIPText = styled.div`
 const WithMinHeight = styled(Data)`
   max-height: 77px;
   background: #27273f;
-  padding: 20px 40px;
+  padding: 7px 10px;
+
+  min-width: initial;
+  font-size: 22px;
+  width: 237px;
+  min-height: 68px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const WithLeftBorderRadius = styled(WithMinHeight)`
