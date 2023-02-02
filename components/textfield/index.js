@@ -110,6 +110,7 @@ const Textfield = ({
   placeholder,
   borderRadius,
   pattern,
+  actions,
 }) => {
   return (
     <CustomInput leaveTopGap={title !== ""}>
@@ -127,7 +128,7 @@ const Textfield = ({
           pattern={pattern}
         />
         <div>
-          <DropdownSection variant={variant} />
+          {actions} <DropdownSection variant={variant} />
         </div>
       </CustomWrapper>
 

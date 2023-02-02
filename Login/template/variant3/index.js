@@ -71,7 +71,7 @@ const CustomInvitationSelect = styled.select`
   position: absolute;
   right: 85px;
   font-size: 25px;
-  bottom: 35px;
+  top: 37px;
   border: none;
   outline: none;
   background: none;
@@ -339,7 +339,7 @@ const Variant3 = ({
                 }
                 borderRadius="30px"
                 type={"text"}
-                placeholder={i18n.t("wap.register.username")}
+                placeholder={i18n.t("common.username")}
                 maxLength="16"
                 value={username}
                 onChange={handleUsernameChange}
@@ -351,7 +351,7 @@ const Variant3 = ({
                 }
                 type={hidePassword ? "password" : "text"}
                 hidePassword={hidePassword}
-                placeholder={i18n.t("wap.register.password")}
+                placeholder={i18n.t("common.password")}
                 password={true}
                 maxLength="20"
                 borderRadius="30px"
@@ -366,7 +366,7 @@ const Variant3 = ({
                 }
                 type={hideConfirmPassword ? "password" : "text"}
                 hidePassword={hideConfirmPassword}
-                placeholder={i18n.t("wap.register.confirmPassword")}
+                placeholder={i18n.t("T13.register.confirmPassword")}
                 password={true}
                 maxLength="20"
                 borderRadius="30px"
@@ -407,34 +407,34 @@ const Variant3 = ({
               {!(
                 config.features.Register_HideInvitation && fromCustomDomain
               ) && (
-                <>
-                  <Textfield
-                    icon={
-                      process.env.PUBLIC_URL +
-                      `/assets/images/wapp/icon-promo.png`
-                    }
-                    placeholder={i18n.t("wap.register.promoteCode")}
-                    value={promoteType === "a" ? promoId : upper}
-                    onChange={
-                      promoteType === "a"
-                        ? handlePromoCodeChange
-                        : handleUpperChange
-                    }
-                    disabled={prefill}
-                    borderRadius="30px"
-                  ></Textfield>
-                  {config.features.HaveAffiliateFeature && (
-                    <CustomInvitationSelect
-                      disabled={prefill}
-                      value={promoteType}
-                      selected={promoteType}
-                      onChange={handleSwitchType}
-                    >
-                      <option value="a">{i18n.t("usertype.agent")}</option>
-                      <option value="p">{i18n.t("usertype.player")}</option>
-                    </CustomInvitationSelect>
-                  )}
-                </>
+                <Textfield
+                  icon={
+                    process.env.PUBLIC_URL +
+                    `/assets/images/wapp/icon-promo.png`
+                  }
+                  placeholder={i18n.t("wap.register.promoteCode")}
+                  value={promoteType === "a" ? promoId : upper}
+                  onChange={
+                    promoteType === "a"
+                      ? handlePromoCodeChange
+                      : handleUpperChange
+                  }
+                  disabled={prefill}
+                  borderRadius="30px"
+                  actions={
+                    config.features.HaveAffiliateFeature && (
+                      <CustomInvitationSelect
+                        disabled={prefill}
+                        value={promoteType}
+                        selected={promoteType}
+                        onChange={handleSwitchType}
+                      >
+                        <option value="a">{i18n.t("usertype.agent")}</option>
+                        <option value="p">{i18n.t("usertype.player")}</option>
+                      </CustomInvitationSelect>
+                    )
+                  }
+                ></Textfield>
               )}
               <div style={{ padding: "10px 40px 0 10px" }}>
                 <RememberPassContainer>
@@ -452,7 +452,7 @@ const Variant3 = ({
                 label={
                   config.features.Register_CustomFlow_IDR
                     ? i18n.t("common.nextStep")
-                    : i18n.t("common.register")
+                    : i18n.t("T13.register.btn")
                 }
                 minWidth="400px"
                 onClick={handleRegisterClick}
