@@ -60,17 +60,17 @@ const DateRangContainer = styled.div`space-between
   gap: 20px;
 `;
 const DateRangSelection = styled.div`
-  padding: 10px 20px;
+  padding: 20px 30px;
 
   border-radius: 50px;
   letter-spacing: normal;
   text-align: center;
-  font-size: 32px;
+  font-size: 28px;
   color: #fff;
   ${({ selected, theme }) => {
     return selected
-      ? `background:  ${theme.primary};  border: 2px solid ${theme.primary}; `
-      : `border: 2px solid #fff;`;
+      ? `background:  ${theme.primary}; `
+      : `background: #0e0f1a;`;
   }};
 `;
 const DataContent = styled.div`
