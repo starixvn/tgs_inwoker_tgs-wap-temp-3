@@ -16,6 +16,7 @@ const CustomInputfield = styled.input`
   ::placeholder {
     font-size: 28px;
     opacity: 0.76;
+    font-family: Montserrat;
   }
 `;
 
