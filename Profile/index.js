@@ -262,7 +262,7 @@ class Profile extends Component {
                   return ContentItem(
                     process.env.PUBLIC_URL +
                       `/assets/images/wapp/icon-${platform}.svg`,
-                    i18n.t("common." + platform),
+                    i18n.t("T13." + platform.toLowerCase() + ".title"),
                     this.isConfigured(
                       this.props.account.info["member_" + platform]
                     ),
