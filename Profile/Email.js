@@ -191,7 +191,7 @@ class Email extends BaseProfile {
     var cannotAccessOther = location.state && location.state.forced ? true : "";
 
     return this.setupContent(
-      i18n.t("common.emailAddress"),
+      i18n.t("extended.email"),
       <React.Fragment>
         <Textfield
           style={{ margin: "50px auto 20px auto" }}
@@ -222,7 +222,7 @@ class Email extends BaseProfile {
                 style={{ margin: "20px auto 20px auto" }}
                 value={this.state.code}
                 onChange={this.handleChangeCode}
-                placeholder={i18n.t("common.msgEnterEmailCode")}
+                placeholder={i18n.t("T13.misc.msgEnterCode")}
                 title={i18n.t("common.token")}
                 onClick={this.handleGetCodeClick}
                 maxLength={6}
@@ -233,8 +233,8 @@ class Email extends BaseProfile {
         })()}
       </React.Fragment>,
       this.state.isConfigured
-        ? i18n.t("common.configured")
-        : i18n.t("common.complete"),
+        ? i18n.t("common.submit")
+        : i18n.t("common.submit"),
       (() => {
         if (this.state.isConfigured) {
           return (
