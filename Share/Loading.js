@@ -38,11 +38,6 @@ function Loading(props) {
       <Inner>
         <LogoImg src={props.general.brand && props.general.brand.loadingUrl} />
         <div className="clear"></div>
-        <CircularProgress
-          size={80}
-          color={"primary"}
-          style={{ margin: "30px 0 0 80px" }}
-        ></CircularProgress>
       </Inner>
     </Container>
   );
