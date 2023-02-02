@@ -400,7 +400,7 @@ class Report extends Component {
     },
     {
       index: 7,
-      label: i18n.t("report.joinedPromo.title"),
+      label: i18n.t("T13.report.joinedPromo.title"),
     },
   ];
 
@@ -423,7 +423,7 @@ class Report extends Component {
     },
     {
       index: 7,
-      label: i18n.t("report.joinedPromo.title"),
+      label: i18n.t("T13.report.joinedPromo.title"),
     },
   ];
 
