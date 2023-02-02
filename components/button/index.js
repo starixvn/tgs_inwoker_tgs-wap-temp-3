@@ -38,7 +38,7 @@ const CustomInput = styled.div`
   flex-direction: column;
   border-radius: 20px;
 
-  margin: 20px auto;
+  margin: 10px auto;
   flex: auto;
 
   align-items: center;
