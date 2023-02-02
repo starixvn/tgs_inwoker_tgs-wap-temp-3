@@ -69,9 +69,10 @@ const TextfieldWithButton = ({
   placeholder,
   onClick,
   maxLength,
+  style,
 }) => {
   return (
-    <CustomInput>
+    <CustomInput style={style}>
       {title && <CustomLabel>{title}</CustomLabel>}
 
       <SelectContainer>
