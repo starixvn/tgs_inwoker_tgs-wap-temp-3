@@ -90,7 +90,7 @@ class ChangePassword extends BaseProfile {
           label={i18n.t("common.ConfirmPass")}
         ></Textbox>
       </React.Fragment>,
-      i18n.t("common.complete")
+      i18n.t("common.submit")
     );
   }
 }
