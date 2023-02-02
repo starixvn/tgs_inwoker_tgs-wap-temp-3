@@ -172,6 +172,13 @@ const CustomSelect = withStyles((theme) => ({
   },
 }))(Select);
 
+const CustomCustomSelect = styled(CustomSelect)`
+  .MuiSelect-iconOutlined {
+    font-size: 50px;
+    top: 12px;
+  }
+`;
+
 const SelectContainer = styled.div`
   float: left;
   padding: 0 0 0 30px;
@@ -1250,7 +1257,7 @@ class Report extends Component {
               <SelectContainer>
                 <SelectLabel>{i18n.t("report.platform")}</SelectLabel>
                 <CustomFormControl variant="outlined" style={{}}>
-                  <CustomSelect
+                  <CustomCustomSelect
                     native
                     value={this.state.type}
                     onChange={this.handleTypeChange}
@@ -1275,7 +1282,7 @@ class Report extends Component {
                         );
                       });
                     })()}
-                  </CustomSelect>
+                  </CustomCustomSelect>
                 </CustomFormControl>
               </SelectContainer>
             );
@@ -1284,7 +1291,7 @@ class Report extends Component {
               <SelectContainer>
                 <SelectLabel>{i18n.t("report.status")}</SelectLabel>
                 <CustomFormControl variant="outlined" style={{}}>
-                  <CustomSelect
+                  <CustomCustomSelect
                     native
                     style={{
                       fontSize: "28px",
@@ -1303,7 +1310,7 @@ class Report extends Component {
                         </option>
                       );
                     })}
-                  </CustomSelect>
+                  </CustomCustomSelect>
                 </CustomFormControl>
               </SelectContainer>
             );
@@ -1312,7 +1319,7 @@ class Report extends Component {
               <SelectContainer>
                 <SelectLabel>{i18n.t("report.status")}</SelectLabel>
                 <CustomFormControl variant="outlined" style={{}}>
-                  <CustomSelect
+                  <CustomCustomSelect
                     native
                     style={{
                       fontSize: "28px",
@@ -1330,7 +1337,7 @@ class Report extends Component {
                         </option>
                       );
                     })}
-                  </CustomSelect>
+                  </CustomCustomSelect>
                 </CustomFormControl>
               </SelectContainer>
             );
