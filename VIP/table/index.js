@@ -23,7 +23,8 @@ const TheRewards = styled.div`
 
 const TheRewardStuffs = styled.div`
   display: grid;
-  margin-top: -5px;
+  margin-top: 0px;
+
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
   grid-template-rows: 77px ${({ total }) => {
       total &&
@@ -79,10 +80,10 @@ const VIPText = styled.div`
 `;
 
 const WithMinHeight = styled(Data)`
-  max-height: 77px;
+  height: 77px;
   background: #27273f;
   padding: 7px 10px;
-
+  text-transform: capitalize;
   min-width: initial;
   font-size: 22px;
   width: 237px;
