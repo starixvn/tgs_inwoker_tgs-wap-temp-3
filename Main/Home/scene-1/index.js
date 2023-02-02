@@ -21,6 +21,7 @@ const TemplateSwitcher = ({
   listOfGame,
   getBannerTemplate,
   token,
+  alert,
 }) => {
   const commonprops = {
     gameTypeListSorting,
@@ -40,6 +41,7 @@ const TemplateSwitcher = ({
     listOfGame,
     getBannerTemplate: getBannerTemplate,
     token,
+    alert,
   };
 
   const switchTemplate = (template) => {

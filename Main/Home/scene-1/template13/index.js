@@ -400,11 +400,13 @@ const Template13 = ({
   token,
   game,
   general,
+  alert,
 }) => {
   const [selected, setSelected] = useState("");
   var currentType = -1;
   const navigateTo = (to) => {
     AppHistory.push("/" + i18n.language + "/" + to);
+    window.scrollTo(0, 0);
   };
   const [selectedBrand, setSelectedBrand] = useState("");
   const [keyword, setKeyword] = useState("");
@@ -987,7 +989,7 @@ const Template13 = ({
               icon="links"
               darktone="#0e0f1a"
             >
-              <QuickLinks navigateTo={navigateTo} />
+              <QuickLinks navigateTo={navigateTo} alert={alert} />
             </ContentWrapper>
             <ContentWrapper
               title={i18n.t("T13.partners")}

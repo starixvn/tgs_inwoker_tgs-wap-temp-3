@@ -43,11 +43,11 @@ const SocialMedia = styled.div`
   cursor: pointer;
 `;
 
-const QuickLinks = ({ navigateTo }) => {
+const QuickLinks = ({ navigateTo, alert }) => {
   return (
     <Section>
       <LinkContainer>
-        <Link onClick={() => navigateTo("cs")}>
+        <Link onClick={() => navigateTo("chat")}>
           {i18n.t("T13.quickLink.247")}
         </Link>
         <Link onClick={() => navigateTo("faq")}>
@@ -67,15 +67,15 @@ const QuickLinks = ({ navigateTo }) => {
       <SocialMediaContainer>
         <SocialMedia
           src="facebook"
-          onClick={() => navigateTo("cs")}
+          onClick={() => navigateTo("chat")}
         ></SocialMedia>
         <SocialMedia
           src="instagram"
-          onClick={() => navigateTo("cs")}
+          onClick={() => navigateTo("chat")}
         ></SocialMedia>
         <SocialMedia
           src="twitter"
-          onClick={() => navigateTo("cs")}
+          onClick={() => navigateTo("chat")}
         ></SocialMedia>
       </SocialMediaContainer>
     </Section>

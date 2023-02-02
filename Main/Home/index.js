@@ -862,6 +862,7 @@ class Home extends Component {
             listOfGame={this.state.listOfGame}
             getBannerTemplate={this.getBannerTemplate}
             token={this.props.account.token}
+            alert={this.props.alert}
           />
         );
       case 2:
