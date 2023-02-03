@@ -16,6 +16,7 @@ const CustomInputfield = styled.input`
   ::placeholder {
     font-size: 28px;
     opacity: 0.76;
+    font-family: Montserrat;
   }
 `;
 
@@ -109,6 +110,7 @@ const Textfield = ({
   placeholder,
   borderRadius,
   pattern,
+  actions,
 }) => {
   return (
     <CustomInput leaveTopGap={title !== ""}>
@@ -126,7 +128,7 @@ const Textfield = ({
           pattern={pattern}
         />
         <div>
-          <DropdownSection variant={variant} />
+          {actions} <DropdownSection variant={variant} />
         </div>
       </CustomWrapper>
 

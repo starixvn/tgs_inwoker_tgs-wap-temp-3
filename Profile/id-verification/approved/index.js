@@ -13,16 +13,8 @@ class Approved extends BaseProfile {
         <Textbox
           style={{ margin: "50px auto 20px auto" }}
           value={this.props.account.info.member_name}
-          placeholder={
-            config.features.Profile_CustomIdentityPageTranslation
-              ? i18n.t("piso.profile.enterFullName")
-              : i18n.t("profile.nameVerify.title")
-          }
-          label={
-            config.features.Profile_CustomIdentityPageTranslation
-              ? i18n.t("piso.profile.fullName")
-              : i18n.t("profile.nameVerify.verifyName")
-          }
+          placeholder={i18n.t("profile.nameVerify.title")}
+          label={i18n.t("profile.nameVerify.title")}
           disabled={true}
           maxLength={256}
         ></Textbox>

@@ -23,6 +23,7 @@ import Select from "@material-ui/core/Select";
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import ErrorSwitcher from "../../../utils/ErrorSwitcher";
+import { utility } from "../../../utils/utility";
 const moment = require("moment");
 const localeMap = {
   zh: zhLocale,
@@ -60,17 +61,17 @@ const DateRangContainer = styled.div`space-between
   gap: 20px;
 `;
 const DateRangSelection = styled.div`
-  padding: 10px 20px;
+  padding: 20px 30px;
 
   border-radius: 50px;
   letter-spacing: normal;
   text-align: center;
-  font-size: 32px;
+  font-size: 28px;
   color: #fff;
   ${({ selected, theme }) => {
     return selected
-      ? `background:  ${theme.primary};  border: 2px solid ${theme.primary}; `
-      : `border: 2px solid #fff;`;
+      ? `background:  ${theme.primary}; `
+      : `background: #0e0f1a;`;
   }};
 `;
 const DataContent = styled.div`
@@ -98,10 +99,13 @@ const DataRowId = styled.div`
   padding: 8px;
   font-weight: 600;
   font-size: 26px;
+  display: flex;
 `;
 const IDCell = styled.span`
   font-weight: normal;
   font-size: 26px;
+  display: flex;
+  gap: 10px;
 `;
 const DataRow = styled.div`
   width: 100%;
@@ -132,17 +136,21 @@ const DataWinlossCell = styled.div`
   text-align: right;
 `;
 const NoRecordContainer = styled.div`
-  background: url(${({ language }) => {
-      return language
-        ? process.env.PUBLIC_URL +
-            `/assets/images/wapp/no-record_${language}.png`
-        : process.env.PUBLIC_URL + `/assets/images/wapp/no-record.png`;
-    }})
-    no-repeat;
+  padding-bottom: 20px;
+  color: #fff;
 
-  width: 96px;
-  height: 136px;
   margin: 300px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const NoRecordImage = styled.img``;
+
+const NoRecordText = styled.div`
+  font-size: 24px;
+  margin-top: 20px;
+  font-family: "Montserrat", sans-serif;
 `;
 
 const DatePickerTitle = styled.div`
@@ -168,6 +176,13 @@ const CustomSelect = withStyles((theme) => ({
   },
 }))(Select);
 
+const CustomCustomSelect = styled(CustomSelect)`
+  .MuiSelect-iconOutlined {
+    font-size: 50px;
+    top: 12px;
+  }
+`;
+
 const SelectContainer = styled.div`
   float: left;
   padding: 0 0 0 30px;
@@ -183,7 +198,7 @@ const SelectContainer = styled.div`
 const SelectLabel = styled.div`
   font-size: 28px;
   color: #303030;
-  margin-left: 20px;
+
   width: 145px;
   float: left;
   margin-top: 20px;
@@ -208,6 +223,7 @@ const CustomTabs = styled.div`
   flex-flow: row wrap;
   justify-content: center;
   gap: 20px;
+  padding: 0 5px;
 `;
 
 const CustomTabText = styled.div`
@@ -216,14 +232,16 @@ const CustomTabText = styled.div`
   align-items: center;
   padding: 15px 35px;
   background: #27273f;
-  margin-right: 20px;
+
   border-radius: 50px;
 `;
 
 const CustomTab = styled.div`
   color: #fff;
   font-size: 28px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${CustomTabText} {
     ${({ selected, theme }) => {
       return selected && `background: ${theme.primary}`;
@@ -397,7 +415,7 @@ class Report extends Component {
     },
     {
       index: 7,
-      label: i18n.t("report.joinedPromo.title"),
+      label: i18n.t("T13.report.joinedPromo.title"),
     },
   ];
 
@@ -420,7 +438,7 @@ class Report extends Component {
     },
     {
       index: 7,
-      label: i18n.t("report.joinedPromo.title"),
+      label: i18n.t("T13.report.joinedPromo.title"),
     },
   ];
 
@@ -1124,7 +1142,24 @@ class Report extends Component {
     }
   };
 
+  performCopy = (content) => {
+    this.props.alert("", i18n.t("affiliate.copied"));
+
+    utility.copy(content);
+  };
+
   render() {
+    const NoDataPlaceholder = () => {
+      return (
+        <NoRecordContainer>
+          <NoRecordImage
+            src={process.env.PUBLIC_URL + `/assets/images/wapp/no-record.png`}
+          />
+
+          <NoRecordText>{i18n.t("common.nodata")}</NoRecordText>
+        </NoRecordContainer>
+      );
+    };
     return (
       <Container>
         <StyledAppBar>
@@ -1237,7 +1272,7 @@ class Report extends Component {
               <SelectContainer>
                 <SelectLabel>{i18n.t("report.platform")}</SelectLabel>
                 <CustomFormControl variant="outlined" style={{}}>
-                  <CustomSelect
+                  <CustomCustomSelect
                     native
                     value={this.state.type}
                     onChange={this.handleTypeChange}
@@ -1262,7 +1297,7 @@ class Report extends Component {
                         );
                       });
                     })()}
-                  </CustomSelect>
+                  </CustomCustomSelect>
                 </CustomFormControl>
               </SelectContainer>
             );
@@ -1271,7 +1306,7 @@ class Report extends Component {
               <SelectContainer>
                 <SelectLabel>{i18n.t("report.status")}</SelectLabel>
                 <CustomFormControl variant="outlined" style={{}}>
-                  <CustomSelect
+                  <CustomCustomSelect
                     native
                     style={{
                       fontSize: "28px",
@@ -1290,7 +1325,7 @@ class Report extends Component {
                         </option>
                       );
                     })}
-                  </CustomSelect>
+                  </CustomCustomSelect>
                 </CustomFormControl>
               </SelectContainer>
             );
@@ -1299,7 +1334,7 @@ class Report extends Component {
               <SelectContainer>
                 <SelectLabel>{i18n.t("report.status")}</SelectLabel>
                 <CustomFormControl variant="outlined" style={{}}>
-                  <CustomSelect
+                  <CustomCustomSelect
                     native
                     style={{
                       fontSize: "28px",
@@ -1317,7 +1352,7 @@ class Report extends Component {
                         </option>
                       );
                     })}
-                  </CustomSelect>
+                  </CustomCustomSelect>
                 </CustomFormControl>
               </SelectContainer>
             );
@@ -1343,7 +1378,7 @@ class Report extends Component {
                 </DataHeader>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <DataContent>
@@ -1421,7 +1456,7 @@ class Report extends Component {
                 })()}
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <>
@@ -1432,8 +1467,16 @@ class Report extends Component {
                           return (
                             <DataContent key={index}>
                               <DataRowId>
-                                {i18n.t("report.betid")} :{" "}
-                                <IDCell>{row.id}</IDCell>
+                                {i18n.t("report.betid")}:
+                                <IDCell
+                                  onClick={() => {
+                                    this.performCopy(row.id);
+                                  }}
+                                >
+                                  {" "}
+                                  {row.id}
+                                  <div>⎘</div>
+                                </IDCell>
                               </DataRowId>
                               <DataRowId>
                                 <CustomDataRow>
@@ -1486,7 +1529,7 @@ class Report extends Component {
                 </DataHeader>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <>
@@ -1525,7 +1568,7 @@ class Report extends Component {
               <React.Fragment>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <>
@@ -1589,7 +1632,7 @@ class Report extends Component {
                 </DataHeader>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <DataContent>
@@ -1618,7 +1661,7 @@ class Report extends Component {
               <React.Fragment>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <div>
@@ -1662,7 +1705,7 @@ class Report extends Component {
               <React.Fragment>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <div>
@@ -1696,7 +1739,7 @@ class Report extends Component {
               <React.Fragment>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
-                    return <NoRecordContainer language={i18n.language} />;
+                    return <NoDataPlaceholder />;
                   } else {
                     return (
                       <div>
@@ -1713,7 +1756,9 @@ class Report extends Component {
                                 </DataRowId>
                                 <DataRowId>
                                   {i18n.t("report.balanceChanges.type")}:{" "}
-                                  <IDCell>{ErrorSwitcher.getTranslation(row.type)}</IDCell>
+                                  <IDCell>
+                                    {ErrorSwitcher.getTranslation(row.type)}
+                                  </IDCell>
                                 </DataRowId>
                                 <DataRowId>
                                   {i18n.t("report.balanceChanges.amount")}:{" "}

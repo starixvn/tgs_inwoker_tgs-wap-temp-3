@@ -544,7 +544,7 @@ class Withdrawal extends Component {
             </CustomSelectContainer>
           )}
           <Select
-            title={i18n.t("card.addCard.branch")}
+            title={i18n.t("profile.bankCard.title")}
             value={this.state.selectedBankCardIndex}
             native
             onChange={(e) => {

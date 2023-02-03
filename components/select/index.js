@@ -33,8 +33,12 @@ const CustomInput = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  padding: 20px 20px 0 20px;
-  margin: 20px auto;
+  ${({ noGap }) => {
+    return noGap
+      ? "padding: 0 20px;"
+      : "padding: 20px 20px 0 20px; margin: 20px auto;";
+  }}
+
   flex: auto;
 `;
 
@@ -88,9 +92,9 @@ const ArrowDown = styled.div`
   rotate: 270deg;
 `;
 
-const Select = ({ title, value, onChange, children, variant }) => {
+const Select = ({ title, value, onChange, children, variant, noGap }) => {
   return (
-    <CustomInput>
+    <CustomInput noGap={noGap}>
       {title && <CustomLabel>{title}</CustomLabel>}
 
       <SelectContainer>

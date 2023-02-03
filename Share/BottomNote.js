@@ -52,34 +52,50 @@ class BottomNote extends Component {
   };
 
   render() {
-    return (
-      !this.props.empty && (
-        <Content>
-          {this.props.text1 || i18n.t("share.bottomNote.pleaseContact")}{" "}
-          {(() => {
-            if (this.props.toEdit) {
-              return (
-                <LabelNormal onClick={this.props.toEdit}>
-                  {this.props.text2 || i18n.t("share.bottomNote.liveChat")}
-                </LabelNormal>
-              );
-            } else if (this.props.link) {
-              return (
-                <LabelLink to={this.props.link}>
-                  {this.props.text2 || i18n.t("share.bottomNote.liveChat")}
-                </LabelLink>
-              );
-            } else {
-              return (
-                <LabelNormal onClick={this.handleCSClick}>
-                  {this.props.text2 || i18n.t("share.bottomNote.liveChat")}
-                </LabelNormal>
-              );
-            }
-          })()}
-        </Content>
-      )
-    );
+    const variantSwitcher = (variant) => {
+      switch (variant) {
+        case "original":
+          return (
+            <Content>
+              {this.props.text1 || i18n.t("share.bottomNote.pleaseContact")}{" "}
+              {(() => {
+                if (this.props.toEdit) {
+                  return (
+                    <LabelNormal onClick={this.props.toEdit}>
+                      {this.props.text2 || i18n.t("share.bottomNote.liveChat")}
+                    </LabelNormal>
+                  );
+                } else if (this.props.link) {
+                  return (
+                    <LabelLink to={this.props.link}>
+                      {this.props.text2 || i18n.t("share.bottomNote.liveChat")}
+                    </LabelLink>
+                  );
+                } else {
+                  return (
+                    <LabelNormal onClick={this.handleCSClick}>
+                      {this.props.text2 || i18n.t("share.bottomNote.liveChat")}
+                    </LabelNormal>
+                  );
+                }
+              })()}
+              {this.props.text3 && " " + this.props.text3}
+            </Content>
+          );
+        default:
+          return (
+            <Content>
+              {i18n.t("T13.help_footer.break1")}{" "}
+              <LabelLink to={"../chat"}>
+                {i18n.t("T13.help_footer.break2")}{" "}
+              </LabelLink>
+              {i18n.t("T13.help_footer.break3")}
+            </Content>
+          );
+      }
+    };
+
+    return !this.props.empty && variantSwitcher(this.props.variant);
   }
 }
 

@@ -651,7 +651,7 @@ class AddCard extends Component {
                               placeholder={i18n.t(
                                 "card.addCard.branchPlaceHolder"
                               )}
-                              title={i18n.t("card.addCard.branch")}
+                              title={i18n.t("T13.misc.branch")}
                               maxLength={255}
                             ></Textfield>
                           );
@@ -787,7 +787,7 @@ class AddCard extends Component {
                   config.features.Register_CustomFlow_IDR &&
                   !this.state.isDeposit
                     ? i18n.t("common.register")
-                    : i18n.t("common.confirm")
+                    : i18n.t("common.submit")
                 }
                 onClick={this.handleNextClick}
                 disabled={this.state.name === "" || this.state.phone === ""}
@@ -842,8 +842,8 @@ class AddCard extends Component {
                 label={
                   config.features.Register_CustomFlow_IDR &&
                   !this.state.isDeposit
-                    ? i18n.t("web.register.btn")
-                    : i18n.t("common.confirm")
+                    ? i18n.t("common.submit")
+                    : i18n.t("common.submit")
                 }
                 onClick={this.handleNextClick}
                 disabled={(() => {

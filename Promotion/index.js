@@ -11,6 +11,7 @@ import AppBarExtrator from "./../../Wap/components/appbar";
 const Container = styled.div`
   width: 100%;
   overflow: hidden;
+  padding-bottom: 200px;
   min-height: 100vh;
   background-size: contain;
 `;

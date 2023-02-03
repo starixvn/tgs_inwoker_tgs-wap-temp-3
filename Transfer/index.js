@@ -88,7 +88,7 @@ const CustomSwitch = withStyles((theme) => ({
   track: {
     borderRadius: 26 / 2,
     border: `1px solid ${theme.palette.grey[400]}`,
-    backgroundColor: theme.palette.grey[50],
+    backgroundColor: "#aaaaaa",
     opacity: 1,
     transition: theme.transitions.create(["background-color", "border"]),
   },
@@ -136,10 +136,10 @@ const CustomButton = styled.div`
   color: #fff;
   display: inline;
   padding: 10px 20px;
-  box-shadow: rgb(100 100 111 / 20%) 0px 3px 3px 0px;
   font-size: 20px;
   border-radius: 30px;
   margin-left: 20px;
+  background: #27273f;
 `;
 
 const ArrowDown = styled.div`
@@ -474,6 +474,7 @@ class Transfer extends Component {
           </PageTitle>
           <InputRow>
             <Select
+              noGap
               onChange={this.handleFromWallet}
               value={this.state.fromWallet}
             >
@@ -487,7 +488,14 @@ class Transfer extends Component {
                 )
                 .filter((e) => {
                   if (config.features.MergeEVORTNT) {
-                    if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF" || e.gpcode === "BTG" || e.gpcode === "NLC")) {
+                    if (
+                      !(
+                        e.gpcode === "NTTF" ||
+                        e.gpcode === "RTTF" ||
+                        e.gpcode === "BTG" ||
+                        e.gpcode === "NLC"
+                      )
+                    ) {
                       return e;
                     }
                   } else {
@@ -507,7 +515,11 @@ class Transfer extends Component {
                 ))}
             </Select>{" "}
             <ArrowDown />
-            <Select onChange={this.handleToWallet} value={this.state.toWallet}>
+            <Select
+              noGap
+              onChange={this.handleToWallet}
+              value={this.state.toWallet}
+            >
               <option value={this.state.mainAccountId}>
                 {i18n.t("transfer.mainAccount")} (
                 {Common.formatNumberWithCommas(this.props.wallet.mainBalance)})
@@ -518,7 +530,14 @@ class Transfer extends Component {
                 )
                 .filter((e) => {
                   if (config.features.MergeEVORTNT) {
-                    if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF" || e.gpcode === "BTG" || e.gpcode === "NLC")) {
+                    if (
+                      !(
+                        e.gpcode === "NTTF" ||
+                        e.gpcode === "RTTF" ||
+                        e.gpcode === "BTG" ||
+                        e.gpcode === "NLC"
+                      )
+                    ) {
                       return e;
                     }
                   } else {
@@ -548,7 +567,7 @@ class Transfer extends Component {
               pattern="\d*"
             />
             <Button
-              label={i18n.t("common.confirm")}
+              label={i18n.t("common.submit")}
               onClick={this.handleSubmitClicked}
               disabled={(() => {
                 return (
@@ -596,7 +615,14 @@ class Transfer extends Component {
               )
               .filter((e) => {
                 if (config.features.MergeEVORTNT) {
-                  if (!(e.gpcode === "NTTF" || e.gpcode === "RTTF" || e.gpcode === "BTG" || e.gpcode === "NLC")) {
+                  if (
+                    !(
+                      e.gpcode === "NTTF" ||
+                      e.gpcode === "RTTF" ||
+                      e.gpcode === "BTG" ||
+                      e.gpcode === "NLC"
+                    )
+                  ) {
                     return e;
                   }
                 } else {

@@ -17,8 +17,11 @@ import Button from "../../../../components/button";
 import { playerList, gameList as gameListx } from "./../template11/hardcode";
 import News from "./news";
 import { hardcodeNews } from "./news/hardcoded";
+import Banner from "../banner";
 
-const TheContainer = styled.div``;
+const TheContainer = styled.div`
+  padding-top: 125px;
+`;
 
 const GameLister = styled.div`
   overflow: auto;
@@ -101,7 +104,6 @@ const GridWrapper = styled.div`
   padding: 0 20px 10px 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 `;
 
 const GameListItemIcon = styled.div`
@@ -122,7 +124,7 @@ const GameListItemIcon = styled.div`
 `;
 
 const AnnouncementSection = styled.div`
-  background: #0e0f1a;
+  background: #27273f;
   margin: 15px 20px;
   color: #fff;
   padding: 10px 20px;
@@ -228,6 +230,7 @@ const ProviderListWrapper = styled.div`
   background: #24253c;
   border-radius: 50px;
   width: -webkit-fill-available;
+  position: relative;
 `;
 const ProviderList = styled.select`
   background: #24253c;
@@ -237,6 +240,11 @@ const ProviderList = styled.select`
   color: #fff;
   font-size: 28px;
   width: -webkit-fill-available;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
 `;
 
 const SearchBar = styled.input`
@@ -246,6 +254,7 @@ const SearchBar = styled.input`
   padding: 20px 40px;
   color: #fff;
   font-size: 28px;
+  font-family: "Montserrat", sans-serif;
 
   ::placeholder {
     color: #fff;
@@ -277,7 +286,7 @@ const SectionWrapper = styled.div`
 
 const JackpotWrapper = styled(SectionWrapper)``;
 const JackpotGif = styled.div`
-  height: 345px;
+  height: 355px;
   background: url(${process.env.PUBLIC_URL +
     `/assets/images/wapp/resource/T13/homepage/jackpot.svg`})
     no-repeat center / contain;
@@ -309,9 +318,10 @@ const WinnerListItem = styled.div`
   height: 125px;
   margin: 20px 5px;
   padding: 0px 20px;
-  border: 1px solid #fff;
+
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   border-radius: 25px;
-  background: #232323;
+  background: #27273f;
   align-items: center;
   justify-content: space-between;
 `;
@@ -340,10 +350,11 @@ const HighlightText = styled.span`
 `;
 const ListItem = styled.div`
   background: url(${(props) => props.src}) no-repeat right top;
-  background-size: 100% 100%;
+  background-size: contain;
   position: relative;
   width: 100%;
-  height: 280px;
+  height: 260px;
+  aspect-ratio: 1/1;
 `;
 
 const WhiteLogo = styled.div`
@@ -365,6 +376,21 @@ const WinnerListxx = styled.div`
   gap: 20px;
 `;
 
+const ArrowDown = styled.div`
+  mask: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/btn-back-white.png`})
+    no-repeat center;
+  background: ${({ theme }) => theme.primaryText};
+  width: 40px;
+  height: 30px;
+
+  mask-size: 25%;
+  rotate: 275deg;
+  position: absolute;
+  right: 10px;
+  bottom: 20px;
+`;
+
 const Template13 = ({
   gameMenu2,
   changeShowGame,
@@ -374,11 +400,13 @@ const Template13 = ({
   token,
   game,
   general,
+  alert,
 }) => {
   const [selected, setSelected] = useState("");
   var currentType = -1;
   const navigateTo = (to) => {
     AppHistory.push("/" + i18n.language + "/" + to);
+    window.scrollTo(0, 0);
   };
   const [selectedBrand, setSelectedBrand] = useState("");
   const [keyword, setKeyword] = useState("");
@@ -413,14 +441,18 @@ const Template13 = ({
 
   useEffect(() => {
     const updateJackpotAmount = () => {
+      //random digit from 0.05 to  0.2
+      var randomDigit = Math.floor(Math.random() * 15 + 5) / 100;
       if (jackpotAmount < 9999999.99) {
-        setJackpotAmount((currentJackpotAmount) => currentJackpotAmount + 0.01);
+        setJackpotAmount(
+          (currentJackpotAmount) => currentJackpotAmount + randomDigit
+        );
       } else {
         setJackpotAmount(initialJackpotAmount);
       }
     };
 
-    const interval = setInterval(updateJackpotAmount, 5000);
+    const interval = setInterval(updateJackpotAmount, 2000);
     return () => {
       clearInterval(interval);
     };
@@ -571,6 +603,12 @@ const Template13 = ({
     });
   };
 
+  const navigateToSlot = () => {
+    setSelected([GameTypeEnum.SLOT]);
+    changeShowGame([GameTypeEnum.SLOT]);
+    window.scrollTo(0, 0);
+  };
+
   const settings = {
     dots: false,
     className: "center",
@@ -605,8 +643,34 @@ const Template13 = ({
     beforeChange: (current, next) => {},
   };
 
+  const providers = [
+    { name: "BetConstruct" },
+    { name: "Avia" },
+    { name: "TF Sports" },
+    { name: "Joker" },
+    { name: "AE Slot" },
+    { name: "FACAI" },
+    { name: "Fast Spin" },
+    { name: "Kingmaker" },
+    { name: "PGSoft" },
+    { name: "Spadegaming" },
+    { name: "Venus" },
+    { name: "YL" },
+    { name: "WM" },
+    { name: "Netent" },
+    { name: "Red Tiger" },
+    { name: "JILI" },
+    { name: "Evolution" },
+    { name: "JDB" },
+    { name: "PHSB" },
+    { name: "Habanero" },
+  ];
+
   return (
     <TheContainer>
+      <AnnouncementSection>
+        <Marquee withOnlineUser />
+      </AnnouncementSection>
       <GameLister>
         {shared.theSorter(gameMenu2).map((i, index) => {
           //hide if 0 game found.
@@ -640,16 +704,24 @@ const Template13 = ({
           }
         })}
       </GameLister>
-      <AnnouncementSection>
-        <Marquee />
-      </AnnouncementSection>
+      {!selected && (
+        <Banner
+          height={config.brand === "GMO" && "315px"}
+          sameAsText={config.brand === "GMO"}
+          noPadding={true}
+          updown="only-banner"
+          banner={general.banner}
+          // appHistory={this.props.appHistory}
+          token={token}
+        />
+      )}
 
       <GridWrapper>
         {selected && gameTypeToDisplayDifferently(selected) ? (
           <SlotGameTypeWrapper>
             <SearchSection>
               <SearchBar
-                placeholder={i18n.t("slot.search")}
+                placeholder={i18n.t("T13.slot.search")}
                 value={keyword}
                 onChange={(e) => {
                   setKeyword(e.target.value);
@@ -662,7 +734,7 @@ const Template13 = ({
                   }}
                 >
                   <option value="" selected>
-                    {i18n.t("report.all")}
+                    {i18n.t("T13.slot.provider")}
                   </option>
                   {homePageGameList
                     .filter((game) => selected.indexOf(game.type) >= 0)
@@ -682,7 +754,8 @@ const Template13 = ({
                         </option>
                       );
                     })}
-                </ProviderList>
+                </ProviderList>{" "}
+                <ArrowDown />
               </ProviderListWrapper>
             </SearchSection>
             <WrapTheGames>
@@ -798,6 +871,9 @@ const Template13 = ({
           </GameButtonWrapper>
         ) : (
           <>
+            <ContentWrapper title="jackpot" icon="jackpot">
+              <Jackpot />
+            </ContentWrapper>
             {checking("hot").length > 0 && (
               <ContentWrapper
                 title={i18n.t("T13.topGames")}
@@ -805,9 +881,11 @@ const Template13 = ({
                 icon="games"
                 joinGame={handleJoinGameClick}
                 games={checking("hot")}
+                seeMoreAt={() => {
+                  navigateToSlot();
+                }}
               />
             )}
-
             {checking("recommend").length > 0 && (
               <ContentWrapper
                 title={i18n.t("T13.recommeneddGames")}
@@ -815,6 +893,9 @@ const Template13 = ({
                 icon="games"
                 joinGame={handleJoinGameClick}
                 games={checking("recommend")}
+                seeMoreAt={() => {
+                  navigateToSlot();
+                }}
               />
             )}
             {checking("new").length > 0 && (
@@ -824,9 +905,11 @@ const Template13 = ({
                 icon="games"
                 joinGame={handleJoinGameClick}
                 games={checking("new")}
+                seeMoreAt={() => {
+                  navigateToSlot();
+                }}
               />
             )}
-
             <ContentWrapper
               title={i18n.t("common.promotion")}
               icon="promotions"
@@ -862,14 +945,11 @@ const Template13 = ({
                 />
               </div>
             </ContentWrapper>
-            <ContentWrapper title="jackpot" icon="jackpot">
-              <Jackpot />
-            </ContentWrapper>
             <ContentWrapper title={i18n.t("T13.winner")} icon="winners">
               <WinnerList list={list} />
             </ContentWrapper>
             <ContentWrapper title={i18n.t("T13.topNews")} icon="news">
-              {hardcodeNews.map((data, index) => {
+              {hardcodeNews.slice(0, 6).map((data, index) => {
                 return (
                   <News
                     key={index}
@@ -893,6 +973,7 @@ const Template13 = ({
               </div>
             </ContentWrapper>
             <ContentWrapper
+              darktone="#0e0f1a"
               title={i18n
                 .t("T13.brandTag")
                 .replace("{brandName}", config.brandName)}
@@ -914,6 +995,7 @@ const Template13 = ({
               title={i18n.t("T13.aboutUs")}
               type="game"
               icon="about"
+              darktone="#0e0f1a"
             >
               <WhiteLogo
                 src={general.brand.mobileLogoUrl}
@@ -928,15 +1010,17 @@ const Template13 = ({
               title={i18n.t("T13.quickLink.title")}
               type="game"
               icon="links"
+              darktone="#0e0f1a"
             >
-              <QuickLinks navigateTo={navigateTo} />
+              <QuickLinks navigateTo={navigateTo} alert={alert} />
             </ContentWrapper>
             <ContentWrapper
               title={i18n.t("T13.partners")}
               type="game"
               icon="partners"
+              darktone="#0e0f1a"
             >
-              <Partners provider={game.providerList} />
+              <Partners provider={providers} />
             </ContentWrapper>
           </>
         )}

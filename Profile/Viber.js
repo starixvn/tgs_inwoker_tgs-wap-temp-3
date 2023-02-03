@@ -61,13 +61,13 @@ class Viber extends BaseProfile {
 
   render() {
     return this.setupContent(
-      i18n.t("common.viber"),
+      i18n.t("T13.viber.vb_title"),
       <Textbox
         style={{ margin: "50px auto 20px auto" }}
         value={this.state.viber}
         onChange={this.handleChangeNumber}
-        placeholder={i18n.t("profile.viber.plsEnterViber")}
-        label={i18n.t("common.viber")}
+        placeholder={i18n.t("T13.viber.vb_placeholder")}
+        label={i18n.t("T13.viber.vb_label")}
         disabled={
           this.state.isConfigured &&
           (config.features.ChangesNotAllowed ||
@@ -78,29 +78,15 @@ class Viber extends BaseProfile {
         maxLength={15}
       ></Textbox>,
       this.state.isConfigured && config.features.ChangesNotAllowed
-        ? i18n.t("common.configured")
+        ? i18n.t("common.submit")
         : this.state.viber !== this.props.account.member_viber &&
-            i18n.t("common.complete"),
-      (() => {
-        if (
-          this.state.isConfigured &&
-          (config.features.ChangesNotAllowed ||
-            config.features.Profile_ExistingDetails_ViewOnly)
-        ) {
-          return (
-            <BottomNote
-              text1={i18n.t("profile.viber.toEdit")}
-              link={"../chat"}
-              text2={i18n.t(
-                config.features.ChangesNotAllowed ||
-                  config.features.Profile_ExistingDetails_ViewOnly
-                  ? "common.customerService"
-                  : "profile.viber.here"
-              )}
-            ></BottomNote>
-          );
-        }
-      })()
+            i18n.t("common.submit"),
+      <BottomNote
+        text1={i18n.t("T13.help_footer.break1")}
+        text2={i18n.t("T13.help_footer.break2")}
+        text3={i18n.t("T13.help_footer.break3")}
+        link={"../chat"}
+      ></BottomNote>
     );
   }
 }

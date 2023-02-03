@@ -11,7 +11,7 @@ const CustomInputfield = styled.input`
   padding: 0px 50px;
   background: none;
   width: 100%;
-
+  font-family: "Montserrat", sans-serif;
   ::placeholder {
     font-size: 28px;
     opacity: 0.76;
@@ -69,9 +69,10 @@ const TextfieldWithButton = ({
   placeholder,
   onClick,
   maxLength,
+  style,
 }) => {
   return (
-    <CustomInput>
+    <CustomInput style={style}>
       {title && <CustomLabel>{title}</CustomLabel>}
 
       <SelectContainer>

@@ -91,6 +91,9 @@ const LetterContent = styled.div`
   background: #202137;
   color: #fff;
 
+  max-height: 400px;
+  overflow-y: auto;
+
   ${({ opened }) =>
     opened
       ? `

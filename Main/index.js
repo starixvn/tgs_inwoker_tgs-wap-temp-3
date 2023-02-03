@@ -297,6 +297,7 @@ class Main extends Component {
           <Home
             navigate={this.props.navigate}
             appHistory={this.props.appHistory}
+            alert={this.props.alert}
           />
         );
       case "profile":
@@ -312,7 +313,7 @@ class Main extends Component {
           <Support
             alert={this.props.alert}
             navigate={this.props.navigate}
-            cs={this.handleContactCs}
+            GetSupportUrl={this.handleContactCs}
           />
         );
       case "download":
@@ -322,6 +323,7 @@ class Main extends Component {
           <Home
             navigate={this.props.navigate}
             appHistory={this.props.appHistory}
+            alert={this.props.alert}
           />
         );
     }

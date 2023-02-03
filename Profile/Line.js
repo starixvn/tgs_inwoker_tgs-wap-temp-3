@@ -63,13 +63,13 @@ class Line extends BaseProfile {
 
   render() {
     return this.setupContent(
-      i18n.t("common.line"),
+      i18n.t("T13.line.line_title"),
       <Textbox
         style={{ margin: "50px auto 20px auto" }}
         value={this.state.line}
         onChange={this.handleChangeNumber}
-        placeholder={i18n.t("profile.line.plsEnterLine")}
-        label={i18n.t("common.line")}
+        placeholder={i18n.t("T13.line.line_placeholder")}
+        label={i18n.t("T13.line.line_label")}
         disabled={
           this.state.isConfigured &&
           (config.features.ChangesNotAllowed ||
@@ -80,9 +80,9 @@ class Line extends BaseProfile {
         maxLength={15}
       ></Textbox>,
       this.state.isConfigured && config.features.ChangesNotAllowed
-        ? i18n.t("common.configured")
+        ? i18n.t("common.submit")
         : this.state.line !== this.props.account.member_line &&
-            i18n.t("common.complete"),
+            i18n.t("common.submit"),
       (() => {
         if (
           this.state.isConfigured &&

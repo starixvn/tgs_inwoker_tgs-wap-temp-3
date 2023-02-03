@@ -1,15 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import config from "../../../../../../../config/config";
+import { AppHistory } from "../../../../../../../history/History";
 import Common from "../../../../../../../utils/Common";
+import i18n from "../../../../../../../utils/i18n";
+import Button from "../../../../../components/button";
 
 const ContentWrapperx = styled.div`
-  background: #0e0f1a;
   border-radius: 50px;
   color: #fff;
   display: flex;
   flex-direction: column;
-  padding: 20px 30px 60px 30px;
+  padding: 20px 10px 20px 10px;
+
+  background: ${({ darktone }) => {
+    return darktone && darktone;
+  }};
+
+  margin-bottom: ${({ darktone }) => {
+    return darktone ? "20px" : "0px";
+  }};
 `;
 
 const TitleSection = styled.div`
@@ -101,9 +111,17 @@ const TheWrapperContents = ({ src, onClick }) => {
   );
 };
 
-const ContentWrapper = ({ title, children, icon, games, joinGame }) => {
+const ContentWrapper = ({
+  title,
+  children,
+  icon,
+  games,
+  joinGame,
+  seeMoreAt,
+  darktone,
+}) => {
   return (
-    <ContentWrapperx>
+    <ContentWrapperx darktone={darktone}>
       <TitleSection>
         <IconHolder
           src={
@@ -116,25 +134,32 @@ const ContentWrapper = ({ title, children, icon, games, joinGame }) => {
         <div>{title}</div>
       </TitleSection>
       <ContentHolder content={children}>
-        {children
-          ? children
-          : games.length >= 0 &&
-            games.map((row, index) => {
-              return (
-                <TheWrapperContents
-                  key={index}
-                  onClick={() => {
-                    joinGame(row);
-                  }}
-                  src={`${
-                    config.sourceUrl
-                  }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
-                    row.code
-                  }.jpg`}
-                />
-              );
-            })}
+        {children ? (
+          children
+        ) : (
+          <>
+            {games.length >= 0 &&
+              games.map((row, index) => {
+                return (
+                  <TheWrapperContents
+                    key={index}
+                    onClick={() => {
+                      joinGame(row);
+                    }}
+                    src={`${
+                      config.sourceUrl
+                    }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+                      row.code
+                    }.jpg`}
+                  />
+                );
+              })}
+          </>
+        )}
       </ContentHolder>
+      {seeMoreAt && (
+        <Button label={i18n.t("common.more")} onClick={seeMoreAt} />
+      )}
     </ContentWrapperx>
   );
 };

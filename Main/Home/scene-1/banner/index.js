@@ -50,7 +50,7 @@ const MarqueeContainer = styled.div`
   white-space: nowrap;
   letter-spacing: 1.5px;
   font-size: 21px;
-  line-hight: 26px;
+  line-height: 26px;
   overflow: hidden;
 
   height: 36px;
@@ -91,10 +91,10 @@ const FixedContainer = styled.div`
 `;
 
 const ScrollContainer = styled.div`
-  padding-top: 125px;
+  padding-top: ${({ noPadding }) => (noPadding ? "0" : "125px")};
   height: 520px;
   position: relative;
-  border-radius: 20px;
+  border-radius: ${({ noBorderRadius }) => (noBorderRadius ? "0" : "20px")};
 `;
 
 const NoGapAtAllContainer = styled.div`
@@ -119,7 +119,7 @@ const BannerImgs = styled.div`
   background: url(${({ src }) => src}) no-repeat center;
   background-size: cover;
   height: ${({ height }) => (height ? height : "300px")};
-  border-radius: 30px;
+  border-radius: ${({ noBorderRadius }) => (noBorderRadius ? "0" : "30px")};
   width: ${(props) => (config.theme.toLowerCase() === "pb" ? "95%" : "100%")};
   margin: auto;
 `;
@@ -176,8 +176,8 @@ const settings = {
   autoplay: true,
 };
 const Banner = React.memo(
-  ({ updown, banner, height, sameAsText, appHistory, token }) => {
-    const SliderWrapper = ({ withPadding }) => {
+  ({ updown, banner, height, sameAsText, appHistory, token, noPadding }) => {
+    const SliderWrapper = ({ withPadding, noBorderRadius }) => {
       return (
         <Slider {...settings}>
           {banner.map((data, index) => {
@@ -185,6 +185,7 @@ const Banner = React.memo(
               <TheImageWrapper withPadding={withPadding}>
                 <ATag href={data.navurl} key={index} target="_blank">
                   <BannerImgs
+                    noBorderRadius={noBorderRadius}
                     height={height}
                     src={data.mobileurl}
                     alt={data.alt}
@@ -363,7 +364,7 @@ const Banner = React.memo(
           );
         case "only-online-user":
           return (
-            <ScrollContainer style={{ height: 470 }}>
+            <ScrollContainer style={{ height: 470 }} noPadding={noPadding}>
               <NoGapContainer>
                 <SliderWrapper height={height} />
               </NoGapContainer>
@@ -377,6 +378,26 @@ const Banner = React.memo(
               >
                 <OnlineUserDisplayer color="#fff" />
               </AnnouncementContainer>
+            </ScrollContainer>
+          );
+        case "only-banner":
+          return (
+            <ScrollContainer
+              style={{ height: 300 }}
+              noPadding={noPadding}
+              noBorderRadius={noPadding}
+            >
+              <NoGapContainer>
+                <SliderWrapper height={height} noBorderRadius={noPadding} />
+              </NoGapContainer>
+              <AnnouncementContainer
+                up={false}
+                style={{
+                  justifyContent: "center",
+                  width: "100%",
+                  paddingBottom: 10,
+                }}
+              ></AnnouncementContainer>
             </ScrollContainer>
           );
         default:
