@@ -949,7 +949,7 @@ const Template13 = ({
               <WinnerList list={list} />
             </ContentWrapper>
             <ContentWrapper title={i18n.t("T13.topNews")} icon="news">
-              {hardcodeNews.map((data, index) => {
+              {hardcodeNews.slice(0, 6).map((data, index) => {
                 return (
                   <News
                     key={index}
