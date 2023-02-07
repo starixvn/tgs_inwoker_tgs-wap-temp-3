@@ -913,6 +913,7 @@ const Template13 = ({
             <ContentWrapper
               title={i18n.t("common.promotion")}
               icon="promotions"
+              noGap
             >
               <Slick {...settings}>
                 {general.promotionList.items.length > 0 &&
@@ -948,7 +949,7 @@ const Template13 = ({
             <ContentWrapper title={i18n.t("T13.winner")} icon="winners">
               <WinnerList list={list} />
             </ContentWrapper>
-            <ContentWrapper title={i18n.t("T13.topNews")} icon="news">
+            <ContentWrapper title={i18n.t("T13.topNews")} icon="news" noGap>
               {hardcodeNews.slice(0, 6).map((data, index) => {
                 return (
                   <News
@@ -977,8 +978,8 @@ const Template13 = ({
               title={i18n
                 .t("T13.brandTag")
                 .replace("{brandName}", config.brandName)}
-              type="game"
               icon="pg"
+              type="text"
             >
               <div style={{ display: "flex", justifyContent: " center" }}>
                 <img
@@ -993,9 +994,9 @@ const Template13 = ({
             </ContentWrapper>
             <ContentWrapper
               title={i18n.t("T13.aboutUs")}
-              type="game"
               icon="about"
               darktone="#0e0f1a"
+              type="text"
             >
               <WhiteLogo
                 src={general.brand.mobileLogoUrl}
@@ -1008,7 +1009,6 @@ const Template13 = ({
             </ContentWrapper>
             <ContentWrapper
               title={i18n.t("T13.quickLink.title")}
-              type="game"
               icon="links"
               darktone="#0e0f1a"
             >
@@ -1016,7 +1016,6 @@ const Template13 = ({
             </ContentWrapper>
             <ContentWrapper
               title={i18n.t("T13.partners")}
-              type="game"
               icon="partners"
               darktone="#0e0f1a"
             >

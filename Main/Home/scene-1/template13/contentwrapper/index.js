@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import config from "../../../../../../../config/config";
-import { AppHistory } from "../../../../../../../history/History";
 import Common from "../../../../../../../utils/Common";
 import i18n from "../../../../../../../utils/i18n";
 import Button from "../../../../../components/button";
@@ -41,8 +40,13 @@ const ContentHolder = styled.div`
   grid-template-columns: ${({ content }) => {
     return content ? "" : "1fr 1fr";
   }};
-  gap: 20px;
-  padding: 0 20px;
+  gap: ${({ noGap }) => {
+    return noGap ? "0px" : "20px";
+  }};
+
+  padding: ${({ type }) => {
+    return type === "text" ? "0px 20px 40px 20px" : " 0 20px";
+  }};
   font-size: 24px;
 `;
 
@@ -119,6 +123,8 @@ const ContentWrapper = ({
   joinGame,
   seeMoreAt,
   darktone,
+  noGap,
+  type,
 }) => {
   return (
     <ContentWrapperx darktone={darktone}>
@@ -133,7 +139,7 @@ const ContentWrapper = ({
         />
         <div>{title}</div>
       </TitleSection>
-      <ContentHolder content={children}>
+      <ContentHolder content={children} noGap={noGap} type={type}>
         {children ? (
           children
         ) : (
