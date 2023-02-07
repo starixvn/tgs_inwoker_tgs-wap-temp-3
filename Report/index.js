@@ -310,6 +310,16 @@ const FlatStraightLine = styled.div`
   padding-bottom: 20px;
 `;
 
+const CopyIcon = styled.div`
+  width: 30px;
+  height: 30px;
+  background-color: ${({ theme }) =>
+    theme.wapPrimary ? theme.wapPrimary : theme.primary};
+  mask: url(${process.env.PUBLIC_URL + `/assets/images/wapp/copy.png`})
+    no-repeat center / contain;
+  cursor: pointer;
+`;
+
 class Report extends Component {
   constructor(props) {
     super(props);
@@ -1475,7 +1485,7 @@ class Report extends Component {
                                 >
                                   {" "}
                                   {row.id}
-                                  <div>⎘</div>
+                                  <CopyIcon />
                                 </IDCell>
                               </DataRowId>
                               <DataRowId>
