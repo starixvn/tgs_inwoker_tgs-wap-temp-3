@@ -11,7 +11,7 @@ const CustomSelect = styled.select`
   padding: 0px 50px;
   background: none;
   width: 100%;
-
+  outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;
