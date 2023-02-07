@@ -284,7 +284,9 @@ const SectionWrapper = styled.div`
   color: #fff;
 `;
 
-const JackpotWrapper = styled(SectionWrapper)``;
+const JackpotWrapper = styled(SectionWrapper)`
+  transform: scale(1.1);
+`;
 const JackpotGif = styled.div`
   height: 355px;
   background: url(${process.env.PUBLIC_URL +
@@ -310,15 +312,13 @@ const WinnerListContainer = styled.div``;
 const WinnerListScroll = styled.div`
   height: 588px;
   overflow-y: scroll;
-  margin: 0 15px;
 `;
 const WinnerListItem = styled.div`
   display: flex;
   flex-direction: row;
   height: 125px;
-  margin: 20px 5px;
+  margin: 20px 0px;
   padding: 0px 20px;
-
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   border-radius: 25px;
   background: #27273f;
@@ -349,7 +349,7 @@ const HighlightText = styled.span`
   color: #fff;
 `;
 const ListItem = styled.div`
-  background: url(${(props) => props.src}) no-repeat right top;
+  background: url(${(props) => props.src}) no-repeat center top;
   background-size: contain;
   position: relative;
   width: 100%;
