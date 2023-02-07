@@ -23,7 +23,7 @@ const localeMap = {
 };
 
 const DatepickerWrapper = styled.div`
-  padding: 40px 40px 0 40px;
+  padding: 40px 20px 0 20px;
 `;
 
 const CustomDatepicker = styled.div`

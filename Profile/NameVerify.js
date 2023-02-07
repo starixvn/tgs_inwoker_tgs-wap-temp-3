@@ -13,33 +13,6 @@ import config from "../../../config/config";
 import { AccountService } from "../../../api-services/services/AccountService";
 import DocumentUploader from "../components/documentuploader";
 
-const AnotherWrapper = styled.div`
-  width: 700px;
-  min-height: 170px;
-  padding: 20px 20px 0 20px;
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputWrapper = styled.div`
-  background: #fff;
-
-  width: 700px;
-  margin-top: 10px;
-  padding-right: 100px;
-  border-radius: 16px;
-  width: 100%;
-`;
-
-const CustomLabel = styled.div`
-  font-size: 24px;
-  font-weight: 600;
-  margin-left: 3px;
-  color: ${({ theme }) =>
-    theme.wapSecondary ? theme.wapSecondary : theme.secondary};
-`;
-
 class NameVerify extends BaseProfile {
   constructor(props) {
     super(props);
