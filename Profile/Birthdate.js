@@ -49,6 +49,10 @@ const CustomDatepicker = styled.div`
   .MuiInput-underline:after {
     border-bottom: 0px;
   }
+
+  .MuiPickersModal-dialogRoot {
+    transform: scale(1.4);
+  }
 `;
 
 const CustomLabel = styled.div`

@@ -266,7 +266,7 @@ const SearchBar = styled.input`
 const WrapTheGames = styled.div`
   padding-top: 20px;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 `;
 
@@ -318,7 +318,7 @@ const WinnerListItem = styled.div`
   flex-direction: row;
   height: 125px;
   margin: 20px 0px;
-  padding: 0px 20px;
+  padding: 0px 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   border-radius: 25px;
   background: #27273f;
