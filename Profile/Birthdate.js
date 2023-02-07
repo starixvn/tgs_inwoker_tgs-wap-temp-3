@@ -23,7 +23,7 @@ const localeMap = {
 };
 
 const DatepickerWrapper = styled.div`
-  padding: 40px 40px 0 40px;
+  padding: 40px 20px 0 20px;
 `;
 
 const CustomDatepicker = styled.div`
@@ -48,6 +48,10 @@ const CustomDatepicker = styled.div`
   .MuiInput-underline:before,
   .MuiInput-underline:after {
     border-bottom: 0px;
+  }
+
+  .MuiPickersModal-dialogRoot {
+    transform: scale(1.4);
   }
 `;
 

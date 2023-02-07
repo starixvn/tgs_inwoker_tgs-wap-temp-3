@@ -27,7 +27,6 @@ function Marquee(props) {
     <AnnounceContainer>
       <MarqueeContainer>
         <div>
-          <marquee>this is testing</marquee>
           {props.ui.marquees && props.ui.marquees.length > 0 && (
             <marquee style={{ marginTop: "10px" }}>
               {props.ui.marquees.map((row, index) => {

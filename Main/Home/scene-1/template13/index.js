@@ -240,7 +240,7 @@ const ProviderList = styled.select`
   color: #fff;
   font-size: 28px;
   width: -webkit-fill-available;
-
+  outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;
@@ -266,7 +266,7 @@ const SearchBar = styled.input`
 const WrapTheGames = styled.div`
   padding-top: 20px;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 `;
 
@@ -318,7 +318,7 @@ const WinnerListItem = styled.div`
   flex-direction: row;
   height: 125px;
   margin: 20px 0px;
-  padding: 0px 20px;
+  padding: 0px 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   border-radius: 25px;
   background: #27273f;
@@ -913,6 +913,7 @@ const Template13 = ({
             <ContentWrapper
               title={i18n.t("common.promotion")}
               icon="promotions"
+              noGap
             >
               <Slick {...settings}>
                 {general.promotionList.items.length > 0 &&
@@ -948,7 +949,7 @@ const Template13 = ({
             <ContentWrapper title={i18n.t("T13.winner")} icon="winners">
               <WinnerList list={list} />
             </ContentWrapper>
-            <ContentWrapper title={i18n.t("T13.topNews")} icon="news">
+            <ContentWrapper title={i18n.t("T13.topNews")} icon="news" noGap>
               {hardcodeNews.slice(0, 6).map((data, index) => {
                 return (
                   <News
@@ -977,8 +978,8 @@ const Template13 = ({
               title={i18n
                 .t("T13.brandTag")
                 .replace("{brandName}", config.brandName)}
-              type="game"
               icon="pg"
+              type="text"
             >
               <div style={{ display: "flex", justifyContent: " center" }}>
                 <img
@@ -993,9 +994,9 @@ const Template13 = ({
             </ContentWrapper>
             <ContentWrapper
               title={i18n.t("T13.aboutUs")}
-              type="game"
               icon="about"
               darktone="#0e0f1a"
+              type="text"
             >
               <WhiteLogo
                 src={general.brand.mobileLogoUrl}
@@ -1008,19 +1009,21 @@ const Template13 = ({
             </ContentWrapper>
             <ContentWrapper
               title={i18n.t("T13.quickLink.title")}
-              type="game"
               icon="links"
               darktone="#0e0f1a"
             >
-              <QuickLinks navigateTo={navigateTo} alert={alert} />
+              <div style={{ padding: "0 20px" }}>
+                <QuickLinks navigateTo={navigateTo} alert={alert} />
+              </div>
             </ContentWrapper>
             <ContentWrapper
               title={i18n.t("T13.partners")}
-              type="game"
               icon="partners"
               darktone="#0e0f1a"
             >
-              <Partners provider={providers} />
+              <div style={{ padding: "0 20px" }}>
+                <Partners provider={providers} />
+              </div>
             </ContentWrapper>
           </>
         )}

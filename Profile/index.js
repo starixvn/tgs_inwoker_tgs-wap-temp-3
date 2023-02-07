@@ -14,13 +14,6 @@ const Container = styled.div`
   padding-bottom: 120px;
 `;
 
-const BlockLabel = styled.div`
-  font-size: 32px;
-  font-weight: 600;
-
-  color: #2b2b2b;
-  margin: 30px 0 10px 60px;
-`;
 const BlockContainer = styled.div`
   background-color: #202137;
   width: 700px;

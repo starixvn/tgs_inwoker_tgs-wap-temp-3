@@ -23,15 +23,6 @@ const ContentContainer = styled.div`
   color: #fff;
   border-radius: 75px;
   padding: 40px 70px;
-
-  ${({ opened }) =>
-    opened
-      ? `
-    border-radius: 75px 75px 0 0;
-    `
-      : `
-    border-radius: 75px;
-        `}
 `;
 
 const ListItem = styled.div`
