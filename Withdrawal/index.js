@@ -511,7 +511,7 @@ class Withdrawal extends Component {
             </LeftLabelValue>
           </RowContainer>
         </InnerContainer>
-        <div style={{ padding: "0 40px" }}>
+        <div>
           <ButtonCardManage
             onClick={() =>
               this.props.appHistory.push("/" + i18n.language + "/card")

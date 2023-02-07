@@ -10,6 +10,13 @@ const Section = styled.div`
   div {
     width: 100%;
     padding: 100px 40px;
+    h1 {
+      font-size: 36px;
+    }
+
+    p {
+      font-size: 24px;
+    }
   }
 `;
 
