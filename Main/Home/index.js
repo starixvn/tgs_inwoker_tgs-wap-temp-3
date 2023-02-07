@@ -812,6 +812,7 @@ class Home extends Component {
       sortingPB: 9,
       sortingSKY: 9,
       sortingWLGHK: 9,
+      sortingPISO: 9,
       sortingBUNNY: 9,
     },
   ];
