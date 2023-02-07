@@ -255,7 +255,7 @@ class Profile extends Component {
                   return ContentItem(
                     process.env.PUBLIC_URL +
                       `/assets/images/wapp/icon-${platform}.svg`,
-                    i18n.t("T13." + platform.toLowerCase() + ".title"),
+                    i18n.t("T13.socials." + platform.toLowerCase() + "_title"),
                     this.isConfigured(
                       this.props.account.info["member_" + platform]
                     ),

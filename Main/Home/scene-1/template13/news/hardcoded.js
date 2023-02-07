@@ -86,7 +86,7 @@ export const hardcodeNews = [
     <div>Betting max will not boost your odds of winning. Expert gamblers advise against chasing large amounts early in the game, because one can still win on a slot while playing at minimum bet, just as much as one can lose when playing on maximum bet. Players who begin with small bets typically play for a longer period of time. As well as that, you can always check out Megaways Slots like Dragons Luck Megaways by Red Tiger, as they offer numerous different ways of winning without having to put in a maximum bet.</div>
     <div>5. Check out the Free Spins & Bonuses</div>
     <div>Don’t miss out on special opportunities to increase your winnings! If you take advantage of special offers, you can have a good chance of taking advantage of these opportunities and significantly increase the size of your wallet. Players who win big keep an eye out for free spins, bonuses, reloads, and other promotions that slot machines offer to keep players engrossed.</div>`,
-    id: "1",
+    id: "4",
   },
   {
     title: "New 10,001 Nights Megaways From Red Tiger Gaming",
@@ -94,7 +94,7 @@ export const hardcodeNews = [
       "(PRESS RELEASE) Red Tiger has today launched an exciting new Arabian dream with 10,001 Nights Megaways, and with a decadent display of ornate genie lamps players will be transported into the world of Scheherazade.",
     image: "2",
     writer: "Pega News Team    ",
-    id: "2",
+    id: "5",
     content2: `
     <div>(PRESS RELEASE) Red Tiger has today launched an exciting new Arabian dream with 10,001 Nights Megaways, and with a decadent display of ornate genie lamps players will be transported into the world of Scheherazade.</div>
     <div>Taking a timeless tale and adapting it for the slot screen, players will enjoy elements such as the Feature Lamps. Landing Oil Lamps anywhere on the reels fills the Feature Lamps with magic oil. If a Feature Lamp is filled completely, a feature gets unlocked! A total of nine Oil Lamps will unlock the Mega Wild feature – a symbol that covers an entire reel. Up to four of these Mega Wilds can appear on the middle four reels and can come with a Multiplier of between 2x and 7x that is applied to all ways in which the Wild participates.</div>
@@ -110,7 +110,7 @@ export const hardcodeNews = [
       "JDB Gaming was founded in 2010 (under the name JDB168) and ever since then has endeavored to create only the very best content for its clients and customers. The brand goes by the principle of ‘Just Do the Best’. This means that their standards are incredibly high, ensuring all JDB games are fair, safe, surprising, and refined. As a result of their hard work and high-quality games, JDB slots have become some of the most popular in Asia.",
     image: "3",
     writer: "Pega News Team    ",
-    id: "3",
+    id: "6",
     content2: `
     <div>Best Online Slots by JDB Gaming</div>
     <div>JDB Gaming was founded in 2010 (under the name JDB168) and ever since then has endeavored to create only the very best content for its clients and customers. The brand goes by the principle of ‘Just Do the Best’. This means that their standards are incredibly high, ensuring all JDB games are fair, safe, surprising, and refined. As a result of their hard work and high-quality games, JDB slots have become some of the most popular in Asia.</div>
@@ -159,7 +159,7 @@ export const hardcodeNews = [
     <div>Betting max will not boost your odds of winning. Expert gamblers advise against chasing large amounts early in the game, because one can still win on a slot while playing at minimum bet, just as much as one can lose when playing on maximum bet. Players who begin with small bets typically play for a longer period of time. As well as that, you can always check out Megaways Slots like Dragons Luck Megaways by Red Tiger, as they offer numerous different ways of winning without having to put in a maximum bet.</div>
     <div>5. Check out the Free Spins & Bonuses</div>
     <div>Don’t miss out on special opportunities to increase your winnings! If you take advantage of special offers, you can have a good chance of taking advantage of these opportunities and significantly increase the size of your wallet. Players who win big keep an eye out for free spins, bonuses, reloads, and other promotions that slot machines offer to keep players engrossed.</div>`,
-    id: "1",
+    id: "7",
   },
   {
     title: "New 10,001 Nights Megaways From Red Tiger Gaming",
@@ -167,7 +167,7 @@ export const hardcodeNews = [
       "(PRESS RELEASE) Red Tiger has today launched an exciting new Arabian dream with 10,001 Nights Megaways, and with a decadent display of ornate genie lamps players will be transported into the world of Scheherazade.",
     image: "2",
     writer: "Pega News Team    ",
-    id: "2",
+    id: "8",
     content2: `
     <div>(PRESS RELEASE) Red Tiger has today launched an exciting new Arabian dream with 10,001 Nights Megaways, and with a decadent display of ornate genie lamps players will be transported into the world of Scheherazade.</div>
     <div>Taking a timeless tale and adapting it for the slot screen, players will enjoy elements such as the Feature Lamps. Landing Oil Lamps anywhere on the reels fills the Feature Lamps with magic oil. If a Feature Lamp is filled completely, a feature gets unlocked! A total of nine Oil Lamps will unlock the Mega Wild feature – a symbol that covers an entire reel. Up to four of these Mega Wilds can appear on the middle four reels and can come with a Multiplier of between 2x and 7x that is applied to all ways in which the Wild participates.</div>
@@ -183,7 +183,7 @@ export const hardcodeNews = [
       "JDB Gaming was founded in 2010 (under the name JDB168) and ever since then has endeavored to create only the very best content for its clients and customers. The brand goes by the principle of ‘Just Do the Best’. This means that their standards are incredibly high, ensuring all JDB games are fair, safe, surprising, and refined. As a result of their hard work and high-quality games, JDB slots have become some of the most popular in Asia.",
     image: "3",
     writer: "Pega News Team    ",
-    id: "3",
+    id: "9",
     content2: `
     <div>Best Online Slots by JDB Gaming</div>
     <div>JDB Gaming was founded in 2010 (under the name JDB168) and ever since then has endeavored to create only the very best content for its clients and customers. The brand goes by the principle of ‘Just Do the Best’. This means that their standards are incredibly high, ensuring all JDB games are fair, safe, surprising, and refined. As a result of their hard work and high-quality games, JDB slots have become some of the most popular in Asia.</div>
