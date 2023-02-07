@@ -45,7 +45,7 @@ const ContentHolder = styled.div`
   }};
 
   padding: ${({ type }) => {
-    return type === "text" ? "0px 20px 40px 20px" : " 0";
+    return type === "text" ? "0px 20px 40px 20px" : "0 0 20px 0 ";
   }};
   font-size: 24px;
 `;

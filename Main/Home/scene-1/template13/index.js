@@ -1012,14 +1012,18 @@ const Template13 = ({
               icon="links"
               darktone="#0e0f1a"
             >
-              <QuickLinks navigateTo={navigateTo} alert={alert} />
+              <div style={{ padding: "0 20px" }}>
+                <QuickLinks navigateTo={navigateTo} alert={alert} />
+              </div>
             </ContentWrapper>
             <ContentWrapper
               title={i18n.t("T13.partners")}
               icon="partners"
               darktone="#0e0f1a"
             >
-              <Partners provider={providers} />
+              <div style={{ padding: "0 20px" }}>
+                <Partners provider={providers} />
+              </div>
             </ContentWrapper>
           </>
         )}
