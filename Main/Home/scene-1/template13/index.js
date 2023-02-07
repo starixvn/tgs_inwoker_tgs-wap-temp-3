@@ -240,7 +240,7 @@ const ProviderList = styled.select`
   color: #fff;
   font-size: 28px;
   width: -webkit-fill-available;
-
+  outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;

@@ -36,7 +36,7 @@ const ButtonWrapper = styled.div`
   padding: 0 20px;
   margin: 20px auto;
   flex: auto;
-
+  padding: 10px 0;
   min-width: fit-content;
   align-items: center;
   justify-content: center;
