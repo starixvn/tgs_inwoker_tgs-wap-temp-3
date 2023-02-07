@@ -145,7 +145,7 @@ const ContentWrapper = ({
         ) : (
           <>
             {games.length >= 0 &&
-              games.map((row, index) => {
+              games.slice(0, 6).map((row, index) => {
                 return (
                   <TheWrapperContents
                     key={index}

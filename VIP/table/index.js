@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import config from "../../../../config/config";
 import Common from "../../../../utils/Common";
@@ -101,6 +101,38 @@ const WithRightBorderRadius = styled(WithMinHeight)`
   border-radius: 0 40px 40px 0;
 `;
 
+const FixedPosition = styled.div`
+  position: fixed;
+  top: 89px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 33% 65%;
+  height: 120px;
+  padding: 20px;
+  color: #fff;
+  background: #1b1d30;
+
+  background: linear-gradient(
+    180deg,
+    rgba(27, 29, 48, 1) 0%,
+    rgba(27, 29, 48, 0) 100%
+  );
+`;
+
+const LandscapeScroll = styled.div`
+  overflow: auto;
+  display: -webkit-box;
+  justify-content: center;
+  width: 100%;
+
+  user-select: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 const getVIPTitle = (level) => {
   if (config.features.VIP_CustomLevel_BUNNY && level < 7)
     return i18n.t("vip.bunny.level" + level);
@@ -111,34 +143,33 @@ const VIPTable = ({ data }) => {
   const emblemref = useRef();
   var emblemheight = emblemref.current && emblemref.current.clientHeight;
 
+  const verticalscrollref = useRef();
+
+  const scrollref = useRef();
+  const anotherscrollref = useRef();
+
+  const checkScroll = () => {
+    if (scrollref.current) {
+      //make anortherscrollref scroll to the same position
+      anotherscrollref.current.scrollLeft = scrollref.current.scrollLeft;
+    }
+  };
+
+  useEffect(() => {
+    if (scrollref.current) {
+      scrollref.current.addEventListener("scroll", checkScroll);
+    }
+  }, []);
+
   const DataWrapper = ({ children }) => {
     return <AnotherData height={emblemheight}>{children}</AnotherData>;
   };
 
   return (
-    <TableWrapper>
-      <TheLogo>
-        <WithLeftBorderRadius>{i18n.t("vip.level")}</WithLeftBorderRadius>
-        {data &&
-          data.length &&
-          data.map((data, index) => {
-            return (
-              <VipEmlemContainer>
-                <VipEmblem
-                  ref={emblemref}
-                  src={
-                    process.env.PUBLIC_URL +
-                    `/assets/images/vip/${data.level}.svg`
-                  }
-                />
-                <VIPText>{getVIPTitle(data.level)}</VIPText>
-              </VipEmlemContainer>
-            );
-          })}
-      </TheLogo>
-
-      <TheRewards>
-        <TheRewardStuffs total={data}>
+    <>
+      <FixedPosition>
+        <WithLeftBorderRadius>{i18n.t("vip.level")}</WithLeftBorderRadius>{" "}
+        <LandscapeScroll ref={anotherscrollref}>
           <WithMinHeight>
             {i18n.t("vip.levelKeepAccumulateBetAmount")}
           </WithMinHeight>
@@ -162,54 +193,105 @@ const VIPTable = ({ data }) => {
           <WithRightBorderRadius>
             {i18n.t("vip.virtualSportsRebate")}
           </WithRightBorderRadius>
+        </LandscapeScroll>
+      </FixedPosition>
+      <TableWrapper ref={verticalscrollref}>
+        <TheLogo>
+          <WithLeftBorderRadius>{i18n.t("vip.level")}</WithLeftBorderRadius>
           {data &&
             data.length &&
             data.map((data, index) => {
               return (
-                <>
-                  <DataWrapper>
-                    {Common.addComma(data.levelKeepAccumulateBetAmount)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.levelKeepAccumulateDeposit)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.levelUpAccumulateBetAmount)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.levelUpAccumulateDeposit)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.birthBenefit)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.promotionBenefit)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.quarterlyBenefit)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.cardGameRebate)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.liveDealerRebate)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.lotteryRebate)}
-                  </DataWrapper>
-                  <DataWrapper>{Common.addComma(data.slotRebate)}</DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.sportsRebate)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.virtualSportsRebate)}
-                  </DataWrapper>
-                </>
+                <VipEmlemContainer>
+                  <VipEmblem
+                    ref={emblemref}
+                    src={
+                      process.env.PUBLIC_URL +
+                      `/assets/images/vip/${data.level}.svg`
+                    }
+                  />
+                  <VIPText>{getVIPTitle(data.level)}</VIPText>
+                </VipEmlemContainer>
               );
             })}
-        </TheRewardStuffs>
-      </TheRewards>
-    </TableWrapper>
+        </TheLogo>
+
+        <TheRewards ref={scrollref}>
+          <TheRewardStuffs total={data}>
+            <WithMinHeight>
+              {i18n.t("vip.levelKeepAccumulateBetAmount")}
+            </WithMinHeight>
+            <WithMinHeight>
+              {i18n.t("vip.levelKeepAccumulateDeposit")}
+            </WithMinHeight>
+            <WithMinHeight>
+              {i18n.t("vip.levelUpAccumulateBetAmount")}
+            </WithMinHeight>
+            <WithMinHeight>
+              {i18n.t("vip.levelUpAccumulateDeposit")}
+            </WithMinHeight>
+            <WithMinHeight>{i18n.t("vip.birthBenefit")}</WithMinHeight>
+            <WithMinHeight>{i18n.t("vip.promotionBenefit")}</WithMinHeight>
+            <WithMinHeight>{i18n.t("vip.quarterlyBenefit")}</WithMinHeight>
+            <WithMinHeight>{i18n.t("vip.cardGameRebate")}</WithMinHeight>
+            <WithMinHeight>{i18n.t("vip.liveDealerRebate")}</WithMinHeight>
+            <WithMinHeight>{i18n.t("vip.lotteryRebate")}</WithMinHeight>
+            <WithMinHeight>{i18n.t("vip.slotRebate")}</WithMinHeight>
+            <WithMinHeight>{i18n.t("vip.sportsRebate")}</WithMinHeight>
+            <WithRightBorderRadius>
+              {i18n.t("vip.virtualSportsRebate")}
+            </WithRightBorderRadius>
+            {data &&
+              data.length &&
+              data.map((data, index) => {
+                return (
+                  <>
+                    <DataWrapper>
+                      {Common.addComma(data.levelKeepAccumulateBetAmount)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.levelKeepAccumulateDeposit)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.levelUpAccumulateBetAmount)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.levelUpAccumulateDeposit)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.birthBenefit)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.promotionBenefit)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.quarterlyBenefit)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.cardGameRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.liveDealerRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.lotteryRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.slotRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.sportsRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.virtualSportsRebate)}
+                    </DataWrapper>
+                  </>
+                );
+              })}
+          </TheRewardStuffs>
+        </TheRewards>
+      </TableWrapper>
+    </>
   );
 };
 
