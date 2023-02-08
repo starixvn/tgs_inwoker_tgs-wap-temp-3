@@ -197,7 +197,7 @@ const VIPTable = ({ data }) => {
       </FixedPosition>
       <TableWrapper ref={verticalscrollref}>
         <TheLogo>
-          <WithLeftBorderRadius>{i18n.t("vip.level")}</WithLeftBorderRadius>
+          <WithLeftBorderRadius></WithLeftBorderRadius>
           {data &&
             data.length &&
             data.map((data, index) => {
@@ -218,29 +218,19 @@ const VIPTable = ({ data }) => {
 
         <TheRewards ref={scrollref}>
           <TheRewardStuffs total={data}>
-            <WithMinHeight>
-              {i18n.t("vip.levelKeepAccumulateBetAmount")}
-            </WithMinHeight>
-            <WithMinHeight>
-              {i18n.t("vip.levelKeepAccumulateDeposit")}
-            </WithMinHeight>
-            <WithMinHeight>
-              {i18n.t("vip.levelUpAccumulateBetAmount")}
-            </WithMinHeight>
-            <WithMinHeight>
-              {i18n.t("vip.levelUpAccumulateDeposit")}
-            </WithMinHeight>
-            <WithMinHeight>{i18n.t("vip.birthBenefit")}</WithMinHeight>
-            <WithMinHeight>{i18n.t("vip.promotionBenefit")}</WithMinHeight>
-            <WithMinHeight>{i18n.t("vip.quarterlyBenefit")}</WithMinHeight>
-            <WithMinHeight>{i18n.t("vip.cardGameRebate")}</WithMinHeight>
-            <WithMinHeight>{i18n.t("vip.liveDealerRebate")}</WithMinHeight>
-            <WithMinHeight>{i18n.t("vip.lotteryRebate")}</WithMinHeight>
-            <WithMinHeight>{i18n.t("vip.slotRebate")}</WithMinHeight>
-            <WithMinHeight>{i18n.t("vip.sportsRebate")}</WithMinHeight>
-            <WithRightBorderRadius>
-              {i18n.t("vip.virtualSportsRebate")}
-            </WithRightBorderRadius>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithRightBorderRadius></WithRightBorderRadius>
             {data &&
               data.length &&
               data.map((data, index) => {
