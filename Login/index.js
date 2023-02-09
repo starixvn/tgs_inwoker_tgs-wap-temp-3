@@ -853,6 +853,7 @@ class Login extends Component {
         .newRegister("CreatePlayer", {
           username: username,
           pwd: password,
+          upper: this.state.upper,
           invitationcode: this.state.promoId,
         })
         .then(async (response) => {
