@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import styled, { keyframes } from "styled-components";
+
+const spinner = keyframes`
+ 0% { transform: rotateY(0deg);  }
+
+ 100% {  transform: rotateY(-360deg);}
+`;
 const Container = styled.div`
   width: 100%;
 
@@ -30,6 +35,11 @@ const LogoImg = styled.img`
   margin: 0 auto;
   display: block;
   width: 250px;
+
+  animation-name: ${spinner};
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+  animation-duration: 0.6s;
 `;
 
 function Loading(props) {
