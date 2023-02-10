@@ -127,6 +127,8 @@ const LandscapeScroll = styled.div`
   justify-content: center;
   width: 100%;
 
+  overflow: hidden;
+
   user-select: none;
   &::-webkit-scrollbar {
     display: none;
