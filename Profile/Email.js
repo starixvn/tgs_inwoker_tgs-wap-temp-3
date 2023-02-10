@@ -236,24 +236,23 @@ class Email extends BaseProfile {
         ? i18n.t("common.submit")
         : i18n.t("common.submit"),
       (() => {
-        if (this.state.isConfigured) {
+        if (
+          this.state.isConfigured &&
+          !(
+            config.features.ChangesNotAllowed ||
+            config.features.Profile_ExistingDetails_ViewOnly
+          )
+        ) {
           return (
             <BottomNote
+              variant="original"
               text1={i18n.t("profile.email.toEdit")}
-              link={
-                config.features.ChangesNotAllowed ||
-                config.features.Profile_ExistingDetails_ViewOnly
-                  ? "../chat"
-                  : "./changeemail"
-              }
-              text2={i18n.t(
-                config.features.ChangesNotAllowed ||
-                  config.features.Profile_ExistingDetails_ViewOnly
-                  ? "common.customerService"
-                  : "profile.email.here"
-              )}
+              link={"./changeemail"}
+              text2={i18n.t("profile.email.here")}
             ></BottomNote>
           );
+        } else {
+          return <BottomNote></BottomNote>;
         }
       })(),
       cannotAccessOther

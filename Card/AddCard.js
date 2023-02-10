@@ -872,7 +872,7 @@ class AddCard extends Component {
                     if (bankAccountName === "" || number === "") {
                       return true;
                     }
-                  } else if (bankType === "Crypto") {
+                  } else if (bankType === "Crypto" || bankType === "Usdt") {
                     if (number === "") {
                       return true;
                     }
