@@ -168,7 +168,6 @@ class ChangeEmail extends BaseProfile {
                 "s)"
           }
           type={"text"}
-          style={{ margin: "0 20px 10px 20px" }}
           value={this.state.code}
           onChange={this.handleChangeCode}
           placeholder={i18n.t("T13.misc.msgEnterCode")}
