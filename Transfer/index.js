@@ -59,10 +59,10 @@ const ColumnGameBalance = styled.div`
 `;
 
 const ArrowContainer = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   background: #27273f;
-  margin: 10px auto;
+  margin: 20px auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -158,8 +158,8 @@ const ArrowDown = styled.div`
     `/assets/images/wapp/btn-back-white.png`})
     no-repeat center;
   background: ${({ theme }) => theme.primaryText};
-  width: 40px;
-  height: 30px;
+  width: 60px;
+  height: 40px;
 
   mask-size: 25%;
   rotate: 270deg;
