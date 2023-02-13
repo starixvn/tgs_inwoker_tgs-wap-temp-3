@@ -58,6 +58,17 @@ const ColumnGameBalance = styled.div`
   margin-top: 10px;
 `;
 
+const ArrowContainer = styled.div`
+  width: 30px;
+  height: 30px;
+  background: #27273f;
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+`;
+
 const CustomSwitch = withStyles((theme) => ({
   root: {
     width: 42,
@@ -151,7 +162,7 @@ const ArrowDown = styled.div`
   height: 30px;
 
   mask-size: 25%;
-  rotate: 180deg;
+  rotate: 270deg;
 `;
 
 const InputRow = styled.div`
@@ -513,8 +524,14 @@ class Transfer extends Component {
                       )})`}
                   </option>
                 ))}
-            </Select>{" "}
-            <ArrowDown />
+            </Select>
+          </InputRow>
+          <InputRow style={{ justifyContent: "center" }}>
+            <ArrowContainer>
+              <ArrowDown />
+            </ArrowContainer>
+          </InputRow>
+          <InputRow>
             <Select
               noGap
               onChange={this.handleToWallet}
@@ -579,11 +596,9 @@ class Transfer extends Component {
               })()}
             />
           </InputRow>
-
           <PageTitle position="left">
             {i18n.t("transfer.transferWallet")}
           </PageTitle>
-
           <AutoTransferContainer>
             <CustomSwitchContainer>
               {i18n.t("transfer.autoTransfer")}{" "}
