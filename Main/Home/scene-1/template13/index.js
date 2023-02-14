@@ -994,7 +994,7 @@ const Template13 = ({
                 .replace("{brandName}", config.brandName)}
             </ContentWrapper>
             <ContentWrapper
-              style={{ lineHeight: 1.5 }}
+              style={{ lineHeight: 1.75 }}
               title={i18n.t("T13.gamingLicense")}
               type="game"
               darktone="#0e0f1a"
@@ -1013,9 +1013,12 @@ const Template13 = ({
                   style={{ width: 350, marginBottom: 15 }}
                 />
                 {i18n
-                  .t("web.footer.copyrightLine2")
-                  .replace(/{brand}/g, config.brandName)
-                  .replace(/(All Rights Reserved)/, "\n$1")}{" "}
+                  .t("T13.footer.copyright")
+                  .replace(/{brand}/g, config.brandName)}
+                <br />{" "}
+                {i18n
+                  .t("T13.footer.rights")
+                  .replace(/{brand}/g, config.brandName)}
                 <br />
                 Version {process.env.REACT_APP_VERSION}
               </div>
