@@ -1015,10 +1015,7 @@ const Template13 = ({
                 {i18n
                   .t("T13.footer.copyright")
                   .replace(/{brand}/g, config.brandName)}
-                <br />{" "}
-                {i18n
-                  .t("T13.footer.rights")
-                  .replace(/{brand}/g, config.brandName)}
+                <br /> {i18n.t("T13.footer.rights")}
                 <br />
                 Version {process.env.REACT_APP_VERSION}
               </div>
