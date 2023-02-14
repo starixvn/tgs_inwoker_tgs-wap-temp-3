@@ -125,6 +125,7 @@ const ContentWrapper = ({
   darktone,
   noGap,
   type,
+  style,
 }) => {
   return (
     <ContentWrapperx darktone={darktone}>
@@ -139,7 +140,7 @@ const ContentWrapper = ({
         />
         <div>{title}</div>
       </TitleSection>
-      <ContentHolder content={children} noGap={noGap} type={type}>
+      <ContentHolder content={children} noGap={noGap} type={type} style={style}>
         {children ? (
           children
         ) : (

@@ -18,6 +18,7 @@ import { playerList, gameList as gameListx } from "./../template11/hardcode";
 import News from "./news";
 import { hardcodeNews } from "./news/hardcoded";
 import Banner from "../banner";
+import GamingLicensePNG from "../../../../../../assets/images/gaming-license.png";
 
 const TheContainer = styled.div`
   padding-top: 125px;
@@ -993,20 +994,33 @@ const Template13 = ({
                 .replace("{brandName}", config.brandName)}
             </ContentWrapper>
             <ContentWrapper
-              title={i18n.t("T13.aboutUs")}
-              icon="about"
+              style={{ lineHeight: 1.5 }}
+              title={i18n.t("T13.gamingLicense")}
+              type="game"
               darktone="#0e0f1a"
-              type="text"
+              icon="about"
             >
-              <WhiteLogo
-                src={general.brand.mobileLogoUrl}
-                alt="logo"
-                style={{ height: 100 }}
-              />
-              {i18n
-                .t("T13.belongTo")
-                .replace("{version}", process.env.REACT_APP_VERSION)}
+              <div
+                style={{
+                  padding: "0 20px",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <img
+                  src={GamingLicensePNG}
+                  alt="logo"
+                  style={{ width: 350, marginBottom: 15 }}
+                />
+                {i18n
+                  .t("web.footer.copyrightLine2")
+                  .replace(/{brand}/g, config.brandName)
+                  .replace(/(All Rights Reserved)/, "\n$1")}{" "}
+                <br />
+                Version {process.env.REACT_APP_VERSION}
+              </div>
             </ContentWrapper>
+
             <ContentWrapper
               title={i18n.t("T13.quickLink.title")}
               icon="links"
