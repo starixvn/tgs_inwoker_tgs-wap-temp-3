@@ -51,6 +51,11 @@ const Title = styled.div`
   font-size: 40px;
   text-align: center;
   padding: 20px 40px 0px 40px;
+  width: 100%;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ByWho = styled.div`
@@ -58,7 +63,11 @@ const ByWho = styled.div`
   text-align: center;
   padding: 20px 0;
 `;
-
+const Date = styled.div`
+  font-size: 28px;
+  text-align: center;
+  padding: 20px 0;
+`;
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
@@ -146,6 +155,7 @@ const DetailedNews = ({ newsid }) => {
         </TitleContainer>
 
         <ByWho>By {reference("writer")}</ByWho>
+        <Date> {reference("date")}</Date>
         <Content>{reference("content2")}</Content>
       </Container>
     </div>

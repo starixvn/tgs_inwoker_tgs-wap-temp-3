@@ -1,7 +1,8 @@
 export const hardcodeNews = [
   {
     title: "ESPORTS in Philippine",
-    writer: "Pega News Team",
+    writer: "TEP News Team",
+    date: "",
     content:
       "The Philippines’ presence in esports has been notable since the beginning of the last decade. Although its international accolades are limited, the size of the audience and market makes it a significant esports nation.",
     image: "1",
@@ -52,19 +53,20 @@ export const hardcodeNews = [
       "Jili is offering the most popular and rewarding slots in 2022 and players are given the most exciting and fun experiences. ",
     image: "2",
     writer: "TEP Data Team",
+    date: "02/15/2023",
     id: "2",
     content2: `
     <style> .news-sub-header{margin:0;} </style>
     <div>Jili is offering the most popular and rewarding slots in 2022 and players are given the most exciting and fun experiences.</div>
     <div>Players are wondering how to get rich through online slot games. This actually involves skills in playing slot games. For example, breaking the progressive jackpots. Over here, we are going to introduce you to the winning strategy in playing slots.</div>
-    <img src=${process.env.PUBLIC_URL + `/assets/images/news/jili-01.jpg`}></img>
+    <img style="width: 100%;" src=${process.env.PUBLIC_URL + `/assets/images/news/jili-01.jpg`}></img>
     <h2 class="news-sub-header">Jili – Know How</h2>
     <div>It’s easy, nothing complicated. Games are made up with special symbols from 3 to 9 spinning reels. It is recommended to start playing with 3 to 5 reels in order to increase the chances of winning the jackpot!</div>
     <div>However, for those people who are confident and with skills. 7 or 9 reels may move up. If they do, it has to be said that it is more difficult to pay out the payouts. All the slots show exactly the same chances compared to the slots with low payouts. The more reels there are, the less chance there is to make money through online slots.</div>
     <h2 class="news-sub-header">Register and start winning</h2>
     <div>You can start playing and winning by registering a member with TEP as TEP provides a wide variety of gaming products which include Jili.</div>
     <div>You can start playing and winning with just as low as 10 PHP and hit the jackpot as much as 10 millions PHP!</div>
-    <h2 class="news-sub-header">How to SPIN Jili slots</div>
+    <h2 class="news-sub-header">How to SPIN Jili slots</h2>
     <div>Regarding the technique of playing online slot games, at first I would recommend having a suitable amount of money in it. Because on average, slot games pay out bonuses only when the spins exceed 10-20 times, but many people may misunderstand this, this is due to during the time when you spined, there are actually dozens and even hundreds of spins by other players spinning at the same time…</div>
     <h2 class="news-sub-header">Resetting a slot game increases the chances of winning a jackpot!</h2>
     <div>What does this mean? This is a secret few had known, the system was designed with RTP and once a player exits a session after a win, it will actually increase the chances of winning in a new session.</div>
@@ -79,6 +81,7 @@ export const hardcodeNews = [
       "Sabong or cockfighting is widely known in the Philippines and is a sport that has a long history of being part of Filipino culture. The inclusion of e-sabong or online cockfighting by Pagcor during Covid pandemic had even promoted it to the next level.",
     image: "3",
     writer: "TEP Data Team",
+    date: "02/15/2023",
     id: "3",
     content2: `
     <style> .news-sub-header{margin:0;} </style>
@@ -89,7 +92,7 @@ export const hardcodeNews = [
     <div>The cocks will keep fighting until one of the cock will not stand and fight anymore where during the time a winner will be called on.</div>
     <h2 class="news-sub-header">The Secret to Winning an Online Sabong</h2>
     <div>If you are a player who bets by no reference, you can expect your win rate to behalf. If you want to increase your winning rate, data, experience, and observation can not be absent.</div>
-    <img src=${process.env.PUBLIC_URL + `/assets/images/news/sabong-01.jpg`}></img>
+    <img style="width: 100%;" src=${process.env.PUBLIC_URL + `/assets/images/news/sabong-01.jpg`}></img>
     <div>Online sabong players do not miss the chance to see the situation and fighting process of the cockfight up clear and close. The live broadcast is clear and the vision is excellent. Another thing is, nothing is more important than the experience, and now is a great opportunity to cultivate your observation! After joining TEP’s sabong, watch more than 200 sabong matches to gain experience immediately, don’t rush to play with real money, please follow our guide first, try to practice and analyze the game, and soon you will catch up, your winning rate will be greatly increased.</div>
     <h2 class="news-sub-header"> 1. Fact about sabong cock</h2>
     <div>After several games, we find out:</div>
@@ -109,7 +112,7 @@ export const hardcodeNews = [
     <div>In addition to observation skills, good players will also judge the advantages of sabong through data fact. Please take the time to record the game history, the breed, size, and color of the cocks they raise, including listing their winning and losing rate, and make it your note.</div>
     <div>You will soon find that there is a difference between good breeders and poor breeders. Poor sabong cocks often fall to the ground quickly in the first stage, and even if they endure to the end, they are often defeated due to a lack of stamina.</div>
     <div>Those players who always make money have databases, and no one can make money long-term by guessing.</div>
-    <img src=${process.env.PUBLIC_URL + `/assets/images/news/sabong-02.jpg`}></img>
+    <img style="width: 100%;" src=${process.env.PUBLIC_URL + `/assets/images/news/sabong-02.jpg`}></img>
     <h2 class="news-sub-header">3. Self-control over anything</h2>
     <div>“Self-control” is the top principle that all players must abide by. No matter how perfect your betting strategy is, if you don’t have any self-control, you will still lose money.</div>
     <div>1. Always remember: self-control over strategy</div>
@@ -128,20 +131,21 @@ export const hardcodeNews = [
       "Just as people shop at different stores to find the best price, bettors will use different sportsbooks to find the best price. For spread and total bets, the amount will vary from half a point to a full point from book to book. It doesn't seem like much but it's very important when you're dealing with key numbers (see binary) and your long-term prospects as a winning bettor. The number of times you will win or lose a 0.5 bet is truly frightening. The odds can also vary from book to book. The size is small, but in the long run, this difference adds up. For betting and support in general groups, there can be a lot of flexibility that can be used in different ways. Can be in the middle or just use the best number on each side. Acquiring multiple documents is critical to the success of a sports bettor.",
     image: "4",
     writer: "TEP Data Team",
+    date: "02/15/2023",
     id: "4",
     content2: `
     <style> .news-sub-header{margin:0;} </style>
-    <h2>Use multiple Sportsbook to find the best numbers </h2>
+    <h2 class="news-sub-header">Use multiple Sportsbook to find the best numbers </h2>
     <div>Just as people shop at different stores to find the best price, bettors will use different sportsbooks to find the best price. For spread and total bets, the amount will vary from half a point to a full point from book to book. It doesn't seem like much but it's very important when you're dealing with key numbers (see binary) and your long-term prospects as a winning bettor. The number of times you will win or lose a 0.5 bet is truly frightening. The odds can also vary from book to book. The size is small, but in the long run, this difference adds up. For betting and support in general groups, there can be a lot of flexibility that can be used in different ways. Can be in the middle or just use the best number on each side. Acquiring multiple documents is critical to the success of a sports bettor.</div>
-    <h2>Focus on winning smaller markets</h2>
+    <h2 class="news-sub-header">Focus on winning smaller markets</h2>
     <div>This is probably the most important point I am making in this article. It is one of the most efficient markets in all of sports. If part of your "strategy" is to bet on the spread or total on Sunday NBA games, you're already putting yourself in trouble, and you're probably going to be a gambler. . So what's the bet? </div>
     <div>Some say land limitations are a reason not to enter the small business. Going back to tip #1 in this section, having lots of books is very important. For example, let's say the average bookie limits you to $200 per bet per player in PBA games. It may not be worth doing a lot of research for only $200 in income. But if you can get a growing number of sportsbooks and mobile platforms, you can easily get $200 for 10 pounds or more. Also, to be completely honest, unless you bury the book completely, you won't end up short. Players are usually released early on a Friday or Saturday morning and are eligible for selection and their opening numbers are usually as good to bet as the closing numbers. </div>
-    <h2>Create a bank and stick to it </h2>
+    <h2 class="news-sub-header">Create a bank and stick to it </h2>
     <div>If you want to take sports betting seriously, consider it as an investment. Take out the bank and set up a "unit scale". This is to keep all your games consistent. I would recommend using between 1-2% of your bankroll per game. Investing in this type of currency allows for diversification without breaking the bank. If you bet 10% of your bankroll, even the strongest bettors who bet 55% or more of their bets will break in a bad run.</div>
-    <img src=${process.env.PUBLIC_URL + `/assets/images/news/sportsbetting-01.jpg`}></img>
-    <h2>Stay Disciplined</h2>
+    <img style="width: 100%;" src=${process.env.PUBLIC_URL + `/assets/images/news/sportsbetting-01.jpg`}></img>
+    <h2 class="news-sub-header">Stay Disciplined</h2>
     <div>It sounds like a silly thing to write, but just because a game is on TV doesn't mean you have to bet on it. Sports betting sees a huge difference in the dollars wagered during island games compared to midday games where there are many competitions taking place at the same time. Hobbyists sweat everything and always want a good sweat. Professional gamblers and those who want to increase their long-term profits only get when there is a profit.</div>
-    <h2>Track your bet and line value closely </h2>
+    <h2 class="news-sub-header">Track your bet and line value closely </h2>
     <div>Start your own Excel spreadsheet or use one of the available apps to track your bets. This not only helps in staying honest, but can also help in self-examination. After a long period of betting, you can go back and see what kind of bets you made the most of (player props vs spreads vs totals, etc.). By following the value of the fence line, you will see what you bet the number and what it closed.</div>
     `,
   },
@@ -151,6 +155,7 @@ export const hardcodeNews = [
       "Looking for ways to beat online casinos featuring online slots? I’m sure you’ve come across lots of advice. There are endless Online Slot Tips and tricks out there, some might be good, others not too much. Which ones are worth your time? Backed by experience, we have come up with the 5 best online slot tips and tricks for you.",
     image: "5",
     writer: "TEP Data Team",
+    date: "10/04/2022",
     id: "5",
     content2: `
     <style> .news-sub-header{margin:0;} </style>
@@ -174,6 +179,7 @@ export const hardcodeNews = [
       "JDB Gaming was founded in 2010 (under the name JDB168) and ever since then has endeavored to create only the very best content for its clients and customers. The brand goes by the principle of ‘Just Do the Best’. This means that their standards are incredibly high, ensuring all JDB games are fair, safe, surprising, and refined. As a result of their hard work and high-quality games, JDB slots have become some of the most popular in Asia.",
     image: "6",
     writer: "TEP Data Team",
+    date: "12/07/2022",
     id: "6",
     content2: `
     <style> .news-sub-header{margin:0;} </style>
