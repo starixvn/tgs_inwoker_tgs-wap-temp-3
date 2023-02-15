@@ -596,6 +596,9 @@ class Deposit extends Component {
         );
       }
       if (method.methodcode === "Pulsa") {
+        let phone = this.props.wallet.bankCardList[bankCardIndex]
+        ? this.props.wallet.bankCardList[bankCardIndex].detail.phone
+        : "";
         if (config.features.Deposit_AddCard) {
           this.props.doPulsaDepositWithDetail(
             this.state.amount.replace(/,/g, ""),
@@ -607,7 +610,8 @@ class Deposit extends Component {
               : null,
             config.features.Deposit_AddCard
               ? this.props.wallet.bankCardList[bankCardIndex].detail
-              : null
+              : null,
+            phone
           );
         } else {
           this.props.doPulsaDeposit(
@@ -617,7 +621,8 @@ class Deposit extends Component {
             null,
             config.features.Deposit_Withdrawal_PlayerNote
               ? this.state.playerNote
-              : null
+              : null,
+            phone
           );
         }
       }
@@ -625,6 +630,9 @@ class Deposit extends Component {
         let emoneyname = this.props.wallet.bankCardList[bankCardIndex]
           ? this.props.wallet.bankCardList[bankCardIndex].detail.name ||
             this.props.wallet.bankCardList[bankCardIndex].detail.eMoneyName
+          : "";
+        let phone = this.props.wallet.bankCardList[bankCardIndex]
+          ? this.props.wallet.bankCardList[bankCardIndex].detail.phone
           : "";
         if (config.features.Deposit_AddCard) {
           this.props.doEWalletDepositWithDetail(
@@ -638,7 +646,8 @@ class Deposit extends Component {
             config.features.Deposit_AddCard
               ? this.props.wallet.bankCardList[bankCardIndex].detail
               : null,
-            emoneyname
+            emoneyname,
+            phone
           );
         } else {
           this.props.doEWalletDeposit(
@@ -649,7 +658,8 @@ class Deposit extends Component {
             config.features.Deposit_Withdrawal_PlayerNote
               ? this.state.playerNote
               : null,
-            emoneyname
+            emoneyname,
+            phone
           );
         }
       }
@@ -1181,14 +1191,15 @@ const mapDispatchToProps = (dispatch) => {
         walletAction.doUsdtDeposit(amount, paymentid, promotionid, banktype)
       );
     },
-    doPulsaDeposit: (amount, paymentid, promotionid, banktype, playerNote) => {
+    doPulsaDeposit: (amount, paymentid, promotionid, banktype, playerNote, phone) => {
       dispatch(
         walletAction.doPulsaDeposit(
           amount,
           paymentid,
           promotionid,
           banktype,
-          playerNote
+          playerNote,
+          phone
         )
       );
     },
@@ -1198,7 +1209,8 @@ const mapDispatchToProps = (dispatch) => {
       promotionid,
       banktype,
       playerNote,
-      emoneyname
+      emoneyname,
+      phone
     ) => {
       dispatch(
         walletAction.doEWalletDeposit(
@@ -1207,7 +1219,8 @@ const mapDispatchToProps = (dispatch) => {
           promotionid,
           banktype,
           playerNote,
-          emoneyname
+          emoneyname,
+          phone
         )
       );
     },
@@ -1280,7 +1293,8 @@ const mapDispatchToProps = (dispatch) => {
       promotionid,
       banktype,
       playerNote,
-      detail
+      detail,
+      phone
     ) => {
       dispatch(
         walletAction.doPulsaDepositWithDetail(
@@ -1289,7 +1303,8 @@ const mapDispatchToProps = (dispatch) => {
           promotionid,
           banktype,
           playerNote,
-          detail
+          detail,
+          phone
         )
       );
     },
@@ -1300,7 +1315,8 @@ const mapDispatchToProps = (dispatch) => {
       banktype,
       playerNote,
       detail,
-      emoneyname
+      emoneyname,
+      phone
     ) => {
       dispatch(
         walletAction.doEWalletDepositWithDetail(
@@ -1310,7 +1326,8 @@ const mapDispatchToProps = (dispatch) => {
           banktype,
           playerNote,
           detail,
-          emoneyname
+          emoneyname,
+          phone
         )
       );
     },
