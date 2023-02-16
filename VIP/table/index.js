@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import config from "../../../../config/config";
 import Common from "../../../../utils/Common";
@@ -6,7 +6,7 @@ import i18n from "../../../../utils/i18n";
 
 const TableWrapper = styled.div`
   display: grid;
-  grid-template-columns: 35% 65%;
+  grid-template-columns: 33% 65%;
   color: #fff;
   font-size: 28px;
 `;
@@ -23,6 +23,8 @@ const TheRewards = styled.div`
 
 const TheRewardStuffs = styled.div`
   display: grid;
+  margin-top: 0px;
+
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto;
   grid-template-rows: 77px ${({ total }) => {
       total &&
@@ -78,9 +80,17 @@ const VIPText = styled.div`
 `;
 
 const WithMinHeight = styled(Data)`
-  max-height: 77px;
+  height: 77px;
   background: #27273f;
-  padding: 20px 40px;
+  padding: 7px 10px;
+  text-transform: capitalize;
+  min-width: initial;
+  font-size: 22px;
+  width: 237px;
+  min-height: 68px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const WithLeftBorderRadius = styled(WithMinHeight)`
@@ -89,6 +99,40 @@ const WithLeftBorderRadius = styled(WithMinHeight)`
 
 const WithRightBorderRadius = styled(WithMinHeight)`
   border-radius: 0 40px 40px 0;
+`;
+
+const FixedPosition = styled.div`
+  position: fixed;
+  top: 89px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 33% 65%;
+  height: 120px;
+  padding: 20px;
+  color: #fff;
+  background: #1b1d30;
+
+  background: linear-gradient(
+    180deg,
+    rgba(27, 29, 48, 1) 0%,
+    rgba(27, 29, 48, 0) 100%
+  );
+`;
+
+const LandscapeScroll = styled.div`
+  overflow: auto;
+  display: -webkit-box;
+  justify-content: center;
+  width: 100%;
+
+  overflow: hidden;
+
+  user-select: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const getVIPTitle = (level) => {
@@ -101,34 +145,33 @@ const VIPTable = ({ data }) => {
   const emblemref = useRef();
   var emblemheight = emblemref.current && emblemref.current.clientHeight;
 
+  const verticalscrollref = useRef();
+
+  const scrollref = useRef();
+  const anotherscrollref = useRef();
+
+  const checkScroll = () => {
+    if (scrollref.current) {
+      //make anortherscrollref scroll to the same position
+      anotherscrollref.current.scrollLeft = scrollref.current.scrollLeft;
+    }
+  };
+
+  useEffect(() => {
+    if (scrollref.current) {
+      scrollref.current.addEventListener("scroll", checkScroll);
+    }
+  }, []);
+
   const DataWrapper = ({ children }) => {
     return <AnotherData height={emblemheight}>{children}</AnotherData>;
   };
 
   return (
-    <TableWrapper>
-      <TheLogo>
-        <WithLeftBorderRadius>{i18n.t("vip.level")}</WithLeftBorderRadius>
-        {data &&
-          data.length &&
-          data.map((data, index) => {
-            return (
-              <VipEmlemContainer>
-                <VipEmblem
-                  ref={emblemref}
-                  src={
-                    process.env.PUBLIC_URL +
-                    `/assets/images/vip/${data.level}.svg`
-                  }
-                />
-                <VIPText>{getVIPTitle(data.level)}</VIPText>
-              </VipEmlemContainer>
-            );
-          })}
-      </TheLogo>
-
-      <TheRewards>
-        <TheRewardStuffs total={data}>
+    <>
+      <FixedPosition>
+        <WithLeftBorderRadius>{i18n.t("vip.level")}</WithLeftBorderRadius>{" "}
+        <LandscapeScroll ref={anotherscrollref}>
           <WithMinHeight>
             {i18n.t("vip.levelKeepAccumulateBetAmount")}
           </WithMinHeight>
@@ -152,54 +195,95 @@ const VIPTable = ({ data }) => {
           <WithRightBorderRadius>
             {i18n.t("vip.virtualSportsRebate")}
           </WithRightBorderRadius>
+        </LandscapeScroll>
+      </FixedPosition>
+      <TableWrapper ref={verticalscrollref}>
+        <TheLogo>
+          <WithLeftBorderRadius></WithLeftBorderRadius>
           {data &&
             data.length &&
             data.map((data, index) => {
               return (
-                <>
-                  <DataWrapper>
-                    {Common.addComma(data.levelKeepAccumulateBetAmount)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.levelKeepAccumulateDeposit)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.levelUpAccumulateBetAmount)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.levelUpAccumulateDeposit)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.birthBenefit)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.promotionBenefit)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.quarterlyBenefit)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.cardGameRebate)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.liveDealerRebate)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.lotteryRebate)}
-                  </DataWrapper>
-                  <DataWrapper>{Common.addComma(data.slotRebate)}</DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.sportsRebate)}
-                  </DataWrapper>
-                  <DataWrapper>
-                    {Common.addComma(data.virtualSportsRebate)}
-                  </DataWrapper>
-                </>
+                <VipEmlemContainer>
+                  <VipEmblem
+                    ref={emblemref}
+                    src={
+                      process.env.PUBLIC_URL +
+                      `/assets/images/vip/${data.level}.svg`
+                    }
+                  />
+                  <VIPText>{getVIPTitle(data.level)}</VIPText>
+                </VipEmlemContainer>
               );
             })}
-        </TheRewardStuffs>
-      </TheRewards>
-    </TableWrapper>
+        </TheLogo>
+
+        <TheRewards ref={scrollref}>
+          <TheRewardStuffs total={data}>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithMinHeight></WithMinHeight>
+            <WithRightBorderRadius></WithRightBorderRadius>
+            {data &&
+              data.length &&
+              data.map((data, index) => {
+                return (
+                  <>
+                    <DataWrapper>
+                      {Common.addComma(data.levelKeepAccumulateBetAmount)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.levelKeepAccumulateDeposit)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.levelUpAccumulateBetAmount)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.levelUpAccumulateDeposit)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.birthBenefit)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.promotionBenefit)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.quarterlyBenefit)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.cardGameRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.liveDealerRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.lotteryRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.slotRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.sportsRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.virtualSportsRebate)}
+                    </DataWrapper>
+                  </>
+                );
+              })}
+          </TheRewardStuffs>
+        </TheRewards>
+      </TableWrapper>
+    </>
   );
 };
 

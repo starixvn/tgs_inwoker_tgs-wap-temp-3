@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
-import Header from "../../Wap/Share/Header";
 import Button from "../../Wap/Share/Button";
 import { generalAction } from "../../../api-services/actions/generalAction";
 import i18n from "../../../utils/i18n";
@@ -10,7 +9,7 @@ import config from "../../../config/config";
 import AppBarExtrator from "./../../Wap/components/appbar";
 const moment = require("moment");
 const PromoDetailImage = styled.div`
-  height: 300px;
+  height: 270px;
   width: 100%;
   background: url(${(props) => props.img}) no-repeat;
   background-size: 100% 100%;
@@ -20,7 +19,6 @@ const PromoDetailImage = styled.div`
 const EventText = styled.div`
   font-size: 22px;
 
-  font-family: AdobeHeitiR;
   line-height: 26px;
   margin-bottom: 20px;
 `;
@@ -37,14 +35,14 @@ const TheEntireWrapper = styled.div`
 
 const SubTitle = styled.div`
   color: #fff;
-  font-size: 40px;
+  font-size: 32px;
   text-align: center;
   width: 100%;
   padding: 20px 0;
 `;
 
 const TheActualContent = styled.div`
-  padding: 40px;
+  padding: 20px 40px;
   background: #0e0f1a;
   border-radius: 40px;
   color: #fff;
@@ -66,7 +64,9 @@ const TNCToggle = styled.div`
     width: 28px;
     height: 28px;
     margin: 0 5px;
-    font-size: ${(props) => (props.active ? `13px` : `18px`)};
+    margin-right: 20px;
+    line-height: 23px;
+    font-size: ${(props) => (props.active ? `30px` : `60px`)};
     text-align: center;
   }
 `;
@@ -96,7 +96,7 @@ const ArrowRight = styled(Arrow)`
 `;
 
 const Title = styled.div`
-  font-size: 40px;
+  font-size: 32px;
   padding: 0 40px;
   text-align: center;
 `;
@@ -334,25 +334,11 @@ class Details extends Component {
 
           <SubTitle>{simplifyCode("subSubject")}</SubTitle>
           <TheActualContent>
-            {config.features.HaveVIPFeature && (
-              <EventText>
-                {i18n.t("promotion.promoTarget")}：
-                <br />
-                {this.state.details.vipLevels
-                  .sort((a, b) => {
-                    return a - b;
-                  })
-                  .map((a, index) => {
-                    return (
-                      <span key={index}>
-                        VIP{a}
-                        {index < this.state.details.vipLevels.length - 1 &&
-                          ", "}
-                      </span>
-                    );
-                  })}
-              </EventText>
-            )}
+            <PromoDesc
+              dangerouslySetInnerHTML={{
+                __html: "<div>" + simplifyCode("content") + "</div>",
+              }}
+            />
             <EventText>
               {i18n.t("promotion.promoDate")}：
               <br />
@@ -360,11 +346,6 @@ class Details extends Component {
               {" - "}
               {moment(this.state.details.to).format("YYYY/MM/DD HH:mm:ss")}
             </EventText>
-            <PromoDesc
-              dangerouslySetInnerHTML={{
-                __html: "<div>" + simplifyCode("content") + "</div>",
-              }}
-            />
           </TheActualContent>
 
           {this.state.term !== "" && (
@@ -388,7 +369,7 @@ class Details extends Component {
           {!isDummy && (
             <Button
               style={{ margin: "40px auto 0 auto" }}
-              label={i18n.t("promotion.joinPromo")}
+              label={i18n.t("T13.promo.join")}
               onClick={() =>
                 this.handleJoinClick(
                   this.state.details.id,

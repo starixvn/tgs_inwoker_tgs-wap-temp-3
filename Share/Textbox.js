@@ -3,7 +3,7 @@ import styled from "styled-components";
 const CustomText = styled.div`
   width: 700px;
   min-height: 170px;
-  padding: 20px 20px 0 20px;
+
   margin: 20px auto;
   display: flex;
   flex-direction: column;
@@ -33,6 +33,7 @@ const CustomInput = styled.input`
   flex: 1;
   color: #fff;
   border: solid 1px #fff;
+  font-family: "Montserrat", sans-serif;
   ::placeholder,
   ::-webkit-input-placeholder {
     color: #c3c3c3;

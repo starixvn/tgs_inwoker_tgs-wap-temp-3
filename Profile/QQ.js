@@ -71,12 +71,12 @@ class QQ extends BaseProfile {
 
   render() {
     return this.setupContent(
-      i18n.t("common.qqNumber"),
+      i18n.t("T13.qq.qq_title"),
       <Textbox
         style={{ margin: "50px auto 20px auto" }}
         value={this.state.qq}
         onChange={this.handleChangeNumber}
-        placeholder={i18n.t("profile.qq.plsEnterQQ")}
+        placeholder={i18n.t("T13.qq.qq_placeholder")}
         disabled={
           this.state.isConfigured &&
           (config.features.ChangesNotAllowed ||
@@ -85,12 +85,12 @@ class QQ extends BaseProfile {
             : false
         }
         type={"text"}
-        label={i18n.t("common.qqNumber")}
+        label={i18n.t("T13.qq.qq_label")}
       ></Textbox>,
       this.state.isConfigured && config.features.ChangesNotAllowed
-        ? i18n.t("common.configured")
+        ? i18n.t("common.submit")
         : this.state.qq !== this.props.account.member_qq &&
-            i18n.t("common.update"),
+            i18n.t("common.submit"),
 
       (() => {
         if (

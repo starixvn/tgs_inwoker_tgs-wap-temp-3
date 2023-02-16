@@ -1055,7 +1055,6 @@ class Deposit extends Component {
                     ref={this.tabs}
                     onScroll={this.checkScrolling}
                   >
-                    <ArrowLeft display={this.state.hideLeft} />
                     {this.props.wallet.depositTypeList
                       .sort(function (a, b) {
                         return a.displayorder - b.displayorder;
@@ -1077,7 +1076,6 @@ class Deposit extends Component {
                           </CustomTab>
                         );
                       })}
-                    <ArrowRight display={this.state.hideRight} />
                   </CustomTabs>
                 </StyledAppBar>
               )}

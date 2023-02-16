@@ -5,7 +5,7 @@ import i18n from "../../../../utils/i18n";
 const AnotherWrapper = styled.div`
   width: 700px;
   min-height: 170px;
-  padding: 20px 20px 0 20px;
+
   margin: 20px auto;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@ const DocumentUploader = ({ title, onClick, onChange, upload }) => {
           style={{ marginRight: 10 }}
           uploaded={upload}
         >
-          {upload ? upload : i18n.t("common.upload")}
+          {upload ? upload : i18n.t("common.upload2")}
         </CustomButton>
         <input
           type="file"

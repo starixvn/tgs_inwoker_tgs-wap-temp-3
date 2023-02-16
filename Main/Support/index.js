@@ -189,7 +189,7 @@ const Support = (props) => {
               props.general.livechat.setting.url !== undefined)) && (
             <TheSupportButton
               onClick={() => {
-                props.cs();
+                props.GetSupportUrl();
               }}
             >
               <IconTextContainer>

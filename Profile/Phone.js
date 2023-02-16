@@ -1,69 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import TextboxWithButton from "../Share/TextboxWithButton";
+
 import BaseProfile from "./BaseProfile";
 import { accountAction } from "../../../api-services/actions/accountAction";
 import { AccountService } from "../../../api-services/services/AccountService";
-import styled from "styled-components";
+
 import BottomNote from "../Share/BottomNote";
 
 import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import TextfieldWithButton from "../components/textfieldwithbutton";
 import PhoneField from "../components/phonefield";
-const Container = styled.div`
-  margin: 0 auto;
-  width: 635px;
-  height: 80px;
-  border-radius: 6px;
-  background-color: #ffffff;
-`;
-const SelectContainer = styled.select`
-  width: 100%;
-  height: 100%;
-  border: none;
-  color: #000;
-  font-size: 30px;
-  background-color: #fff;
-  min-height: 71px;
-`;
-const CustomText = styled.div`
-  width: 700px;
-  height: 170px;
-  padding: 20px 20px 0 20px;
-  margin: 20px auto;
-`;
-const CustomLabel = styled.div`
-  font-size: 24px;
-  font-weight: 600;
-  margin-left: 3px;
-  color: ${({ theme }) =>
-    theme.wapSecondary ? theme.wapSecondary : theme.secondary};
-`;
-const CustomInput = styled.input`
-  height: 50px;
-  width: 405px;
-  min-height: 71px;
-  font-size: 28px;
-  margin-top: 18px;
-  border-radius: 16px;
-  padding: 16px 32px;
-  font-weight: 500;
-  border: 0;
-  display: flex;
-  flex: 1;
-  ::placeholder,
-  ::-webkit-input-placeholder {
-    color: #c3c3c3;
-    font-size: 28px;
-  }
-  &:disabled {
-    background: #fff;
 
-    opacity: 1;
-  }
-`;
 class Phone extends BaseProfile {
   state = {
     countdownToken: 0,

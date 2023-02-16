@@ -23,7 +23,7 @@ const localeMap = {
 };
 
 const DatepickerWrapper = styled.div`
-  padding: 40px 40px 0 40px;
+  padding: 40px 20px 0 20px;
 `;
 
 const CustomDatepicker = styled.div`
@@ -42,11 +42,16 @@ const CustomDatepicker = styled.div`
   .MuiInputBase-input {
     background: none;
     color: #fff;
+    font-family: "Montserrat", sans-serif !important;
   }
 
   .MuiInput-underline:before,
   .MuiInput-underline:after {
     border-bottom: 0px;
+  }
+
+  .MuiPickersModal-dialogRoot {
+    transform: scale(1.4);
   }
 `;
 
@@ -151,26 +156,14 @@ class Birthdate extends BaseProfile {
       this.state.isConfigured && config.features.Profile_SetUpBirthdateOnce
         ? i18n.t("common.configured")
         : this.state.birthdate !== this.props.account.member_birthdate &&
-            i18n.t("common.complete"),
+            i18n.t("common.submit"),
 
-      (() => {
-        if (
-          this.state.isConfigured &&
-          config.features.Profile_SetUpBirthdateOnce
-        ) {
-          return (
-            <BottomNote
-              text1={i18n.t("profile.birthdate.toEdit")}
-              link={"../chat"}
-              text2={i18n.t(
-                config.features.Profile_SetUpBirthdateOnce
-                  ? "common.customerService"
-                  : "profile.birthdate.here"
-              )}
-            ></BottomNote>
-          );
-        }
-      })()
+      <BottomNote
+        text1={i18n.t("T13.help_footer.break1")}
+        text2={i18n.t("T13.help_footer.break2")}
+        text3={i18n.t("T13.help_footer.break3")}
+        link={"../chat"}
+      ></BottomNote>
     );
   }
 }

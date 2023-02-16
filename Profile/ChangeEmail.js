@@ -156,7 +156,7 @@ class ChangeEmail extends BaseProfile {
           onChange={this.handleChangeEmail}
           placeholder={i18n.t("profile.email.plsEnterEmail")}
           disabled={this.state.currentStep === 1}
-          label={i18n.t("common.emailAddress")}
+          label={i18n.t("common.currentEmail")}
         ></Textbox>
         <TextfieldWithButton
           buttonlabel={
@@ -168,10 +168,9 @@ class ChangeEmail extends BaseProfile {
                 "s)"
           }
           type={"text"}
-          style={{ margin: "20px auto 20px auto" }}
           value={this.state.code}
           onChange={this.handleChangeCode}
-          placeholder={i18n.t("common.msgEnterEmailCode")}
+          placeholder={i18n.t("T13.misc.msgEnterCode")}
           label={i18n.t("common.token")}
           onClick={this.handleGetCodeClick}
           maxLength={6}

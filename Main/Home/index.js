@@ -281,7 +281,7 @@ class Home extends Component {
     return list.filter((val) => this.state.gameTypeListSorting.includes(val));
   }
 
-  cockfightBrandList = ["SM01"];
+  cockfightBrandList = ["SM01", "AWC_COCKFIGHT"];
 
   formatSortedGameList() {
     var currentType = -1;
@@ -408,17 +408,31 @@ class Home extends Component {
       this.props.appHistory.push("/" + i18n.language + "/login");
       return;
     }
-    if (type === GameTypeEnum.COCKFIGHT && params === "SM01") {
-      this.popup = window.open("", "Cockfight");
-      GameService.GetCockfight()
-        .then((e) => {
-          this.popup.document.write(e.data);
-          this.popup.document.close();
-          this.popup.focus();
-        })
-        .catch((e) => {
-          this.popup.close();
-        });
+    if (type === GameTypeEnum.COCKFIGHT) {
+      if (params === "SM01") {
+        this.popup = window.open("", "Cockfight");
+        GameService.GetCockfight()
+          .then((e) => {
+            this.popup.document.write(e.data);
+            this.popup.document.close();
+            this.popup.focus();
+          })
+          .catch((e) => {
+            this.popup.close();
+          });
+      } else {
+        Common.closePreviousPopup();
+        // this.performBalanceRefresh();
+        Common.PopupCenter(
+          "/" +
+            i18n.language +
+            "/joinlobbygame/" +
+            GameTypeEnum.SPORTS +
+            "/" +
+            params,
+          "gamewindow"
+        );
+      }
     } else if (
       type === GameTypeEnum.SLOT ||
       type === GameTypeEnum.TIGERSLOT ||
@@ -798,6 +812,7 @@ class Home extends Component {
       sortingPB: 9,
       sortingSKY: 9,
       sortingWLGHK: 9,
+      sortingPISO: 9,
       sortingBUNNY: 9,
     },
   ];
@@ -848,6 +863,7 @@ class Home extends Component {
             listOfGame={this.state.listOfGame}
             getBannerTemplate={this.getBannerTemplate}
             token={this.props.account.token}
+            alert={this.props.alert}
           />
         );
       case 2:
@@ -989,7 +1005,7 @@ class Home extends Component {
             </NewAppBar>
           )}
         </CustomAppBar>
-        {this.state.scene === 1 && (
+        {this.state.scene === 1 && !config.template === 13 && (
           <Banner
             height={config.brand === "GMO" && "315px"}
             sameAsText={config.brand === "GMO"}

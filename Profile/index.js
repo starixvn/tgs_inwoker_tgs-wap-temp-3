@@ -14,13 +14,6 @@ const Container = styled.div`
   padding-bottom: 120px;
 `;
 
-const BlockLabel = styled.div`
-  font-size: 32px;
-  font-weight: 600;
-
-  color: #2b2b2b;
-  margin: 30px 0 10px 60px;
-`;
 const BlockContainer = styled.div`
   background-color: #202137;
   width: 700px;
@@ -173,7 +166,7 @@ class Profile extends Component {
             {config.features.ICVerification &&
               ContentItem(
                 process.env.PUBLIC_URL + `/assets/images/wapp/icon-user.png`,
-                i18n.t("profile.nameVerify.icNum"),
+                i18n.t("common.realName"),
                 this.isConfigured(
                   this.props.account.info.member_name !== "" &&
                     this.props.account.info.member_name !== null
@@ -205,7 +198,7 @@ class Profile extends Component {
             {config.features.EmailVerification &&
               ContentItem(
                 process.env.PUBLIC_URL + `/assets/images/wapp/icon-email.png`,
-                i18n.t("common.emailAddress"),
+                i18n.t("extended.email"),
                 this.isConfigured(this.props.account.info.member_email),
                 () => {
                   this.handleNavigate("/profile/email");
@@ -232,7 +225,7 @@ class Profile extends Component {
               {config.features.QQWeChat &&
                 ContentItem(
                   process.env.PUBLIC_URL + `/assets/images/wapp/icon-qq.png`,
-                  i18n.t("common.qqNumber"),
+                  "QQ",
                   this.isConfigured(this.props.account.info.member_qq),
                   () => {
                     this.handleNavigate("/profile/qq");
@@ -246,7 +239,7 @@ class Profile extends Component {
                 ContentItem(
                   process.env.PUBLIC_URL +
                     `/assets/images/wapp/icon-wechat.png`,
-                  i18n.t("common.wechatNumber"),
+                  i18n.t("T13.wechat.wc_title"),
                   this.isConfigured(this.props.account.info.member_wechat),
                   () => {
                     this.handleNavigate("/profile/wechat");
@@ -262,7 +255,7 @@ class Profile extends Component {
                   return ContentItem(
                     process.env.PUBLIC_URL +
                       `/assets/images/wapp/icon-${platform}.svg`,
-                    i18n.t("common." + platform),
+                    i18n.t("T13.socials." + platform.toLowerCase() + "_title"),
                     this.isConfigured(
                       this.props.account.info["member_" + platform]
                     ),

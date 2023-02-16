@@ -73,6 +73,12 @@ import BottomNavBar from "./components/navigationbar";
 import NewsSite from "./News";
 import DetailedNews from "./News/detailed";
 
+import FAQs from "./Faq";
+import Terms from "./terms";
+import Privacy from "./privacy";
+import Responsible from "./responsible";
+import Support from "./Main/Support";
+
 const baseRouteUrl = Common.baseRouteUrl;
 const StyledModal = withStyles((theme) => ({
   paper: {
@@ -417,6 +423,30 @@ const RouteMapping = [
     component: DetailedNews,
     alert: true,
     navigate: true,
+  },
+  {
+    path: "/chat",
+    component: Support,
+    alert: true,
+    navigate: true,
+    GetSupportUrl: true,
+  },
+  {
+    path: "/faq",
+    component: FAQs,
+  },
+  {
+    path: "/terms",
+    component: Terms,
+  },
+  {
+    path: "/privacy",
+    component: Privacy,
+  },
+  {
+    path: "/responsiblegaming",
+    component: Responsible,
+    alert: true,
   },
 ];
 
@@ -1053,7 +1083,7 @@ class Wap extends Component {
                           this.setState({ ...this.state, open: false })
                         }
                       >
-                        {i18n.t("common.confirm")}
+                        {i18n.t("T13.dialog.confirm")}
                       </ButtonConfirm>
 
                       {this.state.action && (

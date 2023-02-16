@@ -13,33 +13,6 @@ import config from "../../../config/config";
 import { AccountService } from "../../../api-services/services/AccountService";
 import DocumentUploader from "../components/documentuploader";
 
-const AnotherWrapper = styled.div`
-  width: 700px;
-  min-height: 170px;
-  padding: 20px 20px 0 20px;
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputWrapper = styled.div`
-  background: #fff;
-
-  width: 700px;
-  margin-top: 10px;
-  padding-right: 100px;
-  border-radius: 16px;
-  width: 100%;
-`;
-
-const CustomLabel = styled.div`
-  font-size: 24px;
-  font-weight: 600;
-  margin-left: 3px;
-  color: ${({ theme }) =>
-    theme.wapSecondary ? theme.wapSecondary : theme.secondary};
-`;
-
 class NameVerify extends BaseProfile {
   constructor(props) {
     super(props);
@@ -168,16 +141,8 @@ class NameVerify extends BaseProfile {
             this.props.account.info.check_pass_account ? this.state.name : ""
           }
           onChange={this.handleChangeName}
-          placeholder={
-            config.features.Profile_CustomIdentityPageTranslation
-              ? i18n.t("piso.profile.enterFullName")
-              : i18n.t("profile.nameVerify.title")
-          }
-          label={
-            config.features.Profile_CustomIdentityPageTranslation
-              ? i18n.t("piso.profile.fullName")
-              : i18n.t("profile.nameVerify.verifyName")
-          }
+          placeholder={i18n.t("profile.nameVerify.title")}
+          label={i18n.t("profile.nameVerify.title")}
           disabled={this.state.isConfigured === true}
           maxLength={256}
         ></Textbox>
@@ -186,16 +151,8 @@ class NameVerify extends BaseProfile {
             style={{ margin: "50px auto 20px auto" }}
             value={this.state.ic}
             onChange={this.handleChangeIC}
-            placeholder={
-              config.features.Profile_CustomIdentityPageTranslation
-                ? i18n.t("piso.profile.enterDocumentNumber")
-                : i18n.t("profile.nameVerify.msgEnterICNum")
-            }
-            label={
-              config.features.Profile_CustomIdentityPageTranslation
-                ? i18n.t("piso.profile.documentNumber")
-                : i18n.t("profile.nameVerify.icNum")
-            }
+            placeholder={i18n.t("profile.nameVerify.icNum")}
+            label={i18n.t("profile.nameVerify.icNum")}
             disabled={this.props.account.info.check_pass_account === true}
             maxLength={256}
           ></Textbox>
@@ -207,7 +164,7 @@ class NameVerify extends BaseProfile {
         config.features.ICVerificationUpload ? (
           <>
             <DocumentUploader
-              title={i18n.t("common.upload")}
+              title={i18n.t("common.upload2")}
               onClick={() => {
                 document.getElementById("getFile").click();
               }}

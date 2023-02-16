@@ -240,7 +240,7 @@ const Download = ({ alert }) => {
     }
   }
   const handleBackClick = () => {
-    AppHistory.push("/" + i18n.language + "/promotion-list");
+    AppHistory.push("/" + i18n.language + "/main/profile");
   };
 
   const fakeData = [

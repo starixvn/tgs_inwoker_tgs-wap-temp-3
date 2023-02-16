@@ -4,11 +4,13 @@ import styled from "styled-components";
 const NewsWrapper = styled.div`
   margin-bottom: 20px;
   border-radius: 40px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background: #27273f;
 `;
 
 const Content = styled.div`
   padding: 30px;
-  border: solid 1px #fff;
+
   border-radius: 0 0 40px 40px;
 `;
 
@@ -20,6 +22,9 @@ const Title = styled.div`
 
 const Description = styled.div`
   font-size: 24px;
+  line-height: 1.5em;
+  height: 4.5em;
+  overflow: hidden;
 `;
 
 const ImageWrapper = styled.div`

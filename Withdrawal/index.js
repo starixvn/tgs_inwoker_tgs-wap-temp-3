@@ -511,7 +511,7 @@ class Withdrawal extends Component {
             </LeftLabelValue>
           </RowContainer>
         </InnerContainer>
-        <div style={{ padding: "0 40px" }}>
+        <div>
           <ButtonCardManage
             onClick={() =>
               this.props.appHistory.push("/" + i18n.language + "/card")
@@ -544,7 +544,7 @@ class Withdrawal extends Component {
             </CustomSelectContainer>
           )}
           <Select
-            title={i18n.t("card.addCard.branch")}
+            title={i18n.t("profile.bankCard.title")}
             value={this.state.selectedBankCardIndex}
             native
             onChange={(e) => {

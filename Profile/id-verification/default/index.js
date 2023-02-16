@@ -11,33 +11,6 @@ import { RESET_ACCOUNTRESULT } from "../../../../../api-services/constant/action
 import config from "../../../../../config/config";
 import DocumentUploader from "../../../components/documentuploader";
 
-const AnotherWrapper = styled.div`
-  width: 700px;
-  min-height: 170px;
-  padding: 20px 20px 0 20px;
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputWrapper = styled.div`
-  background: #fff;
-
-  width: 700px;
-  margin-top: 10px;
-  padding-right: 100px;
-  border-radius: 16px;
-  width: 100%;
-`;
-
-const CustomLabel = styled.div`
-  font-size: 24px;
-  font-weight: 600;
-  margin-left: 3px;
-  color: ${({ theme }) =>
-    theme.wapSecondary ? theme.wapSecondary : theme.secondary};
-`;
-
 class Default extends BaseProfile {
   constructor(props) {
     super(props);
@@ -53,16 +26,8 @@ class Default extends BaseProfile {
           style={{ margin: "50px auto 20px auto" }}
           value={this.props.name}
           onChange={this.props.handleChangeName}
-          placeholder={
-            config.features.Profile_CustomIdentityPageTranslation
-              ? i18n.t("piso.profile.enterFullName")
-              : i18n.t("profile.nameVerify.title")
-          }
-          label={
-            config.features.Profile_CustomIdentityPageTranslation
-              ? i18n.t("piso.profile.fullName")
-              : i18n.t("profile.nameVerify.verifyName")
-          }
+          placeholder={i18n.t("profile.nameVerify.title")}
+          label={i18n.t("profile.nameVerify.title")}
           disabled={false}
           maxLength={256}
         ></Textbox>
@@ -71,16 +36,8 @@ class Default extends BaseProfile {
             style={{ margin: "50px auto 20px auto" }}
             value={this.props.ic}
             onChange={this.props.handleChangeIC}
-            placeholder={
-              config.features.Profile_CustomIdentityPageTranslation
-                ? i18n.t("piso.profile.enterDocumentNumber")
-                : i18n.t("profile.nameVerify.msgEnterICNum")
-            }
-            label={
-              config.features.Profile_CustomIdentityPageTranslation
-                ? i18n.t("piso.profile.documentNumber")
-                : i18n.t("profile.nameVerify.icNum")
-            }
+            placeholder={i18n.t("profile.nameVerify.icNum")}
+            label={i18n.t("profile.nameVerify.icNum")}
             disabled={false}
             maxLength={256}
           ></Textbox>

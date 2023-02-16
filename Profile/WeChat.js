@@ -69,13 +69,13 @@ class WeChat extends BaseProfile {
 
   render() {
     return this.setupContent(
-      i18n.t("common.wechatNumber"),
+      i18n.t("T13.wechat.wc_title"),
       <Textbox
         style={{ margin: "50px auto 20px auto" }}
         value={this.state.wechat}
         onChange={this.handleChangeNumber}
-        placeholder={i18n.t("profile.wechat.plsEnterWechat")}
-        label={i18n.t("common.wechatNumber")}
+        placeholder={i18n.t("T13.wechat.wc_placeholder")}
+        label={i18n.t("T13.wechat.wc_label")}
         disabled={
           this.state.isConfigured &&
           (config.features.ChangesNotAllowed ||
@@ -85,9 +85,9 @@ class WeChat extends BaseProfile {
         }
       ></Textbox>,
       this.state.isConfigured && config.features.ChangesNotAllowed
-        ? i18n.t("common.configured")
+        ? i18n.t("common.submit")
         : this.state.wechat !== this.props.account.member_wechat &&
-            i18n.t("common.complete"),
+            i18n.t("common.submit"),
       (() => {
         if (
           this.state.isConfigured &&
