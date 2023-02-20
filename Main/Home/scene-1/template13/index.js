@@ -334,13 +334,13 @@ const WinnerListItemImage = styled.img`
   border: 1px solid #ea427b;
 `;
 const WinnerListItemDescription = styled.div`
-  width: 200px;
+  width: 300px;
   font-size: 20px;
   color: #7a7a7a;
   white-space: break-spaces;
 `;
 const WinnerListItemPrize = styled.div`
-  width: 150px;
+  width: 200px;
   font-size: 25px;
   font-weight: bold;
   color: ${({ theme }) => theme.primary};
