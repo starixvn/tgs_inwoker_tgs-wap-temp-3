@@ -48,7 +48,7 @@ const CustomInput = styled.div`
 const Button = (props) => {
   return (
     <CustomInput>
-      <SelectContainer>
+      <SelectContainer style={props.style}>
         <Content
           minWidth={props.minWidth}
           onClick={props.disabled === true ? null : props.onClick}

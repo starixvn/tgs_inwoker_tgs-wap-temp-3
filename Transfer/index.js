@@ -582,10 +582,12 @@ class Transfer extends Component {
               value={this.state.transferAmount}
               type={"number"}
               pattern="\d*"
+              style={{ paddingRight: 0 }}
             />
             <Button
               label={i18n.t("common.submit")}
               onClick={this.handleSubmitClicked}
+              style={{ paddingLeft: 0 }}
               disabled={(() => {
                 return (
                   this.state.transferAmount === 0 ||
