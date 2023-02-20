@@ -9,8 +9,8 @@ import config from "../../../config/config";
 import AppBarExtrator from "./../../Wap/components/appbar";
 const moment = require("moment");
 const PromoDetailImage = styled.div`
-  height: 270px;
-  width: 100%;
+  height: 280px;
+  width: 690px;
   background: url(${(props) => props.img}) no-repeat;
   background-size: 100% 100%;
   border-radius: 40px;
@@ -106,6 +106,11 @@ const TitleContainer = styled.div`
   align-items: center;
   padding: 30px 0;
   justify-content: space-between;
+`;
+
+const MakeItFloatCenter = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 class Details extends Component {
@@ -315,22 +320,25 @@ class Details extends Component {
               }}
             />
           </TitleContainer>
-
-          {(() => {
-            if (this.state.details.localization !== null) {
-              return (
-                <PromoDetailImage
-                  img={
-                    checkIfExist
-                      ? checkIfExist.mobileBanner
-                      : this.state.details.mobileBanner
-                  }
-                />
-              );
-            } else {
-              return <PromoDetailImage img={this.state.details.mobileBanner} />;
-            }
-          })()}
+          <MakeItFloatCenter>
+            {(() => {
+              if (this.state.details.localization !== null) {
+                return (
+                  <PromoDetailImage
+                    img={
+                      checkIfExist
+                        ? checkIfExist.mobileBanner
+                        : this.state.details.mobileBanner
+                    }
+                  />
+                );
+              } else {
+                return (
+                  <PromoDetailImage img={this.state.details.mobileBanner} />
+                );
+              }
+            })()}
+          </MakeItFloatCenter>
 
           <SubTitle>{simplifyCode("subSubject")}</SubTitle>
           <TheActualContent>
