@@ -45,6 +45,7 @@ export const CustomThemedButton = ({ props }) => {
         config.features.HomePage_DisplayVIP && (
           <TransparentColoredButton
             onClick={() => {
+              window.scrollTo(0, 0);
               AppHistory.push("/" + i18n.language + "/vip");
             }}
             style={{ padding: "10px 20px" }}

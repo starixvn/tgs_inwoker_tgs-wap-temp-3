@@ -19,6 +19,7 @@ import News from "./news";
 import { hardcodeNews } from "./news/hardcoded";
 import Banner from "../banner";
 import GamingLicensePNG from "../../../../../../assets/images/gaming-license.png";
+import Loading from "../../../../Share/Loading";
 
 const TheContainer = styled.div`
   padding-top: 125px;
@@ -416,6 +417,8 @@ const Template13 = ({
   const [prizeMax, setPrizeMax] = useState(5);
   const [list, setList] = useState([]);
 
+  const [loading, setLoading] = useState(false);
+
   const generateJackpotAmount = ({ min, max }) => {
     let date = new Date();
     let dayIndex = date.getDay() === 0 ? 6 : date.getDay() - 1;
@@ -563,6 +566,7 @@ const Template13 = ({
       result.then((e) => {
         if (e.IsSuccess) {
           setGameList(e.data);
+          setLoading(false);
         }
       });
     }
@@ -570,10 +574,12 @@ const Template13 = ({
 
   useEffect(() => {
     if (gameTypeToDisplayDifferently(selected)) {
+      setLoading(true);
       var result = GameService.GetGameList(selectedBrand, selected);
       result.then((e) => {
         if (e.IsSuccess) {
           setGameList(e.data);
+          setLoading(false);
         }
       });
     }
@@ -586,6 +592,7 @@ const Template13 = ({
   });
 
   const handleJoinGameClick = (row) => {
+    Common.closePreviousPopup();
     if (token) {
       Common.PopupCenter(
         `/${i18n.language}/joingame/${selected || GameTypeEnum.SLOT}/${
@@ -605,6 +612,7 @@ const Template13 = ({
   };
 
   const navigateToSlot = () => {
+    setLoading(true);
     setSelected([GameTypeEnum.SLOT]);
     changeShowGame([GameTypeEnum.SLOT]);
     window.scrollTo(0, 0);
@@ -691,6 +699,9 @@ const Template13 = ({
                     if (selected === i.type) {
                       setSelected("");
                     } else {
+                      if (gameTypeToDisplayDifferently(selected)) {
+                        setLoading(true);
+                      }
                       changeShowGame(i.type);
                       setSelected(i.type);
                       setKeyword("");
@@ -1042,6 +1053,7 @@ const Template13 = ({
           </>
         )}
       </GridWrapper>
+      <Loading show={loading} />
     </TheContainer>
   );
 };

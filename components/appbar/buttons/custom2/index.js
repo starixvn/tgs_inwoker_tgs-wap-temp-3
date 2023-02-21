@@ -57,6 +57,7 @@ export const CustomThemedButton2 = ({ props }) => {
           config.features.HomePage_DisplayVIP && (
             <AnotherColoredButton
               onClick={() => {
+                window.scrollTo(0, 0);
                 AppHistory.push("/" + i18n.language + "/vip");
               }}
               style={{
