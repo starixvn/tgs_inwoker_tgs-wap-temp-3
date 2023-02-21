@@ -586,8 +586,8 @@ class Transfer extends Component {
             />
             <Button
               label={i18n.t("common.submit")}
+              style={{ paddingRight: 20 }}
               onClick={this.handleSubmitClicked}
-              style={{ paddingLeft: 0 }}
               disabled={(() => {
                 return (
                   this.state.transferAmount === 0 ||

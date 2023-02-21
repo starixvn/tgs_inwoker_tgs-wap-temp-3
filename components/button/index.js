@@ -11,15 +11,15 @@ const Content = styled.div`
       brightness(1);`}
   height: 105px;
   border-radius: 50px;
-  width: fit-content;
+
+  width: 100%;
   font-size: 34px;
-  min-width: fit-content;
   color: ${({ theme }) =>
     theme.customButtonText ? theme.customButtonText : "#ffffff"};
   text-align: center;
 
   display: flex;
-  padding: 0 50px;
+  padding: 0 40px;
   align-items: center;
   justify-content: center;
   min-width: ${({ minWidth }) => {
@@ -31,6 +31,7 @@ const SelectContainer = styled.div`
   position: relative;
   display: flex;
   padding: 10px;
+  width: 100%;
 `;
 
 const CustomInput = styled.div`
@@ -40,6 +41,7 @@ const CustomInput = styled.div`
 
   margin: 10px auto;
   flex: auto;
+  width: fit-content;
 
   align-items: center;
   justify-content: center;
@@ -47,8 +49,8 @@ const CustomInput = styled.div`
 
 const Button = (props) => {
   return (
-    <CustomInput>
-      <SelectContainer style={props.style}>
+    <CustomInput style={props.style}>
+      <SelectContainer>
         <Content
           minWidth={props.minWidth}
           onClick={props.disabled === true ? null : props.onClick}

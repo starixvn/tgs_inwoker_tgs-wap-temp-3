@@ -168,6 +168,7 @@ class My extends Component {
     };
   }
   componentDidMount() {
+    window.scrollTo(0, 0);
     if (this.props.account.token === null) {
       this.props.appHistory.replace("/" + i18n.language + "/login");
     }
