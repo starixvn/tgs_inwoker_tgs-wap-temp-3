@@ -19,7 +19,7 @@ const Content = styled.div`
   text-align: center;
 
   display: flex;
-  padding: 0 40px;
+  padding: 0 30px;
   align-items: center;
   justify-content: center;
   min-width: ${({ minWidth }) => {
