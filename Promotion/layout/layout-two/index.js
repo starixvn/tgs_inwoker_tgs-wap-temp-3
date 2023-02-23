@@ -9,6 +9,7 @@ const ListItem = styled.div`
   width: 100%;
   border-radius: 40px;
   height: 280px;
+  width: 690px;
 `;
 
 const Wrapper = styled.div`

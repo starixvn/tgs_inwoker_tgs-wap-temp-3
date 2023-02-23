@@ -168,6 +168,7 @@ class My extends Component {
     };
   }
   componentDidMount() {
+    window.scrollTo(0, 0);
     if (this.props.account.token === null) {
       this.props.appHistory.replace("/" + i18n.language + "/login");
     }
@@ -260,6 +261,11 @@ class My extends Component {
     this.props.appHistory.goBack();
   };
 
+  navigateTo = (to) => {
+    window.scrollTo(0, 0);
+    this.props.navigate(to);
+  };
+
   render() {
     return (
       <Container>
@@ -338,7 +344,9 @@ class My extends Component {
                   .map((data, index) => {
                     return (
                       <ProfileMenuList
-                        onClick={() => this.props.navigate(data.to)}
+                        onClick={() => {
+                          this.navigateTo(data.to);
+                        }}
                       >
                         <TextAndIcon>
                           <Icon icon={data.icon} />
@@ -358,7 +366,9 @@ class My extends Component {
               }
               {config.features.HaveDownloadFeature && (
                 <ProfileMenuList
-                  onClick={() => this.props.navigate("/main/download")}
+                  onClick={() => {
+                    this.navigateTo("/main/download");
+                  }}
                 >
                   <TextAndIcon>
                     <Icon icon="icon-download" />
@@ -368,7 +378,9 @@ class My extends Component {
               )}
               {config.features.HaveAffiliateFeature && (
                 <ProfileMenuList
-                  onClick={() => this.props.navigate("/affiliate")}
+                  onClick={() => {
+                    this.navigateTo("/affiliate");
+                  }}
                 >
                   <TextAndIcon>
                     <Icon icon="icon-affiliate" />
@@ -386,7 +398,7 @@ class My extends Component {
                   ) {
                     this.props.alert("", i18n.t("card.toEdit"));
                   } else {
-                    this.props.navigate("/card");
+                    this.navigateTo("/card");
                   }
                 }}
               >
@@ -397,9 +409,7 @@ class My extends Component {
               </ProfileMenuList>
 
               {config.features.Wap_ShowProfileTransfer && (
-                <ProfileMenuList
-                  onClick={() => this.props.navigate("/transfer")}
-                >
+                <ProfileMenuList onClick={() => this.navigateTo("/transfer")}>
                   <TextAndIcon>
                     <Icon icon="icon-profile-transfer" />
                     <div>{i18n.t("common.transfer")}</div>
@@ -408,7 +418,7 @@ class My extends Component {
               )}
 
               <ProfileMenuList
-                onClick={() => this.props.navigate("/setting/language")}
+                onClick={() => this.navigateTo("/setting/language")}
               >
                 <TextAndIcon>
                   <Icon icon="icon-profile-language" />

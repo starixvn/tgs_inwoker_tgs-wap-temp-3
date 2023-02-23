@@ -106,11 +106,8 @@ const TheContent = styled.div``;
 
 const TheWrapperContents = ({ src, onClick }) => {
   return (
-    <TheGamesOrContent background={src} oncontextmenu="return false">
+    <TheGamesOrContent background={src} onClick={onClick}>
       <TheContent />
-      <TheOverlay>
-        <JoinButton onClick={onClick}>Play</JoinButton>
-      </TheOverlay>
     </TheGamesOrContent>
   );
 };
@@ -148,17 +145,22 @@ const ContentWrapper = ({
             {games.length >= 0 &&
               games.slice(0, 6).map((row, index) => {
                 return (
-                  <TheWrapperContents
+                  <TheGamesOrContent
                     key={index}
-                    onClick={() => {
-                      joinGame(row);
-                    }}
-                    src={`${
+                    background={`${
                       config.sourceUrl
                     }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
                       row.code
                     }.jpg`}
-                  />
+                    onClick={() => {
+                      joinGame(row);
+                    }}
+                  >
+                    <TheContent />{" "}
+                    <TheOverlay>
+                      <JoinButton>Play</JoinButton>
+                    </TheOverlay>
+                  </TheGamesOrContent>
                 );
               })}
           </>

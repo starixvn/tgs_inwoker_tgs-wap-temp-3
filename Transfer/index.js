@@ -575,16 +575,18 @@ class Transfer extends Component {
                 ))}
             </Select>
           </InputRow>
-          <InputRow>
+          <InputRow style={{ display: "grid", gridTemplateColumns: "70% 1fr" }}>
             <Textfield
               placeholder={i18n.t("transfer.msgEnterAmount")}
               onChange={this.handleTransferAmountChanged}
               value={this.state.transferAmount}
               type={"number"}
               pattern="\d*"
+              style={{ paddingRight: 0, width: "100%" }}
             />
             <Button
               label={i18n.t("common.submit")}
+              style={{ paddingRight: 20, width: "100%" }}
               onClick={this.handleSubmitClicked}
               disabled={(() => {
                 return (

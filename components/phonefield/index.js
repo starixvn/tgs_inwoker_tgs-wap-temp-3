@@ -8,9 +8,9 @@ const CustomInputfield = styled.input`
   color: #fff;
   border-radius: ${({ variant }) => borderRadius(variant)};
   border: ${({ variant }) => border(variant)};
-  padding: 0px 50px;
+  padding: 0px 20px;
+
   background: ${({ variant }) => background(variant)};
-  width: 100%;
 
   ::placeholder {
     font-size: 28px;
@@ -21,7 +21,8 @@ const CustomInputfield = styled.input`
 const InputContainer = styled.div`
   width: 100%;
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: 25% 1fr;
   gap: 20px;
 `;
 
@@ -38,7 +39,7 @@ const DropdownSection = styled.div`
 
   position: absolute;
   top: 40px;
-  right: 40px;
+  right: 20px;
   border-radius: 0 50px 50px 0;
   z-index: 0;
 
@@ -91,7 +92,7 @@ const CustomSelect = styled.select`
   color: #fff;
   border-radius: ${({ variant }) => borderRadius(variant)};
   border: ${({ variant }) => border(variant)};
-  padding: 0px 50px;
+  padding: 0px 30px;
   background: ${({ variant }) => background(variant)};
   width: 100%;
 
@@ -137,7 +138,7 @@ const borderRadius = (variant) => {
 const padding = (variant) => {
   switch (variant) {
     case "loginregister":
-      return "0 20px 0 20px";
+      return "0 20px";
     default:
       return "20px 20px 0 20px";
   }

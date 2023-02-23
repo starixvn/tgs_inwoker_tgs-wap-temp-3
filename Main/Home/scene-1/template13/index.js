@@ -19,9 +19,10 @@ import News from "./news";
 import { hardcodeNews } from "./news/hardcoded";
 import Banner from "../banner";
 import GamingLicensePNG from "../../../../../../assets/images/gaming-license.png";
+import Loading from "../../../../Share/Loading";
 
 const TheContainer = styled.div`
-  padding-top: 125px;
+  padding-top: 380px;
 `;
 
 const GameLister = styled.div`
@@ -334,13 +335,13 @@ const WinnerListItemImage = styled.img`
   border: 1px solid #ea427b;
 `;
 const WinnerListItemDescription = styled.div`
-  width: 200px;
+  width: 300px;
   font-size: 20px;
   color: #7a7a7a;
   white-space: break-spaces;
 `;
 const WinnerListItemPrize = styled.div`
-  width: 150px;
+  width: 200px;
   font-size: 25px;
   font-weight: bold;
   color: ${({ theme }) => theme.primary};
@@ -353,25 +354,11 @@ const ListItem = styled.div`
   background: url(${(props) => props.src}) no-repeat center top;
   background-size: contain;
   position: relative;
-  width: 100%;
-  height: 260px;
+  width: 690px;
+  height: 280px;
   aspect-ratio: 1/1;
 `;
 
-const WhiteLogo = styled.div`
-  width: 200px;
-  height: 120px;
-
-  background: #ffffff;
-  background-position: left center;
-  background-size: contain;
-  background-repeat: no-repeat;
-
-  mask: url("${(props) => props.src}");
-  mask-position: left center;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-`;
 const WinnerListxx = styled.div`
   display: flex;
   gap: 20px;
@@ -390,6 +377,17 @@ const ArrowDown = styled.div`
   position: absolute;
   right: 10px;
   bottom: 20px;
+`;
+
+const AlwaysStickTop = styled.div`
+  position: fixed;
+  top: 120px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  background: #1b1d30;
 `;
 
 const Template13 = ({
@@ -415,6 +413,8 @@ const Template13 = ({
   const [prizeMin, sePrizeMin] = useState(5000);
   const [prizeMax, setPrizeMax] = useState(5);
   const [list, setList] = useState([]);
+
+  const [loading, setLoading] = useState(false);
 
   const generateJackpotAmount = ({ min, max }) => {
     let date = new Date();
@@ -563,17 +563,21 @@ const Template13 = ({
       result.then((e) => {
         if (e.IsSuccess) {
           setGameList(e.data);
+          setLoading(false);
         }
       });
     }
   }, []);
 
   useEffect(() => {
+    setLoading(false);
     if (gameTypeToDisplayDifferently(selected)) {
+      setLoading(true);
       var result = GameService.GetGameList(selectedBrand, selected);
       result.then((e) => {
         if (e.IsSuccess) {
           setGameList(e.data);
+          setLoading(false);
         }
       });
     }
@@ -586,6 +590,7 @@ const Template13 = ({
   });
 
   const handleJoinGameClick = (row) => {
+    Common.closePreviousPopup();
     if (token) {
       Common.PopupCenter(
         `/${i18n.language}/joingame/${selected || GameTypeEnum.SLOT}/${
@@ -605,6 +610,7 @@ const Template13 = ({
   };
 
   const navigateToSlot = () => {
+    setLoading(true);
     setSelected([GameTypeEnum.SLOT]);
     changeShowGame([GameTypeEnum.SLOT]);
     window.scrollTo(0, 0);
@@ -668,381 +674,396 @@ const Template13 = ({
   ];
 
   return (
-    <TheContainer>
-      <AnnouncementSection>
-        <Marquee withOnlineUser />
-      </AnnouncementSection>
-      <GameLister>
-        {shared.theSorter(gameMenu2).map((i, index) => {
-          //hide if 0 game found.
-          var newList = homePageGameList.filter(
-            (game) => i.type.indexOf(game.type) >= 0
-          );
-          if (newList.length > 0) {
-            return (
-              <ListerWrapper
-                index={index}
-                style={{ position: "relative", paddingBottom: 5 }}
-                selected={selected === i.type}
-              >
-                <GameListItem
-                  selected={selected === i.type}
-                  onClick={() => {
-                    if (selected === i.type) {
-                      setSelected("");
-                    } else {
-                      changeShowGame(i.type);
-                      setSelected(i.type);
-                      setKeyword("");
-                    }
-                  }}
-                >
-                  <GameListItemIcon src={i.type} />
-                  <TheText style={{ zIndex: 1 }}>{i18n.t(i.title)}</TheText>
-                </GameListItem>
-              </ListerWrapper>
+    <>
+      <AlwaysStickTop>
+        <AnnouncementSection>
+          <Marquee withOnlineUser />
+        </AnnouncementSection>
+        <GameLister>
+          {shared.theSorter(gameMenu2).map((i, index) => {
+            //hide if 0 game found.
+            var newList = homePageGameList.filter(
+              (game) => i.type.indexOf(game.type) >= 0
             );
-          }
-        })}
-      </GameLister>
-      {!selected && (
-        <Banner
-          height={config.brand === "GMO" && "315px"}
-          sameAsText={config.brand === "GMO"}
-          noPadding={true}
-          updown="only-banner"
-          banner={general.banner}
-          // appHistory={this.props.appHistory}
-          token={token}
-        />
-      )}
-
-      <GridWrapper>
-        {selected && gameTypeToDisplayDifferently(selected) ? (
-          <SlotGameTypeWrapper>
-            <SearchSection>
-              <SearchBar
-                placeholder={i18n.t("T13.slot.search")}
-                value={keyword}
-                onChange={(e) => {
-                  setKeyword(e.target.value);
-                }}
-              />
-              <ProviderListWrapper>
-                <ProviderList
-                  onChange={(e) => {
-                    setSelectedBrand(e.target.value);
-                  }}
+            if (newList.length > 0) {
+              return (
+                <ListerWrapper
+                  index={index}
+                  style={{ position: "relative", paddingBottom: 5 }}
+                  selected={selected === i.type}
                 >
-                  <option value="" selected>
-                    {i18n.t("T13.slot.provider")}
-                  </option>
-                  {homePageGameList
-                    .filter((game) => selected.indexOf(game.type) >= 0)
-                    .sort((a, b) => {
-                      if (config.features.LiveGame_Sorting_SKY) {
-                        var sortDGFirst = ["DG"];
-                        return (
-                          sortDGFirst.indexOf(b.abbreviation) -
-                          sortDGFirst.indexOf(a.abbreviation)
-                        );
-                      } else return b - a;
-                    })
-                    .map((data, index) => {
-                      return (
-                        <option key={index} value={data.gpcode}>
-                          {data.name}
-                        </option>
-                      );
-                    })}
-                </ProviderList>{" "}
-                <ArrowDown />
-              </ProviderListWrapper>
-            </SearchSection>
-            <WrapTheGames>
-              {gameList
-                .filter((a) => {
-                  if (keyword === "") return true;
-                  else
-                    return a.name.toUpperCase().includes(keyword.toUpperCase());
-                })
-                .filter((s) => {
-                  return s.isactive === true; // show only active game.
-                })
-                .map((row, index) => {
-                  return (
-                    <NewWrapper
-                      key={index}
-                      onClick={() => {
-                        handleJoinGameClick(row);
-                      }}
-                    >
-                      <Title>{row.name}</Title>
-                      <GameFrameImg
-                        src={`${
-                          config.sourceUrl
-                        }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
-                          row.code
-                        }.jpg`}
-                        id={
-                          currentType !== row.type
-                            ? `gameType${row.type}`
-                            : `gameId${row.id}`
+                  <GameListItem
+                    selected={selected === i.type}
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      setLoading(false);
+                      if (selected === i.type) {
+                        setSelected("");
+                      } else {
+                        if (gameTypeToDisplayDifferently(selected)) {
+                          setLoading(true);
                         }
-                      ></GameFrameImg>
-                    </NewWrapper>
-                  );
-                })}
-            </WrapTheGames>
-          </SlotGameTypeWrapper>
-        ) : selected ? (
-          <GameButtonWrapper>
-            {(() => {
-              return homePageGameList
-                .filter((game) => selected.indexOf(game.type) >= 0)
-                .sort((a, b) => {
-                  if (config.features.LiveGame_Sorting_SKY) {
-                    var sortDGFirst = ["DG"];
+
+                        changeShowGame(i.type);
+                        setSelected(i.type);
+                        setKeyword("");
+                      }
+                    }}
+                  >
+                    <GameListItemIcon src={i.type} />
+                    <TheText style={{ zIndex: 1 }}>{i18n.t(i.title)}</TheText>
+                  </GameListItem>
+                </ListerWrapper>
+              );
+            }
+          })}
+        </GameLister>
+      </AlwaysStickTop>
+      <TheContainer>
+        {!selected && (
+          <Banner
+            height={config.brand === "GMO" && "315px"}
+            sameAsText={config.brand === "GMO"}
+            noPadding={true}
+            updown="only-banner"
+            banner={general.banner}
+            // appHistory={this.props.appHistory}
+            token={token}
+          />
+        )}
+
+        <GridWrapper>
+          {selected && gameTypeToDisplayDifferently(selected) ? (
+            <SlotGameTypeWrapper>
+              <SearchSection>
+                <SearchBar
+                  placeholder={i18n.t("T13.slot.search")}
+                  value={keyword}
+                  onChange={(e) => {
+                    setKeyword(e.target.value);
+                  }}
+                />
+                <ProviderListWrapper>
+                  <ProviderList
+                    onChange={(e) => {
+                      setSelectedBrand(e.target.value);
+                    }}
+                  >
+                    <option value="" selected>
+                      {i18n.t("T13.slot.provider")}
+                    </option>
+                    {homePageGameList
+                      .filter((game) => selected.indexOf(game.type) >= 0)
+                      .sort((a, b) => {
+                        if (config.features.LiveGame_Sorting_SKY) {
+                          var sortDGFirst = ["DG"];
+                          return (
+                            sortDGFirst.indexOf(b.abbreviation) -
+                            sortDGFirst.indexOf(a.abbreviation)
+                          );
+                        } else return b - a;
+                      })
+                      .map((data, index) => {
+                        return (
+                          <option key={index} value={data.gpcode}>
+                            {data.name}
+                          </option>
+                        );
+                      })}
+                  </ProviderList>{" "}
+                  <ArrowDown />
+                </ProviderListWrapper>
+              </SearchSection>
+              <WrapTheGames>
+                {gameList
+                  .filter((a) => {
+                    if (keyword === "") return true;
+                    else
+                      return a.name
+                        .toUpperCase()
+                        .includes(keyword.toUpperCase());
+                  })
+                  .filter((s) => {
+                    return s.isactive === true; // show only active game.
+                  })
+                  .map((row, index) => {
                     return (
-                      sortDGFirst.indexOf(b.abbreviation) -
-                      sortDGFirst.indexOf(a.abbreviation)
+                      <NewWrapper
+                        key={index}
+                        onClick={() => {
+                          handleJoinGameClick(row);
+                        }}
+                      >
+                        <Title>{row.name}</Title>
+                        <GameFrameImg
+                          src={`${
+                            config.sourceUrl
+                          }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+                            row.code
+                          }.jpg`}
+                          id={
+                            currentType !== row.type
+                              ? `gameType${row.type}`
+                              : `gameId${row.id}`
+                          }
+                        ></GameFrameImg>
+                      </NewWrapper>
                     );
-                  } else return b - a;
-                })
-                .map((row, index) => {
-                  return (
-                    <NewWrapper maintenance={row.status !== 0} key={index}>
-                      <Maintenance>
-                        <MaintenanceContentHolder>
+                  })}
+              </WrapTheGames>
+            </SlotGameTypeWrapper>
+          ) : selected ? (
+            <GameButtonWrapper>
+              {(() => {
+                return homePageGameList
+                  .filter((game) => selected.indexOf(game.type) >= 0)
+                  .sort((a, b) => {
+                    if (config.features.LiveGame_Sorting_SKY) {
+                      var sortDGFirst = ["DG"];
+                      return (
+                        sortDGFirst.indexOf(b.abbreviation) -
+                        sortDGFirst.indexOf(a.abbreviation)
+                      );
+                    } else return b - a;
+                  })
+                  .map((row, index) => {
+                    return (
+                      <NewWrapper maintenance={row.status !== 0} key={index}>
+                        <Maintenance>
+                          <MaintenanceContentHolder>
+                            <img
+                              src={
+                                process.env.PUBLIC_URL +
+                                "/assets/images/wapp/resource/T13/homepage/notavailable.png"
+                              }
+                              alt={"not available"}
+                              style={{
+                                width: "200px",
+
+                                transform: "rotate(-35deg)",
+                              }}
+                            />
+                          </MaintenanceContentHolder>
+                        </Maintenance>
+                        <LogoOverlay
+                          onClick={() =>
+                            handleGameClick(
+                              row.type,
+                              row.gpcode,
+                              row.game_platform_id
+                            )
+                          }
+                        >
                           <img
                             src={
                               process.env.PUBLIC_URL +
-                              "/assets/images/wapp/resource/T13/homepage/notavailable.png"
+                              `/assets/images/provider/${row.abbreviation.toLowerCase()}.png`
                             }
-                            alt={"not available"}
-                            style={{
-                              width: "200px",
-
-                              transform: "rotate(-35deg)",
-                            }}
+                            style={{ width: "200px", height: "auto" }}
+                            alt={row.abbreviation.toLowerCase()}
                           />
-                        </MaintenanceContentHolder>
-                      </Maintenance>
-                      <LogoOverlay
-                        onClick={() =>
-                          handleGameClick(
-                            row.type,
-                            row.gpcode,
-                            row.game_platform_id
-                          )
-                        }
-                      >
-                        <img
-                          src={
-                            process.env.PUBLIC_URL +
-                            `/assets/images/provider/${row.abbreviation.toLowerCase()}.png`
+                        </LogoOverlay>
+                        <GameFrameImg
+                          src={`${
+                            process.env.PUBLIC_URL
+                          }/assets/images/wapGame/T13/${getImgPrefix(
+                            row.type
+                          )}-${row.abbreviation.toLowerCase()}.jpg`}
+                          id={
+                            currentType !== row.type
+                              ? `gameType${row.type}`
+                              : `gameId${row.id}`
                           }
-                          style={{ width: "200px", height: "auto" }}
-                          alt={row.abbreviation.toLowerCase()}
-                        />
-                      </LogoOverlay>
-                      <GameFrameImg
-                        src={`${
-                          process.env.PUBLIC_URL
-                        }/assets/images/wapGame/T13/${getImgPrefix(
-                          row.type
-                        )}-${row.abbreviation.toLowerCase()}.jpg`}
-                        id={
-                          currentType !== row.type
-                            ? `gameType${row.type}`
-                            : `gameId${row.id}`
-                        }
-                        onClick={() =>
-                          handleGameClick(
-                            row.type,
-                            row.gpcode,
-                            row.game_platform_id
-                          )
-                        }
-                      ></GameFrameImg>
-                    </NewWrapper>
-                  );
-                });
-            })()}
-          </GameButtonWrapper>
-        ) : (
-          <>
-            <ContentWrapper title="jackpot" icon="jackpot">
-              <Jackpot />
-            </ContentWrapper>
-            {checking("hot").length > 0 && (
-              <ContentWrapper
-                title={i18n.t("T13.topGames")}
-                type="game"
-                icon="games"
-                joinGame={handleJoinGameClick}
-                games={checking("hot")}
-                seeMoreAt={() => {
-                  navigateToSlot();
-                }}
-              />
-            )}
-            {checking("recommend").length > 0 && (
-              <ContentWrapper
-                title={i18n.t("T13.recommeneddGames")}
-                type="game"
-                icon="games"
-                joinGame={handleJoinGameClick}
-                games={checking("recommend")}
-                seeMoreAt={() => {
-                  navigateToSlot();
-                }}
-              />
-            )}
-            {checking("new").length > 0 && (
-              <ContentWrapper
-                title={i18n.t("T13.newGames")}
-                type="game"
-                icon="games"
-                joinGame={handleJoinGameClick}
-                games={checking("new")}
-                seeMoreAt={() => {
-                  navigateToSlot();
-                }}
-              />
-            )}
-            <ContentWrapper
-              title={i18n.t("common.promotion")}
-              icon="promotions"
-              noGap
-            >
-              <Slick {...settings}>
-                {general.promotionList.items.length > 0 &&
-                  general.promotionList.items.map((data, index) => {
-                    return (
-                      <ListItem
-                        onClick={() => {
-                          AppHistory.push({
-                            pathname:
-                              "/" + i18n.language + "/promotion/" + data.id,
-                          });
-                        }}
-                        src={
-                          data.localization[i18n.language] &&
-                          (data.localization[i18n.language].mobileBanner ||
-                            data.mobileBanner)
-                        }
-                        alt={index}
-                      />
+                          onClick={() =>
+                            handleGameClick(
+                              row.type,
+                              row.gpcode,
+                              row.game_platform_id
+                            )
+                          }
+                        ></GameFrameImg>
+                      </NewWrapper>
                     );
-                  })}
-              </Slick>
-              <div>
-                <Button
-                  label={i18n.t("common.more")}
-                  onClick={() => {
-                    AppHistory.push("/" + i18n.language + "/promotion-list");
-                    window.scrollTo(0, 0);
+                  });
+              })()}
+            </GameButtonWrapper>
+          ) : (
+            <>
+              <ContentWrapper title="jackpot" icon="jackpot">
+                <Jackpot />
+              </ContentWrapper>
+              {checking("hot").length > 0 && (
+                <ContentWrapper
+                  title={i18n.t("T13.topGames")}
+                  type="game"
+                  icon="games"
+                  joinGame={handleJoinGameClick}
+                  games={checking("hot")}
+                  seeMoreAt={() => {
+                    navigateToSlot();
                   }}
                 />
-              </div>
-            </ContentWrapper>
-            <ContentWrapper title={i18n.t("T13.winner")} icon="winners">
-              <WinnerList list={list} />
-            </ContentWrapper>
-            <ContentWrapper title={i18n.t("T13.topNews")} icon="news" noGap>
-              {hardcodeNews.slice(0, 6).map((data, index) => {
-                return (
-                  <News
-                    key={index}
-                    data={data}
+              )}
+              {checking("recommend").length > 0 && (
+                <ContentWrapper
+                  title={i18n.t("T13.recommeneddGames")}
+                  type="game"
+                  icon="games"
+                  joinGame={handleJoinGameClick}
+                  games={checking("recommend")}
+                  seeMoreAt={() => {
+                    navigateToSlot();
+                  }}
+                />
+              )}
+              {checking("new").length > 0 && (
+                <ContentWrapper
+                  title={i18n.t("T13.newGames")}
+                  type="game"
+                  icon="games"
+                  joinGame={handleJoinGameClick}
+                  games={checking("new")}
+                  seeMoreAt={() => {
+                    navigateToSlot();
+                  }}
+                />
+              )}
+              <ContentWrapper
+                title={i18n.t("common.promotion")}
+                icon="promotions"
+                noGap
+              >
+                <Slick {...settings}>
+                  {general.promotionList.items.length > 0 &&
+                    general.promotionList.items.map((data, index) => {
+                      return (
+                        <ListItem
+                          onClick={() => {
+                            AppHistory.push({
+                              pathname:
+                                "/" + i18n.language + "/promotion/" + data.id,
+                            });
+                          }}
+                          src={
+                            data.localization[i18n.language] &&
+                            (data.localization[i18n.language].mobileBanner ||
+                              data.mobileBanner)
+                          }
+                          alt={index}
+                        />
+                      );
+                    })}
+                </Slick>
+                <div>
+                  <Button
+                    label={i18n.t("common.more")}
                     onClick={() => {
-                      AppHistory.push("/" + i18n.language + "/news/" + data.id);
+                      AppHistory.push("/" + i18n.language + "/promotion-list");
                       window.scrollTo(0, 0);
                     }}
                   />
-                );
-              })}
+                </div>
+              </ContentWrapper>
+              <ContentWrapper title={i18n.t("T13.winner")} icon="winners">
+                <WinnerList list={list} />
+              </ContentWrapper>
+              <ContentWrapper title={i18n.t("T13.topNews")} icon="news" noGap>
+                {hardcodeNews.slice(0, 6).map((data, index) => {
+                  return (
+                    <News
+                      key={index}
+                      data={data}
+                      onClick={() => {
+                        AppHistory.push(
+                          "/" + i18n.language + "/news/" + data.id
+                        );
+                        window.scrollTo(0, 0);
+                      }}
+                    />
+                  );
+                })}
 
-              <div>
-                <Button
-                  label={i18n.t("common.more")}
-                  onClick={() => {
-                    AppHistory.push("/" + i18n.language + "/news");
-                    window.scrollTo(0, 0);
-                  }}
-                />
-              </div>
-            </ContentWrapper>
-            <ContentWrapper
-              darktone="#0e0f1a"
-              title={i18n
-                .t("T13.brandTag")
-                .replace("{brandName}", config.brandName)}
-              icon="pg"
-              type="text"
-            >
-              <div style={{ display: "flex", justifyContent: " center" }}>
-                <img
-                  src={general.brand.mobileLogoUrl}
-                  alt="logo"
-                  style={{ height: 100 }}
-                />
-              </div>
-              {i18n
-                .t("T13.brandDescription")
-                .replace("{brandName}", config.brandName)}
-            </ContentWrapper>
-            <ContentWrapper
-              style={{ lineHeight: 1.75 }}
-              title={i18n.t("T13.gamingLicense")}
-              type="game"
-              darktone="#0e0f1a"
-              icon="about"
-            >
-              <div
-                style={{
-                  padding: "0 20px",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
+                <div>
+                  <Button
+                    label={i18n.t("common.more")}
+                    onClick={() => {
+                      AppHistory.push("/" + i18n.language + "/news");
+                      window.scrollTo(0, 0);
+                    }}
+                  />
+                </div>
+              </ContentWrapper>
+              <ContentWrapper
+                darktone="#0e0f1a"
+                title={i18n
+                  .t("T13.brandTag")
+                  .replace("{brandName}", config.brandName)}
+                icon="pg"
+                type="text"
               >
-                <img
-                  src={GamingLicensePNG}
-                  alt="logo"
-                  style={{ width: 350, marginBottom: 15 }}
-                />
+                <div style={{ display: "flex", justifyContent: " center" }}>
+                  <img
+                    src={general.brand.mobileLogoUrl}
+                    alt="logo"
+                    style={{ height: 100 }}
+                  />
+                </div>
                 {i18n
-                  .t("T13.footer.copyright")
-                  .replace(/{brand}/g, config.brandName)}
-                <br /> {i18n.t("T13.footer.rights")}
-                <br />
-                Version {process.env.REACT_APP_VERSION}
-              </div>
-            </ContentWrapper>
+                  .t("T13.brandDescription")
+                  .replace("{brandName}", config.brandName)}
+              </ContentWrapper>
+              <ContentWrapper
+                style={{ lineHeight: 1.75 }}
+                title={i18n.t("T13.gamingLicense")}
+                type="game"
+                darktone="#0e0f1a"
+                icon="about"
+              >
+                <div
+                  style={{
+                    padding: "0 20px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <img
+                    src={GamingLicensePNG}
+                    alt="logo"
+                    style={{ width: 350, marginBottom: 15 }}
+                  />
+                  {i18n
+                    .t("T13.footer.copyright")
+                    .replace(/{brand}/g, config.brandName)}
+                  <br /> {i18n.t("T13.footer.rights")}
+                  <br />
+                  Version {process.env.REACT_APP_VERSION}
+                </div>
+              </ContentWrapper>
 
-            <ContentWrapper
-              title={i18n.t("T13.quickLink.title")}
-              icon="links"
-              darktone="#0e0f1a"
-            >
-              <div style={{ padding: "0 20px" }}>
-                <QuickLinks navigateTo={navigateTo} alert={alert} />
-              </div>
-            </ContentWrapper>
-            <ContentWrapper
-              title={i18n.t("T13.partners")}
-              icon="partners"
-              darktone="#0e0f1a"
-            >
-              <div style={{ padding: "0 20px" }}>
-                <Partners provider={providers} />
-              </div>
-            </ContentWrapper>
-          </>
-        )}
-      </GridWrapper>
-    </TheContainer>
+              <ContentWrapper
+                title={i18n.t("T13.quickLink.title")}
+                icon="links"
+                darktone="#0e0f1a"
+              >
+                <div style={{ padding: "0 20px" }}>
+                  <QuickLinks navigateTo={navigateTo} alert={alert} />
+                </div>
+              </ContentWrapper>
+              <ContentWrapper
+                title={i18n.t("T13.partners")}
+                icon="partners"
+                darktone="#0e0f1a"
+              >
+                <div style={{ padding: "0 20px" }}>
+                  <Partners provider={providers} />
+                </div>
+              </ContentWrapper>
+            </>
+          )}
+        </GridWrapper>
+        <Loading show={loading} />
+      </TheContainer>
+    </>
   );
 };
 

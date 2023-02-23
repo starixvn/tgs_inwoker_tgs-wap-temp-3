@@ -177,7 +177,7 @@ const Support = (props) => {
           onBackClick={() => {
             AppHistory.goBack();
           }}
-          title={i18n.t("common.cs")}
+          title={i18n.t("common.contactus")}
           position={"sticky"}
           backgroundColor={"transparent"}
         ></Header>

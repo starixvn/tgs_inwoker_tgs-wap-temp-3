@@ -46,6 +46,7 @@ export const CustomThemedButton3 = ({ props }) => {
         config.features.HomePage_DisplayVIP && (
           <div
             onClick={() => {
+              window.scrollTo(0, 0);
               AppHistory.push("/" + i18n.language + "/vip");
             }}
             style={{

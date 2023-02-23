@@ -252,6 +252,7 @@ const AppBarExtrator = ({
                         config.features.HomePage_DisplayVIP && (
                           <div
                             onClick={() => {
+                              window.scrollTo(0, 0);
                               AppHistory.push("/" + i18n.language + "/vip");
                             }}
                             style={{

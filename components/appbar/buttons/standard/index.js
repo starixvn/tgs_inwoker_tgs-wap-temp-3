@@ -43,6 +43,7 @@ export const StandardThemedButton = ({ props }) => {
           <CustomColoredButton
             primary
             onClick={() => {
+              window.scrollTo(0, 0);
               AppHistory.push("/" + i18n.language + "/vip");
             }}
             style={{ padding: "10px 20px" }}

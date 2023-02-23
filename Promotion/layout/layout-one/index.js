@@ -9,7 +9,8 @@ const ListItem = styled.div`
   position: relative;
   border-radius: 40px;
 
-  height: 270px;
+  height: 280px;
+  width: 690px;
 
   background-size: 100% 100%;
   border-radius: 40px;

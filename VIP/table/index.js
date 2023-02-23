@@ -170,7 +170,7 @@ const VIPTable = ({ data }) => {
   return (
     <>
       <FixedPosition>
-        <WithLeftBorderRadius>{i18n.t("vip.level")}</WithLeftBorderRadius>{" "}
+        <WithLeftBorderRadius>{i18n.t("T13.vip.level")}</WithLeftBorderRadius>{" "}
         <LandscapeScroll ref={anotherscrollref}>
           <WithMinHeight>
             {i18n.t("vip.levelKeepAccumulateBetAmount")}

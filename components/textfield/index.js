@@ -111,9 +111,10 @@ const Textfield = ({
   borderRadius,
   pattern,
   actions,
+  style,
 }) => {
   return (
-    <CustomInput leaveTopGap={title !== ""}>
+    <CustomInput leaveTopGap={title !== ""} style={style}>
       {title && <CustomLabel>{title}</CustomLabel>}
 
       <CustomWrapper borderRadius={borderRadius}>
