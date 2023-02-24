@@ -11,7 +11,7 @@ const CustomInputfield = styled.input`
   padding: 0px 20px;
 
   background: ${({ variant }) => background(variant)};
-
+  font-family: "Montserrat", sans-serif;
   ::placeholder {
     font-size: 28px;
     opacity: 0.76;
@@ -22,7 +22,7 @@ const InputContainer = styled.div`
   width: 100%;
   position: relative;
   display: grid;
-  grid-template-columns: 25% 1fr;
+  grid-template-columns: 20% 1fr;
   gap: 20px;
 `;
 
@@ -39,8 +39,8 @@ const DropdownSection = styled.div`
 
   position: absolute;
   top: 40px;
-  right: 20px;
-  border-radius: 0 50px 50px 0;
+  right: 5px;
+
   z-index: 0;
 
   ${({ variant }) => {
@@ -92,7 +92,7 @@ const CustomSelect = styled.select`
   color: #fff;
   border-radius: ${({ variant }) => borderRadius(variant)};
   border: ${({ variant }) => border(variant)};
-  padding: 0px 30px;
+  padding: 0px 10px 0 20px;
   background: ${({ variant }) => background(variant)};
   width: 100%;
 
@@ -113,6 +113,7 @@ const ArrowDown = styled.div`
     no-repeat center;
   background: ${({ theme }) => theme.primaryText};
   width: 70px;
+  transform: scale(0.7);
   height: 30px;
   rotate: 270deg;
 `;
