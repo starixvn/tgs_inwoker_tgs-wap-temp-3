@@ -201,6 +201,7 @@ const Template11 = ({
   handleGetCodeClick,
   handleActivationClick,
   brandLanguage,
+  haveAffiliate,
 }) => {
   const customInputContainerStyle = {
     background: `url(${process.env.PUBLIC_URL}/assets/images/wapp/btn-input-T11.png) no-repeat`,
@@ -487,7 +488,7 @@ const Template11 = ({
                     }
                     disabled={prefill}
                   ></Textbox>
-                  {config.features.HaveAffiliateFeature && (
+                  {haveAffiliate && (
                     <CustomInvitationSelect
                       disabled={prefill}
                       value={promoteType}

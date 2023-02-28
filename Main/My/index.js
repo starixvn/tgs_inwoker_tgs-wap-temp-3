@@ -376,7 +376,7 @@ class My extends Component {
                   </TextAndIcon>
                 </ProfileMenuList>
               )}
-              {config.features.HaveAffiliateFeature && (
+              {this.props.general.haveAffiliate && (
                 <ProfileMenuList
                   onClick={() => {
                     this.navigateTo("/affiliate");
@@ -441,6 +441,7 @@ const mapStateToProps = (state) => {
     account: state.account,
     wallet: state.wallet,
     game: state.game,
+    general: state.general,
   };
 };
 
