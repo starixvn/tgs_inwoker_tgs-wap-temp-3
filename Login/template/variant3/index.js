@@ -209,6 +209,7 @@ const Variant3 = ({
   handleActivationClick,
   brandLanguage,
   handleChangeLanguage,
+  haveAffiliate,
 }) => {
   const handleBackClick = () => {
     AppHistory.push("/");
@@ -422,7 +423,7 @@ const Variant3 = ({
                   disabled={prefill}
                   borderRadius="30px"
                   actions={
-                    config.features.HaveAffiliateFeature && (
+                    haveAffiliate && (
                       <CustomInvitationSelect
                         disabled={prefill}
                         value={promoteType}
