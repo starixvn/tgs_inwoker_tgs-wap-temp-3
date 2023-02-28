@@ -973,6 +973,7 @@ class Login extends Component {
             handleGetCodeClick={this.handleGetCodeClick}
             handleActivationClick={this.handleActivationClick}
             brandLanguage={this.props.general.brandLanguage}
+            haveAffiliate={this.props.general.haveAffiliate}
           ></LoginTemplateSwitcher>
         </ContentWrap>
 
