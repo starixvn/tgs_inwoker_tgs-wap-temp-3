@@ -219,7 +219,7 @@ const TheDepositButton = styled.div`
 const CustomTabs = styled.div`
   font-size: 25px;
   width: 100%;
-  display: -webkit-box;
+  display: flex;
   flex-flow: row wrap;
   justify-content: center;
   gap: 20px;
