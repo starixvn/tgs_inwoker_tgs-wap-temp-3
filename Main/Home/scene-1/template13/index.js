@@ -673,6 +673,36 @@ const Template13 = ({
     { name: "Habanero" },
   ];
 
+  const providers_TEP = [
+    { name: "BetConstruct" },
+    { name: "TF Sports" },
+    { name: "Joker" },
+    { name: "FACAI" },
+    { name: "Fast Spin" },
+    { name: "Kingmaker" },
+    { name: "PGSoft" },
+    { name: "Venus" },
+    { name: "YL" },
+    { name: "WM" },
+    { name: "Netent" },
+    { name: "Red Tiger" },
+    { name: "JILI" },
+    { name: "Evolution" },
+    { name: "JDB" },
+    { name: "PHSB" },
+    { name: "NLC" },
+    { name: "BTG" },
+    { name: "DG" },
+    { name: "SexyGaming" },
+  ];
+
+  const getProviders = () => {
+    if(config.features.TEP_CustomProviders)
+      return providers_TEP;
+    else
+      return providers;
+  }
+
   return (
     <>
       <AlwaysStickTop>
@@ -1055,7 +1085,7 @@ const Template13 = ({
                 darktone="#0e0f1a"
               >
                 <div style={{ padding: "0 20px" }}>
-                  <Partners provider={providers} />
+                  <Partners providers={getProviders()} />
                 </div>
               </ContentWrapper>
             </>
