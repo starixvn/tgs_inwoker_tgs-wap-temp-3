@@ -24,29 +24,7 @@ const Chip = styled.div`
   padding: 12px 20px;
 `;
 
-const Partners = ({ provider }) => {
-  const providers = [
-    { name: "BetConstruct" },
-    { name: "Avia" },
-    { name: "TF Sports" },
-    { name: "Joker" },
-    { name: "AE Slot" },
-    { name: "FACAI" },
-    { name: "Fast Spin" },
-    { name: "Kingmaker" },
-    { name: "PGSoft" },
-    { name: "Spadegaming" },
-    { name: "Venus" },
-    { name: "YL" },
-    { name: "WM" },
-    { name: "Netent" },
-    { name: "Red Tiger" },
-    { name: "JILI" },
-    { name: "Evolution" },
-    { name: "JDB" },
-    { name: "PHSB" },
-    { name: "Habanero" },
-  ];
+const Partners = ({ providers }) => {
   return (
     <Section>
       <ChipContainer>
