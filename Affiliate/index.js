@@ -9,6 +9,8 @@ import i18n from "../../../utils/i18n";
 import QRCode from "react-qr-code";
 import { utility } from "../../../utils/utility";
 import PageTitle from "../components/pagetitle";
+import Select from "../components/select";
+import { generalAction } from "../../../api-services/actions/generalAction";
 
 const QRCodeContainer = styled.div`
   padding: 20px;
@@ -63,6 +65,35 @@ const Button = styled.div`
   padding: 10px 20px;
 `;
 
+const Table = styled.table`
+  width: 700px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background: #27273f;
+  border-radius: 30px;
+
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  thead {
+    tr {
+      th {
+        padding: 20px 0;
+        border-radius: 30px;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        padding: 20px 0;
+      }
+    }
+  }
+`;
+
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
     fontSize: 30,
@@ -75,7 +106,22 @@ class Affiliate extends Component {
     this.state = {
       loading: false,
       copyTooltips: false,
+      rebates: [],
+      rebateType: 1,
     };
+  }
+
+  componentDidMount() {
+    if (this.state.rebates.length === 0) {
+      this.props.getBrandAllAgent().then((res) => {
+        if (res.IsSuccess) {
+          this.setState({
+            ...this.state,
+            rebates: res.data,
+          });
+        }
+      });
+    }
   }
 
   handleBackClick = () => {
@@ -92,6 +138,14 @@ class Affiliate extends Component {
 
   render() {
     var affiliateLink = `https://${window.location.hostname}/${i18n.language}/p/${this.props.account.info.playercode}?do=register`;
+    const types = [
+      { value: 1, title: "sport" },
+      { value: 2, title: "virtualsports" },
+      { value: 5, title: "live" },
+      { value: 7, title: "chess" },
+      { value: 13, title: "lottery" },
+      { value: 15, title: "electron" },
+    ];
     return (
       <React.Fragment>
         <Header
@@ -107,7 +161,6 @@ class Affiliate extends Component {
           <QRCodeContainer>
             <QRCode value={affiliateLink}></QRCode>
           </QRCodeContainer>
-
           <CustomText>
             <CustomLabel>{i18n.t("affiliate.promoId")}</CustomLabel>
             <CustomInput
@@ -147,6 +200,46 @@ class Affiliate extends Component {
               </LightTooltip>
             </div>
           </CustomText>
+          <Select title={i18n.t("rebateRate.title")}>
+            {types.map((item, index) => {
+              return (
+                <option key={index} value={item.value}>
+                  {i18n.t(`common.${item.title}`)}
+                </option>
+              );
+            })}
+          </Select>{" "}
+          <Table>
+            <thead>
+              <tr>
+                <th>{i18n.t("rebateRate.players")}</th>
+                <th>{i18n.t("rebateRate.turnover")}</th>{" "}
+                <th>{i18n.t("rebateRate.rebates")} (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.rebates
+                .filter((item) => {
+                  if (this.state.rebateType === 0) {
+                    return true;
+                  } else {
+                    return (
+                      item.allagentgametype.toString() ===
+                      this.state.rebateType.toString()
+                    );
+                  }
+                })
+                .map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{item.activenumber}</td>
+                      <td>{item.turnover}</td>
+                      <td>{item.rebatepercentage}</td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </Table>
         </div>
         <Loading show={this.state.loading}></Loading>
       </React.Fragment>
@@ -157,11 +250,13 @@ class Affiliate extends Component {
 const mapStateToProps = (state) => {
   return {
     account: state.account,
+    general: state.general,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatch: dispatch,
+    getBrandAllAgent: () => dispatch(generalAction.getBrandAllAgent()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Affiliate);
