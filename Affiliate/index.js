@@ -200,7 +200,13 @@ class Affiliate extends Component {
               </LightTooltip>
             </div>
           </CustomText>
-          <Select title={i18n.t("rebateRate.title")}>
+          <Select
+            title={i18n.t("rebateRate.title")}
+            value={this.state.rebateType}
+            onChange={(e) => {
+              this.setState({ ...this.state, rebateType: e.target.value });
+            }}
+          >
             {types.map((item, index) => {
               return (
                 <option key={index} value={item.value}>
