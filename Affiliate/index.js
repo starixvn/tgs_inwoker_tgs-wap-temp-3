@@ -94,6 +94,15 @@ const Table = styled.table`
   }
 `;
 
+const Content = styled.div`
+  padding: 90px 0 220px 0;
+  min-height: 100vh;
+  overflow: auto;
+`;
+
+const Container = styled.div`
+  min-height: 100vh;
+`;
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
     fontSize: 30,
@@ -147,7 +156,7 @@ class Affiliate extends Component {
       { value: 15, title: "electron" },
     ];
     return (
-      <React.Fragment>
+      <Container>
         <Header
           token={null}
           balance={0}
@@ -156,7 +165,7 @@ class Affiliate extends Component {
           title={i18n.t("affiliate.title")}
         ></Header>
 
-        <div style={{ paddingTop: 90 }}>
+        <Content>
           <PageTitle>{i18n.t("affiliate.qrCode")}</PageTitle>
           <QRCodeContainer>
             <QRCode value={affiliateLink}></QRCode>
@@ -246,9 +255,9 @@ class Affiliate extends Component {
                 })}
             </tbody>
           </Table>
-        </div>
+        </Content>
         <Loading show={this.state.loading}></Loading>
-      </React.Fragment>
+      </Container>
     );
   }
 }
