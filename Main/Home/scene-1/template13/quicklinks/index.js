@@ -59,7 +59,7 @@ const QuickLinks = ({ navigateTo, alert }) => {
         <Link onClick={() => navigateTo("terms")}>
           {i18n.t("T13.quickLink.tnc")}
         </Link>
-        <Link onClick={() => alert(i18n.t("common.comingSoon"))}>
+        <Link onClick={() => navigateTo("responsiblegaming")}>
           {i18n.t("T13.quickLink.reponsible")}
         </Link>
       </LinkContainer>
