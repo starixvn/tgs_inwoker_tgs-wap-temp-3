@@ -37,7 +37,7 @@ const TheContainer = styled.div`
   justify-content: space-between;
 `;
 const LogoHolder = styled.div`
-  background: url("${({ img }) => img}") no-repeat left center;
+  background: url("${({ img }) => img}") no-repeat center center;
   background-size: contain;
   width: 200px;
   height: 100px;
