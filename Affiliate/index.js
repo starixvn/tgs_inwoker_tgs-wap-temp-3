@@ -65,6 +65,42 @@ const Button = styled.div`
   padding: 10px 20px;
 `;
 
+const CustomSelectContainer = styled.div`
+  width: 700px;
+  height: 170px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+`;
+
+const CustomSelectGapLeaver = styled.div`
+  padding: 5px;
+`;
+
+const CustomSelect = styled.select`
+  height: 104px;
+  font-size: 28px;
+  margin-top: 18px;
+  border-radius: 16px;
+  border: solid 1px transparent;
+  width: 100%;
+  padding: 16px 32px;
+  background: #fff;
+  color: #000;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const AnotherCustomLabel = styled.div`
+  font-size: 24px;
+  font-weight: 600;
+  margin-left: 3px;
+  color: ${({ theme }) =>
+    theme.wapSecondary ? theme.wapSecondary : theme.secondary};
+`;
+
 const Table = styled.table`
   width: 700px;
   margin: 0 auto;
@@ -81,7 +117,7 @@ const Table = styled.table`
     tr {
       th {
         padding: 20px 0;
-        border-radius: 30px;
+        border-bottom: 1px solid #e5e5e5;
       }
     }
   }
@@ -89,6 +125,8 @@ const Table = styled.table`
     tr {
       td {
         padding: 20px 0;
+        font-weight: 200;
+        border-top: 1px solid #e5e5e5;
       }
     }
   }
