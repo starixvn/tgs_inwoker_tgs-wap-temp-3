@@ -200,6 +200,7 @@ const Template1 = ({
   handleGetCodeClick,
   handleActivationClick,
   brandLanguage,
+  haveAffiliate,
 }) => {
   return (
     <React.Fragment>
@@ -400,7 +401,7 @@ const Template1 = ({
                     }
                     disabled={prefill}
                   ></Textbox>
-                  {config.features.HaveAffiliateFeature && (
+                  {haveAffiliate && (
                     <CustomInvitationSelect
                       disabled={prefill}
                       value={promoteType}

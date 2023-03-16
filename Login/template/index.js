@@ -49,6 +49,7 @@ const LoginTemplateSwitcher = ({
   handleGetCodeClick,
   handleActivationClick,
   brandLanguage,
+  haveAffiliate,
 }) => {
   const commonprops = {
     template: template,
@@ -96,6 +97,7 @@ const LoginTemplateSwitcher = ({
     handleGetCodeClick: handleGetCodeClick,
     handleActivationClick: handleActivationClick,
     brandLanguage: brandLanguage,
+    haveAffiliate: haveAffiliate,
   };
 
   const switchTemplate = (template) => {
