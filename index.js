@@ -893,7 +893,10 @@ class Wap extends Component {
           if (widgetState.visibility === "maximized") {
             document
               .getElementById("viewport")
-              .setAttribute("content", "width=device-width");
+              .setAttribute(
+                "content",
+                "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+              );
           } else {
             assumingAllDevicesHaveSameWidth();
           }
@@ -901,9 +904,10 @@ class Wap extends Component {
       }
 
       window.LiveChatWidget.on("ready", onReady);
+    } else {
+      assumingAllDevicesHaveSameWidth();
     }
 
-    assumingAllDevicesHaveSameWidth();
     if (
       (this.state.loading === true ||
         this.props.general.token === "" ||
