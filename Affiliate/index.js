@@ -42,7 +42,7 @@ const CustomInput = styled.input`
   margin: 25px 0 25px 10px;
   font-weight: 500;
   border: 0;
-
+  font-family: "Montserrat";
   padding: 0;
   ::placeholder,
   ::-webkit-input-placeholder {
@@ -53,6 +53,7 @@ const CustomInput = styled.input`
   }
 `;
 const Button = styled.div`
+  min-width: 95px;
   height: 60px;
   font-size: 24px;
   font-weight: 600;
