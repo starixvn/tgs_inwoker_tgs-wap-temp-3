@@ -36,6 +36,7 @@ const CustomLabel = styled.div`
   color: #fff;
 `;
 const CustomInput = styled.input`
+  width: 330px;
   color: #fff;
   background: transparent;
   font-size: 28px;
@@ -53,7 +54,7 @@ const CustomInput = styled.input`
   }
 `;
 const Button = styled.div`
-  min-width: 95px;
+  width: 100px;
   height: 60px;
   font-size: 24px;
   font-weight: 600;
