@@ -75,6 +75,10 @@ const Button = styled.div`
   padding: 10px 20px;
 `;
 
+const DownloadButton = styled(Button)`
+  width: max-content;
+`;
+
 const CustomSelectContainer = styled.div`
   width: 700px;
   height: 170px;
@@ -281,13 +285,13 @@ class Affiliate extends Component {
                 {i18n.t("common.copy")}
               </Button>
             </LightTooltip>
-            <Button
+            <DownloadButton
               onClick={() => {
                 this.handleQrAction("download");
               }}
             >
               {i18n.t("common.download")}
-            </Button>
+            </DownloadButton>
           </QRCodeActionContainer>
           <CustomText>
             <CustomLabel>{i18n.t("affiliate.promoId")}</CustomLabel>
