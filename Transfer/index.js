@@ -462,6 +462,7 @@ class Transfer extends Component {
       config.brand === "TIGER"
     )
       return "Tiger Sports";
+    else if (name === "EVO (NT,RT,BTG,NLC)") return "EVO (NT, RT, BTG, NLC)";
     else return name ? name : "";
   };
 
