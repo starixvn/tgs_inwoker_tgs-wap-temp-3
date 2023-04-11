@@ -58,7 +58,7 @@ export const CustomThemedButton2 = ({ props }) => {
             <AnotherColoredButton
               onClick={() => {
                 window.scrollTo(0, 0);
-                AppHistory.push("/" + i18n.language + "/vip");
+                AppHistory.push("/vip");
               }}
               style={{
                 padding: "10px",
@@ -81,14 +81,14 @@ export const CustomThemedButton2 = ({ props }) => {
           )}
         <TransparentColoredButton
           onClick={() => {
-            AppHistory.push("/" + i18n.language + "/login");
+            AppHistory.push("/login");
           }}
         >
           {i18n.t("common.login")}
         </TransparentColoredButton>
         <AnotherColoredButton
           onClick={() => {
-            AppHistory.push("/" + i18n.language + "/login?do=register");
+            AppHistory.push("/login?do=register");
           }}
         >
           {i18n.t("common.register")}

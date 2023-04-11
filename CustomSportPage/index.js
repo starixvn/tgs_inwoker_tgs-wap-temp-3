@@ -148,7 +148,8 @@ const FavButtonButton = styled.div`
   background: ${({ active }) => {
     return !active ? "white" : "red";
   }};
-  -webkit-mask: url(${process.env.PUBLIC_URL}/assets/images/slotGame/icon-fav.png)
+  -webkit-mask: url(${process.env
+      .PUBLIC_URL}/assets/images/slotGame/icon-fav.png)
     no-repeat center / contain;
   background-size: 100%;
 `;
@@ -282,11 +283,11 @@ class CustomSportPage extends Component {
 
       Common.closePreviousPopup();
       Common.PopupCenter(
-        `/${i18n.language}/joingame/${this.state.type}/${gpcode}/${gpid}`,
+        `/joingame/${this.state.type}/${gpcode}/${gpid}`,
         "gamewindow"
       );
     } else {
-      this.props.history.push(`/${i18n.language}/}`);
+      this.props.history.push(`/}`);
     }
   };
   handleChangeTab = (event, newValue) => {

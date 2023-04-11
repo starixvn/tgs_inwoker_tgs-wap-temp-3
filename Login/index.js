@@ -108,7 +108,7 @@ class Login extends Component {
     }
 
     if (this.props.token != null) {
-      this.props.appHistory.replace("/" + i18n.language + "/main/home");
+      this.props.appHistory.replace("/main/home");
     } else {
       let urlParams = new URLSearchParams(this.props.location.search);
       if (urlParams.has("do")) {
@@ -192,20 +192,20 @@ class Login extends Component {
           ) {
             if (response.data.phone === null) {
               this.props.history.push({
-                pathname: "/" + i18n.language + "/profile/phone",
+                pathname: "/profile/phone",
                 state: { forced: true },
               });
             } else if (response.data.email === null) {
               this.props.history.push({
-                pathname: "/" + i18n.language + "/profile/email",
+                pathname: "/profile/email",
                 state: { forced: true },
               });
             } else if (!response.data.registercompleted) {
-              this.props.appHistory.replace("/" + i18n.language + "/card/add");
+              this.props.appHistory.replace("/card/add");
             }
           } else {
             this.props.history.push({
-              pathname: "/" + i18n.language + "/profile/phone",
+              pathname: "/profile/phone",
               state: { forced: true },
             });
           }
@@ -236,31 +236,29 @@ class Login extends Component {
             if (config.features.NavigateToAddCard) {
               if (response.data.phone === null) {
                 this.props.history.push({
-                  pathname: "/" + i18n.language + "/profile/phone",
+                  pathname: "/profile/phone",
                   state: { forced: true },
                 });
               } else if (response.data.email === null) {
                 this.props.history.push({
-                  pathname: "/" + i18n.language + "/profile/email",
+                  pathname: "/profile/email",
                   state: { forced: true },
                 });
               } else if (!response.data.registercompleted) {
-                this.props.appHistory.replace(
-                  "/" + i18n.language + "/card/add"
-                );
+                this.props.appHistory.replace("/card/add");
               }
             } else {
-              this.props.appHistory.replace("/" + i18n.language + "/main/home");
+              this.props.appHistory.replace("/main/home");
             }
           } else {
-            this.props.appHistory.replace("/" + i18n.language + "/main/home");
+            this.props.appHistory.replace("/main/home");
           }
         }
       }
     });
   };
   handleBackToHomeClick = () => {
-    this.props.appHistory.replace("/" + i18n.language + "/main/home");
+    this.props.appHistory.replace("/main/home");
   };
   handleLoginClick = () => {
     const username = this.state.username;
@@ -282,7 +280,7 @@ class Login extends Component {
         this.handleLoginSuccess(result.data);
       } else {
         if (result.code === 210) {
-          this.props.appHistory.push("/" + i18n.language + "/banned");
+          this.props.appHistory.push("/banned");
         } else {
           if (result.data.self_control === 1) {
             this.props.showLogin(false);
@@ -468,11 +466,11 @@ class Login extends Component {
     }
   };
   handleForgotpasswordClick = () => {
-    this.props.appHistory.push("/" + i18n.language + "/forgot-password");
+    this.props.appHistory.push("/forgot-password");
   };
 
   handleGoDownloadPage = () => {
-    this.props.appHistory.push("/" + i18n.language + "/main/download");
+    this.props.appHistory.push("/main/download");
   };
   handleUsernameChange = (e) => {
     this.setState({
@@ -560,7 +558,7 @@ class Login extends Component {
     AccountService.VerifyActivation(securityKey, code).then(
       async (response) => {
         if (response.IsSuccess) {
-          this.props.appHistory.replace("/" + i18n.language + "/main/home");
+          this.props.appHistory.replace("/main/home");
         } else {
           this.props.alert("", response.info);
         }

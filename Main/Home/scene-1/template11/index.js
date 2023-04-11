@@ -457,12 +457,9 @@ const Template11 = ({
         document.getElementById("audio").volume = 0;
 
       Common.closePreviousPopup();
-      Common.PopupCenter(
-        `/${i18n.language}/joingame/${gptype}/${gpcode}/${gpid}`,
-        "gamewindow"
-      );
+      Common.PopupCenter(`/joingame/${gptype}/${gpcode}/${gpid}`, "gamewindow");
     } else {
-      history.push(`/${i18n.language}/login`);
+      history.push(`/login`);
     }
   };
 

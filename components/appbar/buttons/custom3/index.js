@@ -47,7 +47,7 @@ export const CustomThemedButton3 = ({ props }) => {
           <div
             onClick={() => {
               window.scrollTo(0, 0);
-              AppHistory.push("/" + i18n.language + "/vip");
+              AppHistory.push("/vip");
             }}
             style={{
               padding: "10px 20px",
@@ -67,7 +67,7 @@ export const CustomThemedButton3 = ({ props }) => {
         )}
       <TransparentColoredButton
         onClick={() => {
-          AppHistory.push("/" + i18n.language + "/login");
+          AppHistory.push("/login");
         }}
         style={{ borderRadius: 30 }}
       >
@@ -76,7 +76,7 @@ export const CustomThemedButton3 = ({ props }) => {
       <CustomColoredButton
         primary
         onClick={() => {
-          AppHistory.push("/" + i18n.language + "/login?do=register");
+          AppHistory.push("/login?do=register");
         }}
         style={{ borderRadius: 30 }}
       >
