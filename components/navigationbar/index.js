@@ -106,10 +106,10 @@ const BottomNavBar = (props) => {
       !(value === "/promotion-list" || value === "/") &&
       props.account.token == null
     ) {
-      AppHistory.push("/" + i18n.language + "/login");
+      AppHistory.push("/login");
     } else {
       AppHistory.push({
-        pathname: "/" + i18n.language + value,
+        pathname: value,
         state: { resetPage: resetPage },
       });
     }

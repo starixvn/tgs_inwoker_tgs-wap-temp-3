@@ -203,7 +203,7 @@ const Maintenance = (props) => {
 
   useEffect(() => {
     if (!props.isMaintenance) {
-      props.appHistory.push("/" + i18n.language);
+      props.appHistory.push("/");
     }
   });
 

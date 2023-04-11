@@ -394,18 +394,15 @@ class Home extends Component {
   handleJoinLotteryGame = (game) => {
     if (this.props.account.token != null) {
       Common.closePreviousPopup();
-      Common.PopupCenter(
-        "/" + i18n.language + "/joinlottery/" + game,
-        "gamewindow"
-      );
+      Common.PopupCenter("/joinlottery/" + game, "gamewindow");
     } else {
-      this.props.appHistory.push("/" + i18n.language + "/login");
+      this.props.appHistory.push("/login");
     }
   };
 
   handleJoinOtherGame = (type, params, game_platform_id) => {
     if (!this.props.account.token) {
-      this.props.appHistory.push("/" + i18n.language + "/login");
+      this.props.appHistory.push("/login");
       return;
     }
     if (type === GameTypeEnum.COCKFIGHT) {
@@ -424,12 +421,7 @@ class Home extends Component {
         Common.closePreviousPopup();
         // this.performBalanceRefresh();
         Common.PopupCenter(
-          "/" +
-            i18n.language +
-            "/joinlobbygame/" +
-            GameTypeEnum.SPORTS +
-            "/" +
-            params,
+          "/joinlobbygame/" + GameTypeEnum.SPORTS + "/" + params,
           "gamewindow"
         );
       }
@@ -445,20 +437,17 @@ class Home extends Component {
         document.getElementById("audio").volume = 0;
       Common.closePreviousPopup();
       // this.performBalanceRefresh();
-      Common.PopupCenter(
-        "/" + i18n.language + "/joinlobbygame/" + type + "/" + params,
-        "gamewindow"
-      );
+      Common.PopupCenter("/joinlobbygame/" + type + "/" + params, "gamewindow");
     }
   };
 
   handleGameClick = (type, params, game_platform_id) => {
     if (type === GameTypeEnum.RNGSPORTS) {
       if (!this.props.account.token) {
-        this.props.appHistory.push("/" + i18n.language + "/login");
+        this.props.appHistory.push("/login");
         return;
       } else {
-        this.props.appHistory.push("/" + i18n.language + "/sports/" + params);
+        this.props.appHistory.push("/sports/" + params);
       }
     } else {
       type === GameTypeEnum.LOTTERYLOBBY || type === GameTypeEnum.LOTTERY
@@ -467,16 +456,16 @@ class Home extends Component {
     }
   };
   handleSignupClick = () => {
-    this.props.appHistory.push("/" + i18n.language + "/login");
+    this.props.appHistory.push("/login");
   };
 
   handleRegisterClick = () => {
-    this.props.appHistory.push("/" + i18n.language + "/login?do=register");
+    this.props.appHistory.push("/login?do=register");
   };
   handleLogout = () => {
     this.props.accountLogout(this.props.account.token).then((response) => {
       if (response.IsSuccess) {
-        this.props.navigate("/" + i18n.language + "/login");
+        this.props.navigate("/login");
       }
     });
   };
@@ -1032,9 +1021,7 @@ class Home extends Component {
             </CloseButton>
             <DownloadButton
               onClick={() => {
-                this.props.appHistory.push(
-                  "/" + i18n.language + "/main/download"
-                );
+                this.props.appHistory.push("/main/download");
               }}
             >
               <DownloadContent>

@@ -272,7 +272,7 @@ class Withdrawal extends Component {
         this.props.getWithdrawalChannel(); // call api every 30 mins
       }, 30 * 60 * 1000);
     } else {
-      this.props.appHistory.replace("/" + i18n.language + "/login");
+      this.props.appHistory.replace("/login");
     }
   }
   componentDidUpdate(preProps) {
@@ -297,7 +297,7 @@ class Withdrawal extends Component {
               style={{ textAlign: "center", marginTop: 10 }}
               onClick={() => {
                 this.props.appHistory.push({
-                  pathname: "/" + i18n.language + "/profile/name",
+                  pathname: "/profile/name",
                 });
               }}
             >
@@ -512,11 +512,7 @@ class Withdrawal extends Component {
           </RowContainer>
         </InnerContainer>
         <div>
-          <ButtonCardManage
-            onClick={() =>
-              this.props.appHistory.push("/" + i18n.language + "/card")
-            }
-          >
+          <ButtonCardManage onClick={() => this.props.appHistory.push("/card")}>
             <Icon
               icon={
                 process.env.PUBLIC_URL + `/assets/images/wapp/addBankCard.svg`

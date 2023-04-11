@@ -30,7 +30,7 @@ const NewsSite = () => {
               key={index}
               data={data}
               onClick={() => {
-                AppHistory.push("/" + i18n.language + "/news/" + data.id);
+                AppHistory.push("/news/" + data.id);
                 window.scrollTo(0, 0);
               }}
             />

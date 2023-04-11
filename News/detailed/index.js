@@ -108,17 +108,17 @@ const DetailedNews = ({ newsid }) => {
   const changePage = (nextprev) => {
     if (nextprev === "next") {
       if (parseInt(id) + 1 > hardcodeNews.length) {
-        AppHistory.push("/" + i18n.language + "/news/1");
+        AppHistory.push("/news/1");
       } else {
-        AppHistory.push("/" + i18n.language + "/news/" + (parseInt(id) + 1));
+        AppHistory.push("/news/" + (parseInt(id) + 1));
       }
     }
 
     if (nextprev === "prev") {
       if (parseInt(id) - 1 <= 0) {
-        AppHistory.push("/" + i18n.language + "/news/" + hardcodeNews.length);
+        AppHistory.push("/news/" + hardcodeNews.length);
       } else {
-        AppHistory.push("/" + i18n.language + "/news/" + (parseInt(id) - 1));
+        AppHistory.push("/news/" + (parseInt(id) - 1));
       }
     }
   };
