@@ -202,11 +202,11 @@ const Banner = React.memo(
     function navigateTo(location) {
       if (token) {
         appHistory.push({
-          pathname: "/" + i18n.language + "/" + location,
+          pathname: "/" + location,
         });
       } else {
         appHistory.push({
-          pathname: "/" + i18n.language + "/login",
+          pathname: "/login",
         });
       }
     }
