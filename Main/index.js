@@ -317,7 +317,10 @@ class Main extends Component {
           />
         );
       case "download":
-        return <Download alert={this.props.alert} />;
+        if (config.features.HaveDownloadFeature)
+          return <Download alert={this.props.alert} />;
+        else this.props.navigate("/");
+        break;
       default:
         return (
           <Home
