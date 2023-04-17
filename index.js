@@ -504,14 +504,14 @@ class Wap extends Component {
       e.preventDefault();
     });
 
-    if (urlpath.length === 4) {
-      if (urlpath[2] === "a") {
-        localStorage.setItem("promotionId", urlpath[3] || "");
+    if (urlpath.length === 3) {
+      if (urlpath[1] === "a") {
+        localStorage.setItem("promotionId", urlpath[2] || "");
         localStorage.setItem("upper", ""); //reset
         localStorage.setItem("invitationtype", "a");
       }
-      if (urlpath[2] === "p") {
-        localStorage.setItem("upper", urlpath[3] || "");
+      if (urlpath[1] === "p") {
+        localStorage.setItem("upper", urlpath[2] || "");
         localStorage.setItem("promotionId", ""); //reset
         localStorage.setItem("invitationtype", "p");
       }
