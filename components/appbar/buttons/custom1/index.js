@@ -46,7 +46,7 @@ export const CustomThemedButton = ({ props }) => {
           <TransparentColoredButton
             onClick={() => {
               window.scrollTo(0, 0);
-              AppHistory.push("/" + i18n.language + "/vip");
+              AppHistory.push("/vip");
             }}
             style={{ padding: "10px 20px" }}
           >
@@ -60,7 +60,7 @@ export const CustomThemedButton = ({ props }) => {
         )}
       <TransparentColoredButton
         onClick={() => {
-          AppHistory.push("/" + i18n.language + "/login");
+          AppHistory.push("/login");
         }}
       >
         {i18n.exists(`${config.brand}.login`)
@@ -70,7 +70,7 @@ export const CustomThemedButton = ({ props }) => {
       <CustomColoredButton
         primary={config.brand === "TIGER"}
         onClick={() => {
-          AppHistory.push("/" + i18n.language + "/login?do=register");
+          AppHistory.push("/login?do=register");
         }}
       >
         {i18n.t("common.register")}

@@ -253,7 +253,7 @@ const AppBarExtrator = ({
                           <div
                             onClick={() => {
                               window.scrollTo(0, 0);
-                              AppHistory.push("/" + i18n.language + "/vip");
+                              AppHistory.push("/vip");
                             }}
                             style={{
                               padding: "10px 20px",
@@ -276,7 +276,7 @@ const AppBarExtrator = ({
                         )}
                       <UsernameContainer
                         onClick={() => {
-                          AppHistory.push("/" + i18n.language + "/profile");
+                          AppHistory.push("/profile");
                         }}
                       >
                         <UsernameText

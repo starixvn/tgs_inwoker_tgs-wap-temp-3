@@ -122,9 +122,7 @@ class ChangeEmail extends BaseProfile {
           if (response.IsSuccess) {
             this.props.getAccountProfile(true).then((responseUpdate) => {
               if (responseUpdate.IsSuccess) {
-                this.props.appHistory.replace(
-                  "/" + i18n.language + "/profile/email"
-                );
+                this.props.appHistory.replace("/profile/email");
               }
               this.showLoading(false);
             });

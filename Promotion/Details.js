@@ -131,7 +131,7 @@ class Details extends Component {
 
     if (index === -1) {
       this.props.appHistory.replace({
-        pathname: "/" + i18n.language + "/promotion-list",
+        pathname: "/promotion-list",
       });
     }
 
@@ -226,7 +226,7 @@ class Details extends Component {
       ].indexOf(promotionType) >= 0
     ) {
       this.props.appHistory.push({
-        pathname: "/" + i18n.language + "/deposit/" + id,
+        pathname: "/deposit/" + id,
       });
     }
   };
@@ -234,7 +234,7 @@ class Details extends Component {
   handleJoinClick = (id, promotionType) => {
     if (this.props.token === null || this.props.token === "") {
       this.props.appHistory.replace({
-        pathname: "/" + i18n.language + "/login",
+        pathname: "/login",
       });
     } else {
       this.props.joinPromotion(id);
@@ -248,14 +248,14 @@ class Details extends Component {
         ].indexOf(promotionType) >= 0
       ) {
         this.props.appHistory.push({
-          pathname: "/" + i18n.language + "/deposit/" + id,
+          pathname: "/deposit/" + id,
         });
       }
     }
   };
 
   handleBackClick = () => {
-    this.props.appHistory.replace("/" + i18n.language + "/promotion-list");
+    this.props.appHistory.replace("/promotion-list");
   };
 
   handleToggleTnC = () => {
@@ -298,7 +298,7 @@ class Details extends Component {
       }
       if (newPromotionId !== "") {
         this.props.appHistory.push({
-          pathname: "/" + i18n.language + "/promotion/" + newPromotionId,
+          pathname: "/promotion/" + newPromotionId,
         });
       }
     };

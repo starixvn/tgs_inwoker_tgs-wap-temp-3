@@ -40,7 +40,7 @@ class ChangePassword extends BaseProfile {
           this.updateInfo({});
           this.props.alert("", i18n.t("common.msgSuccessUpdateProfile"));
 
-          this.props.appHistory.replace("/" + i18n.language + "/profile");
+          this.props.appHistory.replace("/profile");
         } else {
           this.props.alert("", i18n.t("common.msgInvalidOldPass"));
         }

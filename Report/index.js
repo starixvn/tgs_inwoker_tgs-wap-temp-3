@@ -1089,7 +1089,7 @@ class Report extends Component {
 
   handleManualDeposit = (id) => {
     this.props.appHistory.push({
-      pathname: "/" + i18n.language + "/manual/" + id,
+      pathname: "/manual/" + id,
     });
   };
 

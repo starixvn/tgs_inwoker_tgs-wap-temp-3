@@ -138,7 +138,7 @@ class ResetResetWithdrawalPassword extends Component {
     }
   };
   handleCSClick = () => {
-    this.props.appHistory.push("/" + i18n.language + "/chat");
+    this.props.appHistory.push("/chat");
   };
   render() {
     return (

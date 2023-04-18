@@ -153,7 +153,7 @@ class AddCard extends Component {
     ) {
       this.props.resetResult();
       this.props.getBankCardList();
-      this.props.appHistory.push("/" + i18n.language);
+      this.props.appHistory.push("/");
     }
     if (
       preProps.wallet.addBankCardResult !==

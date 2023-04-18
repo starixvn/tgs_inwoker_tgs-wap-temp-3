@@ -170,7 +170,7 @@ class My extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     if (this.props.account.token === null) {
-      this.props.appHistory.replace("/" + i18n.language + "/login");
+      this.props.appHistory.replace("/login");
     }
     if (this.props.wallet.balanceList.length <= 0) {
       this.props.getBalanceList();
@@ -203,7 +203,7 @@ class My extends Component {
   handleLogoutClick = () => {
     this.props.accountLogout(this.props.account.token).then((response) => {
       if (response.IsSuccess) {
-        this.props.navigate("/" + i18n.language + "/");
+        this.props.navigate("/");
       }
     });
   };

@@ -261,14 +261,14 @@ class Main extends Component {
 
   handleChangeSelection = (value, resetPage) => {
     if (value === "/main/profile" && this.props.account.token == null) {
-      this.props.appHistory.push("/" + i18n.language + "/login");
+      this.props.appHistory.push("/login");
     } else {
       this.setState({
         ...this.state,
         currentPage: value,
       });
       this.props.appHistory.push({
-        pathname: "/" + i18n.language + value,
+        pathname: value,
         state: { resetPage: resetPage },
       });
       if (this.state.showMenu) {
@@ -281,7 +281,7 @@ class Main extends Component {
   };
   toggleMenu = () => {
     if (this.props.account.token == null) {
-      this.props.appHistory.push("/" + i18n.language + "/login");
+      this.props.appHistory.push("/login");
     } else {
       this.setState({ ...this.state, showMenu: true });
     }
@@ -317,7 +317,10 @@ class Main extends Component {
           />
         );
       case "download":
-        return <Download alert={this.props.alert} />;
+        if (config.features.HaveDownloadFeature)
+          return <Download alert={this.props.alert} />;
+        else this.props.navigate("/");
+        break;
       default:
         return (
           <Home
