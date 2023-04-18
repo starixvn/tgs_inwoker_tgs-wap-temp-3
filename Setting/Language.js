@@ -70,7 +70,7 @@ class Profile extends Component {
   ];
   componentDidMount() {
     if (this.props.account.token === null) {
-      this.props.appHistory.replace("/" + i18n.language + "/login");
+      this.props.appHistory.replace("/login");
     }
   }
   handleBackClick = () => {

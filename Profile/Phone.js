@@ -157,7 +157,7 @@ class Phone extends BaseProfile {
                         !responseUpdate.data.registercompleted
                       ) {
                         this.props.history.push({
-                          pathname: "/" + i18n.language + "/profile/email",
+                          pathname: "/profile/email",
                           state: { forced: true },
                         });
                       } else {

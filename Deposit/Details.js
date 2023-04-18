@@ -164,7 +164,7 @@ class Details extends Component {
   }
 
   handleDepositConfirmClick = (e) => {
-    this.props.appHistory.replace("/" + i18n.language + "/transfer");
+    this.props.appHistory.replace("/transfer");
   };
   handleFileChange = (e) => {
     var files = e.target.files;
@@ -193,7 +193,7 @@ class Details extends Component {
     this.props.performUploadImage(this.state.files[0]);
   };
   handleDepositCancelClick = (e) => {
-    this.props.appHistory.replace("/" + i18n.language + "/deposit");
+    this.props.appHistory.replace("/deposit");
   };
   handleOpenPopupUrl = () => {
     if (this.state.url !== "") {

@@ -504,14 +504,14 @@ class Wap extends Component {
       e.preventDefault();
     });
 
-    if (urlpath.length === 4) {
-      if (urlpath[2] === "a") {
-        localStorage.setItem("promotionId", urlpath[3] || "");
+    if (urlpath.length === 3) {
+      if (urlpath[1] === "a") {
+        localStorage.setItem("promotionId", urlpath[2] || "");
         localStorage.setItem("upper", ""); //reset
         localStorage.setItem("invitationtype", "a");
       }
-      if (urlpath[2] === "p") {
-        localStorage.setItem("upper", urlpath[3] || "");
+      if (urlpath[1] === "p") {
+        localStorage.setItem("upper", urlpath[2] || "");
         localStorage.setItem("promotionId", ""); //reset
         localStorage.setItem("invitationtype", "p");
       }
@@ -604,16 +604,16 @@ class Wap extends Component {
           this.setState({ ...this.state, loading: false });
           if (isPhoneNull) {
             this.props.history.push({
-              pathname: "/" + i18n.language + "/profile/phone",
+              pathname: "/profile/phone",
               state: { forced: true },
             });
           } else if (isEmailNull) {
             this.props.history.push({
-              pathname: "/" + i18n.language + "/profile/email",
+              pathname: "/profile/email",
               state: { forced: true },
             });
           } else if (!isRegisterCompleted) {
-            this.props.history.push("/" + i18n.language + "/card/add");
+            this.props.history.push("/card/add");
           }
           return;
         }
@@ -765,7 +765,7 @@ class Wap extends Component {
       preProps.general.isMaintenance !== this.props.general.isMaintenance &&
       this.props.general.isMaintenance === true
     ) {
-      this.props.history.push("/" + i18n.language + "/maintenance");
+      this.props.history.push("/maintenance");
     }
     if (
       preProps.general.brandLanguage !== this.props.general.brandLanguage &&
@@ -776,10 +776,27 @@ class Wap extends Component {
           (a) => a.culturecode === i18n.language
         ).length <= 0
       ) {
-        window.location.href = window.location.pathname.replace(
-          i18n.language,
-          this.props.general.brandLanguage[0].culturecode
-        );
+        if (
+          this.props.general.brandLanguage.filter((a) => {
+            return a.culturecode === i18n.language;
+          })
+        ) {
+          i18n.changeLanguage(this.props.general.brandLanguage[0].culturecode);
+          window.location.reload();
+        }
+      } else {
+        if (
+          this.props.general.brandLanguage.filter(
+            (a) => a.culturecode === i18n.language
+          )
+        ) {
+          if (
+            window.location.pathname.split("/")[1] !== i18n.language ||
+            window.location.pathname.split("/").length > 3
+          ) {
+            i18n.changeLanguage(i18n.language);
+          }
+        }
       }
     }
 
@@ -793,7 +810,7 @@ class Wap extends Component {
         config.features.ForcedVerification
       ) {
         this.props.history.push({
-          pathname: "/" + i18n.language + "/profile/phone",
+          pathname: "/profile/phone",
           state: { forced: true },
         });
       }
@@ -806,12 +823,12 @@ class Wap extends Component {
       page.indexOf("/main/home") > -1 ||
       page.indexOf("/slot") > -1
     ) {
-      page = "/" + i18n.language + page;
+      page = page;
     } else {
       if (this.props.account.token == null) {
-        page = "/" + i18n.language + "/";
+        page = "/";
       } else {
-        page = "/" + i18n.language + page;
+        page = page;
       }
     }
 
@@ -941,7 +958,7 @@ class Wap extends Component {
                   <Route
                     exact
                     key={index}
-                    path={baseRouteUrl + row.path}
+                    path={row.path}
                     render={(props) => {
                       if (row.path === "/deposit/manual") {
                         propsObj["order"] = props.location.state;
@@ -1005,10 +1022,8 @@ class Wap extends Component {
           </Router>
           {(() => {
             const matchingpath =
-              this.props.location.pathname === "/" + i18n.language ||
-              this.props.location.pathname === "/" + i18n.language + "/" ||
-              this.props.location.pathname ===
-                "/" + i18n.language + "/main/home";
+              this.props.location.pathname === "/" ||
+              this.props.location.pathname === "/main/home";
             if (
               config.features.PopupAnnouncement &&
               this.props.ui.mains &&

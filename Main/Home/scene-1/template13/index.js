@@ -404,7 +404,7 @@ const Template13 = ({
   const [selected, setSelected] = useState("");
   var currentType = -1;
   const navigateTo = (to) => {
-    AppHistory.push("/" + i18n.language + "/" + to);
+    AppHistory.push("/" + to);
     window.scrollTo(0, 0);
   };
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -593,13 +593,11 @@ const Template13 = ({
     Common.closePreviousPopup();
     if (token) {
       Common.PopupCenter(
-        `/${i18n.language}/joingame/${selected || GameTypeEnum.SLOT}/${
-          row.gpcode
-        }/${row.id}`,
+        `/joingame/${selected || GameTypeEnum.SLOT}/${row.gpcode}/${row.id}`,
         "gamewindow"
       );
     } else {
-      AppHistory.push("/" + i18n.language + "/login");
+      AppHistory.push("/login");
     }
   };
 
@@ -917,8 +915,7 @@ const Template13 = ({
                         <ListItem
                           onClick={() => {
                             AppHistory.push({
-                              pathname:
-                                "/" + i18n.language + "/promotion/" + data.id,
+                              pathname: "/promotion/" + data.id,
                             });
                           }}
                           src={
@@ -935,7 +932,7 @@ const Template13 = ({
                   <Button
                     label={i18n.t("common.more")}
                     onClick={() => {
-                      AppHistory.push("/" + i18n.language + "/promotion-list");
+                      AppHistory.push("/promotion-list");
                       window.scrollTo(0, 0);
                     }}
                   />
@@ -951,9 +948,7 @@ const Template13 = ({
                       key={index}
                       data={data}
                       onClick={() => {
-                        AppHistory.push(
-                          "/" + i18n.language + "/news/" + data.id
-                        );
+                        AppHistory.push("/news/" + data.id);
                         window.scrollTo(0, 0);
                       }}
                     />
@@ -964,7 +959,7 @@ const Template13 = ({
                   <Button
                     label={i18n.t("common.more")}
                     onClick={() => {
-                      AppHistory.push("/" + i18n.language + "/news");
+                      AppHistory.push("/news");
                       window.scrollTo(0, 0);
                     }}
                   />

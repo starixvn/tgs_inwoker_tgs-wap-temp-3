@@ -68,7 +68,7 @@ class Promotion extends Component {
   };
   handlePromoClick = (id) => {
     this.props.appHistory.replace({
-      pathname: "/" + i18n.language + "/promotion/" + id,
+      pathname: "/promotion/" + id,
     });
   };
 
