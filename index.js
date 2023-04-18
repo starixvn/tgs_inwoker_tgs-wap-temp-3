@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { Router, Switch, Route } from "react-router";
+import { Router, Switch, Route, Redirect } from "react-router";
 import { AppHistory } from "../../history/History";
 import { withRouter } from "react-router-dom";
 
@@ -1018,6 +1018,7 @@ class Wap extends Component {
                   />
                 );
               })}
+              <Redirect to="/" />
             </Switch>
           </Router>
           {(() => {
