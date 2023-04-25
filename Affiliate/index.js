@@ -18,6 +18,14 @@ const QRCodeContainer = styled.div`
   display: table;
   background-color: #fff;
 `;
+const QRCodeActionContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px 0px 10px 0px;
+`;
 const CustomText = styled.div`
   width: 700px;
   font-size: 28px;
@@ -63,6 +71,10 @@ const Button = styled.div`
   display: flex;
   align-items: center;
   padding: 10px 20px;
+`;
+
+const DownloadButton = styled(Button)`
+  width: max-content;
 `;
 
 const CustomSelectContainer = styled.div`
@@ -141,6 +153,13 @@ const Content = styled.div`
 const Container = styled.div`
   min-height: 100vh;
 `;
+
+const FlexCenterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+`;
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
     fontSize: 30,
@@ -153,6 +172,8 @@ class Affiliate extends Component {
     this.state = {
       loading: false,
       copyTooltips: false,
+      copyTooltipsQR: false,
+      copyTooltipsReferralID: false,
       rebates: [],
       rebateType: 1,
     };
@@ -181,6 +202,46 @@ class Affiliate extends Component {
       this.setState({ ...this.state, copyTooltips: false });
     }, 3000);
   };
+  handleCopyReferralID = () => {
+    this.setState({ ...this.state, copyTooltipsReferralID: true });
+    utility.copy(this.props.account.info.playercode);
+    setTimeout(() => {
+      this.setState({ ...this.state, copyTooltipsReferralID: false });
+    }, 3000);
+  };
+  handleQrAction = (option) => {
+    var svgElement =
+      document.querySelector("#qrcode-container").firstElementChild;
+    let { width, height } = svgElement.getBBox();
+    let clonedSvgElement = svgElement.cloneNode(true);
+    let outerHTML = clonedSvgElement.outerHTML,
+      blob = new Blob([outerHTML], { type: "image/svg+xml;charset=utf-8" });
+    let URL = window.URL || window.webkitURL || window;
+    let blobURL = URL.createObjectURL(blob);
+    let image = new Image();
+    image.onload = () => {
+      let canvas = document.createElement("canvas");
+      canvas.width = 300;
+      canvas.height = 300;
+      let context = canvas.getContext("2d");
+      let offsetPositionX = (canvas.width - width) / 2;
+      let offsetPositionY = (canvas.height - height) / 2;
+      context.fillStyle = "white";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, offsetPositionX, offsetPositionY, width, height);
+      let png = canvas.toDataURL();
+      if (option === "copy") {
+        this.setState({ ...this.state, copyTooltipsQR: true });
+        utility.copyImage(png);
+        setTimeout(() => {
+          this.setState({ ...this.state, copyTooltipsQR: false });
+        }, 3000);
+      } else if (option === "download") {
+        utility.downloadImage(png, "download.png");
+      }
+    };
+    image.src = blobURL;
+  };
   handleClickAway = () => {};
 
   render() {
@@ -205,28 +266,58 @@ class Affiliate extends Component {
 
         <Content>
           <PageTitle>{i18n.t("affiliate.qrCode")}</PageTitle>
-          <QRCodeContainer>
+          <QRCodeContainer id="qrcode-container">
             <QRCode value={affiliateLink}></QRCode>
           </QRCodeContainer>
+          <QRCodeActionContainer>
+            <LightTooltip
+              open={this.state.copyTooltipsQR}
+              title={i18n.t("affiliate.copied")}
+              placement="top"
+            >
+              <Button
+                onClick={() => {
+                  this.handleQrAction("copy");
+                }}
+              >
+                {i18n.t("common.copy")}
+              </Button>
+            </LightTooltip>
+            <DownloadButton
+              onClick={() => {
+                this.handleQrAction("download");
+              }}
+            >
+              {i18n.t("common.download")}
+            </DownloadButton>
+          </QRCodeActionContainer>
           <CustomText>
             <CustomLabel>{i18n.t("affiliate.promoId")}</CustomLabel>
-            <CustomInput
-              type={"text"}
-              value={this.props.account.info.playercode}
-              readOnly={true}
-            ></CustomInput>
+            <FlexCenterContainer>
+              <CustomInput
+                type={"text"}
+                value={this.props.account.info.playercode}
+                readOnly={true}
+              ></CustomInput>
+              <LightTooltip
+                open={this.state.copyTooltipsReferralID}
+                title={i18n.t("affiliate.copied")}
+                placement="top"
+              >
+                <Button
+                  onClick={() => {
+                    this.handleCopyReferralID();
+                  }}
+                >
+                  {i18n.t("common.copy")}
+                </Button>
+              </LightTooltip>
+            </FlexCenterContainer>
           </CustomText>
           <CustomText>
             <CustomLabel>{i18n.t("affiliate.promoLink")}</CustomLabel>
 
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 10,
-              }}
-            >
+            <FlexCenterContainer>
               <CustomInput
                 type={"text"}
                 value={affiliateLink}
@@ -245,7 +336,7 @@ class Affiliate extends Component {
                   {i18n.t("common.copy")}
                 </Button>
               </LightTooltip>
-            </div>
+            </FlexCenterContainer>
           </CustomText>
           <Select
             title={i18n.t("rebateRate.title")}
