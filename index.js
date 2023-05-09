@@ -1060,9 +1060,13 @@ class Wap extends Component {
           })()}
 
           {(() => {
+            const matchingpath =
+              this.props.location.pathname === "/" ||
+              this.props.location.pathname === "/main/home";
             if (
               config.features.PopupPromotion &&
-              this.props.general.promotionList.items.length > 0
+              this.props.general.promotionList.items.length > 0 &&
+              matchingpath
             ) {
               return (
                 <PopupAnnouncement
