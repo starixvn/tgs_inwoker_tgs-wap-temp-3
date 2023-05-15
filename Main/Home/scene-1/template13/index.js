@@ -775,7 +775,7 @@ const Template13 = ({
                             config.sourceUrl
                           }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
                             row.code
-                          }.jpg`}
+                          }.png`}
                           id={
                             currentType !== row.type
                               ? `gameType${row.type}`
@@ -843,7 +843,7 @@ const Template13 = ({
                             process.env.PUBLIC_URL
                           }/assets/images/wapGame/T13/${getImgPrefix(
                             row.type
-                          )}-${row.abbreviation.toLowerCase()}.jpg`}
+                          )}-${row.abbreviation.toLowerCase()}.png`}
                           id={
                             currentType !== row.type
                               ? `gameType${row.type}`
