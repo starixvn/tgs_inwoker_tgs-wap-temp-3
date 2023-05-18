@@ -547,7 +547,7 @@ const Template11 = ({
                                     config.sourceUrl
                                   }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
                                     row.code
-                                  }.jpg`}
+                                  }.png`}
                                 ></GameImage>
                                 <RecommendedStar></RecommendedStar>
                               </RecommendedGameImage>
