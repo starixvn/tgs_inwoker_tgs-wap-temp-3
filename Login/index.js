@@ -558,7 +558,7 @@ class Login extends Component {
     AccountService.VerifyActivation(securityKey, code).then(
       async (response) => {
         if (response.IsSuccess) {
-          this.props.appHistory.replace("/main/home");
+          this.doLogin(this.state.username, this.state.password);
         } else {
           this.props.alert("", response.info);
         }
