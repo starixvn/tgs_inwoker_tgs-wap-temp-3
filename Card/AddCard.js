@@ -18,6 +18,7 @@ import config from "../../../config/config";
 import Common from "../../../utils/Common";
 import Textfield from "../components/textfield";
 import Select from "../components/select";
+import { utility } from "../../../utils/utility";
 const Container = styled.div`
   width: 100%;
 `;
@@ -299,10 +300,10 @@ class AddCard extends Component {
       }
 
       detail = {
-        bankAccount: this.state.number,
-        bankName: bankName,
-        name: this.state.bankAccountName,
-        bankBranch: this.state.bankBranch,
+        bankAccount: utility.removeSpace(this.state.number),
+        bankName: utility.removeSpace(bankName),
+        name: utility.removeSpace(this.state.bankAccountName),
+        bankBranch: utility.removeSpace(this.state.bankBranch),
       };
     } else if (
       selected.banktype === "ThirdParty" ||
@@ -323,8 +324,8 @@ class AddCard extends Component {
       }
 
       detail = {
-        username: this.state.name,
-        phone: this.state.phone,
+        username: utility.removeSpace(this.state.name),
+        phone: utility.removeSpace(this.state.phone),
       };
     } else if (selected.banktype === "EWallet") {
       if (this.state.bankAccountName === "") {
@@ -345,13 +346,13 @@ class AddCard extends Component {
       }
       if (config.features.AddCard_CustomParam_IDR) {
         detail = {
-          eMoneyName: this.state.bankAccountName,
-          phone: this.state.number,
+          eMoneyName: utility.removeSpace(this.state.bankAccountName),
+          phone: utility.removeSpace(this.state.number),
         };
       } else {
         detail = {
-          name: this.state.bankAccountName,
-          phone: this.state.number,
+          name: utility.removeSpace(this.state.bankAccountName),
+          phone: utility.removeSpace(this.state.number),
         };
       }
     } else if (selected.banktype === "Pulsa") {
@@ -369,16 +370,16 @@ class AddCard extends Component {
       }
       if (config.features.AddCard_CustomParam_IDR) {
         detail = {
-          phone: this.state.number,
+          phone: utility.removeSpace(this.state.number),
         };
       } else {
         detail = {
-          phone: this.state.number,
+          phone: utility.removeSpace(this.state.number),
         };
       }
     } else {
       detail = {
-        address: this.state.number,
+        address: utility.removeSpace(this.state.number),
       };
     }
     if (config.features.Register_CustomFlow_IDR && !this.state.isDeposit) {
