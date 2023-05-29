@@ -775,7 +775,7 @@ const Template13 = ({
                             config.sourceUrl
                           }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
                             row.code
-                          }.png`}
+                          }.jpg`}
                           id={
                             currentType !== row.type
                               ? `gameType${row.type}`
