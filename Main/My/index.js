@@ -221,6 +221,11 @@ class My extends Component {
       notification: this.props.account.info.message_num > 0 ? true : false,
     },
     {
+      icon: "icon-profile-inbox",
+      title: i18n.t("memo"),
+      to: "/memo",
+    },
+    {
       icon: "icon-profile-report",
       title: i18n.t("report.bettingDetails"),
       to: "/report/2",

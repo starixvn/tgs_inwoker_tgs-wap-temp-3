@@ -78,6 +78,7 @@ import Terms from "./terms";
 import Privacy from "./privacy";
 import Responsible from "./responsible";
 import Support from "./Main/Support";
+import memo from "./memo";
 
 const baseRouteUrl = Common.baseRouteUrl;
 const StyledModal = withStyles((theme) => ({
@@ -297,6 +298,12 @@ const RouteMapping = [
   {
     path: "/inbox",
     component: Inbox,
+    alert: true,
+    navigate: true,
+  },
+  {
+    path: "/memo",
+    component: memo,
     alert: true,
     navigate: true,
   },
