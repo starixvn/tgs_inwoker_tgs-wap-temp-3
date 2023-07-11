@@ -265,7 +265,7 @@ class Details extends Component {
   render() {
     if (this.state.details === null) return <React.Fragment></React.Fragment>;
     var isDummy = this.state.details.promotionType.toUpperCase() === "DUMMY";
-
+    var isPromoteDepositChannel = this.state.details.promotionType.toUpperCase() === "PROMOTEDEPOSITCHANNEL";
     var checkIfLocalizationIsEmpty =
       JSON.stringify(this.state.details.localization) === "{}";
 
@@ -374,7 +374,7 @@ class Details extends Component {
             </>
           )}
 
-          {!isDummy && (
+          {!(isDummy || isPromoteDepositChannel) && (
             <Button
               style={{ margin: "40px auto 0 auto" }}
               label={i18n.t("T13.promo.join")}
