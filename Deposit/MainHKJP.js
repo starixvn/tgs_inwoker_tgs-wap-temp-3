@@ -126,6 +126,44 @@ class MainHKJP extends Component {
       this.props.wallet.depositTypeList[this.props.selectedPaymentIndex].method[
         this.props.selectedMethodIndex
       ].methodcode.toUpperCase() === "PULSA";
+
+    const hasDepositPromotion = (item) => {
+      return (
+        [
+          "FirstDeposit",
+          "DailySecondDeposit",
+          "DailyFirstDeposit",
+          "DepositReward",
+          "DepositAccumulateRoulette",
+          "PromoteDepositChannel",
+        ].indexOf(item.promotionType) >= 0
+      );
+    };
+
+    const hasDepositRewardPromotion = (item) => {
+      return item.promotionType === "DepositReward"
+        ? this.props.amount >= item.campaignDetail.depositMinimumLimit
+        : true;
+    };
+
+    const hasDepositPaymentChannelPromotion = (item) => {
+      if (item.promotionType === "PromoteDepositChannel") {
+        if (
+          item.campaignDetail.channelIds &&
+          item.campaignDetail.channelIds.length > 0
+        ) {
+          return (
+            item.campaignDetail.channelIds.indexOf(
+              this.props.wallet.depositTypeList[this.props.selectedPaymentIndex]
+                .method[this.props.selectedMethodIndex].channel[
+                this.props.selectedChannelIndex
+              ].channelid
+            ) >= 0
+          );
+        }
+      } else return true;
+    };
+
     return (
       <React.Fragment>
         {this.props.wallet.depositTypeList[this.props.selectedPaymentIndex]
@@ -340,17 +378,9 @@ class MainHKJP extends Component {
               {this.props.general.promotionList.items
                 .filter(
                   (item) =>
-                    [
-                      "FirstDeposit",
-                      "DailySecondDeposit",
-                      "DailyFirstDeposit",
-                      "DepositReward",
-                      "DepositAccumulateRoulette",
-                    ].indexOf(item.promotionType) >= 0 &&
-                    (item.promotionType === "DepositReward"
-                      ? this.props.amount >=
-                        item.campaignDetail.depositMinimumLimit
-                      : true)
+                    hasDepositPromotion(item) &&
+                    hasDepositRewardPromotion(item) &&
+                    hasDepositPaymentChannelPromotion(item)
                 )
                 .map((item, index) => {
                   return (
@@ -383,14 +413,15 @@ class MainHKJP extends Component {
           }
           onClick={this.props.handleDepositClick}
           disabled={(() => {
-            const paymentcode = this.props.wallet.depositTypeList[
-              this.props.selectedPaymentIndex
-            ].paymentcode.toUpperCase();
-            const transferlimit = this.props.wallet.depositTypeList[
-              this.props.selectedPaymentIndex
-            ].method[this.props.selectedMethodIndex].channel[
-              this.props.selectedChannelIndex
-            ].transferlimit;
+            const paymentcode =
+              this.props.wallet.depositTypeList[
+                this.props.selectedPaymentIndex
+              ].paymentcode.toUpperCase();
+            const transferlimit =
+              this.props.wallet.depositTypeList[this.props.selectedPaymentIndex]
+                .method[this.props.selectedMethodIndex].channel[
+                this.props.selectedChannelIndex
+              ].transferlimit;
 
             if (
               this.props.disabled === true ||
