@@ -5,7 +5,9 @@ const CustomInputfield = styled.input`
   font-size: 28px;
   min-height: 105px;
   border: none;
-  color: #fff;
+  color: ${({ theme }) => {
+    return theme.textfieldColor ? theme.textfieldColor : "#fff";
+  }};
 
   padding: ${({ withIcon }) => {
     return withIcon ? " 0px 50px 0 25px " : " 0px 50px";
@@ -17,6 +19,9 @@ const CustomInputfield = styled.input`
     font-size: 28px;
     opacity: 0.76;
     font-family: Montserrat;
+    color: ${({ theme }) => {
+      return theme.textfieldColor ? theme.textfieldColor : "#fff";
+    }};
   }
 `;
 
@@ -86,6 +91,7 @@ const CustomWrapper = styled.div`
     return borderRadius ? borderRadius : "50px";
   }};
   align-items: center;
+  background: #fff;
 `;
 
 const Icon = styled.div`
@@ -94,7 +100,9 @@ const Icon = styled.div`
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: 80%;
-  background: #fff;
+  background: ${({ theme }) => {
+    return theme.textfieldColor ? theme.textfieldColor : "#fff";
+  }};
   width: 105px;
   height: 75px;
 `;

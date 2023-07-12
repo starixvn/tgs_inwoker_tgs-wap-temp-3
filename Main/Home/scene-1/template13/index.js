@@ -651,9 +651,6 @@ const Template13 = ({
   return (
     <>
       <AlwaysStickTop>
-        <AnnouncementSection>
-          <Marquee withOnlineUser />
-        </AnnouncementSection>
         <GameLister>
           {shared.theSorter(gameMenu2).map((i, index) => {
             //hide if 0 game found.

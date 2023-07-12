@@ -157,7 +157,7 @@ const DialogWrapper = styled.div`
   height: calc(100% - 90px);
   background: rgba(0, 0, 0, 0.75);
   width: 100%;
-  z-index: 1300;
+  z-index: 100;
   position: fixed;
   top: 0;
   display: ${({ open }) => {

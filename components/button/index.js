@@ -10,8 +10,6 @@ const Content = styled.div`
       drop-shadow(0 0 5px ${props.theme.primary}) contrast(1)
       brightness(1);`}
   height: 105px;
-  border-radius: 50px;
-
   width: 100%;
   font-size: 34px;
   color: ${({ theme }) =>
