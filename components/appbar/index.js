@@ -18,7 +18,8 @@ import { CustomThemedButton } from "./buttons/custom1";
 import { CustomThemedButton2 } from "./buttons/custom2";
 import { CustomThemedButton3 } from "./buttons/custom3";
 import { StandardThemedButton } from "./buttons/standard";
-import Variant4 from "./buttons/variant4";
+
+import BalanceDisplayer from "../balance";
 import Drawer from "../drawer";
 
 const NewAppBar = styled.div`
@@ -51,6 +52,7 @@ const LogoHolder = styled.div`
 const MakeFloatCenter = styled.div`
   display: flex;
   align-items: center;
+  padding-right: 20px;
 `;
 const VerticalLayoutContainer = styled.div`
   display: flex;
@@ -175,6 +177,21 @@ const LeftContainer = styled.div`
 `;
 const RightContainer = styled.div`
   padding-right: 215px;
+`;
+
+const BalanceContainer = styled.div`
+  background: #000325;
+  border-radius: 20px;
+  width: 300px;
+  padding: 10px 20px;
+
+  font-size: 30px;
+  color: ${({ theme }) => theme.primary};
+  display: flex;
+  justify-content: space-between;
+  span {
+    padding-right: 20px;
+  }
 `;
 
 const AppBarExtrator = ({
@@ -336,7 +353,7 @@ const AppBarExtrator = ({
                             })
                             .map((data, index) => {
                               return (
-                                <BrandAndBalance>
+                                <BrandAndBalance key={index}>
                                   <Brand>
                                     {i18n.t(
                                       `${data.abbreviation}.${item.path}`
@@ -368,7 +385,7 @@ const AppBarExtrator = ({
   };
 
   const AppBarVariant2 = () => {
-    return <div>123</div>;
+    return <BalanceDisplayer />;
   };
 
   const appbarSwitcher = (template) => {

@@ -14,10 +14,10 @@ import { AppHistory } from "../../../../../../history/History";
 const GameLister = styled.div`
   overflow: auto;
   padding-top: 130px;
-  margin-bottom: 10px;
   overflow: auto;
   padding-right: 20px;
   display: -webkit-box;
+  background: #000325;
   ::-webkit-scrollbar {
     display: none;
   }
@@ -88,33 +88,6 @@ const GameListItemIcon = styled.div`
   background: ${({ theme }) => theme.primary};
 `;
 
-const SectionWrapper = styled.div`
-  position: relative;
-  color: #fff;
-`;
-
-const JackpotWrapper = styled(SectionWrapper)`
-  transform: scale(1.1);
-`;
-const JackpotGif = styled.div`
-  height: 355px;
-  background: url(${process.env.PUBLIC_URL +
-    `/assets/images/wapp/resource/T13/homepage/jackpot.svg`})
-    no-repeat center / contain;
-`;
-const JackpotContainer = styled.div`
-  background: url(${process.env.PUBLIC_URL +
-    `/assets/images/wapp/resource/T13/homepage/jackpotcontainer.svg`})
-    no-repeat center / contain;
-  margin: 0 auto;
-  height: 180px;
-  width: 610px;
-  padding-top: 65px;
-  text-align: center;
-  font-size: 45px;
-  line-height: 45px;
-`;
-
 const MarqueeContainer = styled.div`
   background: #181c42;
   padding: 10px;
@@ -164,6 +137,187 @@ const Icons = styled.div`
   background: #ffa200;
 `;
 
+const GridWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: #000325;
+  min-height: 80vh;
+  align-content: baseline;
+`;
+
+const GameWrapper = styled.div`
+  padding: 0 20px 10px 20px;
+`;
+
+const GameButtonWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 15px;
+  padding: 20px 20px 10px 20px;
+  align-content: baseline;
+  min-height: 80vh;
+  background: #000325;
+`;
+
+const GameFrameImg = styled.div`
+  display: block;
+
+  aspect-ratio: 1;
+
+  background: url(${(props) => props.src}) no-repeat;
+  background-position: center;
+  background-size: cover;
+`;
+
+const Maintenance = styled.div`
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 2;
+  font-size: 40px;
+  font-weight: bold;
+  text-transform: capitalize;
+`;
+
+const LogoOverlay = styled.div`
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 0;
+  font-size: 40px;
+  font-weight: bold;
+  text-transform: capitalize;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
+const NewWrapper = styled.div`
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 20px;
+
+  ${({ maintenance }) => {
+    return maintenance
+      ? `
+      ${GameFrameImg}{
+        filter: brightness(20%) grayscale(200%);
+      }
+
+    
+      ${Maintenance}{
+        display: flex;
+    }
+    
+    ${LogoOverlay}  { 
+      display: none;
+    }
+    
+    `
+      : ``;
+  }}
+`;
+
+const MaintenanceContentHolder = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+`;
+
+const SlotGameTypeWrapper = styled.div`
+  font-size: 28px;
+  padding: 20px;
+  color: #fff;
+`;
+
+const SearchSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
+const ProviderListWrapper = styled.div`
+  background: #1f213a;
+  border-radius: 50px;
+  width: -webkit-fill-available;
+  position: relative;
+`;
+const ProviderList = styled.select`
+  background: #1f213a;
+  border: none;
+  border-radius: 50px;
+  padding: 20px 40px;
+  color: #fff;
+  font-size: 28px;
+  width: -webkit-fill-available;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+`;
+
+const SearchBar = styled.input`
+  background: #1f213a;
+  border: none;
+  border-radius: 50px;
+  padding: 20px 40px;
+  color: #fff;
+  font-size: 28px;
+  font-family: "Montserrat", sans-serif;
+
+  ::placeholder {
+    color: #fff;
+    font-size: 28px;
+    opacity: 1;
+  }
+`;
+
+const WrapTheGames = styled.div`
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+`;
+
+const Title = styled.div`
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const ArrowDown = styled.div`
+  mask: url(${process.env.PUBLIC_URL +
+    `/assets/images/wapp/btn-back-white.png`})
+    no-repeat center;
+  background: ${({ theme }) => theme.primaryText};
+  width: 40px;
+  height: 30px;
+
+  mask-size: 25%;
+  rotate: 275deg;
+  position: absolute;
+  right: 10px;
+  bottom: 20px;
+`;
+
 const Template14 = ({
   gameMenu2,
   changeShowGame,
@@ -201,8 +355,8 @@ const Template14 = ({
   };
 
   const quickAction = [
-    { title: "common.deposit", type: "deposit" },
-    { title: "common.withdrawal", type: "withdrawal" },
+    { title: "common.deposit", type: "deposit", path: "/deposit" },
+    { title: "common.withdrawal", type: "withdrawal", path: "/withdrawal" },
   ];
 
   useEffect(() => {
@@ -228,17 +382,6 @@ const Template14 = ({
     const randomIndex = Math.floor(Math.random() * array.length);
     const item = array[randomIndex];
     return item;
-  };
-
-  const Jackpot = () => {
-    return (
-      <JackpotWrapper>
-        <JackpotGif></JackpotGif>
-        <JackpotContainer>
-          {config.currency} {Common.formatNumberWithCommas(jackpotAmount)}
-        </JackpotContainer>
-      </JackpotWrapper>
-    );
   };
 
   const generateList = () => {
@@ -359,69 +502,236 @@ const Template14 = ({
           }
         })}
       </GameLister>
-      <MarqueeContainer>This is marquee container</MarqueeContainer>
-      <UserInformation>
-        <UserContainer>
-          {!account.token
-            ? i18n.t("wap.main.home.profile.pleaseLogin")
-            : `Hi, ${account.info.member_username}`}
-        </UserContainer>
-        <QuickAction>
-          {quickAction.map((item, index) => {
-            return (
-              <QuickActionButton
-                key={index}
-                style={{
-                  width: "50%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column",
+
+      <GridWrapper>
+        {selected && gameTypeToDisplayDifferently(selected) ? (
+          <SlotGameTypeWrapper>
+            <SearchSection>
+              <SearchBar
+                placeholder={i18n.t("T13.slot.search")}
+                value={keyword}
+                onChange={(e) => {
+                  setKeyword(e.target.value);
                 }}
-              >
-                <Icons src={item.type} style={{ width: 50, height: 50 }} />
-                <div>{i18n.t(item.title)}</div>
-              </QuickActionButton>
-            );
-          })}
-        </QuickAction>
-      </UserInformation>{" "}
-      {checking("hot").length > 0 && (
-        <ContentWrapper
-          title={i18n.t("T13.topGames")}
-          type="game"
-          icon="games"
-          joinGame={handleJoinGameClick}
-          games={checking("hot")}
-          seeMoreAt={() => {
-            navigateToSlot();
-          }}
-        />
-      )}
-      {checking("recommend").length > 0 && (
-        <ContentWrapper
-          title={i18n.t("T13.recommeneddGames")}
-          type="game"
-          icon="games"
-          joinGame={handleJoinGameClick}
-          games={checking("recommend")}
-          seeMoreAt={() => {
-            navigateToSlot();
-          }}
-        />
-      )}
-      {checking("new").length > 0 && (
-        <ContentWrapper
-          title={i18n.t("T13.newGames")}
-          type="game"
-          icon="games"
-          joinGame={handleJoinGameClick}
-          games={checking("new")}
-          seeMoreAt={() => {
-            navigateToSlot();
-          }}
-        />
-      )}
+              />
+              <ProviderListWrapper>
+                <ProviderList
+                  onChange={(e) => {
+                    setSelectedBrand(e.target.value);
+                  }}
+                >
+                  <option value="" selected>
+                    {i18n.t("T13.slot.provider")}
+                  </option>
+                  {homePageGameList
+                    .filter((game) => selected.indexOf(game.type) >= 0)
+                    .sort((a, b) => {
+                      if (config.features.LiveGame_Sorting_SKY) {
+                        var sortDGFirst = ["DG"];
+                        return (
+                          sortDGFirst.indexOf(b.abbreviation) -
+                          sortDGFirst.indexOf(a.abbreviation)
+                        );
+                      } else return b - a;
+                    })
+                    .map((data, index) => {
+                      return (
+                        <option key={index} value={data.gpcode}>
+                          {data.name}
+                        </option>
+                      );
+                    })}
+                </ProviderList>{" "}
+                <ArrowDown />
+              </ProviderListWrapper>
+            </SearchSection>
+            <WrapTheGames>
+              {gameList
+                .filter((a) => {
+                  if (keyword === "") return true;
+                  else
+                    return a.name.toUpperCase().includes(keyword.toUpperCase());
+                })
+                .filter((s) => {
+                  return s.isactive === true; // show only active game.
+                })
+                .map((row, index) => {
+                  return (
+                    <NewWrapper
+                      key={index}
+                      onClick={() => {
+                        handleJoinGameClick(row);
+                      }}
+                    >
+                      <Title>{row.name}</Title>
+                      <GameFrameImg
+                        src={`${
+                          config.sourceUrl
+                        }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+                          row.code
+                        }.jpg`}
+                        id={
+                          currentType !== row.type
+                            ? `gameType${row.type}`
+                            : `gameId${row.id}`
+                        }
+                      ></GameFrameImg>
+                    </NewWrapper>
+                  );
+                })}
+            </WrapTheGames>
+          </SlotGameTypeWrapper>
+        ) : selected ? (
+          <GameButtonWrapper>
+            {(() => {
+              return homePageGameList
+                .filter((game) => selected.indexOf(game.type) >= 0)
+                .sort((a, b) => {
+                  if (config.features.LiveGame_Sorting_SKY) {
+                    var sortDGFirst = ["DG"];
+                    return (
+                      sortDGFirst.indexOf(b.abbreviation) -
+                      sortDGFirst.indexOf(a.abbreviation)
+                    );
+                  } else return b - a;
+                })
+                .map((row, index) => {
+                  return (
+                    <NewWrapper maintenance={row.status !== 0} key={index}>
+                      <Maintenance>
+                        <MaintenanceContentHolder>
+                          <img
+                            src={
+                              process.env.PUBLIC_URL +
+                              "/assets/images/wapp/resource/T13/homepage/notavailable.png"
+                            }
+                            alt={"not available"}
+                            style={{
+                              width: "200px",
+
+                              transform: "rotate(-35deg)",
+                            }}
+                          />
+                        </MaintenanceContentHolder>
+                      </Maintenance>
+                      <LogoOverlay
+                        onClick={() =>
+                          handleGameClick(
+                            row.type,
+                            row.gpcode,
+                            row.game_platform_id
+                          )
+                        }
+                      >
+                        <img
+                          src={
+                            process.env.PUBLIC_URL +
+                            `/assets/images/provider/${row.abbreviation.toLowerCase()}.png`
+                          }
+                          style={{ width: "200px", height: "auto" }}
+                          alt={row.abbreviation.toLowerCase()}
+                        />
+                      </LogoOverlay>
+                      <GameFrameImg
+                        src={`${
+                          process.env.PUBLIC_URL
+                        }/assets/images/wapGame/T13/${getImgPrefix(
+                          row.type
+                        )}-${row.abbreviation.toLowerCase()}.png`}
+                        id={
+                          currentType !== row.type
+                            ? `gameType${row.type}`
+                            : `gameId${row.id}`
+                        }
+                        onClick={() =>
+                          handleGameClick(
+                            row.type,
+                            row.gpcode,
+                            row.game_platform_id
+                          )
+                        }
+                      ></GameFrameImg>
+                    </NewWrapper>
+                  );
+                });
+            })()}
+          </GameButtonWrapper>
+        ) : (
+          <>
+            <MarqueeContainer>This is marquee container</MarqueeContainer>
+            <UserInformation>
+              <UserContainer>
+                {!account.token
+                  ? i18n.t("wap.main.home.profile.pleaseLogin")
+                  : `Hi, ${account.info.member_username}`}
+              </UserContainer>
+              <QuickAction>
+                {quickAction.map((item, index) => {
+                  return (
+                    <QuickActionButton
+                      key={index}
+                      style={{
+                        width: "50%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                      }}
+                      onClick={() => {
+                        AppHistory.push(item.path);
+                      }}
+                    >
+                      <Icons
+                        src={item.type}
+                        style={{ width: 50, height: 50 }}
+                      />
+                      <div>{i18n.t(item.title)}</div>
+                    </QuickActionButton>
+                  );
+                })}
+              </QuickAction>
+            </UserInformation>
+            <GameWrapper>
+              {checking("hot").length > 0 && (
+                <ContentWrapper
+                  title={i18n.t("T13.topGames")}
+                  type="game"
+                  icon="games"
+                  joinGame={handleJoinGameClick}
+                  games={checking("hot")}
+                  seeMoreAt={() => {
+                    navigateToSlot();
+                  }}
+                />
+              )}
+              {checking("recommend").length > 0 && (
+                <ContentWrapper
+                  title={i18n.t("T13.recommeneddGames")}
+                  type="game"
+                  icon="games"
+                  joinGame={handleJoinGameClick}
+                  games={checking("recommend")}
+                  seeMoreAt={() => {
+                    navigateToSlot();
+                  }}
+                />
+              )}
+              {checking("new").length > 0 && (
+                <ContentWrapper
+                  title={i18n.t("T13.newGames")}
+                  type="game"
+                  icon="games"
+                  joinGame={handleJoinGameClick}
+                  games={checking("new")}
+                  seeMoreAt={() => {
+                    navigateToSlot();
+                  }}
+                />
+              )}
+            </GameWrapper>
+          </>
+        )}
+      </GridWrapper>
     </HomePageWrapper>
   );
 };

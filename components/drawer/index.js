@@ -4,6 +4,7 @@ import config from "../../../../config/config";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { useState } from "react";
+import { accountAction } from "../../../../api-services/actions/accountAction";
 
 const HamburgerButton = styled.div`
   height: 30px;
@@ -17,7 +18,7 @@ const HamburgerButton = styled.div`
   mask-repeat: no-repeat;
 `;
 
-const Drawer = ({ account }) => {
+const Drawer = ({ account, logout }) => {
   const [open, setOpen] = useState(false);
 
   const handleClose = (e) => {
@@ -28,6 +29,7 @@ const Drawer = ({ account }) => {
     open: open,
     handleClose: handleClose,
     account: account,
+    logout: logout,
   };
 
   const variantSwitcher = (variant) => {
@@ -57,4 +59,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(Drawer);
+const mapDispatchToProps = (dispatch) => {
+  return { logout: (token) => dispatch(accountAction.accountLogout(token)) };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Drawer);

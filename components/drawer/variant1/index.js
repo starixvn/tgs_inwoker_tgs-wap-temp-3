@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import i18n from "../../../../../utils/i18n";
+import BalanceDisplayer from "../../balance";
+import { AppHistory } from "../../../../../history/History";
 
 const Overlay = styled.div`
   position: fixed;
@@ -53,7 +55,74 @@ const CloseButton = styled.div`
   color: #000;
 `;
 
-const Variant1 = ({ open, handleClose, account }) => {
+const UserSectionContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  text-align: center;
+`;
+
+const Username = styled.div`
+  font-size: 50px;
+`;
+
+const MenuSection = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const MenuButtonWrapper = styled.div`
+  padding: 30px 40px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+`;
+
+const Icon = styled.div`
+  height: 40px;
+  width: 40px;
+  mask: url(${({ src }) => {
+    return process.env.PUBLIC_URL + "/assets/images/wapp/" + src + ".svg";
+  }});
+  background: #fff;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+`;
+
+const MenuButton = ({ title, path, handleClick }) => {
+  const whenClick = () => {
+    if (path) {
+      AppHistory.push(path);
+    }
+    if (handleClick) {
+      handleClick();
+    }
+  };
+
+  return (
+    <MenuButtonWrapper onClick={whenClick}>
+      <Icon src={title} />
+      <div>{i18n.t(title)}</div>
+    </MenuButtonWrapper>
+  );
+};
+
+const Variant1 = ({ open, handleClose, account, logout }) => {
+  const menuItems = [
+    { title: "message", path: "/inbox" },
+    { title: "announcement" },
+    { title: "changepassword", path: "/profile/changepassword" },
+    { title: "changemoneypassword" },
+    { title: "betrecord", path: "/report/2" },
+    { title: "language", path: "/setting/language" },
+    {
+      title: "signout",
+      handleClick: () => {
+        logout(account.token);
+      },
+    },
+  ];
   return (
     <Overlay show={open} onClick={handleClose}>
       <Drawer
@@ -63,14 +132,33 @@ const Variant1 = ({ open, handleClose, account }) => {
       >
         <UserSection>
           {account.token ? (
-            <>
-              <div>123</div> <div>123</div>
-            </>
+            <UserSectionContent>
+              <Username>{account.info.member_username}</Username>
+              <BalanceDisplayer />
+            </UserSectionContent>
           ) : (
             <div>{i18n.t("wap.main.home.profile.pleaseLogin")}</div>
           )}
           <CloseButton onClick={handleClose}>✖</CloseButton>
         </UserSection>
+        <MenuSection>
+          {menuItems
+            .filter((item) => {
+              if (account.token) {
+                return true;
+              } else {
+                return item.notRequiredLogin;
+              }
+            })
+            .map((item, index) => (
+              <MenuButton
+                key={index}
+                title={item.title}
+                path={item.path}
+                handleClick={item.handleClick}
+              />
+            ))}
+        </MenuSection>
       </Drawer>
     </Overlay>
   );
