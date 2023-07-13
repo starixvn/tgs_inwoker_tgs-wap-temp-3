@@ -44,13 +44,14 @@ const CustomLabel = styled.div`
   color: #fff;
 `;
 const CustomInput = styled.input`
+  width: 330px;
   color: #fff;
   background: transparent;
   font-size: 28px;
   margin: 25px 0 25px 10px;
   font-weight: 500;
   border: 0;
-
+  font-family: "Montserrat";
   padding: 0;
   ::placeholder,
   ::-webkit-input-placeholder {
@@ -61,6 +62,7 @@ const CustomInput = styled.input`
   }
 `;
 const Button = styled.div`
+  width: 100px;
   height: 60px;
   font-size: 24px;
   font-weight: 600;
@@ -249,10 +251,10 @@ class Affiliate extends Component {
     const types = [
       { value: 1, title: "sport" },
       { value: 2, title: "virtualsports" },
-      { value: 5, title: "live" },
+      { value: 5, title: "livedealer" },
       { value: 7, title: "chess" },
       { value: 13, title: "lottery" },
-      { value: 15, title: "electron" },
+      { value: 15, title: "egame" },
     ];
     return (
       <Container>

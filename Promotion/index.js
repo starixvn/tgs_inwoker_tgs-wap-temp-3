@@ -51,6 +51,17 @@ const ChestBoxContainer = styled.div`
   justify-content: center;
 `;
 
+const EmptyPromo = styled.div`
+  background: url(${process.env.PUBLIC_URL +
+    "/assets/images/promotion/promo-empty.png"})
+    no-repeat;
+  background-size: cover;
+  position: relative;
+  margin: 10px auto;
+  width: 750px;
+  height: 1240px;
+`;
+
 class Promotion extends Component {
   state = {
     list: [],
@@ -134,41 +145,13 @@ class Promotion extends Component {
       <Container>
         <AppBarExtrator />
         <div style={{ height: 110 }} />
-        <ListView>
-          {this.props.general.promotionList.items.length <= 0 ? (
-            <>
-              <ChestBoxContainer>
-                <img
-                  style={{ width: 600 }}
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/assets/images/promotion/chestbox.gif"
-                  }
-                  alt="chestbox"
-                />
-              </ChestBoxContainer>
-              <PromoEmptyTextLine
-                template={this.gradientSwitcher(config.wapVersion)}
-                gradient={this.textGradient(config.wapVersion)}
-                style={
-                  i18n.language === "en-US"
-                    ? { fontSize: "26px", padding: "0px 32px" }
-                    : {}
-                }
-              >
-                {i18n.t("promotion.emptyLine1")}
-              </PromoEmptyTextLine>
-              <PromoEmptyTextLine
-                template={this.gradientSwitcher(config.wapVersion)}
-                gradient={this.textGradient(config.wapVersion)}
-              >
-                {i18n.t("promotion.emptyLine2")}
-              </PromoEmptyTextLine>
-            </>
-          ) : (
-            layoutSwitcher(config.wapVersion)
-          )}
-        </ListView>
+        {this.props.general.promotionList.items.length <= 0 ? (
+          <>
+            <EmptyPromo></EmptyPromo>
+          </>
+        ) : (
+          <ListView>{layoutSwitcher(config.wapVersion)}</ListView>
+        )}
       </Container>
     );
   }

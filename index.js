@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { Router, Switch, Route } from "react-router";
+import { Router, Switch, Route, Redirect } from "react-router";
 import { AppHistory } from "../../history/History";
 import { withRouter } from "react-router-dom";
 
@@ -465,6 +465,7 @@ class Wap extends Component {
       loading: true,
       openAnnouncement: false,
       showPromotion: false,
+      hasShownPromotion: false,
     };
   }
   GetSupportUrl = (userid, name, question, email) => {
@@ -686,7 +687,6 @@ class Wap extends Component {
 
     if (config.features.PopupPromotion) {
       if (
-        isInHomePage &&
         this.props.general.promotionList.items !==
           preProps.general.promotionList.items &&
         this.props.general.promotionList.items.length > 0
@@ -1018,6 +1018,7 @@ class Wap extends Component {
                   />
                 );
               })}
+              <Redirect to="/" />
             </Switch>
           </Router>
           {(() => {
@@ -1061,9 +1062,14 @@ class Wap extends Component {
           })()}
 
           {(() => {
+            const matchingpath =
+              this.props.location.pathname === "/" ||
+              this.props.location.pathname === "/main/home";
             if (
               config.features.PopupPromotion &&
-              this.props.general.promotionList.items.length > 0
+              this.props.general.promotionList.items.length > 0 &&
+              matchingpath &&
+              !this.state.hasShownPromotion
             ) {
               return (
                 <PopupAnnouncement
@@ -1072,7 +1078,7 @@ class Wap extends Component {
                   onClose={() => {
                     if (document.getElementById("audio") != null)
                       document.getElementById("audio").play();
-                    this.setState({ ...this.state, showPromotion: false });
+                    this.setState({ ...this.state, showPromotion: false, hasShownPromotion: true });
                   }}
                   content={this.props.general.promotionList.items}
                   header={i18n.t("promotion.title")}
