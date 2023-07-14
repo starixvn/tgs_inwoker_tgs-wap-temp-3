@@ -89,7 +89,7 @@ const ButtonConfirm = styled.div`
 `;
 
 const CustomTabs = styled.div`
-  background: #000326 ;
+  background: ${({ theme }) => theme.bottomnav};
   position: relative;
   display: -webkit-box;
   overflow-x: auto;
