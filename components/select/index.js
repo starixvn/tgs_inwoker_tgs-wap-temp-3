@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { wapBorderRadius } from "../../../../config/settings";
 
 const CustomSelect = styled.select`
   font-size: 28px;
   min-height: 105px;
   border: none;
-  color: #fff;
-  border-radius: 50px;
+ 
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"}
   border: solid 1px #fff;
   padding: 0px 50px;
-  background: none;
+  background: #fff;
   width: 100%;
   outline: none;
   -webkit-appearance: none;
@@ -86,8 +87,9 @@ const ArrowDown = styled.div`
   mask: url(${process.env.PUBLIC_URL +
     `/assets/images/wapp/btn-back-white.png`})
     no-repeat center;
-  background: ${({ theme }) => theme.primaryText};
+  background: #000;
   width: 40px;
+
   height: 30px;
   rotate: 270deg;
 `;

@@ -24,6 +24,7 @@ import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import ErrorSwitcher from "../../../utils/ErrorSwitcher";
 import { utility } from "../../../utils/utility";
+import { wapBorderRadius } from "../../../config/settings";
 const moment = require("moment");
 const localeMap = {
   zh: zhLocale,
@@ -63,7 +64,7 @@ const DateRangContainer = styled.div`space-between
 const DateRangSelection = styled.div`
   padding: 20px 30px;
 
-  border-radius: 50px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
   letter-spacing: normal;
   text-align: center;
   font-size: 28px;
@@ -71,7 +72,7 @@ const DateRangSelection = styled.div`
   ${({ selected, theme }) => {
     return selected
       ? `background:  ${theme.primary}; `
-      : `background: #0e0f1a;`;
+      : `background: #27273f;`;
   }};
 `;
 const DataContent = styled.div`
@@ -223,7 +224,7 @@ const CustomTabs = styled.div`
   flex-flow: row wrap;
   justify-content: center;
   gap: 20px;
-  padding: 0 5px;
+  padding: 10px 5px 5px 5px;
 `;
 
 const CustomTabText = styled.div`
@@ -233,7 +234,7 @@ const CustomTabText = styled.div`
   padding: 15px 35px;
   background: #27273f;
 
-  border-radius: 50px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
 `;
 
 const CustomTab = styled.div`
@@ -250,16 +251,15 @@ const CustomTab = styled.div`
 `;
 
 const CustomDatepicker = styled.div`
-  background: transparent;
+  background: #fff;
   border: solid 1px #fff;
   position: relative;
-  border-radius: 50px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
 
   padding: 10px 20px;
 
   .MuiInputBase-input {
     background: none;
-    color: #fff;
     font-size: 28px;
   }
 

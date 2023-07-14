@@ -10,6 +10,7 @@ import { shared } from "../shared";
 import { playerList, gameList as gameListx } from "./../template11/hardcode";
 import ContentWrapper from "./contentwrapper";
 import { AppHistory } from "../../../../../../history/History";
+import FavButton from "./favbutton";
 
 const GameLister = styled.div`
   overflow: auto;
@@ -318,6 +319,13 @@ const ArrowDown = styled.div`
   bottom: 20px;
 `;
 
+const FavButtonHolder = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transform: scale(0.8);
+`;
+
 const Template14 = ({
   gameMenu2,
   changeShowGame,
@@ -353,7 +361,6 @@ const Template14 = ({
       selectedGameType[0] === GameTypeEnum.TABLEGAME
     );
   };
-
   const quickAction = [
     { title: "common.deposit", type: "deposit", path: "/deposit" },
     { title: "common.withdrawal", type: "withdrawal", path: "/withdrawal" },
@@ -382,6 +389,44 @@ const Template14 = ({
     const randomIndex = Math.floor(Math.random() * array.length);
     const item = array[randomIndex];
     return item;
+  };
+
+  const [favList, setFavList] = useState([]);
+
+  useEffect(() => {
+    if (favList.length <= 0) {
+      getFav(selected);
+    } else {
+      console.log(favList);
+    }
+  }, [favList]);
+
+  const getFav = (type = GameTypeEnum.SLOT) => {
+    var result = GameService.GetFavoriteGame(type);
+    result.then((response) => {
+      if (response.IsSuccess) {
+        var data = response.data;
+        setFavList(data);
+      }
+    });
+  };
+
+  const setFavGame = (gameId) => {
+    var result = GameService.SetFavoriteGame(gameId);
+    result.then((response) => {
+      if (response.IsSuccess) {
+        getFav(selected);
+      }
+    });
+  };
+
+  const removeFavGame = (gameId) => {
+    var result = GameService.RemoveFavoriteGame(gameId);
+    result.then((response) => {
+      if (response.IsSuccess) {
+        getFav(selected);
+      }
+    });
   };
 
   const generateList = () => {
@@ -426,6 +471,7 @@ const Template14 = ({
       var result = GameService.GetGameList(selectedBrand, selected);
       result.then((e) => {
         if (e.IsSuccess) {
+          getFav(selected);
           setGameList(e.data);
           setLoading(false);
         }
@@ -563,6 +609,19 @@ const Template14 = ({
                         handleJoinGameClick(row);
                       }}
                     >
+                      <FavButtonHolder>
+                        <FavButton
+                          active={favList.includes(row.id)}
+                          handleClick={(e) => {
+                            e.stopPropagation();
+                            if (!favList.includes(row.id)) {
+                              setFavGame(row.id);
+                            } else {
+                              removeFavGame(row.id);
+                            }
+                          }}
+                        />
+                      </FavButtonHolder>
                       <Title>{row.name}</Title>
                       <GameFrameImg
                         src={`${
@@ -696,8 +755,11 @@ const Template14 = ({
                 <ContentWrapper
                   title={i18n.t("T13.topGames")}
                   type="game"
-                  icon="games"
+                  icon="star"
+                  favGame={favList}
                   joinGame={handleJoinGameClick}
+                  setFavGame={setFavGame}
+                  removeFavGame={removeFavGame}
                   games={checking("hot")}
                   seeMoreAt={() => {
                     navigateToSlot();
@@ -708,8 +770,11 @@ const Template14 = ({
                 <ContentWrapper
                   title={i18n.t("T13.recommeneddGames")}
                   type="game"
-                  icon="games"
+                  icon="star"
+                  favGame={favList}
                   joinGame={handleJoinGameClick}
+                  setFavGame={setFavGame}
+                  removeFavGame={removeFavGame}
                   games={checking("recommend")}
                   seeMoreAt={() => {
                     navigateToSlot();
@@ -720,7 +785,10 @@ const Template14 = ({
                 <ContentWrapper
                   title={i18n.t("T13.newGames")}
                   type="game"
-                  icon="games"
+                  icon="star"
+                  favGame={favList}
+                  setFavGame={setFavGame}
+                  removeFavGame={removeFavGame}
                   joinGame={handleJoinGameClick}
                   games={checking("new")}
                   seeMoreAt={() => {

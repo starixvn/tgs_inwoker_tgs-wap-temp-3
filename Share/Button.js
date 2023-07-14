@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { wapBorderRadius } from "../../../config/settings";
 
 const ContentWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 0 20px;
 `;
 const Content = styled.div`
   ${(props) =>
@@ -15,10 +17,10 @@ const Content = styled.div`
       drop-shadow(0 0 5px ${props.theme.primary}) contrast(1)
       brightness(1);`}
   height: 105px;
-  border-radius: 50px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"}
   width: fit-content;
   font-size: 34px;
-  min-width: fit-content;
+  min-width: 100%;
   color: ${({ theme }) =>
     theme.customButtonText ? theme.customButtonText : "#ffffff"};
   text-align: center;

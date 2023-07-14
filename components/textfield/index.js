@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { wapBorderRadius } from "../../../../config/settings";
 
 const CustomInputfield = styled.input`
   font-size: 28px;
@@ -28,7 +29,7 @@ const CustomInputfield = styled.input`
 const CustomInput = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"}
   padding: ${({ leaveTopGap }) => {
     return leaveTopGap ? `0 20px` : `20px 20px 0 20px`;
   }};
@@ -87,9 +88,7 @@ const CustomWrapper = styled.div`
   width: 100%;
   position: relative;
   display: flex;
-  border-radius: ${({ borderRadius }) => {
-    return borderRadius ? borderRadius : "50px";
-  }};
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
   align-items: center;
   background: #fff;
 `;

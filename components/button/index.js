@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { wapBorderRadius } from "../../../../config/settings";
 
 const Content = styled.div`
   ${(props) =>
@@ -28,18 +29,20 @@ const Content = styled.div`
 const SelectContainer = styled.div`
   position: relative;
   display: flex;
-  padding: 10px;
   width: 100%;
+  padding: ${({ withSmallPadding }) => {
+    return withSmallPadding ? "5px" : "";
+  }};
 `;
 
 const CustomInput = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+  padding: 0 20px;
 
-  margin: 10px auto;
   flex: auto;
-  width: fit-content;
+  width: 100%;
 
   align-items: center;
   justify-content: center;
@@ -48,7 +51,7 @@ const CustomInput = styled.div`
 const Button = (props) => {
   return (
     <CustomInput style={props.style}>
-      <SelectContainer>
+      <SelectContainer withSmallPadding={props.withSmallPadding}>
         <Content
           minWidth={props.minWidth}
           onClick={props.disabled === true ? null : props.onClick}

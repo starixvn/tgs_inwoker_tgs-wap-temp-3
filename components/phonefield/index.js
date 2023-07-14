@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { wapBorderRadius } from "../../../../config/settings";
 
 const CustomInputfield = styled.input`
   font-size: 28px;
@@ -132,7 +133,7 @@ const borderRadius = (variant) => {
     case "loginregister":
       return "30px";
     default:
-      return "50px";
+      return wapBorderRadius ? wapBorderRadius : "50px";
   }
 };
 

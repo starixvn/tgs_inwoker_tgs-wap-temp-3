@@ -25,6 +25,7 @@ const localeMap = {
 
 const DatepickerWrapper = styled.div`
   padding: 40px 20px 0 20px;
+  margin: 0 0 20px 0;
 `;
 
 const CustomDatepicker = styled.div`
@@ -34,7 +35,8 @@ const CustomDatepicker = styled.div`
   border: 1px solid #fff;
   zoom: 1.5;
   padding: 10px 30px;
-  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"}
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+  background: #fff;
   min-height: 71px;
   display: flex;
   align-items: center;
@@ -42,7 +44,6 @@ const CustomDatepicker = styled.div`
 
   .MuiInputBase-input {
     background: none;
-    color: #fff;
     font-family: "Montserrat", sans-serif !important;
   }
 

@@ -32,7 +32,7 @@ const CustomInput = styled.input`
   border: 0;
   display: flex;
   flex: 1;
-  color: #fff;
+  background: #fff;
   border: solid 1px #fff;
   font-family: "Montserrat", sans-serif;
   ::placeholder,

@@ -4,6 +4,7 @@ import config from "../../../../../../../config/config";
 import Common from "../../../../../../../utils/Common";
 import i18n from "../../../../../../../utils/i18n";
 import Button from "../../../../../components/button";
+import FavButton from "../favbutton";
 
 const ContentWrapperx = styled.div`
   border-radius: 50px;
@@ -26,13 +27,14 @@ const TitleSection = styled.div`
   font-size: 40px;
   gap: 10px;
   align-items: center;
-  padding: 0 0 20px 0;
+  padding: 10px 0 30px 0;
+  color: ${({ theme }) => theme.primary};
   text-transform: uppercase;
 `;
 
 const IconHolder = styled.img`
-  height: 80px;
-  width: 80px;
+  height: 40px;
+  width: 40px;
 `;
 
 const ContentHolder = styled.div`
@@ -86,7 +88,7 @@ const TheOverlay = styled.div`
 const JoinButton = styled.div`
   width: 150px;
   height: 60px;
-  background: #cf2029;
+  background: ${({ theme }) => theme.primary};
   border-radius: 50px;
 
   filter: drop-shadow(0 0 10px ${({ theme }) => theme.primary})
@@ -103,77 +105,97 @@ const JoinButton = styled.div`
 
 const TheContent = styled.div``;
 
-const TheWrapperContents = ({ src, onClick }) => {
-  return (
-    <TheGamesOrContent background={src} onClick={onClick}>
-      <TheContent />
-    </TheGamesOrContent>
-  );
-};
+const FavUnfav = styled.div`
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+`;
 
-const ContentWrapper = ({
-  title,
-  children,
-  icon,
-  games,
-  joinGame,
-  seeMoreAt,
-  darktone,
-  noGap,
-  type,
-  style,
-}) => {
-  return (
-    <ContentWrapperx darktone={darktone}>
-      <TitleSection>
-        <IconHolder
-          src={
-            process.env.PUBLIC_URL +
-            "/assets/images/wapp/resource/T13/homepage/wrapper-icon/" +
-            icon +
-            ".svg"
-          }
-        />
-        <div>{title}</div>
-      </TitleSection>
-      <ContentHolder content={children} noGap={noGap} type={type} style={style}>
-        {children ? (
-          children
-        ) : (
-          <>
-            {games.length >= 0 &&
-              games.slice(0, 6).map((row, index) => {
-                return (
-                  <TheGamesOrContent
-                    key={index}
-                    background={`${
-                      config.sourceUrl
-                    }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
-                      row.code
-                    }.jpg`}
-                    onClick={() => {
-                      joinGame(row);
-                    }}
-                  >
-                    <TheContent />
-                    <TheOverlay>
-                      <JoinButton>Play</JoinButton>
-                    </TheOverlay>
-                  </TheGamesOrContent>
-                );
-              })}
-          </>
+const ContentWrapper = React.memo(
+  ({
+    title,
+    children,
+    icon,
+    games,
+    joinGame,
+    seeMoreAt,
+    darktone,
+    noGap,
+    type,
+    style,
+    favGame,
+    setFavGame,
+    removeFavGame,
+  }) => {
+    return (
+      <ContentWrapperx darktone={darktone}>
+        <TitleSection>
+          <IconHolder
+            src={
+              process.env.PUBLIC_URL +
+              "/assets/images/wapp/resource/T14/homepage/wrapper-icon/" +
+              icon +
+              ".svg"
+            }
+          />
+          <div>{title}</div>
+        </TitleSection>
+        <ContentHolder
+          content={children}
+          noGap={noGap}
+          type={type}
+          style={style}
+        >
+          {children ? (
+            children
+          ) : (
+            <>
+              {games.length >= 0 &&
+                games.slice(0, 6).map((row, index) => {
+                  return (
+                    <TheGamesOrContent
+                      key={index}
+                      background={`${
+                        config.sourceUrl
+                      }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+                        row.code
+                      }.jpg`}
+                      onClick={() => {
+                        joinGame(row);
+                      }}
+                    >
+                      <FavUnfav>
+                        <FavButton
+                          active={favGame.includes(row.id)}
+                          handleClick={(e) => {
+                            e.stopPropagation();
+                            if (!favGame.includes(row.id)) {
+                              setFavGame(row.id);
+                            } else {
+                              removeFavGame(row.id);
+                            }
+                          }}
+                        />
+                      </FavUnfav>
+                      <TheContent />
+                    </TheGamesOrContent>
+                  );
+                })}
+            </>
+          )}
+        </ContentHolder>
+        {seeMoreAt && (
+          <Button
+            style={{ width: "100%" }}
+            label={i18n.t("common.more")}
+            onClick={seeMoreAt}
+          />
         )}
-      </ContentHolder>
-      {seeMoreAt && (
-        <Button
-          style={{ width: "100%" }}
-          label={i18n.t("common.more")}
-          onClick={seeMoreAt}
-        />
-      )}
-    </ContentWrapperx>
-  );
-};
+      </ContentWrapperx>
+    );
+  }
+);
 
 export default ContentWrapper;

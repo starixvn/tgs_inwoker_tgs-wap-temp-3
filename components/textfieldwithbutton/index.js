@@ -6,16 +6,16 @@ const CustomInputfield = styled.input`
   font-size: 28px;
   min-height: 105px;
   border: none;
-  color: #fff;
+  background: #fff;
   border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
   border: solid 1px #fff;
   padding: 0px 50px;
-  background: none;
   width: 100%;
   font-family: "Montserrat", sans-serif;
   ::placeholder {
     font-size: 28px;
     opacity: 0.76;
+    color: #000;
   }
 `;
 

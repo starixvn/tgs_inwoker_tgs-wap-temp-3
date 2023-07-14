@@ -143,6 +143,7 @@ const UpperPart = styled.div`
   justify-content: center;
   min-height: 20vh;
   gap: 30px;
+  background: #242958;
   .title {
     font-weight: bold;
     font-size: 50px;
