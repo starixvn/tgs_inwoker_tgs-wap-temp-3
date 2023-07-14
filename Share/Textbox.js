@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { wapBorderRadius } from "../../../config/settings";
 const CustomText = styled.div`
   width: 700px;
   min-height: 170px;
@@ -23,7 +24,7 @@ const CustomLabel = styled.div`
 const CustomInput = styled.input`
   font-size: 28px;
   margin-top: 18px;
-  border-radius: 50px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
   min-height: 71px;
   background: none;
   padding: 16px 54px;

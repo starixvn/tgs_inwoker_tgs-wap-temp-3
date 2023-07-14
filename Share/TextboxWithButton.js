@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { wapBorderRadius } from "../../../config/settings";
 const CustomText = styled.div`
   width: 700px;
   height: 170px;
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
   padding: 40px 20px 0 20px;
   margin: 20px auto;
 `;

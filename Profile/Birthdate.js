@@ -14,6 +14,7 @@ import zhLocale from "date-fns/locale/zh-CN";
 import enLocale from "date-fns/locale/en-US";
 import thLocale from "date-fns/locale/th";
 import styled from "styled-components";
+import { wapBorderRadius } from "../../../config/settings";
 
 const moment = require("moment");
 const localeMap = {
@@ -33,7 +34,7 @@ const CustomDatepicker = styled.div`
   border: 1px solid #fff;
   zoom: 1.5;
   padding: 10px 30px;
-  border-radius: 50px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"}
   min-height: 71px;
   display: flex;
   align-items: center;
