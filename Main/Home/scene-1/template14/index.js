@@ -177,7 +177,7 @@ const Template14 = ({
   }, [favList]);
 
   const getFav = (type) => {
-    var result = GameService.GetFavoriteGame(type);
+    var result = GameService.GetFavoriteGame(type || GameTypeEnum.SLOT);
     result.then((response) => {
       if (response.IsSuccess) {
         var data = response.data;

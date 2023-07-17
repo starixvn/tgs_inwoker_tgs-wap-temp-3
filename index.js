@@ -78,6 +78,7 @@ import Terms from "./terms";
 import Privacy from "./privacy";
 import Responsible from "./responsible";
 import Support from "./Main/Support";
+import memo from "./memo";
 
 const baseRouteUrl = Common.baseRouteUrl;
 const StyledModal = withStyles((theme) => ({
@@ -297,6 +298,13 @@ const RouteMapping = [
   {
     path: "/inbox",
     component: Inbox,
+    alert: true,
+    navigate: true,
+  },
+
+  {
+    path: "/memo",
+    component: memo,
     alert: true,
     navigate: true,
   },
@@ -1078,7 +1086,11 @@ class Wap extends Component {
                   onClose={() => {
                     if (document.getElementById("audio") != null)
                       document.getElementById("audio").play();
-                    this.setState({ ...this.state, showPromotion: false, hasShownPromotion: true });
+                    this.setState({
+                      ...this.state,
+                      showPromotion: false,
+                      hasShownPromotion: true,
+                    });
                   }}
                   content={this.props.general.promotionList.items}
                   header={i18n.t("promotion.title")}
