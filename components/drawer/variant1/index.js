@@ -111,7 +111,7 @@ const MenuButton = ({ title, path, handleClick }) => {
 const Variant1 = ({ open, handleClose, account, logout }) => {
   const menuItems = [
     { title: "message", path: "/inbox" },
-    { title: "announcement" },
+    { title: "announcement", path: "/news" },
     { title: "changepassword", path: "/profile/changepassword" },
     { title: "changemoneypassword" },
     { title: "betrecord", path: "/report/2" },

@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import i18n from "../../../../../utils/i18n";
+import { wapBorderRadius } from "../../../../../config/settings";
 
 const ListItem = styled.div`
   background: url(${(props) => props.src}) no-repeat right top;
   background-size: 100% 100%;
   position: relative;
   width: 100%;
-  border-radius: 40px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "0"};
+
   height: 280px;
   width: 690px;
 `;

@@ -19,6 +19,7 @@ import Textfield from "../components/textfield";
 import Button from "../components/button";
 import PageTitle from "../components/pagetitle";
 import { Textfit } from "react-textfit";
+import { wapBorderRadius } from "../../../config/settings";
 const Container = styled.div`
   width: 100%;
   overflow: hidden;
@@ -178,17 +179,21 @@ const ProviderContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   padding-bottom: 200px;
+  align-items: stretch;
 `;
 
 const ProviderWrapper = styled.div`
   display: grid;
   grid-template-columns: 55% 45%;
+  background: #1b1d30;
+  padding: 20px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : ""};
 `;
 
 const TheProviderImages = styled.div`
   background: url(${({ src }) => src}) center no-repeat;
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
   background-size: 100%;
 `;
 

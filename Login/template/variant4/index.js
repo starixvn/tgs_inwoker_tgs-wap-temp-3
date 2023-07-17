@@ -165,6 +165,33 @@ const LanguageIcon = styled.div`
   background: #fff;
 `;
 
+const ButtonRow = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #fff;
+  padding: 24px;
+`;
+
+const TheButton = styled.div`
+  border: solid 1px #fff;
+  padding: 18px 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const ChatIcon = styled.div`
+  height: 30px;
+  width: 30px;
+  mask: url(${process.env.PUBLIC_URL + `/assets/images/wapp/bottomnav/cs.svg`})
+    no-repeat center;
+  mask-size: contain;
+  background: #fff;
+`;
+
 const Variant4 = ({
   handleChangeSelection,
   selected,
@@ -253,6 +280,20 @@ const Variant4 = ({
     );
   };
 
+  const ActionButtonRow = () => {
+    return (
+      <ButtonRow>
+        <TheButton
+          onClick={() => {
+            AppHistory.push("/main/support");
+          }}
+        >
+          <ChatIcon />
+          <div>{i18n.t("onlinechat")}</div>
+        </TheButton>
+      </ButtonRow>
+    );
+  };
   return (
     <>
       {selected === 0 && (
@@ -312,6 +353,7 @@ const Variant4 = ({
             label={i18n.t("common.login")}
             onClick={handleLoginClick}
           />
+          <ActionButtonRow />
         </Container>
       )}
 
@@ -435,6 +477,7 @@ const Variant4 = ({
             onClick={handleRegisterClick}
             disableButton={!tnc}
           />
+          <ActionButtonRow />
         </Container>
       )}
 
