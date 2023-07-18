@@ -188,22 +188,34 @@ const Template14 = ({
     }
   };
 
+  const redirectUserToLogin = () => {
+    AppHistory.push("/login");
+  };
+
   const setFavGame = (gameId) => {
-    var result = GameService.SetFavoriteGame(gameId);
-    result.then((response) => {
-      if (response.IsSuccess) {
-        getFav(selected);
-      }
-    });
+    if (account.token) {
+      var result = GameService.SetFavoriteGame(gameId);
+      result.then((response) => {
+        if (response.IsSuccess) {
+          getFav(selected);
+        }
+      });
+    } else {
+      redirectUserToLogin();
+    }
   };
 
   const removeFavGame = (gameId) => {
-    var result = GameService.RemoveFavoriteGame(gameId);
-    result.then((response) => {
-      if (response.IsSuccess) {
-        getFav(selected);
-      }
-    });
+    if (account.token) {
+      var result = GameService.RemoveFavoriteGame(gameId);
+      result.then((response) => {
+        if (response.IsSuccess) {
+          getFav(selected);
+        }
+      });
+    } else {
+      redirectUserToLogin();
+    }
   };
 
   useEffect(() => {

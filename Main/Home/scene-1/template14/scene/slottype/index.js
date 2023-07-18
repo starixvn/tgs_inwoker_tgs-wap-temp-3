@@ -5,6 +5,7 @@ import { useState } from "react";
 import config from "../../../../../../../../config/config";
 import Common from "../../../../../../../../utils/Common";
 import FavButton from "../../favbutton";
+import { wapBorderRadius } from "../../../../../../../../config/settings";
 
 const GameFrameImg = styled.div`
   display: block;
@@ -45,10 +46,14 @@ const LogoOverlay = styled.div`
   background: rgba(0, 0, 0, 0.5);
 `;
 
+const OuterWrapper = styled.div`
+  position: relative;
+`;
+
 const NewWrapper = styled.div`
   position: relative;
   aspect-ratio: 1;
-  border-radius: 20px;
+  border-radius: 200px;
 
   ${({ maintenance }) => {
     return maintenance
@@ -85,14 +90,14 @@ const SearchSection = styled.div`
 
 const ProviderListWrapper = styled.div`
   background: #1f213a;
-  border-radius: 50px;
   width: -webkit-fill-available;
   position: relative;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
 `;
 const ProviderList = styled.select`
   background: #1f213a;
   border: none;
-  border-radius: 50px;
+
   padding: 20px 40px;
   color: #fff;
   font-size: 28px;
@@ -102,12 +107,13 @@ const ProviderList = styled.select`
   -moz-appearance: none;
   text-indent: 1px;
   text-overflow: "";
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
 `;
 
 const SearchBar = styled.input`
   background: #1f213a;
   border: none;
-  border-radius: 50px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"}
   padding: 20px 40px;
   color: #fff;
   font-size: 28px;
@@ -128,9 +134,6 @@ const WrapTheGames = styled.div`
 `;
 
 const Title = styled.div`
-  position: absolute;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
   width: 100%;
   padding: 10px;
   text-align: center;
@@ -140,6 +143,10 @@ const Title = styled.div`
   text-overflow: ellipsis;
 `;
 
+const TitleAndAction = styled.div`
+  position: absolute;
+  bottom: 0;
+`;
 const ArrowDown = styled.div`
   mask: url(${process.env.PUBLIC_URL +
     `/assets/images/wapp/btn-back-white.png`})
@@ -156,10 +163,12 @@ const ArrowDown = styled.div`
 `;
 
 const FavButtonHolder = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
   transform: scale(0.8);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+  padding-bottom: 20px;
 `;
 
 const SlotTypeGameScene = ({
@@ -222,12 +231,22 @@ const SlotTypeGameScene = ({
           })
           .map((row, index) => {
             return (
-              <NewWrapper
-                key={index}
-                onClick={() => {
-                  handleJoinGameClick(row);
-                }}
-              >
+              <OuterWrapper>
+                <NewWrapper
+                  key={index}
+                  onClick={() => {
+                    handleJoinGameClick(row);
+                  }}
+                >
+                  <GameFrameImg
+                    src={`${
+                      config.sourceUrl
+                    }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+                      row.code
+                    }.jpg`}
+                  ></GameFrameImg>
+                </NewWrapper>
+                <Title>{row.name}</Title>
                 <FavButtonHolder>
                   <FavButton
                     active={favList.includes(row.id)}
@@ -240,16 +259,9 @@ const SlotTypeGameScene = ({
                       }
                     }}
                   />
+                  <div>{i18n.t("collect")}</div>
                 </FavButtonHolder>
-                <Title>{row.name}</Title>
-                <GameFrameImg
-                  src={`${
-                    config.sourceUrl
-                  }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
-                    row.code
-                  }.jpg`}
-                ></GameFrameImg>
-              </NewWrapper>
+              </OuterWrapper>
             );
           })}
       </WrapTheGames>

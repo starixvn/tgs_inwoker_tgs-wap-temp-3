@@ -129,19 +129,19 @@ const BottomNavBar = (props) => {
       to: "/",
     },
     {
+      icon: "promotion.svg",
+      text: "wap.main.promo",
+      to: "/promotion-list",
+    },
+    {
       icon: "deposit.svg",
       text: "common.deposit",
       to: "/deposit",
     },
     {
-      icon: "withdrawal.svg",
-      text: "common.withdrawal",
-      to: "/withdrawal",
-    },
-    {
-      icon: "promotion.svg",
-      text: "wap.main.promo",
-      to: "/promotion-list",
+      icon: "cs.svg",
+      text: "onlinechat",
+      to: "/main/support",
     },
     {
       icon: "me.svg",

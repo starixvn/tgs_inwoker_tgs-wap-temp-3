@@ -40,7 +40,7 @@ const IconHolder = styled.img`
 const ContentHolder = styled.div`
   display: grid;
   grid-template-columns: ${({ content }) => {
-    return content ? "" : "1fr 1fr";
+    return content ? "" : "repeat(3, 1fr)";
   }};
   gap: ${({ noGap }) => {
     return noGap ? "0px" : "20px";
@@ -58,9 +58,10 @@ const TheGamesOrContent = styled.div`
     }})
     no-repeat center;
   background-size: 100%;
-  height: 300px;
+  height: 200px;
+  width: 200px;
   position: relative;
-  border-radius: 50px;
+  border-radius: 250px;
 `;
 
 const TheOverlay = styled.div`
@@ -106,11 +107,97 @@ const JoinButton = styled.div`
 const TheContent = styled.div``;
 
 const FavUnfav = styled.div`
-  position: absolute;
   width: 100%;
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+`;
+
+const GameFrameImg = styled.div`
+  display: block;
+
+  aspect-ratio: 1;
+
+  background: url(${(props) => props.src}) no-repeat;
+  background-position: center;
+  background-size: cover;
+`;
+
+const Maintenance = styled.div`
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 2;
+  font-size: 40px;
+  font-weight: bold;
+  text-transform: capitalize;
+`;
+
+const LogoOverlay = styled.div`
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 0;
+  font-size: 40px;
+  font-weight: bold;
+  text-transform: capitalize;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
+const OuterWrapper = styled.div`
+  position: relative;
+`;
+
+const NewWrapper = styled.div`
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 200px;
+
+  ${({ maintenance }) => {
+    return maintenance
+      ? `
+      ${GameFrameImg}{
+        filter: brightness(20%) grayscale(200%);
+      }
+
+    
+      ${Maintenance}{
+        display: flex;
+    }
+    
+    ${LogoOverlay}  { 
+      display: none;
+    }
+    
+    `
+      : ``;
+  }}
+`;
+const Title = styled.div`
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const FavButtonHolder = styled.div`
+  transform: scale(0.8);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+  padding-bottom: 20px;
 `;
 
 const ContentWrapper = React.memo(
@@ -155,18 +242,23 @@ const ContentWrapper = React.memo(
               {games.length >= 0 &&
                 games.slice(0, 6).map((row, index) => {
                   return (
-                    <TheGamesOrContent
-                      key={index}
-                      background={`${
-                        config.sourceUrl
-                      }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
-                        row.code
-                      }.jpg`}
-                      onClick={() => {
-                        joinGame(row);
-                      }}
-                    >
-                      <FavUnfav>
+                    <OuterWrapper>
+                      <NewWrapper
+                        key={index}
+                        onClick={() => {
+                          joinGame(row);
+                        }}
+                      >
+                        <GameFrameImg
+                          src={`${
+                            config.sourceUrl
+                          }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
+                            row.code
+                          }.jpg`}
+                        ></GameFrameImg>
+                      </NewWrapper>
+                      <Title>{row.name}</Title>
+                      <FavButtonHolder>
                         <FavButton
                           active={favGame.includes(row.id)}
                           handleClick={(e) => {
@@ -178,9 +270,9 @@ const ContentWrapper = React.memo(
                             }
                           }}
                         />
-                      </FavUnfav>
-                      <TheContent />
-                    </TheGamesOrContent>
+                        <div>{i18n.t("collect")}</div>
+                      </FavButtonHolder>
+                    </OuterWrapper>
                   );
                 })}
             </>

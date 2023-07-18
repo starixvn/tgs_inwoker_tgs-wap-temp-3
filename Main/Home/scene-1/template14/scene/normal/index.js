@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ContentWrapper from "../../contentwrapper";
 import i18n from "../../../../../../../../utils/i18n";
 import { AppHistory } from "../../../../../../../../history/History";
+import Marquee from "../../../../Marquee";
 
 const MarqueeContainer = styled.div`
   background: #181c42;
@@ -66,7 +67,9 @@ const NormalScene = ({
 }) => {
   return (
     <>
-      <MarqueeContainer>This is marquee container</MarqueeContainer>
+      <MarqueeContainer>
+        <Marquee />
+      </MarqueeContainer>
       <UserInformation>
         <UserContainer>
           {!account.token
