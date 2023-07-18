@@ -7,7 +7,9 @@ const ListItem = styled.div`
   background-size: 100% 100%;
   position: relative;
   width: 100%;
-  border-radius: 40px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "40px";
+  }};
   height: 280px;
   width: 690px;
 `;

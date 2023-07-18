@@ -7,13 +7,15 @@ const ListItem = styled.div`
   background: url(${(props) => props.src}) no-repeat right top;
 
   position: relative;
-  border-radius: 40px;
+
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "40px";
+  }};
 
   height: 280px;
   width: 690px;
 
   background-size: 100% 100%;
-  border-radius: 40px;
   aspect-ratio: 1;
 `;
 

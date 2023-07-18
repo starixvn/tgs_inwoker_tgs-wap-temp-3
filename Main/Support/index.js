@@ -29,7 +29,9 @@ const TheSupportButton = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0px 20px;
-  border-radius: 50px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   font-size: 30px;
 `;
 
@@ -44,7 +46,9 @@ const TheRedText = styled.div`
     return theme.primary;
   }};
   padding: 10px 20px;
-  border-radius: 50px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
 `;
 const TitleHeader = styled.div`
   background: ${({ theme }) =>
