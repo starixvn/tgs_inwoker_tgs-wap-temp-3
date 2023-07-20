@@ -2,6 +2,7 @@ import React from "react";
 
 import Template11 from "./template11";
 import Template13 from "./template13";
+import Template14 from "./template14";
 
 const TemplateSwitcher = ({
   template,
@@ -50,6 +51,8 @@ const TemplateSwitcher = ({
         return <Template11 {...commonprops} />;
       case 13:
         return <Template13 {...commonprops} />;
+      case 14:
+        return <Template14 {...commonprops} />;
       default:
         <Template13 {...commonprops} />;
     }

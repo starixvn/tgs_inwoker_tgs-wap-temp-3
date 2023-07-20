@@ -31,7 +31,9 @@ const CustomText = styled.div`
   font-size: 28px;
   box-shadow: 0 2px 6px 0 rgba(58, 58, 58, 0.2);
   background-color: #27273f;
-  border-radius: 50px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   padding: 0 20px 0 40px;
   margin: 20px auto;
 
@@ -68,8 +70,12 @@ const Button = styled.div`
   font-weight: 600;
   text-align: center;
   color: #fff;
-  background: #dc141e;
-  border-radius: 50px;
+  background: ${({ theme }) => {
+    return theme.primary;
+  }};
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   display: flex;
   align-items: center;
   padding: 10px 20px;

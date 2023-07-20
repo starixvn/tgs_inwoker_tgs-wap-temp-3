@@ -23,7 +23,9 @@ const CustomLabel = styled.div`
 const CustomInput = styled.input`
   font-size: 28px;
   margin-top: 18px;
-  border-radius: 50px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   min-height: 71px;
   background: none;
   padding: 16px 54px;
@@ -31,12 +33,19 @@ const CustomInput = styled.input`
   border: 0;
   display: flex;
   flex: 1;
-  color: #fff;
+  background: ${({ theme }) => {
+    return theme.inputBackground ? theme.inputBackground : "transparent";
+  }};
+  color: ${({ theme }) => {
+    return theme.textfieldColor ? theme.textfieldColor : "#fff";
+  }};
   border: solid 1px #fff;
   font-family: "Montserrat", sans-serif;
   ::placeholder,
   ::-webkit-input-placeholder {
-    color: #c3c3c3;
+    color: ${({ theme }) => {
+      return theme.textfieldColor ? theme.textfieldColor : "#fff";
+    }};
     font-size: 28px;
   }
   &:disabled {

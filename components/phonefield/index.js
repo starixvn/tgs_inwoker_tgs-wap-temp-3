@@ -6,7 +6,9 @@ const CustomInputfield = styled.input`
   min-height: 105px;
   border: none;
   color: #fff;
-  border-radius: ${({ variant }) => borderRadius(variant)};
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   border: ${({ variant }) => border(variant)};
   padding: 0px 20px;
 
@@ -29,7 +31,9 @@ const InputContainer = styled.div`
 const CustomInput = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: ${({ variant }) => borderRadius(variant)};
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   padding: ${({ variant }) => padding(variant)};
   margin: ${({ variant }) => gapLeaver(variant)};
 `;
@@ -90,7 +94,9 @@ const CustomSelect = styled.select`
   min-height: 105px;
   border: none;
   color: #fff;
-  border-radius: ${({ variant }) => borderRadius(variant)};
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   border: ${({ variant }) => border(variant)};
   padding: 0px 10px 0 20px;
   background: ${({ variant }) => background(variant)};
@@ -124,15 +130,6 @@ const gapLeaver = (variant) => {
       return "";
     default:
       return "20px auto";
-  }
-};
-
-const borderRadius = (variant) => {
-  switch (variant) {
-    case "loginregister":
-      return "30px";
-    default:
-      return "50px";
   }
 };
 

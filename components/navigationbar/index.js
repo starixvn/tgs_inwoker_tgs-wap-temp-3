@@ -122,7 +122,7 @@ const BottomNavBar = (props) => {
     };
   }, []);
 
-  const bottomNavButton = [
+  const bottomNavButtonT13 = [
     {
       icon: "home.svg",
       text: "wap.main.homePage",
@@ -151,6 +151,36 @@ const BottomNavBar = (props) => {
       to: "/main/profile",
     },
   ];
+
+  const bottomNavButtonT14 = [
+    {
+      icon: "home.svg",
+      text: "wap.main.homePage",
+      to: "/",
+    },
+    {
+      icon: "promotion.svg",
+      text: "wap.main.promo",
+      to: "/promotion-list",
+    },
+    {
+      icon: "deposit.svg",
+      text: "common.deposit",
+      to: "/deposit",
+    },
+    {
+      icon: "cs.svg",
+      text: "onlinechat",
+      to: "/main/support",
+    },
+    {
+      icon: "me.svg",
+      text: i18n.exists(`${config.brand}.my`)
+        ? `${config.brand}.my`
+        : "wap.main.my",
+      to: "/main/profile",
+    },
+  ];
   return (
     <div>
       {!hideAppBar.includes(currentPathName) ? (
@@ -160,7 +190,10 @@ const BottomNavBar = (props) => {
             showLabels
             style={{ width: "750px", height: "90px" }}
           >
-            {bottomNavButton.map((data, index) => {
+            {(config.wapVersion === 13
+              ? bottomNavButtonT13
+              : bottomNavButtonT14
+            ).map((data, index) => {
               return (
                 <CustomCustomBottomNavAction
                   label={i18n.t(data.text)}
