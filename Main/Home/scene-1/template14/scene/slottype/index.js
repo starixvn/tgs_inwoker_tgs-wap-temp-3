@@ -92,9 +92,13 @@ const ProviderListWrapper = styled.div`
   background: #1f213a;
   width: -webkit-fill-available;
   position: relative;
+<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
+=======
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 const ProviderList = styled.select`
   background: #1f213a;
@@ -109,17 +113,25 @@ const ProviderList = styled.select`
   -moz-appearance: none;
   text-indent: 1px;
   text-overflow: "";
+<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
+=======
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 
 const SearchBar = styled.input`
   background: #1f213a;
   border: none;
+<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
+=======
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"}
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   padding: 20px 40px;
   color: #fff;
   font-size: 28px;

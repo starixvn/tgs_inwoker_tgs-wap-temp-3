@@ -24,7 +24,14 @@ import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import ErrorSwitcher from "../../../utils/ErrorSwitcher";
 import { utility } from "../../../utils/utility";
+<<<<<<< HEAD
 import { wapBorderRadius } from "../../../config/settings";
+=======
+<<<<<<< HEAD
+import { wapBorderRadius } from "../../../config/settings";
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 const moment = require("moment");
 const localeMap = {
   zh: zhLocale,
@@ -64,9 +71,17 @@ const DateRangContainer = styled.div`space-between
 const DateRangSelection = styled.div`
   padding: 20px 30px;
 
+<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
+=======
+<<<<<<< HEAD
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+=======
+  border-radius: 50px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   letter-spacing: normal;
   text-align: center;
   font-size: 28px;
@@ -74,7 +89,15 @@ const DateRangSelection = styled.div`
   ${({ selected, theme }) => {
     return selected
       ? `background:  ${theme.primary}; `
+<<<<<<< HEAD
       : `background: #27273f;`;
+=======
+<<<<<<< HEAD
+      : `background: #27273f;`;
+=======
+      : `background: #0e0f1a;`;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   }};
 `;
 const DataContent = styled.div`
@@ -226,7 +249,15 @@ const CustomTabs = styled.div`
   flex-flow: row wrap;
   justify-content: center;
   gap: 20px;
+<<<<<<< HEAD
   padding: 10px 5px 5px 5px;
+=======
+<<<<<<< HEAD
+  padding: 10px 5px 5px 5px;
+=======
+  padding: 0 5px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 
 const CustomTabText = styled.div`
@@ -236,9 +267,17 @@ const CustomTabText = styled.div`
   padding: 15px 35px;
   background: #27273f;
 
+<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
+=======
+<<<<<<< HEAD
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+=======
+  border-radius: 50px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 
 const CustomTab = styled.div`
@@ -255,17 +294,38 @@ const CustomTab = styled.div`
 `;
 
 const CustomDatepicker = styled.div`
+<<<<<<< HEAD
   background: #fff;
   border: solid 1px #fff;
   position: relative;
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
+=======
+<<<<<<< HEAD
+  background: #fff;
+  border: solid 1px #fff;
+  position: relative;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+=======
+  background: transparent;
+  border: solid 1px #fff;
+  position: relative;
+  border-radius: 50px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 
   padding: 10px 20px;
 
   .MuiInputBase-input {
     background: none;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    color: #fff;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
     font-size: 28px;
   }
 

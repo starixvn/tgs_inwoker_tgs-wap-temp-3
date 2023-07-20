@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+<<<<<<< HEAD
+import { wapBorderRadius } from "../../../config/settings";
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 const CustomText = styled.div`
   width: 700px;
   min-height: 170px;
@@ -23,9 +27,17 @@ const CustomLabel = styled.div`
 const CustomInput = styled.input`
   font-size: 28px;
   margin-top: 18px;
+<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
+=======
+<<<<<<< HEAD
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+=======
+  border-radius: 50px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   min-height: 71px;
   background: none;
   padding: 16px 54px;
@@ -33,12 +45,20 @@ const CustomInput = styled.input`
   border: 0;
   display: flex;
   flex: 1;
+<<<<<<< HEAD
   background: ${({ theme }) => {
     return theme.inputBackground ? theme.inputBackground : "transparent";
   }};
   color: ${({ theme }) => {
     return theme.textfieldColor ? theme.textfieldColor : "#fff";
   }};
+=======
+<<<<<<< HEAD
+  background: #fff;
+=======
+  color: #fff;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   border: solid 1px #fff;
   font-family: "Montserrat", sans-serif;
   ::placeholder,

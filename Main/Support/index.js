@@ -10,6 +10,10 @@ import IMHandler from "./IMHandler";
 import Header from "../../Share/Header";
 import PageTitle from "../../components/pagetitle";
 import { AppHistory } from "../../../../history/History";
+<<<<<<< HEAD
+import { wapBorderRadius } from "../../../../config/settings";
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 
 const ButtonContainer = styled.div`
   display: grid;
@@ -29,9 +33,17 @@ const TheSupportButton = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0px 20px;
+<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
+=======
+<<<<<<< HEAD
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+=======
+  border-radius: 50px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   font-size: 30px;
 `;
 
@@ -46,9 +58,17 @@ const TheRedText = styled.div`
     return theme.primary;
   }};
   padding: 10px 20px;
+<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
+=======
+<<<<<<< HEAD
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+=======
+  border-radius: 50px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 const TitleHeader = styled.div`
   background: ${({ theme }) =>
@@ -105,7 +125,15 @@ const IDText = styled.div`
 
 const CustomDialog = styled(Dialog)`
   .MuiDialog-paper {
+<<<<<<< HEAD
     background: #000326;
+=======
+<<<<<<< HEAD
+    background: #000326;
+=======
+    background: #1b1d30;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
     color: #fff;
     border-radius: 30px;
   }

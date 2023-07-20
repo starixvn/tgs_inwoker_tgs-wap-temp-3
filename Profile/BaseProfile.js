@@ -13,9 +13,16 @@ const Container = styled.div`
   overflow: hidden;
   min-height: 100vh;
   padding-bottom: 120px;
+<<<<<<< HEAD
   background: ${({ theme }) => {
     return theme.body ? theme.body : "#000215";
   }};
+=======
+<<<<<<< HEAD
+  background: #000215;
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 
 class BaseProfile extends Component {
@@ -93,14 +100,32 @@ class BaseProfile extends Component {
         <div style={{ height: 90 }} />
         {body}
         {this.state.message}
+<<<<<<< HEAD
 
         <Button
           withSmallPadding
+=======
+<<<<<<< HEAD
+
+        <Button
+          withSmallPadding
+=======
+        <Button
+          style={{ margin: "40px auto 0 auto" }}
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
           disabled={this.checkButtonState() || this.state.disableButton}
           onClick={this.handleSubmitClicked}
           label={buttonTitle}
         ></Button>
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
         {bottomNode || <BottomNote></BottomNote>}
         <Loading show={this.state.loading}></Loading>
       </Container>

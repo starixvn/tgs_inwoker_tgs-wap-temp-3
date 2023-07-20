@@ -1,13 +1,25 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+<<<<<<< HEAD
+import { wapBorderRadius } from "../../../config/settings";
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 const CustomText = styled.div`
   width: 700px;
   height: 170px;
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "20px";
   }};
+=======
+<<<<<<< HEAD
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+=======
+  border-radius: 20px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
+>>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   padding: 40px 20px 0 20px;
   margin: 20px auto;
 `;
