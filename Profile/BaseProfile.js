@@ -13,6 +13,9 @@ const Container = styled.div`
   overflow: hidden;
   min-height: 100vh;
   padding-bottom: 120px;
+  background: ${({ theme }) => {
+    return theme.body ? theme.body : "#000215";
+  }};
 `;
 
 class BaseProfile extends Component {
@@ -90,12 +93,14 @@ class BaseProfile extends Component {
         <div style={{ height: 90 }} />
         {body}
         {this.state.message}
+
         <Button
-          style={{ margin: "40px auto 0 auto" }}
+          withSmallPadding
           disabled={this.checkButtonState() || this.state.disableButton}
           onClick={this.handleSubmitClicked}
           label={buttonTitle}
         ></Button>
+
         {bottomNode || <BottomNote></BottomNote>}
         <Loading show={this.state.loading}></Loading>
       </Container>
