@@ -117,7 +117,7 @@ const Template14 = ({
   getImgPrefix,
   handleGameClick,
   token,
-
+  general,
   account,
 }) => {
   const [selected, setSelected] = useState("");
@@ -258,6 +258,7 @@ const Template14 = ({
     checking: checking,
     account: account,
     favList: favList,
+    general: general,
     handleJoinGameClick: handleJoinGameClick,
     navigateToSlot: navigateToSlot,
     setFavGame: setFavGame,
