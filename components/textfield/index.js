@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { wapBorderRadius } from "../../../../config/settings";
 
 const CustomInputfield = styled.input`
   font-size: 28px;
   min-height: 105px;
   border: none;
-  color: #fff;
+  color: ${({ theme }) => {
+    return theme.textfieldColor ? theme.textfieldColor : "#fff";
+  }};
 
   padding: ${({ withIcon }) => {
     return withIcon ? " 0px 50px 0 25px " : " 0px 50px";
@@ -17,13 +20,18 @@ const CustomInputfield = styled.input`
     font-size: 28px;
     opacity: 0.76;
     font-family: Montserrat;
+    color: ${({ theme }) => {
+      return theme.textfieldColor ? theme.textfieldColor : "#fff";
+    }};
   }
 `;
 
 const CustomInput = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   padding: ${({ leaveTopGap }) => {
     return leaveTopGap ? `0 20px` : `20px 20px 0 20px`;
   }};
@@ -82,10 +90,13 @@ const CustomWrapper = styled.div`
   width: 100%;
   position: relative;
   display: flex;
-  border-radius: ${({ borderRadius }) => {
-    return borderRadius ? borderRadius : "50px";
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
   align-items: center;
+  background: ${({ theme }) => {
+    return theme.inputBackground ? theme.inputBackground : "transparent";
+  }};
 `;
 
 const Icon = styled.div`
@@ -94,7 +105,9 @@ const Icon = styled.div`
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: 80%;
-  background: #fff;
+  background: ${({ theme }) => {
+    return theme.textfieldColor ? theme.textfieldColor : "#fff";
+  }};
   width: 105px;
   height: 75px;
 `;

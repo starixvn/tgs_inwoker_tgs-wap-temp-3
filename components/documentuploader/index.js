@@ -35,7 +35,9 @@ const InputWrapper = styled.div`
   width: 100%;
   align-items: center;
   color: #fff;
-  border-radius: 50px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   border: solid 1px #fff;
   padding: 0px 50px;
   background: none;

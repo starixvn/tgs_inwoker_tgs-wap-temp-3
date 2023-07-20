@@ -5,11 +5,18 @@ const CustomSelect = styled.select`
   font-size: 28px;
   min-height: 105px;
   border: none;
-  color: #fff;
-  border-radius: 50px;
+
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   border: solid 1px #fff;
   padding: 0px 50px;
-  background: none;
+  background: ${({ theme }) => {
+    return theme.inputBackground ? theme.inputBackground : "#fff";
+  }};
+  color: ${({ theme }) => {
+    return theme.textfieldColor ? theme.textfieldColor : "#fff";
+  }};
   width: 100%;
   outline: none;
   -webkit-appearance: none;
@@ -86,7 +93,9 @@ const ArrowDown = styled.div`
   mask: url(${process.env.PUBLIC_URL +
     `/assets/images/wapp/btn-back-white.png`})
     no-repeat center;
-  background: ${({ theme }) => theme.primaryText};
+  background: ${({ theme }) => {
+    return theme.primaryText ? theme.primaryText : "#fff";
+  }};
   width: 40px;
   height: 30px;
   rotate: 270deg;

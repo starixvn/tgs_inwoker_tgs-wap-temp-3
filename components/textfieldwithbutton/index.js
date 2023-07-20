@@ -5,16 +5,26 @@ const CustomInputfield = styled.input`
   font-size: 28px;
   min-height: 105px;
   border: none;
-  color: #fff;
-  border-radius: 50px;
+  color: ${({ theme }) => {
+    return theme.textfieldColor ? theme.textfieldColor : "#fff";
+  }};
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   border: solid 1px #fff;
   padding: 0px 50px;
-  background: none;
+
+  background: ${({ theme }) => {
+    return theme.inputBackground ? theme.inputBackground : "none";
+  }};
   width: 100%;
   font-family: "Montserrat", sans-serif;
   ::placeholder {
     font-size: 28px;
     opacity: 0.76;
+    color: ${({ theme }) => {
+      return theme.textfieldColor ? theme.textfieldColor : "#fff";
+    }};
   }
 `;
 
@@ -57,7 +67,9 @@ const Button = styled.div`
   top: 10%;
   right: 25px;
   height: 47px;
-  border-radius: 50px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   background: ${({ theme }) => theme.primary};
 `;
 
@@ -70,9 +82,10 @@ const TextfieldWithButton = ({
   onClick,
   maxLength,
   style,
+  borderRadius,
 }) => {
   return (
-    <CustomInput style={style}>
+    <CustomInput style={style} borderRadius={borderRadius}>
       {title && <CustomLabel>{title}</CustomLabel>}
 
       <SelectContainer>
