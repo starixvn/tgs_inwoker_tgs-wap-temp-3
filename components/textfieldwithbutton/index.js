@@ -1,21 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { wapBorderRadius } from "../../../../config/settings";
 
 const CustomInputfield = styled.input`
   font-size: 28px;
   min-height: 105px;
   border: none;
-  background: #fff;
-  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+  color: #fff;
+  border-radius: 50px;
   border: solid 1px #fff;
   padding: 0px 50px;
+  background: none;
   width: 100%;
   font-family: "Montserrat", sans-serif;
   ::placeholder {
     font-size: 28px;
     opacity: 0.76;
-    color: #000;
   }
 `;
 
@@ -58,7 +57,7 @@ const Button = styled.div`
   top: 10%;
   right: 25px;
   height: 47px;
-  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+  border-radius: 50px;
   background: ${({ theme }) => theme.primary};
 `;
 
@@ -71,10 +70,9 @@ const TextfieldWithButton = ({
   onClick,
   maxLength,
   style,
-  borderRadius,
 }) => {
   return (
-    <CustomInput style={style} borderRadius={borderRadius}>
+    <CustomInput style={style}>
       {title && <CustomLabel>{title}</CustomLabel>}
 
       <SelectContainer>

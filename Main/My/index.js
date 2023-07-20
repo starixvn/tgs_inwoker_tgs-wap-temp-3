@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -15,6 +16,29 @@ const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 120px 0 0 0;
+=======
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import AppBar from "@material-ui/core/AppBar";
+import { withStyles } from "@material-ui/core/styles";
+import { accountAction } from "../../../../api-services/actions/accountAction";
+import { walletAction } from "../../../../api-services/actions/walletAction";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+import BtnLogout from "../../../Share/ButtonBlankWap";
+import Common from "../../../../utils/Common";
+
+import i18n from "../../../../utils/i18n";
+import config from "../../../../config/config";
+import Header from "../../Share/Header";
+
+const Container = styled.div`
+  width: 100%;
+
+  min-height: 100vh;
+  padding: 120px 0;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 `;
 
 const InfoContainer = styled.div`
@@ -26,11 +50,22 @@ const InfoContainer = styled.div`
 
 const NameContainer = styled.div`
   float: left;
+<<<<<<< HEAD
   font-size: 40px;
   color: ${({ theme }) => theme.wapSecondary || theme.secondary};
 `;
 
 const WalletContainer = styled.div`
+=======
+
+  font-size: 40px;
+
+  color: ${({ theme }) =>
+    theme.wapSecondary ? theme.wapSecondary : theme.secondary};
+`;
+
+const MainWalletContainer = styled.div`
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
   font-size: 28px;
   margin-top: 12px;
 `;
@@ -39,12 +74,22 @@ const AmountWrapper = styled.div`
   min-height: 130px;
   padding: 20px 0 0 0;
 `;
+<<<<<<< HEAD
 
+=======
+const TotalWalletContainer = styled.div`
+  font-size: 28px;
+  margin-top: 12px;
+`;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 const WalletLabel = styled.div`
   color: ${({ theme }) => theme.wapPrimary};
   float: left;
 `;
+<<<<<<< HEAD
 
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 const WalletAmount = styled.div`
   color: ${({ theme }) => theme.wapPrimary};
   font-weight: 500;
@@ -114,7 +159,12 @@ const Icon = styled.div`
   mask: ${({ icon }) => {
     return `url(${
       process.env.PUBLIC_URL + `/assets/images/wapp/${icon}.svg`
+<<<<<<< HEAD
     }) no-repeat center / contain;`;
+=======
+    }) no-repeat center /
+    contain;`;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
   }};
 `;
 
@@ -122,6 +172,15 @@ const Notification = styled.div`
   position: relative;
 `;
 
+<<<<<<< HEAD
+=======
+const ShowAmountContainer = styled.div`
+  font-size: 28px;
+  margin-top: 12px;
+  color: ${({ theme }) => theme.wapPrimary};
+`;
+
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 const LogoutButton = styled.div`
   background: ${({ theme }) => theme.primary};
   color: #fff;
@@ -135,6 +194,7 @@ const LogoutButton = styled.div`
     drop-shadow(0 0 4px ${({ theme }) => theme.primary}) contrast(1)
     brightness(1);
 `;
+<<<<<<< HEAD
 
 const UpperPart = styled.div`
   display: flex;
@@ -235,10 +295,66 @@ const My = ({
     accountLogout(account.token).then((response) => {
       if (response.IsSuccess) {
         navigate("/");
+=======
+class My extends Component {
+  constructor(props) {
+    super(props);
+    var balance = 0;
+    var loaded = true;
+    if (this.props.wallet.balanceList.length > 0) {
+      balance = this.getTotalBalance();
+      loaded = true;
+    }
+    this.state = {
+      balance: balance,
+      balanceLoaded: loaded,
+      avatarError: false,
+      showAmount: false,
+    };
+  }
+  componentDidMount() {
+    window.scrollTo(0, 0);
+    if (this.props.account.token === null) {
+      this.props.appHistory.replace("/login");
+    }
+    if (this.props.wallet.balanceList.length <= 0) {
+      this.props.getBalanceList();
+    }
+  }
+  componentDidUpdate(preProps) {
+    if (
+      preProps.wallet.balanceList.length !==
+        this.props.wallet.balanceList.length &&
+      this.props.wallet.balanceList.length > 0
+    ) {
+      this.setState({
+        ...this.state,
+        balance: this.getTotalBalance(),
+        balanceLoaded: true,
+      });
+    }
+  }
+  getTotalBalance = () => {
+    var balance = 0;
+    for (let i = 0; i < this.props.wallet.balanceList.length; i++) {
+      try {
+        balance += parseFloat(
+          this.props.wallet.balanceList[i].balance.replace(/,/g, "")
+        );
+      } catch (e) {}
+    }
+    return balance;
+  };
+  handleLogoutClick = () => {
+    this.props.accountLogout(this.props.account.token).then((response) => {
+      if (response.IsSuccess) {
+        this.props.navigate("/");
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
       }
     });
   };
 
+<<<<<<< HEAD
   const navigateTo = (to) => {
     window.scrollTo(0, 0);
     navigate(to);
@@ -328,19 +444,107 @@ const My = ({
             <NameContainer>{account.info.member_username}</NameContainer>
             <AmountWrapper>
               <WalletContainer>
+=======
+  profileMenu = [
+    {
+      icon: "icon-profile-profile",
+      title: i18n.t("wap.main.account.personalInfo"),
+      to: "/profile",
+    },
+    {
+      icon: "icon-profile-inbox",
+      title: i18n.t("wap.main.account.inbox"),
+      to: "/inbox",
+      notification: this.props.account.info.message_num > 0 ? true : false,
+    },
+    {
+      icon: "icon-profile-report",
+      title: i18n.t("report.bettingDetails"),
+      to: "/report/2",
+    },
+    {
+      icon: "icon-profile-withdrawal",
+      title: i18n.t("wap.main.account.withdrawal"),
+      to: "/report/3",
+    },
+    {
+      icon: "icon-profile-topup",
+      title: i18n.t("wap.main.account.deposit"),
+      to: "/report/4",
+    },
+    {
+      icon: "icon-profile-report-transfer",
+      title: i18n.t("wap.main.account.transfer"),
+      to: "/report/6",
+    },
+    {
+      icon: "icon-profile-report",
+      title: i18n.t("report.joinedPromo.title"),
+      to: "/report/7",
+    },
+    {
+      icon: "icon-profile-report-transfer",
+      title: i18n.t("report.balanceChanges.title"),
+      to: "/report/8",
+    },
+    {
+      icon: "icon-vip",
+      title: "VIP",
+      to: "/vip",
+    },
+  ];
+
+  handleBackClick = () => {
+    this.props.appHistory.goBack();
+  };
+
+  navigateTo = (to) => {
+    window.scrollTo(0, 0);
+    this.props.navigate(to);
+  };
+
+  render() {
+    return (
+      <Container>
+        <Header
+          onBackClick={this.handleBackClick}
+          title={i18n.t("wap.main.my")}
+          position={"fixed"}
+          backgroundColor={"transparent"}
+        ></Header>
+        <TheUserContainer>
+          <InfoContainer>
+            <NameContainer>
+              {this.props.account.info.member_username}
+            </NameContainer>
+
+            <AmountWrapper>
+              <MainWalletContainer>
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                 <WalletLabel>
                   {i18n.t("wap.main.account.mainAccount")}
                 </WalletLabel>
                 <WalletAmount>
+<<<<<<< HEAD
                   {wallet.mainSymbol}
                   {Common.formatNumberWithThousand(wallet.mainBalance)}
                 </WalletAmount>
               </WalletContainer>
               <WalletContainer>
+=======
+                  {this.props.wallet.mainSymbol}
+                  {Common.formatNumberWithThousand(
+                    this.props.wallet.mainBalance
+                  )}
+                </WalletAmount>
+              </MainWalletContainer>
+              <TotalWalletContainer>
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                 <WalletLabel>
                   {i18n.t("wap.main.account.totalFund")}
                 </WalletLabel>
                 <WalletAmount>
+<<<<<<< HEAD
                   {balanceLoaded ? (
                     wallet.mainSymbol +
                     Common.formatNumberWithThousand(
@@ -361,12 +565,42 @@ const My = ({
                   )}
                 </WalletAmount>
               </WalletContainer>
+=======
+                  {(() => {
+                    if (this.state.balanceLoaded) {
+                      return (
+                        this.props.wallet.mainSymbol +
+                        Common.formatNumberWithThousand(
+                          this.props.wallet.mainBalance +
+                            this.props.game.providerList
+                              .filter(
+                                (item) =>
+                                  item.status === 0 &&
+                                  item.transferwallet === true
+                              )
+                              .reduce((a, v) => (a = a + v.balance), 0)
+                        )
+                      );
+                    } else {
+                      return (
+                        <CircularProgress
+                          size={25}
+                          color={"secondary"}
+                          style={{ margin: "6px 0 0 10px" }}
+                        ></CircularProgress>
+                      );
+                    }
+                  })()}
+                </WalletAmount>
+              </TotalWalletContainer>
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
             </AmountWrapper>
           </InfoContainer>
         </TheUserContainer>
         <ListView>
           <ProfileMenuHolder>
             <ProfileMenuWrapper>
+<<<<<<< HEAD
               {profileMenu
                 .filter((data) => {
                   return game.containTransferWallet || data.to !== "/report/6";
@@ -391,20 +625,71 @@ const My = ({
                 ))}
               {config.features.HaveDownloadFeature && (
                 <ProfileMenuList onClick={() => navigateTo("/main/download")}>
+=======
+              {
+                //if this.props.game.containTransferWallet is false
+                // filter out the transfer from the menu
+                (this.props.game.containTransferWallet
+                  ? this.profileMenu
+                  : this.profileMenu.filter((data) => data.to !== "/report/6")
+                )
+                  .filter((data) =>
+                    config.features.HaveVIPFeature ? data : data.to !== "/vip"
+                  )
+                  .map((data, index) => {
+                    return (
+                      <ProfileMenuList
+                        onClick={() => {
+                          this.navigateTo(data.to);
+                        }}
+                      >
+                        <TextAndIcon>
+                          <Icon icon={data.icon} />
+                          <div>{data.title}</div>
+                        </TextAndIcon>
+                        <Notification>
+                          {data.title === i18n.t("wap.main.account.inbox") &&
+                          this.props.account.info.message_num > 0 ? (
+                            <MessageRedDot />
+                          ) : (
+                            ""
+                          )}
+                        </Notification>
+                      </ProfileMenuList>
+                    );
+                  })
+              }
+              {config.features.HaveDownloadFeature && (
+                <ProfileMenuList
+                  onClick={() => {
+                    this.navigateTo("/main/download");
+                  }}
+                >
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                   <TextAndIcon>
                     <Icon icon="icon-download" />
                     <div>{i18n.t("wap.main.account.appDownload")}</div>
                   </TextAndIcon>
                 </ProfileMenuList>
               )}
+<<<<<<< HEAD
               {general.haveAffiliate && (
                 <ProfileMenuList onClick={() => navigateTo("/affiliate")}>
+=======
+              {this.props.general.haveAffiliate && (
+                <ProfileMenuList
+                  onClick={() => {
+                    this.navigateTo("/affiliate");
+                  }}
+                >
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                   <TextAndIcon>
                     <Icon icon="icon-affiliate" />
                     <div>{i18n.t("web.account.affiliate")}</div>
                   </TextAndIcon>
                 </ProfileMenuList>
               )}
+<<<<<<< HEAD
               <ProfileMenuList
                 onClick={() => {
                   if (
@@ -415,6 +700,19 @@ const My = ({
                     alert("", i18n.t("card.toEdit"));
                   } else {
                     navigateTo("/card");
+=======
+
+              <ProfileMenuList
+                onClick={() => {
+                  if (
+                    this.props.wallet.bankCardList != null &&
+                    this.props.wallet.bankCardList.length === 0 &&
+                    config.features.AddCard_NotAllowedEditDelete
+                  ) {
+                    this.props.alert("", i18n.t("card.toEdit"));
+                  } else {
+                    this.navigateTo("/card");
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                   }
                 }}
               >
@@ -423,15 +721,28 @@ const My = ({
                   <div>{i18n.t("wap.main.account.manageBank")}</div>
                 </TextAndIcon>
               </ProfileMenuList>
+<<<<<<< HEAD
               {config.features.Wap_ShowProfileTransfer && (
                 <ProfileMenuList onClick={() => navigateTo("/transfer")}>
+=======
+
+              {config.features.Wap_ShowProfileTransfer && (
+                <ProfileMenuList onClick={() => this.navigateTo("/transfer")}>
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                   <TextAndIcon>
                     <Icon icon="icon-profile-transfer" />
                     <div>{i18n.t("common.transfer")}</div>
                   </TextAndIcon>
                 </ProfileMenuList>
               )}
+<<<<<<< HEAD
               <ProfileMenuList onClick={() => navigateTo("/setting/language")}>
+=======
+
+              <ProfileMenuList
+                onClick={() => this.navigateTo("/setting/language")}
+              >
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                 <TextAndIcon>
                   <Icon icon="icon-profile-language" />
                   <div>{i18n.t("common.language")}</div>
@@ -439,6 +750,7 @@ const My = ({
               </ProfileMenuList>
             </ProfileMenuWrapper>
           </ProfileMenuHolder>
+<<<<<<< HEAD
           <div class="clear"></div>
           <LogoutButton onClick={handleLogoutClick}>
             {i18n.t("web.header.logout")}
@@ -553,3 +865,30 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(My));
+=======
+          <div className="clear"></div>
+          <LogoutButton onClick={this.handleLogoutClick}>
+            {i18n.t("web.header.logout")}
+          </LogoutButton>
+        </ListView>
+      </Container>
+    );
+  }
+}
+const mapStateToProps = (state) => {
+  return {
+    account: state.account,
+    wallet: state.wallet,
+    game: state.game,
+    general: state.general,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    accountLogout: (token) => dispatch(accountAction.accountLogout(token)),
+    getBalanceList: () => dispatch(walletAction.getBalanceList()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(My);
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82

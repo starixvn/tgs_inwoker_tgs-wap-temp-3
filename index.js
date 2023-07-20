@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
+<<<<<<< HEAD
 import { Router, Switch, Route, Redirect } from "react-router";
+=======
+import { Router, Switch, Route } from "react-router";
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 import { AppHistory } from "../../history/History";
 import { withRouter } from "react-router-dom";
 
@@ -78,7 +82,10 @@ import Terms from "./terms";
 import Privacy from "./privacy";
 import Responsible from "./responsible";
 import Support from "./Main/Support";
+<<<<<<< HEAD
 import memo from "./memo";
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 
 const baseRouteUrl = Common.baseRouteUrl;
 const StyledModal = withStyles((theme) => ({
@@ -302,6 +309,7 @@ const RouteMapping = [
     navigate: true,
   },
 
+<<<<<<< HEAD
   {
     path: "/memo",
     component: memo,
@@ -309,6 +317,8 @@ const RouteMapping = [
     navigate: true,
   },
 
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
   !config.features.NewTransferUI && {
     path: "/transfer",
     component: Transfer,
@@ -473,7 +483,10 @@ class Wap extends Component {
       loading: true,
       openAnnouncement: false,
       showPromotion: false,
+<<<<<<< HEAD
       hasShownPromotion: false,
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
     };
   }
   GetSupportUrl = (userid, name, question, email) => {
@@ -695,6 +708,10 @@ class Wap extends Component {
 
     if (config.features.PopupPromotion) {
       if (
+<<<<<<< HEAD
+=======
+        isInHomePage &&
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
         this.props.general.promotionList.items !==
           preProps.general.promotionList.items &&
         this.props.general.promotionList.items.length > 0
@@ -1026,7 +1043,10 @@ class Wap extends Component {
                   />
                 );
               })}
+<<<<<<< HEAD
               <Redirect to="/" />
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
             </Switch>
           </Router>
           {(() => {
@@ -1070,6 +1090,7 @@ class Wap extends Component {
           })()}
 
           {(() => {
+<<<<<<< HEAD
             const matchingpath =
               this.props.location.pathname === "/" ||
               this.props.location.pathname === "/main/home";
@@ -1078,6 +1099,11 @@ class Wap extends Component {
               this.props.general.promotionList.items.length > 0 &&
               matchingpath &&
               !this.state.hasShownPromotion
+=======
+            if (
+              config.features.PopupPromotion &&
+              this.props.general.promotionList.items.length > 0
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
             ) {
               return (
                 <PopupAnnouncement
@@ -1086,11 +1112,15 @@ class Wap extends Component {
                   onClose={() => {
                     if (document.getElementById("audio") != null)
                       document.getElementById("audio").play();
+<<<<<<< HEAD
                     this.setState({
                       ...this.state,
                       showPromotion: false,
                       hasShownPromotion: true,
                     });
+=======
+                    this.setState({ ...this.state, showPromotion: false });
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                   }}
                   content={this.props.general.promotionList.items}
                   header={i18n.t("promotion.title")}

@@ -2,8 +2,12 @@ import React, { useState } from "react";
 
 import styled from "styled-components";
 
+<<<<<<< HEAD
 import { Dialog } from "@material-ui/core";
 import { wapBorderRadius } from "../../../config/settings";
+=======
+import { Collapse, Dialog } from "@material-ui/core";
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 const moment = require("moment");
 const CheckboxContainer = styled.div`
   float: left;
@@ -22,7 +26,11 @@ const ContentContainer = styled.div`
 
   background: #202137;
   color: #fff;
+<<<<<<< HEAD
   border-radius: ${wapBorderRadius ? wapBorderRadius : "75px"};
+=======
+  border-radius: 75px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
   padding: 40px 70px;
 `;
 
@@ -30,6 +38,18 @@ const ListItem = styled.div`
   width: 100%;
   margin: 20px auto;
 `;
+<<<<<<< HEAD
+=======
+const MsgTitle = styled.div`
+  width: 100%;
+  font-weight: ${(props) => (props.isread === true ? "normal" : "600")};
+  font-size: 30px;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 
 const MsgTitleSpan = styled.span`
   float: left;
@@ -87,6 +107,17 @@ const LetterContent = styled.div`
       `}
 `;
 
+<<<<<<< HEAD
+=======
+const ArrowDown = styled.div`
+  height: 20px;
+  width: 20px;
+  background: url(${process.env.PUBLIC_URL +
+  `/assets/images/wapp/arrow-down.svg`});
+  margin-right: 20px;
+`;
+
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 const Lettercontainer = styled.div`
   background: #202137;
   color: #fff;

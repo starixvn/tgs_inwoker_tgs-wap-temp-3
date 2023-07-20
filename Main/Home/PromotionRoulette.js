@@ -1304,7 +1304,10 @@ const PromotionRoulette = (props) => {
                       (() => {
                         return (
                           (promotionDetail.localization &&
+<<<<<<< HEAD
                             promotionDetail.localization[i18n.language] &&
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                             promotionDetail.localization[i18n.language]
                               .content) ||
                           promotionDetail.content ||
@@ -1325,7 +1328,10 @@ const PromotionRoulette = (props) => {
                       (() => {
                         return (
                           (promotionDetail.localization &&
+<<<<<<< HEAD
                             promotionDetail.localization[i18n.language] &&
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                             promotionDetail.localization[i18n.language]
                               .terms) ||
                           promotionDetail.terms ||

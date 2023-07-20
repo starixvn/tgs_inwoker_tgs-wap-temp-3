@@ -18,7 +18,10 @@ import { generalAction } from "../../../api-services/actions/generalAction";
 import { uiAction } from "../../../api-services/actions/uiAction";
 import { GeneralService } from "../../../api-services/services/GeneralService";
 import ErrorSwitcher from "../../../utils/ErrorSwitcher";
+<<<<<<< HEAD
 import { wapBorderRadius } from "../../../config/settings";
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 
 const imageMap = {
   "zh-CN": process.env.PUBLIC_URL + `/assets/images/wapp/cn.png`,
@@ -44,12 +47,20 @@ const CustomList = withStyles({
   },
 })(List);
 const CustomListItem = styled.div`
+<<<<<<< HEAD
   padding: 10px 20px 0 20px;
+=======
+  padding: 10px 100px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 `;
 const CustomListItemText = styled.div`
   background: #202137;
   padding: 30px 40px;
+<<<<<<< HEAD
   border-radius: ${wapBorderRadius ? wapBorderRadius : "20px"};
+=======
+  border-radius: 50px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
   text-align: center;
   color: #fff;
 

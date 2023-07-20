@@ -11,7 +11,6 @@ import { utility } from "../../../utils/utility";
 import PageTitle from "../components/pagetitle";
 import Select from "../components/select";
 import { generalAction } from "../../../api-services/actions/generalAction";
-import { wapBorderRadius } from "../../../config/settings";
 
 const QRCodeContainer = styled.div`
   padding: 20px;
@@ -32,7 +31,7 @@ const CustomText = styled.div`
   font-size: 28px;
   box-shadow: 0 2px 6px 0 rgba(58, 58, 58, 0.2);
   background-color: #27273f;
-  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+  border-radius: 50px;
   padding: 0 20px 0 40px;
   margin: 20px auto;
 
@@ -45,14 +44,13 @@ const CustomLabel = styled.div`
   color: #fff;
 `;
 const CustomInput = styled.input`
-  width: 330px;
   color: #fff;
   background: transparent;
   font-size: 28px;
   margin: 25px 0 25px 10px;
   font-weight: 500;
   border: 0;
-  font-family: "Montserrat";
+
   padding: 0;
   ::placeholder,
   ::-webkit-input-placeholder {
@@ -63,16 +61,13 @@ const CustomInput = styled.input`
   }
 `;
 const Button = styled.div`
-  width: 100px;
   height: 60px;
   font-size: 24px;
   font-weight: 600;
   text-align: center;
   color: #fff;
-  background: ${({ theme }) => {
-    return theme.primary;
-  }};
-  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+  background: #dc141e;
+  border-radius: 50px;
   display: flex;
   align-items: center;
   padding: 10px 20px;
@@ -254,10 +249,10 @@ class Affiliate extends Component {
     const types = [
       { value: 1, title: "sport" },
       { value: 2, title: "virtualsports" },
-      { value: 5, title: "livedealer" },
+      { value: 5, title: "live" },
       { value: 7, title: "chess" },
       { value: 13, title: "lottery" },
-      { value: 15, title: "egame" },
+      { value: 15, title: "electron" },
     ];
     return (
       <Container>

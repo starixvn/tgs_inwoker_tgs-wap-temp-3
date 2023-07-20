@@ -1,14 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { wapBorderRadius } from "../../../../config/settings";
 
 const CustomInputfield = styled.input`
   font-size: 28px;
   min-height: 105px;
   border: none;
-  color: ${({ theme }) => {
-    return theme.textfieldColor ? theme.textfieldColor : "#fff";
-  }};
+  color: #fff;
 
   padding: ${({ withIcon }) => {
     return withIcon ? " 0px 50px 0 25px " : " 0px 50px";
@@ -20,16 +17,13 @@ const CustomInputfield = styled.input`
     font-size: 28px;
     opacity: 0.76;
     font-family: Montserrat;
-    color: ${({ theme }) => {
-      return theme.textfieldColor ? theme.textfieldColor : "#fff";
-    }};
   }
 `;
 
 const CustomInput = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"}
+  border-radius: 20px;
   padding: ${({ leaveTopGap }) => {
     return leaveTopGap ? `0 20px` : `20px 20px 0 20px`;
   }};
@@ -88,9 +82,10 @@ const CustomWrapper = styled.div`
   width: 100%;
   position: relative;
   display: flex;
-  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
+  border-radius: ${({ borderRadius }) => {
+    return borderRadius ? borderRadius : "50px";
+  }};
   align-items: center;
-  background: #fff;
 `;
 
 const Icon = styled.div`
@@ -99,9 +94,7 @@ const Icon = styled.div`
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: 80%;
-  background: ${({ theme }) => {
-    return theme.textfieldColor ? theme.textfieldColor : "#fff";
-  }};
+  background: #fff;
   width: 105px;
   height: 75px;
 `;

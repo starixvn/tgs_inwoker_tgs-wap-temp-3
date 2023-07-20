@@ -387,7 +387,11 @@ const AlwaysStickTop = styled.div`
   z-index: 3;
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   background: #000326;
+=======
+  background: #1b1d30;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 `;
 
 const Template13 = ({
@@ -651,6 +655,12 @@ const Template13 = ({
   return (
     <>
       <AlwaysStickTop>
+<<<<<<< HEAD
+=======
+        <AnnouncementSection>
+          <Marquee withOnlineUser />
+        </AnnouncementSection>
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
         <GameLister>
           {shared.theSorter(gameMenu2).map((i, index) => {
             //hide if 0 game found.
@@ -772,7 +782,11 @@ const Template13 = ({
                             config.sourceUrl
                           }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
                             row.code
+<<<<<<< HEAD
                           }.png`}
+=======
+                          }.jpg`}
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
                           id={
                             currentType !== row.type
                               ? `gameType${row.type}`

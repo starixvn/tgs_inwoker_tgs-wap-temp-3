@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+<<<<<<< HEAD
 import { wapBorderRadius } from "../../../config/settings";
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 
 const ContentWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+<<<<<<< HEAD
   padding: 0 20px;
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 `;
 const Content = styled.div`
   ${(props) =>
@@ -17,10 +23,17 @@ const Content = styled.div`
       drop-shadow(0 0 5px ${props.theme.primary}) contrast(1)
       brightness(1);`}
   height: 105px;
+<<<<<<< HEAD
   border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"}
   width: fit-content;
   font-size: 34px;
   min-width: 100%;
+=======
+  border-radius: 50px;
+  width: fit-content;
+  font-size: 34px;
+  min-width: fit-content;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
   color: ${({ theme }) =>
     theme.customButtonText ? theme.customButtonText : "#ffffff"};
   text-align: center;

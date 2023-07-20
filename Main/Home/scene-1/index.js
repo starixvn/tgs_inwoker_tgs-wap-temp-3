@@ -2,7 +2,10 @@ import React from "react";
 
 import Template11 from "./template11";
 import Template13 from "./template13";
+<<<<<<< HEAD
 import Template14 from "./template14";
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 
 const TemplateSwitcher = ({
   template,
@@ -51,8 +54,11 @@ const TemplateSwitcher = ({
         return <Template11 {...commonprops} />;
       case 13:
         return <Template13 {...commonprops} />;
+<<<<<<< HEAD
       case 14:
         return <Template14 {...commonprops} />;
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
       default:
         <Template13 {...commonprops} />;
     }

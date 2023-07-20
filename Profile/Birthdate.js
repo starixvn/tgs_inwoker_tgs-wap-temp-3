@@ -14,7 +14,10 @@ import zhLocale from "date-fns/locale/zh-CN";
 import enLocale from "date-fns/locale/en-US";
 import thLocale from "date-fns/locale/th";
 import styled from "styled-components";
+<<<<<<< HEAD
 import { wapBorderRadius } from "../../../config/settings";
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 
 const moment = require("moment");
 const localeMap = {
@@ -25,7 +28,10 @@ const localeMap = {
 
 const DatepickerWrapper = styled.div`
   padding: 40px 20px 0 20px;
+<<<<<<< HEAD
   margin: 0 0 20px 0;
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 `;
 
 const CustomDatepicker = styled.div`
@@ -35,8 +41,12 @@ const CustomDatepicker = styled.div`
   border: 1px solid #fff;
   zoom: 1.5;
   padding: 10px 30px;
+<<<<<<< HEAD
   border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
   background: #fff;
+=======
+  border-radius: 50px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
   min-height: 71px;
   display: flex;
   align-items: center;
@@ -44,6 +54,10 @@ const CustomDatepicker = styled.div`
 
   .MuiInputBase-input {
     background: none;
+<<<<<<< HEAD
+=======
+    color: #fff;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
     font-family: "Montserrat", sans-serif !important;
   }
 

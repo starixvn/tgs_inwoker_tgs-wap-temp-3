@@ -7,6 +7,10 @@ const CustomButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+<<<<<<< HEAD
+=======
+  padding-right: 20px;
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 `;
 
 const CustomColoredButton = styled.div`

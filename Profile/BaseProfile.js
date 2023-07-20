@@ -13,7 +13,10 @@ const Container = styled.div`
   overflow: hidden;
   min-height: 100vh;
   padding-bottom: 120px;
+<<<<<<< HEAD
   background: #000215;
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 `;
 
 class BaseProfile extends Component {
@@ -91,14 +94,22 @@ class BaseProfile extends Component {
         <div style={{ height: 90 }} />
         {body}
         {this.state.message}
+<<<<<<< HEAD
 
         <Button
           withSmallPadding
+=======
+        <Button
+          style={{ margin: "40px auto 0 auto" }}
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
           disabled={this.checkButtonState() || this.state.disableButton}
           onClick={this.handleSubmitClicked}
           label={buttonTitle}
         ></Button>
+<<<<<<< HEAD
 
+=======
+>>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
         {bottomNode || <BottomNote></BottomNote>}
         <Loading show={this.state.loading}></Loading>
       </Container>
