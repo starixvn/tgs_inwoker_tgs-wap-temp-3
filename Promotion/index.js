@@ -51,10 +51,6 @@ const ChestBoxContainer = styled.div`
   justify-content: center;
 `;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 const EmptyPromo = styled.div`
   background: url(${process.env.PUBLIC_URL +
     "/assets/images/promotion/promo-empty.png"})
@@ -66,11 +62,6 @@ const EmptyPromo = styled.div`
   height: 1240px;
 `;
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 class Promotion extends Component {
   state = {
     list: [],
@@ -154,10 +145,6 @@ class Promotion extends Component {
       <Container>
         <AppBarExtrator />
         <div style={{ height: 110 }} />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
         {this.props.general.promotionList.items.length <= 0 ? (
           <>
             <EmptyPromo></EmptyPromo>
@@ -165,46 +152,6 @@ class Promotion extends Component {
         ) : (
           <ListView>{layoutSwitcher(config.wapVersion)}</ListView>
         )}
-<<<<<<< HEAD
-=======
-=======
-        <ListView>
-          {this.props.general.promotionList.items.length <= 0 ? (
-            <>
-              <ChestBoxContainer>
-                <img
-                  style={{ width: 600 }}
-                  src={
-                    process.env.PUBLIC_URL +
-                    "/assets/images/promotion/chestbox.gif"
-                  }
-                  alt="chestbox"
-                />
-              </ChestBoxContainer>
-              <PromoEmptyTextLine
-                template={this.gradientSwitcher(config.wapVersion)}
-                gradient={this.textGradient(config.wapVersion)}
-                style={
-                  i18n.language === "en-US"
-                    ? { fontSize: "26px", padding: "0px 32px" }
-                    : {}
-                }
-              >
-                {i18n.t("promotion.emptyLine1")}
-              </PromoEmptyTextLine>
-              <PromoEmptyTextLine
-                template={this.gradientSwitcher(config.wapVersion)}
-                gradient={this.textGradient(config.wapVersion)}
-              >
-                {i18n.t("promotion.emptyLine2")}
-              </PromoEmptyTextLine>
-            </>
-          ) : (
-            layoutSwitcher(config.wapVersion)
-          )}
-        </ListView>
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
       </Container>
     );
   }

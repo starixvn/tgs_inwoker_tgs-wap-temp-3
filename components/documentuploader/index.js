@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import i18n from "../../../../utils/i18n";
-<<<<<<< HEAD
-import { wapBorderRadius } from "../../../../config/settings";
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
 
 const AnotherWrapper = styled.div`
   width: 700px;
@@ -39,17 +35,9 @@ const InputWrapper = styled.div`
   width: 100%;
   align-items: center;
   color: #fff;
-<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
-=======
-<<<<<<< HEAD
-  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"}
-=======
-  border-radius: 50px;
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   border: solid 1px #fff;
   padding: 0px 50px;
   background: none;

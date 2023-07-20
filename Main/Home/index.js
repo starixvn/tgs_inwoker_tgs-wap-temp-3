@@ -26,14 +26,7 @@ const StyledAppBar = withStyles({
 
 const CustomAppBar = styled(StyledAppBar)`
   background: none;
-<<<<<<< HEAD
   z-index: 9999;
-=======
-<<<<<<< HEAD
-  z-index: 9999;
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 
 const GameListContainer = styled.div`

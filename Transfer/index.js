@@ -19,14 +19,7 @@ import Textfield from "../components/textfield";
 import Button from "../components/button";
 import PageTitle from "../components/pagetitle";
 import { Textfit } from "react-textfit";
-<<<<<<< HEAD
 import { wapBorderRadius } from "../../../config/settings";
-=======
-<<<<<<< HEAD
-import { wapBorderRadius } from "../../../config/settings";
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 const Container = styled.div`
   width: 100%;
   overflow: hidden;
@@ -186,47 +179,21 @@ const ProviderContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   padding-bottom: 200px;
-<<<<<<< HEAD
   align-items: stretch;
-=======
-<<<<<<< HEAD
-  align-items: stretch;
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 
 const ProviderWrapper = styled.div`
   display: grid;
   grid-template-columns: 55% 45%;
-<<<<<<< HEAD
   background: #1b1d30;
   padding: 20px;
   border-radius: ${wapBorderRadius ? wapBorderRadius : ""};
-=======
-<<<<<<< HEAD
-  background: #1b1d30;
-  padding: 20px;
-  border-radius: ${wapBorderRadius ? wapBorderRadius : ""};
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 
 const TheProviderImages = styled.div`
   background: url(${({ src }) => src}) center no-repeat;
-<<<<<<< HEAD
   height: 100px;
   width: 100px;
-=======
-<<<<<<< HEAD
-  height: 100px;
-  width: 100px;
-=======
-  height: 150px;
-  width: 150px;
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   background-size: 100%;
 `;
 

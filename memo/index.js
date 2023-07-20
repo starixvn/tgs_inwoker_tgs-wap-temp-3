@@ -57,13 +57,9 @@ const CustomTabText = styled.div`
   padding: 15px 35px;
   background: #27273f;
 
-<<<<<<< HEAD
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
-=======
-  border-radius: ${wapBorderRadius ? wapBorderRadius : "50px"};
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 
 const CustomTab = styled.div`

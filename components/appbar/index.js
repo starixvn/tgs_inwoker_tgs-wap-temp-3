@@ -19,18 +19,9 @@ import { CustomThemedButton2 } from "./buttons/custom2";
 import { CustomThemedButton3 } from "./buttons/custom3";
 import { StandardThemedButton } from "./buttons/standard";
 
-<<<<<<< HEAD
 import BalanceDisplayer from "../balance";
 import Drawer from "../drawer";
 
-=======
-<<<<<<< HEAD
-import BalanceDisplayer from "../balance";
-import Drawer from "../drawer";
-
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 const NewAppBar = styled.div`
   position: fixed;
   top: 0;
@@ -61,14 +52,7 @@ const LogoHolder = styled.div`
 const MakeFloatCenter = styled.div`
   display: flex;
   align-items: center;
-<<<<<<< HEAD
   padding-right: 20px;
-=======
-<<<<<<< HEAD
-  padding-right: 20px;
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 `;
 const VerticalLayoutContainer = styled.div`
   display: flex;
@@ -195,10 +179,6 @@ const RightContainer = styled.div`
   padding-right: 215px;
 `;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 const BalanceContainer = styled.div`
   background: #000325;
   border-radius: 20px;
@@ -214,11 +194,6 @@ const BalanceContainer = styled.div`
   }
 `;
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
 const AppBarExtrator = ({
   account,
   general,
@@ -246,35 +221,15 @@ const AppBarExtrator = ({
   };
 
   const buttonTypeSwitcher = (template) => {
-<<<<<<< HEAD
     switch (parseInt(template)) {
-=======
-<<<<<<< HEAD
-    switch (parseInt(template)) {
-=======
-    switch (template) {
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
       case 10:
         return <CustomThemedButton handleSignupClick={handleSignupClick} />;
       case 11:
         return <CustomThemedButton2 handleSignupClick={handleSignupClick} />;
-<<<<<<< HEAD
       case 14:
       case 13:
         return <CustomThemedButton3 handleSignupClick={handleSignupClick} />;
 
-=======
-<<<<<<< HEAD
-      case 14:
-      case 13:
-        return <CustomThemedButton3 handleSignupClick={handleSignupClick} />;
-
-=======
-      case 13:
-        return <CustomThemedButton3 handleSignupClick={handleSignupClick} />;
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
       default:
         return <StandardThemedButton handleSignupClick={handleSignupClick} />;
     }
@@ -294,10 +249,6 @@ const AppBarExtrator = ({
     accountLogout(account.token).then((response) => {});
   };
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   const AppBarVariant1 = () => {
     return (
       <>
@@ -446,11 +397,6 @@ const AppBarExtrator = ({
     }
   };
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
   return (
     <NewAppBar>
       <div>
@@ -464,14 +410,7 @@ const AppBarExtrator = ({
               return (
                 <MakeFloatCenter>
                   {buttonTypeSwitcher(config.wapVersion)}
-<<<<<<< HEAD
                   {config.wapVersion === 14 && <Drawer />}
-=======
-<<<<<<< HEAD
-                  <Drawer />
-=======
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
                 </MakeFloatCenter>
               );
             } else {
@@ -505,159 +444,8 @@ const AppBarExtrator = ({
                             VIP
                           </div>
                         )}
-<<<<<<< HEAD
                       {appbarSwitcher(config.wapVersion)}
                       {config.wapVersion === 14 && <Drawer />}
-=======
-<<<<<<< HEAD
-                      {appbarSwitcher(config.wapVersion)}
-                      {config.wapVersion === 14 && <Drawer />}
-=======
-                      <UsernameContainer
-                        onClick={() => {
-                          AppHistory.push("/profile");
-                        }}
-                      >
-                        <UsernameText
-                          style={{
-                            fontSize: config.features.NewTransferUI && 15,
-                            textAlign: config.features.NewTransferUI && "right",
-                          }}
-                        >
-                          {account.info.member_username}
-                        </UsernameText>
-
-                        {(config.features.HomePageDisplayBalance ||
-                          config.features.NewTransferUI) && (
-                          <div
-                            style={{
-                              display: "flex",
-                              width: 250,
-                              justifyContent: "flex-end",
-                            }}
-                          >
-                            <Textfit mode="single" min={20}>
-                              <Balance
-                                onClick={(e) => {
-                                  handleClick(e);
-                                }}
-                              >
-                                <span>{i18n.t("web.header.mainAccount")}:</span>
-                                {wallet.mainSymbol +
-                                  Common.formatNumberWithThousand(
-                                    wallet.mainBalance +
-                                      game.providerList
-                                        .filter(
-                                          (item) =>
-                                            item.status === 0 &&
-                                            item.transferwallet === true
-                                        )
-                                        .reduce(
-                                          (a, v) => (a = a + v.balance),
-                                          0
-                                        )
-                                  )}
-                              </Balance>
-                            </Textfit>
-                            <CustomPopover
-                              CustomPopover
-                              height="1000px"
-                              open={Boolean(anchorEl)}
-                              anchorEl={anchorEl}
-                              handleClose={handleClose}
-                            >
-                              <div>
-                                <BrandAndBalanceButBigger>
-                                  <span style={{ paddingRight: 30 }}>
-                                    {i18n.t("web.header.mainAccount")}
-                                  </span>
-                                  <div
-                                    style={{
-                                      width: 300,
-                                      display: "flex",
-                                      alignSelf: "flex-end",
-                                      justifyContent: "flex-end",
-                                    }}
-                                  >
-                                    <Textfit mode="single">
-                                      {wallet.mainSymbol +
-                                        Common.formatNumberWithThousand(
-                                          wallet.mainBalance +
-                                            game.providerList
-                                              .filter(
-                                                (item) =>
-                                                  item.status === 0 &&
-                                                  item.transferwallet === true
-                                              )
-                                              .reduce(
-                                                (a, v) => (a = a + v.balance),
-                                                0
-                                              )
-                                        )}
-                                    </Textfit>
-                                  </div>
-                                </BrandAndBalanceButBigger>
-                              </div>
-                              {SortedMenuList.map((item, key) => {
-                                return (
-                                  <GameType>
-                                    <GameTypeName>
-                                      {i18n.t(item.title)}
-                                    </GameTypeName>
-                                    {game.homePageGameList
-                                      .filter((game) => {
-                                        return (
-                                          (item.gameType.indexOf(game.type) >=
-                                            0 &&
-                                            game.gameType !==
-                                              GameTypeEnum.RNGSPORTS) ||
-                                          (game.gameType ===
-                                            GameTypeEnum.RNGSPORTS &&
-                                            game.abbreviation === "PPTF")
-                                        );
-                                      })
-                                      .map((brand, index) => {
-                                        return game.providerList
-                                          .filter((item) => {
-                                            return (
-                                              item.abbreviation ===
-                                                brand.abbreviation &&
-                                              item.transferwallet === true
-                                            );
-                                          })
-                                          .map((data, index) => {
-                                            return (
-                                              <BrandAndBalance>
-                                                <Brand>
-                                                  {i18n.t(
-                                                    `${data.abbreviation}.${item.path}`
-                                                  )}
-                                                </Brand>
-                                                <Balancex>
-                                                  {data.maintenance === 1
-                                                    ? i18n.t(
-                                                        "transfer.maintenance"
-                                                      )
-                                                    : Common.formatNumberWithCommas(
-                                                        data.balance
-                                                      )}
-                                                </Balancex>
-                                              </BrandAndBalance>
-                                            );
-                                          });
-                                      })}
-                                  </GameType>
-                                );
-                              })}
-                            </CustomPopover>
-                          </div>
-                        )}
-                      </UsernameContainer>
-                      <CustomColoredButton primary onClick={handleLogout}>
-                        {i18n.t("web.header.logout")}
-                      </CustomColoredButton>
->>>>>>> a363aa78807aab964cfa05cecabfa9677caecc82
->>>>>>> f1b0523a14811655fde1878a8cb58ebf4a615d14
                     </CustomButtonContainer>
                     {config.wapVersion === 11 && config.features.OnlineUser && (
                       <OnlineUserDisplayer
