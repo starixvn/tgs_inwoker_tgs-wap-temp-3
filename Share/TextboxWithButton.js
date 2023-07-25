@@ -5,7 +5,9 @@ const CustomText = styled.div`
   height: 170px;
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "20px";
+  }};
   padding: 40px 20px 0 20px;
   margin: 20px auto;
 `;

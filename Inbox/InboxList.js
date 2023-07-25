@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 import styled from "styled-components";
 
-import { Collapse, Dialog } from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
+import { wapBorderRadius } from "../../../config/settings";
 const moment = require("moment");
 const CheckboxContainer = styled.div`
   float: left;
@@ -21,22 +22,13 @@ const ContentContainer = styled.div`
 
   background: #202137;
   color: #fff;
-  border-radius: 75px;
+  border-radius: ${wapBorderRadius ? wapBorderRadius : "75px"};
   padding: 40px 70px;
 `;
 
 const ListItem = styled.div`
   width: 100%;
   margin: 20px auto;
-`;
-const MsgTitle = styled.div`
-  width: 100%;
-  font-weight: ${(props) => (props.isread === true ? "normal" : "600")};
-  font-size: 30px;
-  float: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 const MsgTitleSpan = styled.span`
@@ -93,14 +85,6 @@ const LetterContent = styled.div`
       : `
   display: none;
       `}
-`;
-
-const ArrowDown = styled.div`
-  height: 20px;
-  width: 20px;
-  background: url(${process.env.PUBLIC_URL +
-  `/assets/images/wapp/arrow-down.svg`});
-  margin-right: 20px;
 `;
 
 const Lettercontainer = styled.div`

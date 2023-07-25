@@ -7,7 +7,6 @@ const CustomButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 20px;
 `;
 
 const CustomColoredButton = styled.div`

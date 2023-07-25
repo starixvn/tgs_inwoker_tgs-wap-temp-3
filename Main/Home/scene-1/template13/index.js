@@ -387,7 +387,7 @@ const AlwaysStickTop = styled.div`
   z-index: 3;
   display: flex;
   flex-direction: column;
-  background: #1b1d30;
+  background: #000326;
 `;
 
 const Template13 = ({
@@ -775,7 +775,7 @@ const Template13 = ({
                             config.sourceUrl
                           }${row.gpcode.toUpperCase()}/${Common.getCDNLanguagePrefix()}/${
                             row.code
-                          }.jpg`}
+                          }.png`}
                           id={
                             currentType !== row.type
                               ? `gameType${row.type}`

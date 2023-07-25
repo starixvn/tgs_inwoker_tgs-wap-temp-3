@@ -1,0 +1,52 @@
+import React, { useState } from "react";
+import Textbox from "../../Share/Textbox";
+import i18n from "../../../../utils/i18n";
+import ButtonWap from "../../../Share/ButtonWap";
+import Button from "../../components/button";
+
+const Compose = ({ composeMemo, alert }) => {
+  const [subject, setSubject] = useState("");
+  const [content, setContent] = useState("");
+
+  const performClickCompose = () => {
+    composeMemo(subject, content).then((result) => {
+      if (result.IsSuccess) {
+        setSubject("");
+        setContent("");
+        alert(i18n.t("sendsuccess"));
+      }
+    });
+  };
+
+  return (
+    <div>
+      <Textbox
+        style={{ margin: "50px auto 20px auto" }}
+        value={subject}
+        onChange={(e) => {
+          setSubject(e.target.value);
+        }}
+        placeholder={i18n.t("pleaseenter") + i18n.t("subject")}
+        label={i18n.t("subject")}
+      ></Textbox>
+      <Textbox
+        style={{ margin: "50px auto 20px auto" }}
+        value={content}
+        placeholder={i18n.t("pleaseenter") + i18n.t("memo")}
+        onChange={(e) => {
+          setContent(e.target.value);
+        }}
+        label={i18n.t("memo")}
+      ></Textbox>
+      <Button
+        style={{ padding: "10px 0" }}
+        onClick={() => {
+          performClickCompose();
+        }}
+        label={i18n.t("common.submit")}
+      />
+    </div>
+  );
+};
+
+export default Compose;

@@ -11,12 +11,9 @@ import {
 import { withRouter } from "react-router-dom";
 import Common from "../../../utils/Common";
 import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import Header from "../Share/Header";
 import { withStyles } from "@material-ui/core/styles";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import Modal from "@material-ui/core/Dialog";
 import Loading from "../../Wap/Share/Loading";
 import i18n from "../../../utils/i18n";
 import Details from "./Details";
@@ -26,6 +23,7 @@ import Main from "./Main";
 import MainHKJP from "./MainHKJP";
 import PopupAnnouncement from "../../Share/PopupAnnouncement";
 import ErrorSwitcher from "../../../utils/ErrorSwitcher";
+import { wapBorderRadius } from "../../../config/settings";
 const Container = styled.div`
   padding-top: 85px;
   padding-bottom: 120px;
@@ -47,49 +45,8 @@ const StyledAppBar = withStyles({
   },
 })(AppBar);
 
-const StyledModalPopup = withStyles((theme) => ({
-  paper: {
-    borderRadius: "50px",
-    fontSize: "28px",
-    color: "#666666",
-    padding: "30px",
-    width: "600px",
-    maxWidth: "690px",
-    display: "block",
-  },
-}))(Modal);
-
-const DialoTitle = styled.div`
-  font-size: 36px;
-  font-weight: 600;
-  margin: 0 auto;
-  display: table;
-  color: #4a4a4a;
-`;
-const DialoMessage = styled.div`
-  font-size: 26px;
-  margin: 30px 45px;
-  color: #4a4a4a;
-  line-height: 1.8em;
-  text-align: center;
-`;
-
-const ButtonConfirm = styled.div`
-  width: 250px;
-  height: 90px;
-  border-radius: 20px;
-  font-size: 34px;
-  text-align: center;
-  padding-top: 24px;
-  margin: 10px auto;
-  background-image: linear-gradient(to top, ${({ theme }) =>
-    theme.primaryGradient},
-      ${({ theme }) => (theme.wapPrimary ? theme.wapPrimary : theme.primary)}));
-  color: #ffffff;
-`;
-
 const CustomTabs = styled.div`
-  background: #1b1d30 ;
+  background: ${({ theme }) => theme.body};
   position: relative;
   display: -webkit-box;
   overflow-x: auto;
@@ -100,40 +57,9 @@ const CustomTabButton = styled.div`
   font-size: 28px;
   background: #27273f;
   padding: 20px 40px;
-  border-radius: 50px;
-`;
-
-const Arrow = styled.div`
-  width: 40px;
-  height: 90px;
-  position: sticky;
-`;
-
-const ArrowLeft = styled(Arrow)`
-  mask: url(${process.env.PUBLIC_URL +
-    `/assets/images/wapp/btn-back-white.png`})
-    no-repeat center;
-  background: ${({ theme }) => theme.primaryText};
-
-  left: 10px;
-
-  ${({ display }) => {
-    return display ? "display: none" : "display: block";
-  }}
-`;
-
-const ArrowRight = styled(Arrow)`
-  mask: url(${process.env.PUBLIC_URL +
-    `/assets/images/wapp/btn-back-white.png`})
-    no-repeat center;
-  background: ${({ theme }) => theme.primaryText};
-
-  right: 10px;
-  rotate: 180deg;
-
-  ${({ display }) => {
-    return display ? "display: none" : "display: block";
-  }}
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
 `;
 
 const CustomTab = styled.div`

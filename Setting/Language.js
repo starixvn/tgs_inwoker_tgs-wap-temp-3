@@ -4,29 +4,13 @@ import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import Header from "../Share/Header";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-
-import CheckIcon from "@material-ui/icons/Check";
 import i18n from "../../../utils/i18n";
 import { withStyles } from "@material-ui/core/styles";
 import CustomButton from "../Share/Button";
 
 import { generalAction } from "../../../api-services/actions/generalAction";
 import { uiAction } from "../../../api-services/actions/uiAction";
-import { GeneralService } from "../../../api-services/services/GeneralService";
-import ErrorSwitcher from "../../../utils/ErrorSwitcher";
 
-const imageMap = {
-  "zh-CN": process.env.PUBLIC_URL + `/assets/images/wapp/cn.png`,
-  "zh-TW": process.env.PUBLIC_URL + `/assets/images/wapp/tw.png`,
-  "en-US": process.env.PUBLIC_URL + `/assets/images/wapp/en.png`,
-  "th-TH": process.env.PUBLIC_URL + `/assets/images/wapp/th.png`,
-  "vi-VN": process.env.PUBLIC_URL + `/assets/images/wapp/vn.png`,
-  "id-ID": process.env.PUBLIC_URL + `/assets/images/wapp/id.png`,
-};
 const Container = styled.div`
   width: 100%;
   overflow: hidden;
@@ -43,12 +27,14 @@ const CustomList = withStyles({
   },
 })(List);
 const CustomListItem = styled.div`
-  padding: 10px 100px;
+  padding: 10px 20px 0 20px;
 `;
 const CustomListItemText = styled.div`
   background: #202137;
   padding: 30px 40px;
-  border-radius: 50px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
+  }};
   text-align: center;
   color: #fff;
 
