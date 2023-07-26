@@ -160,8 +160,8 @@ const LowerPart = styled.div`
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-  padding: 80px 40px 40px 40px;
+  gap: 20px;
+  padding: 80px 20px 40px 20px;
   align-content: start;
 `;
 
@@ -176,7 +176,7 @@ const MenuButtons = styled.div`
   align-items: center;
   justify-content: flex-start;
   text-align: center;
-  font-size: 25px;
+  font-size: 20px;
   gap: 20px;
   position: relative;
 `;
@@ -261,6 +261,11 @@ const My = ({
         icon: "icon-profile-inbox",
         title: i18n.t("memo"),
         to: "/memo",
+      },
+      {
+        icon: "announcement",
+        title: i18n.t("announcement"),
+        to: "/news",
       },
       {
         icon: "icon-profile-report",
