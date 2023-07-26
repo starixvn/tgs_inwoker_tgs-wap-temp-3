@@ -156,12 +156,12 @@ const UpperPart = styled.div`
 
 const LowerPart = styled.div`
   background: #000325;
-  min-height: 70vh;
+  min-height: 80vh;
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  padding: 80px 20px 40px 20px;
+  padding: 80px 20px 120px 20px;
   align-content: start;
 `;
 
