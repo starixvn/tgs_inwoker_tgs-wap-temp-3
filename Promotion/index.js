@@ -8,6 +8,8 @@ import config from "../../../config/config";
 import LayoutOne from "./layout/layout-one";
 import LayoutTwo from "./layout/layout-two";
 import AppBarExtrator from "./../../Wap/components/appbar";
+import Header from "../Share/Header";
+
 const Container = styled.div`
   width: 100%;
   overflow: hidden;
@@ -143,7 +145,12 @@ class Promotion extends Component {
 
     return (
       <Container>
-        <AppBarExtrator />
+        <Header
+          title={i18n.t("Promotion")}
+          onBackClick={() => {
+            this.handleBackClick();
+          }}
+        />
         <div style={{ height: 110 }} />
         {this.props.general.promotionList.items.length <= 0 ? (
           <>

@@ -113,7 +113,7 @@ const Variant1 = ({ open, handleClose, account, logout }) => {
     { title: "message", path: "/inbox" },
     { title: "announcement", path: "/news" },
     { title: "changepassword", path: "/profile/changepassword" },
-    { title: "changemoneypassword" },
+
     { title: "betrecord", path: "/report/2" },
     { title: "language", path: "/setting/language" },
     {

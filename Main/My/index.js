@@ -293,6 +293,11 @@ const My = ({
         to: "/report/8",
       },
       {
+        icon: "collection",
+        title: i18n.t("myfavorite"),
+        to: "/favorite",
+      },
+      {
         icon: "icon-vip",
         title: "VIP",
         to: "/vip",

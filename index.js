@@ -79,6 +79,7 @@ import Privacy from "./privacy";
 import Responsible from "./responsible";
 import Support from "./Main/Support";
 import memo from "./memo";
+import MyFavorites from "./Favorite";
 
 const baseRouteUrl = Common.baseRouteUrl;
 const StyledModal = withStyles((theme) => ({
@@ -305,6 +306,12 @@ const RouteMapping = [
   {
     path: "/memo",
     component: memo,
+    alert: true,
+    navigate: true,
+  },
+  {
+    path: "/favorite",
+    component: MyFavorites,
     alert: true,
     navigate: true,
   },
