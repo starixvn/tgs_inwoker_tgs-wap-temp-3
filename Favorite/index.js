@@ -36,6 +36,22 @@ const DisplayTheItem = styled.div`
   gap: 10px;
 `;
 
+const NoContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  height: 70vh;
+  justify-content: center;
+`;
+
+const NoContentImage = styled.div`
+  background: url(${(props) => props.image});
+  height: 200px;
+  width: 200px;
+  background-size: cover;
+`;
+
 const MyFavorites = () => {
   const [list, setList] = useState([]);
   const [gameList, setGameList] = useState([]);
@@ -171,7 +187,17 @@ const MyFavorites = () => {
             })}
           </GameDisplayer>
         ) : (
-          "123"
+          <NoContent>
+            <NoContentImage
+              image={
+                process.env.PUBLIC_URL +
+                "/assets/images/pcAccountMenu/no-favorite.svg"
+              }
+              alt=""
+            />
+            <div>{i18n.t("myfavoriteDescription1")}</div>
+            <div>{i18n.t("myfavoriteDescription2")}</div>
+          </NoContent>
         )}
       </Container>
     </>
