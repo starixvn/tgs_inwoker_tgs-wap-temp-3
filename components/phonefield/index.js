@@ -5,18 +5,23 @@ const CustomInputfield = styled.input`
   font-size: 28px;
   min-height: 105px;
   border: none;
-  color: #fff;
+  color: ${({ theme }) => {
+    return theme.textfieldColor ? theme.textfieldColor : "#fff";
+  }};
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
   border: ${({ variant }) => border(variant)};
   padding: 0px 20px;
 
-  background: ${({ variant }) => background(variant)};
+  background: ${({ variant, theme }) => background(variant, theme)};
   font-family: "Montserrat", sans-serif;
   ::placeholder {
     font-size: 28px;
     opacity: 0.76;
+    color: ${({ theme }) => {
+      return theme.textfieldColor ? theme.textfieldColor : "#fff";
+    }};
   }
 `;
 
@@ -93,13 +98,15 @@ const CustomSelect = styled.select`
   font-size: 28px;
   min-height: 105px;
   border: none;
-  color: #fff;
+  color: ${({ theme }) => {
+    return theme.textfieldColor ? theme.textfieldColor : "#fff";
+  }};
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
   border: ${({ variant }) => border(variant)};
   padding: 0px 10px 0 20px;
-  background: ${({ variant }) => background(variant)};
+  background: ${({ variant, theme }) => background(variant, theme)};
   width: 100%;
 
   -webkit-appearance: none;
@@ -142,16 +149,16 @@ const padding = (variant) => {
   }
 };
 
-const background = (variant) => {
+const background = (variant, theme) => {
   switch (variant) {
     case "loginregister":
       return "none";
     default:
-      return "none";
+      return theme.inputBackground ? theme.inputBackground : "transparent";
   }
 };
 
-const border = (variant) => {
+const border = (variant, theme) => {
   switch (variant) {
     case "loginregister":
       return "solid 1px #fff";
