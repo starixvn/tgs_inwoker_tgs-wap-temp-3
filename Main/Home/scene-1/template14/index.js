@@ -12,10 +12,11 @@ import SlotTypeGameScene from "./scene/slottype";
 import ListTypeGameScene from "./scene/listtype";
 import NormalScene from "./scene/normal";
 import { useRef } from "react";
+import Marquee from "../../Marquee";
 
 const GameLister = styled.div`
   overflow: auto;
-  padding-top: 130px;
+
   overflow: auto;
   padding-right: 20px;
   display: -webkit-box;
@@ -23,6 +24,10 @@ const GameLister = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const TopSectionWrapper = styled.div`
+  padding-top: 130px;
 `;
 
 const TheText = styled.div`
@@ -103,44 +108,7 @@ const GridWrapper = styled.div`
   align-content: baseline;
 `;
 
-const GameFrameImg = styled.div`
-  display: block;
-
-  aspect-ratio: 1;
-
-  background: url(${(props) => props.src}) no-repeat;
-  background-position: center;
-  background-size: cover;
-`;
-
-const Maintenance = styled.div`
-  display: none;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  z-index: 2;
-  font-size: 40px;
-  font-weight: bold;
-  text-transform: capitalize;
-`;
-
-const LogoOverlay = styled.div`
-  display: flex;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  z-index: 0;
-  font-size: 40px;
-  font-weight: bold;
-  text-transform: capitalize;
-  background: rgba(0, 0, 0, 0.5);
-`;
+const MarqueeContainer = styled.div``;
 
 const Template14 = ({
   gameMenu2,
@@ -149,7 +117,7 @@ const Template14 = ({
   getImgPrefix,
   handleGameClick,
   token,
-
+  general,
   account,
 }) => {
   const [selected, setSelected] = useState("");
@@ -290,6 +258,7 @@ const Template14 = ({
     checking: checking,
     account: account,
     favList: favList,
+    general: general,
     handleJoinGameClick: handleJoinGameClick,
     navigateToSlot: navigateToSlot,
     setFavGame: setFavGame,
@@ -326,45 +295,51 @@ const Template14 = ({
 
   return (
     <HomePageWrapper>
-      <GameLister>
-        {shared.theSorter(gameMenu2).map((i, index) => {
-          //hide if 0 game found.
-          var newList = homePageGameList.filter(
-            (game) => i.type.indexOf(game.type) >= 0
-          );
-          if (newList.length > 0) {
-            return (
-              <ListerWrapper
-                index={index}
-                style={{ position: "relative" }}
-                selected={selected === i.type}
-              >
-                <GameListItem
-                  selected={selected === i.type}
-                  onClick={() => {
-                    window.scrollTo(0, 0);
-                    setLoading(false);
-                    if (selected === i.type) {
-                      setSelected("");
-                    } else {
-                      if (gameTypeToDisplayDifferently(selected)) {
-                        setLoading(true);
-                      }
-
-                      changeShowGame(i.type);
-                      setSelected(i.type);
-                    }
-                  }}
-                >
-                  <GameListItemIcon src={i.type} />
-                  <TheText style={{ zIndex: 1 }}>{i18n.t(i.title)}</TheText>
-                </GameListItem>
-              </ListerWrapper>
+      <TopSectionWrapper>
+        {(gameTypeToDisplayDifferently(selected) || selected !== "") && (
+          <MarqueeContainer>
+            <Marquee variant="2" />
+          </MarqueeContainer>
+        )}
+        <GameLister>
+          {shared.theSorter(gameMenu2).map((i, index) => {
+            //hide if 0 game found.
+            var newList = homePageGameList.filter(
+              (game) => i.type.indexOf(game.type) >= 0
             );
-          }
-        })}
-      </GameLister>
+            if (newList.length > 0) {
+              return (
+                <ListerWrapper
+                  index={index}
+                  style={{ position: "relative" }}
+                  selected={selected === i.type}
+                >
+                  <GameListItem
+                    selected={selected === i.type}
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      setLoading(false);
+                      if (selected === i.type) {
+                        setSelected("");
+                      } else {
+                        if (gameTypeToDisplayDifferently(selected)) {
+                          setLoading(true);
+                        }
 
+                        changeShowGame(i.type);
+                        setSelected(i.type);
+                      }
+                    }}
+                  >
+                    <GameListItemIcon src={i.type} />
+                    <TheText style={{ zIndex: 1 }}>{i18n.t(i.title)}</TheText>
+                  </GameListItem>
+                </ListerWrapper>
+              );
+            }
+          })}
+        </GameLister>
+      </TopSectionWrapper>
       <GridWrapper>{sceneTypeSwitcher()}</GridWrapper>
     </HomePageWrapper>
   );

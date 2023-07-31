@@ -10,6 +10,7 @@ import config from "../../../../config/config";
 import Header from "../../Share/Header";
 import Appbar from "../../components/appbar";
 import BalanceDisplayer from "../../components/balance";
+import Marquee from "../Home/Marquee";
 
 const Container = styled.div`
   width: 100%;
@@ -142,6 +143,7 @@ const UpperPart = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 20vh;
+  margin-top: -1px;
   gap: 30px;
   background: #242958;
   .title {
@@ -188,6 +190,9 @@ const Icon2 = styled(Icon)`
   margin: 0;
 `;
 
+const MarqueeContainer = styled.div`
+  background: #242958;
+`;
 const My = ({
   account,
   wallet,
@@ -462,6 +467,10 @@ const My = ({
     return (
       <MinTextSize>
         <Appbar />
+        <MarqueeContainer>
+          <Marquee variant="2" />
+        </MarqueeContainer>
+
         <UpperPart>
           <div className="title">{account.info.member_username}</div>
           <div className="scaleup">
