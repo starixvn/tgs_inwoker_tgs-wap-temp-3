@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Textbox from "../../Share/Textbox";
 import i18n from "../../../../utils/i18n";
 import ButtonWap from "../../../Share/ButtonWap";
-import Button from "../../components/button";
 
 const Compose = ({ composeMemo, alert }) => {
   const [subject, setSubject] = useState("");
@@ -38,12 +37,11 @@ const Compose = ({ composeMemo, alert }) => {
         }}
         label={i18n.t("memo")}
       ></Textbox>
-      <Button
-        style={{ padding: "10px 0" }}
+      <ButtonWap
         onClick={() => {
           performClickCompose();
         }}
-        label={i18n.t("common.submit")}
+        name={i18n.t("common.submit")}
       />
     </div>
   );

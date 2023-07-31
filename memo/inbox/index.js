@@ -96,7 +96,7 @@ const ActionButtonWrapper = styled.div`
   padding-top: 50px;
 `;
 
-const Inbox = ({ memo, getMemoV2, performReplyMemo }) => {
+const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
   const [memoSubject, setMemoSubject] = useState("");
@@ -105,6 +105,7 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo }) => {
   const performReadInbox = (id) => {
     getMemoV2(id).then((res) => {
       if (res.IsSuccess) {
+        readMemo(id);
         setContent(res.data);
         setOpen(true);
       }

@@ -7,7 +7,6 @@ import styled from "styled-components";
 import Compose from "./compose";
 import Sent from "./sent";
 import Inbox from "./inbox";
-import { wapBorderRadius } from "../../../config/settings";
 
 const Container = styled.div`
   width: 700px;
@@ -36,43 +35,8 @@ const Tabs = styled.div`
       font-weight: bold;`
       : `bordeR: solid 1px ${theme.primary};opacity: 0.8;`;
   }}
-  font-size: 30px;
+
   border-radius: 20px;
-`;
-
-const CustomTabs = styled.div`
-  font-size: 25px;
-  width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 30px 5px 15px 5px;
-`;
-
-const CustomTabText = styled.div`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  padding: 15px 35px;
-  background: #27273f;
-
-  border-radius: ${({ theme }) => {
-    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
-  }};
-`;
-
-const CustomTab = styled.div`
-  color: #fff;
-  font-size: 28px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  ${CustomTabText} {
-    ${({ selected, theme }) => {
-      return selected && `background: ${theme.primary}`;
-    }};
-  }
 `;
 
 const Memo = ({
@@ -154,9 +118,9 @@ const Memo = ({
   };
   const Tab = ({ name }) => {
     return (
-      <CustomTab selected={name === selected} onClick={() => setSelected(name)}>
-        <CustomTabText> {i18n.t(name)}</CustomTabText>
-      </CustomTab>
+      <Tabs active={name === selected} onClick={() => setSelected(name)}>
+        {i18n.t(name)}
+      </Tabs>
     );
   };
 
@@ -183,11 +147,11 @@ const Memo = ({
         title={i18n.t("memo")}
       ></Header>
       <div style={{ height: 90 }} />
-      <CustomTabs>
+      <UpperTabContainer>
         <Tab name="compose" />
         <Tab name="memoinbox" />
         <Tab name="sent" />
-      </CustomTabs>
+      </UpperTabContainer>
       <Container>
         <div>{contentSwitcher()}</div>
       </Container>
