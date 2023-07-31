@@ -31,7 +31,9 @@ const CustomColoredButton = styled.div`
   padding: 10px 40px;
   font-size: 28px;
   margin: 0px 10px;
-  border-radius: 15px;
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "15px";
+  }};
 `;
 const TransparentColoredButton = styled(CustomColoredButton)`
   border: solid 1px #fff;
@@ -68,7 +70,6 @@ export const CustomThemedButton3 = ({ props }) => {
         onClick={() => {
           AppHistory.push("/login");
         }}
-        style={{ borderRadius: 30 }}
       >
         {i18n.t("common.login")}
       </TransparentColoredButton>
@@ -77,7 +78,6 @@ export const CustomThemedButton3 = ({ props }) => {
         onClick={() => {
           AppHistory.push("/login?do=register");
         }}
-        style={{ borderRadius: 30 }}
       >
         {i18n.t("common.register")}
       </CustomColoredButton>

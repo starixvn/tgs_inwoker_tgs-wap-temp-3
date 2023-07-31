@@ -4,6 +4,8 @@ import ContentWrapper from "../../contentwrapper";
 import i18n from "../../../../../../../../utils/i18n";
 import { AppHistory } from "../../../../../../../../history/History";
 import Marquee from "../../../../Marquee";
+import Banner from "../../../banner";
+import config from "../../../../../../../../config/config";
 
 const MarqueeContainer = styled.div`
   background: #181c42;
@@ -64,9 +66,20 @@ const NormalScene = ({
   navigateToSlot,
   setFavGame,
   removeFavGame,
+  general,
 }) => {
   return (
     <>
+      {" "}
+      <Banner
+        height={config.brand === "GMO" && "315px"}
+        sameAsText={config.brand === "GMO"}
+        noPadding={true}
+        updown="only-banner"
+        banner={general.banner}
+        // appHistory={this.props.appHistory}
+        token={account.token}
+      />
       <MarqueeContainer>
         <Marquee />
       </MarqueeContainer>
