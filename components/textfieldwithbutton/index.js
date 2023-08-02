@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import i18n from "../../../../utils/i18n";
 const CustomInputfield = styled.input`
   font-size: 28px;
   min-height: 105px;
@@ -20,7 +20,7 @@ const CustomInputfield = styled.input`
   width: 100%;
   font-family: "Montserrat", sans-serif;
   ::placeholder {
-    font-size: 28px;
+    font-size: ${(props)=> i18n.language === "ta-IN" ? "20px" : "28px"};
     opacity: 0.76;
     color: ${({ theme }) => {
       return theme.textfieldColor ? theme.textfieldColor : "#fff";
@@ -71,6 +71,16 @@ const Button = styled.div`
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
   background: ${({ theme }) => theme.primary};
+
+  ${(props) =>
+    i18n.language === "ta-IN"
+      ? `
+  width: 200px;
+  height: 80px;
+  margin-top: 4px;
+  `
+      : ``}
+
 `;
 
 const TextfieldWithButton = ({

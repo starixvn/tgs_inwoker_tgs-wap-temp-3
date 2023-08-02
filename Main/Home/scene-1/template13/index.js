@@ -38,13 +38,15 @@ const GameLister = styled.div`
 `;
 
 const TheText = styled.div`
-  font-size: 20px;
-  white-space: nowrap;
+  font-size: ${(props) => (i18n.language === "ta-IN" ? "18px" : "20px")};
+  white-space: ${(props) =>
+    i18n.language === "ta-IN" ? "break-spaces" : "nowrap"};
   width: 150px;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 10px 0;
+  ${(props) => (i18n.language === "ta-IN" ? `height: 55px;` : ``)}
 
   color: ${({ theme }) => theme.gamelisterOriginalText};
   ${() => config.brand === "TIGER" && `font-weight: bold; font-size: 24px;`}

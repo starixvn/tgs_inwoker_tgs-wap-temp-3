@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { wapBorderRadius } from "../../../../config/settings";
-
+import i18n from "../../../../utils/i18n";
 const CustomInputfield = styled.input`
   font-size: 28px;
   min-height: 105px;
@@ -17,7 +17,7 @@ const CustomInputfield = styled.input`
   width: 100%;
 
   ::placeholder {
-    font-size: 28px;
+    font-size: ${(props)=> i18n.language === "ta-IN" ? "20px" : "28px"};
     opacity: 0.76;
     font-family: Montserrat;
     color: ${({ theme }) => {
