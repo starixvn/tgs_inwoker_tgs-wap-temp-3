@@ -69,6 +69,11 @@ const CustomCustomBottomNavAction = styled(CustomBottomNavigationAction)`
         ? theme.bottomNavActionSelected
         : theme.primary};
   }
+  
+  & .MuiBottomNavigationAction-label {
+    ${(props)=> i18n.language === "ta-IN" ? "font-size: 13px !important;" : ""}
+  }
+
 `;
 
 const IconHolder = styled.div`
