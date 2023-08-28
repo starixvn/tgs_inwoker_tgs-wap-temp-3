@@ -7,7 +7,6 @@ import styled from "styled-components";
 import Compose from "./compose";
 import Sent from "./sent";
 import Inbox from "./inbox";
-import { wapBorderRadius } from "../../../config/settings";
 
 const Container = styled.div`
   width: 700px;

@@ -24,7 +24,6 @@ import i18n from "../../../utils/i18n";
 import config from "../../../config/config";
 import ErrorSwitcher from "../../../utils/ErrorSwitcher";
 import { utility } from "../../../utils/utility";
-import { wapBorderRadius } from "../../../config/settings";
 const moment = require("moment");
 const localeMap = {
   zh: zhLocale,

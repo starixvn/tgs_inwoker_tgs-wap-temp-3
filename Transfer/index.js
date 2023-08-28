@@ -19,7 +19,6 @@ import Textfield from "../components/textfield";
 import Button from "../components/button";
 import PageTitle from "../components/pagetitle";
 import { Textfit } from "react-textfit";
-import { wapBorderRadius } from "../../../config/settings";
 const Container = styled.div`
   width: 100%;
   overflow: hidden;
@@ -187,7 +186,9 @@ const ProviderWrapper = styled.div`
   grid-template-columns: 55% 45%;
   background: #1b1d30;
   padding: 20px;
-  border-radius: ${wapBorderRadius ? wapBorderRadius : ""};
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "";
+  }};
 `;
 
 const TheProviderImages = styled.div`

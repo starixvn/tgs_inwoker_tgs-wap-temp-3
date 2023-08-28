@@ -5,7 +5,6 @@ import { useState } from "react";
 import config from "../../../../../../../../config/config";
 import Common from "../../../../../../../../utils/Common";
 import FavButton from "../../favbutton";
-import { wapBorderRadius } from "../../../../../../../../config/settings";
 
 const GameFrameImg = styled.div`
   display: block;

@@ -23,7 +23,6 @@ import Main from "./Main";
 import MainHKJP from "./MainHKJP";
 import PopupAnnouncement from "../../Share/PopupAnnouncement";
 import ErrorSwitcher from "../../../utils/ErrorSwitcher";
-import { wapBorderRadius } from "../../../config/settings";
 const Container = styled.div`
   padding-top: 85px;
   padding-bottom: 120px;
@@ -675,7 +674,7 @@ class Deposit extends Component {
     this.setState({
       ...this.state,
       selectedChannelIndex: e.target.value,
-      depositPromotion: ""
+      depositPromotion: "",
     });
   };
   handleAccountChange = (e) => {
