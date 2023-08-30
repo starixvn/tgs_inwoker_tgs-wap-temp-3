@@ -11,8 +11,8 @@ const Content = styled.div`
     props.disabled
       ? `background-color: #A5A5A5;`
       : `background-color: ${props.theme.primary};
-         filter: drop-shadow(0 0 5px ${props.theme.primary})
-      drop-shadow(0 0 5px ${props.theme.primary}) contrast(1)
+         filter: drop-shadow(0 0 2px ${props.theme.primary})
+      drop-shadow(0 0 2px ${props.theme.primary}) contrast(1)
       brightness(1);`}
   height: 105px;
   border-radius: ${({ theme }) => {
