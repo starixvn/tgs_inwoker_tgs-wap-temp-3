@@ -389,7 +389,9 @@ const AlwaysStickTop = styled.div`
   z-index: 3;
   display: flex;
   flex-direction: column;
-  background: #000326;
+  background: ${({ theme }) => {
+    return theme.loginBody;
+  }};
 `;
 
 const Template13 = ({
@@ -1019,18 +1021,14 @@ const Template13 = ({
                 icon="links"
                 darktone="#0e0f1a"
               >
-                <div style={{ padding: "0 20px" }}>
-                  <QuickLinks navigateTo={navigateTo} alert={alert} />
-                </div>
+                <QuickLinks navigateTo={navigateTo} alert={alert} />
               </ContentWrapper>
               <ContentWrapper
                 title={i18n.t("T13.partners")}
                 icon="partners"
                 darktone="#0e0f1a"
               >
-                <div style={{ padding: "0 20px" }}>
-                  <Partners providers={game.providerList} />
-                </div>
+                <Partners providers={game.providerList} />
               </ContentWrapper>
             </>
           )}

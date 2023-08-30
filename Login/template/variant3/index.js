@@ -20,7 +20,7 @@ const RememberPassContainer = styled.div`
 `;
 const RememberPassLabel = styled.div`
   float: left;
-  font-size: ${(props) => i18n.language === "ta-IN" ? "22px" : "28px"};
+  font-size: ${(props) => (i18n.language === "ta-IN" ? "22px" : "28px")};
   margin-top: 14px;
   color: ${({ theme }) => theme.loginText};
 
@@ -31,7 +31,6 @@ const RememberPassLabel = styled.div`
   width: 220px;
   `
       : ``}
-
 `;
 const CustomCheck = withStyles({
   root: {
@@ -286,11 +285,13 @@ const Variant3 = ({
                 </ForgotPassContainer>
               </ContentGap>
 
-              <Button
-                minWidth="400px"
-                label={i18n.t("common.login")}
-                onClick={handleLoginClick}
-              ></Button>
+              <div style={{ padding: "0 30px" }}>
+                <Button
+                  minWidth="400px"
+                  label={i18n.t("common.login")}
+                  onClick={handleLoginClick}
+                ></Button>
+              </div>
 
               <ButtonHolder>
                 <div style={{ color: "white", fontSize: 24 }}>

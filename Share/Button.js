@@ -26,7 +26,7 @@ const Content = styled.div`
   text-align: center;
 
   display: flex;
-  padding: 0 50px;
+
   align-items: center;
   justify-content: center;
 `;
@@ -35,10 +35,10 @@ const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  padding: 0 20px;
+  padding: 5px;
   margin: 20px auto;
   flex: auto;
-  padding: 10px 0;
+
   min-width: fit-content;
   align-items: center;
   justify-content: center;
