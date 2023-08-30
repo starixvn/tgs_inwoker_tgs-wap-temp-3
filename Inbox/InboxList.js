@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Dialog } from "@material-ui/core";
-import { wapBorderRadius } from "../../../config/settings";
 const moment = require("moment");
 const CheckboxContainer = styled.div`
   float: left;
@@ -22,7 +21,9 @@ const ContentContainer = styled.div`
 
   background: #202137;
   color: #fff;
-  border-radius: ${wapBorderRadius ? wapBorderRadius : "75px"};
+  border-radius: ${({ theme }) => {
+    return theme.wapBorderRadius ? theme.wapBorderRadius : "75px";
+  }};
   padding: 40px 70px;
 `;
 

@@ -20,7 +20,7 @@ const RememberPassContainer = styled.div`
 `;
 const RememberPassLabel = styled.div`
   float: left;
-  font-size: ${(props) => i18n.language === "ta-IN" ? "22px" : "28px"};
+  font-size: ${(props) => (i18n.language === "ta-IN" ? "22px" : "28px")};
   margin-top: 14px;
   color: ${({ theme }) => theme.loginText};
 
@@ -31,7 +31,6 @@ const RememberPassLabel = styled.div`
   width: 220px;
   `
       : ``}
-
 `;
 const CustomCheck = withStyles({
   root: {
@@ -245,7 +244,7 @@ const Variant3 = ({
                   `/assets/images/wapp/icon-user-T11.png`
                 }
                 type={"text"}
-                borderRadius="30px"
+                borderRadius="60px"
                 placeholder={i18n.t("common.username")}
                 value={username}
                 maxLength="16"
@@ -257,7 +256,7 @@ const Variant3 = ({
                   process.env.PUBLIC_URL +
                   `/assets/images/wapp/icon-unlock-T11.png`
                 }
-                borderRadius="30px"
+                borderRadius="60px"
                 type={hidePassword ? "password" : "text"}
                 hidePassword={hidePassword}
                 placeholder={i18n.t("common.password")}
@@ -286,11 +285,13 @@ const Variant3 = ({
                 </ForgotPassContainer>
               </ContentGap>
 
-              <Button
-                minWidth="400px"
-                label={i18n.t("common.login")}
-                onClick={handleLoginClick}
-              ></Button>
+              <div style={{ padding: "0 30px" }}>
+                <Button
+                  minWidth="400px"
+                  label={i18n.t("common.login")}
+                  onClick={handleLoginClick}
+                ></Button>
+              </div>
 
               <ButtonHolder>
                 <div style={{ color: "white", fontSize: 24 }}>
@@ -347,7 +348,7 @@ const Variant3 = ({
                   process.env.PUBLIC_URL +
                   `/assets/images/wapp/icon-user-T11.png`
                 }
-                borderRadius="30px"
+                borderRadius="60px"
                 type={"text"}
                 placeholder={i18n.t("common.username")}
                 maxLength="16"
@@ -364,7 +365,7 @@ const Variant3 = ({
                 placeholder={i18n.t("common.password")}
                 password={true}
                 maxLength="20"
-                borderRadius="30px"
+                borderRadius="60px"
                 toggleShow={handleToggleShow}
                 value={password}
                 onChange={handlePasswordChange}
@@ -379,7 +380,7 @@ const Variant3 = ({
                 placeholder={i18n.t("T13.register.confirmPassword")}
                 password={true}
                 maxLength="20"
-                borderRadius="30px"
+                borderRadius="60px"
                 toggleShow={handleToggleConfirmPasswordShow}
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
@@ -390,7 +391,7 @@ const Variant3 = ({
                   placeholder={i18n.t("common.msgEnterPhone")}
                   value={phone}
                   onChange={handlePhoneChange}
-                  borderRadius="30px"
+                  borderRadius="60px"
                   maxLength={config.features.MAX_PHONE_LENGTH || 10}
                   phonePrefix={areaCode}
                   onSelect={handleAreaCodeChange}
@@ -402,7 +403,7 @@ const Variant3 = ({
               )}
               {config.features.Register_ShowEmail && (
                 <Textfield
-                  borderRadius="30px"
+                  borderRadius="60px"
                   icon={
                     process.env.PUBLIC_URL +
                     `/assets/images/wapp/icon-email.png`
@@ -430,7 +431,7 @@ const Variant3 = ({
                       : handleUpperChange
                   }
                   disabled={prefill}
-                  borderRadius="30px"
+                  borderRadius="60px"
                   actions={
                     haveAffiliate && (
                       <CustomInvitationSelect

@@ -1,68 +1,62 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
-
+const ContentWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+`;
 const Content = styled.div`
   ${(props) =>
     props.disabled
       ? `background-color: #A5A5A5;`
       : `background-color: ${props.theme.primary};
-         filter: drop-shadow(0 0 5px ${props.theme.primary})
-      drop-shadow(0 0 5px ${props.theme.primary}) contrast(1)
+         filter: drop-shadow(0 0 2px ${props.theme.primary})
+      drop-shadow(0 0 2px ${props.theme.primary}) contrast(1)
       brightness(1);`}
   height: 105px;
-  width: 100%;
-  font-size: 34px;
-  color: ${({ theme }) =>
-    theme.customButtonText ? theme.customButtonText : "#ffffff"};
-  text-align: center;
-  border-radius: 20px;
-  display: flex;
-  padding: 0 30px;
-  align-items: center;
-  justify-content: center;
-  min-width: ${({ minWidth }) => {
-    return minWidth ? minWidth : " fit-content";
-  }};
-`;
-
-const SelectContainer = styled.div`
-  position: relative;
-  display: flex;
-  width: 100%;
-  padding: ${({ withSmallPadding }) => {
-    return withSmallPadding ? "5px" : "";
-  }};
-`;
-
-const CustomInput = styled.div`
-  display: flex;
-  flex-direction: column;
   border-radius: ${({ theme }) => {
     return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
   }};
-  padding: 0 20px;
+  width: fit-content;
+  font-size: 34px;
+  min-width: 100%;
+  color: ${({ theme }) =>
+    theme.customButtonText ? theme.customButtonText : "#ffffff"};
+  text-align: center;
 
-  flex: auto;
-  width: 100%;
+  display: flex;
 
   align-items: center;
   justify-content: center;
 `;
 
-const Button = (props) => {
-  return (
-    <CustomInput style={props.style}>
-      <SelectContainer withSmallPadding={props.withSmallPadding}>
-        <Content
-          minWidth={props.minWidth}
-          onClick={props.disabled === true ? null : props.onClick}
-          disabled={props.disabled ? props.disabled : false}
-        >
-          {props.label}
-        </Content>
-      </SelectContainer>
-    </CustomInput>
-  );
-};
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 5px;
+  margin: 20px auto;
+  flex: auto;
 
+  min-width: fit-content;
+  align-items: center;
+  justify-content: center;
+`;
+class Button extends Component {
+  render() {
+    return (
+      <ContentWrapper>
+        <ButtonWrapper>
+          <Content
+            onClick={this.props.disabled === true ? null : this.props.onClick}
+            disabled={this.props.disabled ? this.props.disabled : false}
+          >
+            {this.props.label}
+          </Content>
+        </ButtonWrapper>
+      </ContentWrapper>
+    );
+  }
+}
 export default Button;

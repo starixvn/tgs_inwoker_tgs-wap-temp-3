@@ -11,8 +11,8 @@ const Content = styled.div`
     props.disabled
       ? `background-color: #A5A5A5;`
       : `background-color: ${props.theme.primary};
-         filter: drop-shadow(0 0 5px ${props.theme.primary})
-      drop-shadow(0 0 5px ${props.theme.primary}) contrast(1)
+         filter: drop-shadow(0 0 2px ${props.theme.primary})
+      drop-shadow(0 0 2px ${props.theme.primary}) contrast(1)
       brightness(1);`}
   height: 105px;
   border-radius: ${({ theme }) => {
@@ -26,7 +26,7 @@ const Content = styled.div`
   text-align: center;
 
   display: flex;
-  padding: 0 50px;
+
   align-items: center;
   justify-content: center;
 `;
@@ -35,10 +35,10 @@ const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  padding: 0 20px;
+  padding: 5px;
   margin: 20px auto;
   flex: auto;
-  padding: 10px 0;
+
   min-width: fit-content;
   align-items: center;
   justify-content: center;
