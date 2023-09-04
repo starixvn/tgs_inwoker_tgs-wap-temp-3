@@ -22,6 +22,7 @@ const Compose = ({ composeMemo, alert }) => {
       <Textbox
         style={{ margin: "50px auto 20px auto" }}
         value={subject}
+        required
         onChange={(e) => {
           setSubject(e.target.value);
         }}
@@ -29,6 +30,7 @@ const Compose = ({ composeMemo, alert }) => {
         label={i18n.t("subject")}
       ></Textbox>
       <Textbox
+        required
         style={{ margin: "50px auto 20px auto" }}
         value={content}
         placeholder={i18n.t("pleaseenter") + i18n.t("memo")}
@@ -37,12 +39,16 @@ const Compose = ({ composeMemo, alert }) => {
         }}
         label={i18n.t("memo")}
       ></Textbox>
-      <ButtonWap
-        onClick={() => {
-          performClickCompose();
-        }}
-        name={i18n.t("common.submit")}
-      />
+      <div style={{ padding: "5px 2px  " }}>
+        <ButtonWap
+          style={{ margin: 0, width: "100%" }}
+          disabled={subject === "" || content === ""}
+          onClick={() => {
+            subject !== "" && content !== "" && performClickCompose();
+          }}
+          name={i18n.t("common.submit")}
+        />
+      </div>
     </div>
   );
 };
