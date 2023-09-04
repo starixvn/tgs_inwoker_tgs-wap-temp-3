@@ -117,6 +117,7 @@ const Memo = ({
     alert,
     performComposeMemo,
     performReplyMemo,
+    account,
   };
 
   useEffect(() => {

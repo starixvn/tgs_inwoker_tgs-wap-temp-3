@@ -178,7 +178,8 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
           <UpperSection>
             <Title>{content.subject}</Title>
             <div>
-              {content.sender} - {dateTimeFormatter(content.sentOn)}
+              {i18n.t("sentBy")} {content.sender}{" "}
+              {dateTimeFormatter(content.sentOn)}
             </div>
           </UpperSection>
 
