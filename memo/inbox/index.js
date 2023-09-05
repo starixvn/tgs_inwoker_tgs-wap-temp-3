@@ -6,19 +6,18 @@ import { useState } from "react";
 import Modal from "../modal";
 
 const Wrapper = styled.div`
-  background: #fff;
   padding: 20px;
+  color: #fff;
 `;
 
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   white-space: nowrap;
-  background-color: #fff;
   text-align: left;
   font-size: 25px;
   tr {
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
   thead {
     tr {
@@ -33,7 +32,7 @@ const Table = styled.table`
   tbody {
     tr {
       td {
-        padding: 15px 10px;
+        padding: 20px 10px;
         &:last-child {
           text-align: right;
         }
@@ -54,9 +53,6 @@ const ContentWrapper = styled.div``;
 const Content = styled.div`
   padding: 20px;
   font-size: 25px;
-  white-space: pre-wrap;
-  display: flex;
-  flex-direction: column;
 `;
 
 const UpperSection = styled.div`
@@ -66,7 +62,6 @@ const UpperSection = styled.div`
 const InputRow = styled.div`
   display: grid;
   grid-template-columns: 20% 1fr;
-  gap: 20px;
   padding-bottom: 10px;
 `;
 
@@ -76,11 +71,6 @@ const CustomTextArea = styled.textarea`
   border: solid 1px #b7c7cc;
   font-size: 25px;
   width: -webkit-fill-available;
-
-  &:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-  }
 `;
 
 const CustomButton = styled.button`
@@ -88,7 +78,7 @@ const CustomButton = styled.button`
   color: #fff;
   border: none;
   outline: none;
-  padding: 15px 30px;
+  padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 25px;
@@ -186,8 +176,7 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
           <UpperSection>
             <Title>{content.subject}</Title>
             <div>
-              {i18n.t("sentBy")} {content.sender}{" "}
-              {dateTimeFormatter(content.sentOn)}
+              {content.sender} - {dateTimeFormatter(content.sentOn)}
             </div>
           </UpperSection>
 
@@ -220,7 +209,7 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
           <InputRow>
             <div>
               <span style={{ color: "red" }}>*</span>
-              {i18n.t("yourmessage")}
+              {i18n.t("memo")}
             </div>
             <div>
               <CustomTextArea
@@ -229,25 +218,8 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
                 value={memoContent}
                 placeholder="Enter your memo here..."
                 onChange={(e) => {
-                  const value = e.target.value;
-                  const lastChar = value.charAt(value.length - 1);
-                  if (lastChar === "\n") {
-                    setMemoContent(value + lastChar);
-                  } else {
-                    setMemoContent(value);
-                  }
+                  setMemoContent(e.target.value);
                 }}
-              />
-            </div>
-          </InputRow>
-          <InputRow>
-            <div>{i18n.t("originalmessage")}</div>
-            <div>
-              <CustomTextArea
-                rows="7"
-                cols="50"
-                value={content.content}
-                disabled
               />
             </div>
           </InputRow>

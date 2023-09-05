@@ -5,17 +5,16 @@ import moment from "moment";
 import Modal from "../modal";
 const Wrapper = styled.div`
   padding: 20px;
+  color: #fff;
 `;
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   white-space: nowrap;
-  background-color: transparent;
-  color: #fff;
   text-align: left;
   font-size: 25px;
   tr {
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
   thead {
     tr {
@@ -30,7 +29,7 @@ const Table = styled.table`
   tbody {
     tr {
       td {
-        padding: 15px 10px;
+        padding: 20px 10px;
         &:last-child {
           text-align: right;
         }
