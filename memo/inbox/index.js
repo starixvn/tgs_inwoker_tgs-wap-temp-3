@@ -53,6 +53,9 @@ const ContentWrapper = styled.div``;
 const Content = styled.div`
   padding: 20px;
   font-size: 25px;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
 `;
 
 const UpperSection = styled.div`
@@ -62,6 +65,7 @@ const UpperSection = styled.div`
 const InputRow = styled.div`
   display: grid;
   grid-template-columns: 20% 1fr;
+  gap: 20px;
   padding-bottom: 10px;
 `;
 
@@ -71,6 +75,11 @@ const CustomTextArea = styled.textarea`
   border: solid 1px #b7c7cc;
   font-size: 25px;
   width: -webkit-fill-available;
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
 `;
 
 const Button = styled.button`
@@ -110,14 +119,7 @@ const ActionButtonWrapper = styled.div`
   gap: 20px;
 `;
 
-const Inbox = ({
-  memo,
-  getMemoV2,
-  performReplyMemo,
-  readMemo,
-  alert,
-  account,
-}) => {
+const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo, alert }) => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
   const [memoSubject, setMemoSubject] = useState("");
@@ -232,7 +234,7 @@ const Inbox = ({
           <InputRow>
             <div>
               <span style={{ color: "red" }}>*</span>
-              {i18n.t("memo")}
+              {i18n.t("yourmessage")}
             </div>
             <div>
               <CustomTextArea
@@ -241,8 +243,25 @@ const Inbox = ({
                 value={memoContent}
                 placeholder="Enter your memo here..."
                 onChange={(e) => {
-                  setMemoContent(e.target.value);
+                  const value = e.target.value;
+                  const lastChar = value.charAt(value.length - 1);
+                  if (lastChar === "\n") {
+                    setMemoContent(value + lastChar);
+                  } else {
+                    setMemoContent(value);
+                  }
                 }}
+              />
+            </div>
+          </InputRow>
+          <InputRow>
+            <div>{i18n.t("originalmessage")}</div>
+            <div>
+              <CustomTextArea
+                rows="7"
+                cols="50"
+                value={content.content}
+                disabled
               />
             </div>
           </InputRow>
