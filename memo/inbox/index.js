@@ -73,12 +73,10 @@ const CustomTextArea = styled.textarea`
   width: -webkit-fill-available;
 `;
 
-const CustomButton = styled.button`
-  background: ${({ theme }) => theme.primary};
-  color: #fff;
+const Button = styled.button`
   border: none;
   outline: none;
-  padding: 10px 20px;
+  padding: 15px 30px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 25px;
@@ -87,6 +85,11 @@ const CustomButton = styled.button`
     background: #ccc;
     cursor: not-allowed;
   }
+`;
+
+const CustomButton = styled(Button)`
+  background: ${({ theme }) => theme.primary};
+  color: #fff;
 `;
 
 const CustomTextfield = styled.input`
@@ -104,13 +107,23 @@ const ActionButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   padding-top: 50px;
+  gap: 20px;
 `;
 
-const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
+const Inbox = ({
+  memo,
+  getMemoV2,
+  performReplyMemo,
+  readMemo,
+  alert,
+  account,
+}) => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
   const [memoSubject, setMemoSubject] = useState("");
   const [memoContent, setMemoContent] = useState("");
+
+  const [confirmation, setConfirmation] = useState(false);
 
   const performReadInbox = (id) => {
     getMemoV2(id).then((res) => {
@@ -148,6 +161,15 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
     setMemoSubject("");
     setMemoContent("");
   };
+
+  const performReplyMemoAction = (id, content) => {
+    performReplyMemo(id, content);
+    alert(i18n.t("sendsuccess"));
+    setReplyModal(false);
+    setConfirmation(false);
+    setOpen(false);
+  };
+
   return (
     <Wrapper>
       <Table>
@@ -176,7 +198,8 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
           <UpperSection>
             <Title>{content.subject}</Title>
             <div>
-              {content.sender} - {dateTimeFormatter(content.sentOn)}
+              {i18n.t("sentBy")} {content.sender}{" "}
+              {dateTimeFormatter(content.sentOn)}
             </div>
           </UpperSection>
 
@@ -229,8 +252,7 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
               <CustomButton
                 disabled={memoContent.length === 0}
                 onClick={() => {
-                  performReplyMemo(replyId, memoContent);
-                  performCloseModal();
+                  setConfirmation(true);
                 }}
               >
                 {i18n.t("common.submit")}
@@ -238,6 +260,35 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
             </div>
           </InputRow>
         </Content>
+      </Modal>
+      <Modal
+        open={confirmation}
+        handleClose={() => {
+          setConfirmation(false);
+        }}
+      >
+        <ContentWrapper>
+          <UpperSection>
+            <Title>{i18n.t("confirmSubmit")}?</Title>
+          </UpperSection>
+
+          <ActionButtonWrapper>
+            <Button
+              onClick={() => {
+                setConfirmation(false);
+              }}
+            >
+              {i18n.t("common.cancel")}
+            </Button>
+            <CustomButton
+              onClick={() => {
+                performReplyMemoAction(replyId, memoContent);
+              }}
+            >
+              {i18n.t("common.submit")}
+            </CustomButton>
+          </ActionButtonWrapper>
+        </ContentWrapper>
       </Modal>
     </Wrapper>
   );
