@@ -27,7 +27,8 @@ const UpperTabContainer = styled.div`
 `;
 
 const Tabs = styled.div`
-  padding: 10px 20px;
+  padding: 15px 30px;
+  font-size: 20px;
   color: #fff;
   ${({ active, theme }) => {
     return active
@@ -35,6 +36,14 @@ const Tabs = styled.div`
       font-weight: bold;`
       : `bordeR: solid 1px ${theme.primary};opacity: 0.8;`;
   }}
+
+  color: ${({ theme, active }) => {
+    return active
+      ? theme.primary
+      : theme.wapSecondary
+      ? theme.wapSecondary
+      : theme.secondary;
+  }} 
 
   border-radius: 20px;
 `;
@@ -108,6 +117,7 @@ const Memo = ({
     alert,
     performComposeMemo,
     performReplyMemo,
+    account,
   };
 
   useEffect(() => {
@@ -144,7 +154,7 @@ const Memo = ({
         balance={0}
         background={true}
         onBackClick={handleBackClick}
-        title={i18n.t("memo")}
+        title={i18n.t("memoinbox")}
       ></Header>
       <div style={{ height: 90 }} />
       <UpperTabContainer>
