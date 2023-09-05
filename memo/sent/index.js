@@ -5,10 +5,10 @@ import moment from "moment";
 import Modal from "../modal";
 const Wrapper = styled.div`
   padding: 20px;
-  color: #fff;
 `;
 const Table = styled.table`
   width: 100%;
+  color: #fff;
   border-collapse: collapse;
   white-space: nowrap;
   text-align: left;
