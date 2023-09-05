@@ -222,7 +222,7 @@ class My extends Component {
     },
     {
       icon: "icon-profile-inbox",
-      title: i18n.t("memo"),
+      title: i18n.t("memoinbox"),
       to: "/memo",
     },
     {

@@ -212,7 +212,7 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo }) => {
           <InputRow>
             <div>
               <span style={{ color: "red" }}>*</span>
-              {i18n.t("memo")}
+              {i18n.t("yourmessage")}
             </div>
             <div>
               <CustomTextArea

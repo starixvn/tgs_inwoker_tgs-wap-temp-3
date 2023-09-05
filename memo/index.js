@@ -154,7 +154,7 @@ const Memo = ({
         balance={0}
         background={true}
         onBackClick={handleBackClick}
-        title={i18n.t("memo")}
+        title={i18n.t("memoinbox")}
       ></Header>
       <div style={{ height: 90 }} />
       <UpperTabContainer>
