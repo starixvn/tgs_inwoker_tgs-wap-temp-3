@@ -5,16 +5,19 @@ import moment from "moment";
 import { useState } from "react";
 import Modal from "../modal";
 
+const Wrapper = styled.div`
+  padding: 20px;
+`;
+
 const Table = styled.table`
   width: 100%;
+  color: #fff;
   border-collapse: collapse;
   white-space: nowrap;
-  background-color: transparent;
-  color: #fff;
   text-align: left;
   font-size: 25px;
   tr {
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
   thead {
     tr {
@@ -29,7 +32,7 @@ const Table = styled.table`
   tbody {
     tr {
       td {
-        padding: 15px 10px;
+        padding: 20px 10px;
         &:last-child {
           text-align: right;
         }
@@ -50,6 +53,9 @@ const ContentWrapper = styled.div``;
 const Content = styled.div`
   padding: 20px;
   font-size: 25px;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
 `;
 
 const UpperSection = styled.div`
@@ -58,7 +64,8 @@ const UpperSection = styled.div`
 
 const InputRow = styled.div`
   display: grid;
-  grid-template-columns: 15% 1fr;
+  grid-template-columns: 20% 1fr;
+  gap: 20px;
   padding-bottom: 10px;
 `;
 
@@ -67,23 +74,38 @@ const CustomTextArea = styled.textarea`
   padding: 5px 10px;
   border: solid 1px #b7c7cc;
   font-size: 25px;
+  width: -webkit-fill-available;
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
 `;
 
-const CustomButton = styled.button`
-  background: ${({ theme }) => theme.primary};
-  color: #fff;
+const Button = styled.button`
   border: none;
   outline: none;
-  padding: 10px 20px;
+  padding: 15px 30px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 25px;
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+`;
+
+const CustomButton = styled(Button)`
+  background: ${({ theme }) => theme.primary};
+  color: #fff;
 `;
 
 const CustomTextfield = styled.input`
   outline: none;
   padding: 5px 10px;
   font-size: 25px;
+  width: -webkit-fill-available;
 
   ::placeholder {
     color: #eaeaea;
@@ -94,17 +116,21 @@ const ActionButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   padding-top: 50px;
+  gap: 20px;
 `;
 
-const Inbox = ({ memo, getMemoV2, performReplyMemo }) => {
+const Inbox = ({ memo, getMemoV2, performReplyMemo, readMemo, alert }) => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
   const [memoSubject, setMemoSubject] = useState("");
   const [memoContent, setMemoContent] = useState("");
 
+  const [confirmation, setConfirmation] = useState(false);
+
   const performReadInbox = (id) => {
     getMemoV2(id).then((res) => {
       if (res.IsSuccess) {
+        readMemo(id);
         setContent(res.data);
         setOpen(true);
       }
@@ -137,8 +163,17 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo }) => {
     setMemoSubject("");
     setMemoContent("");
   };
+
+  const performReplyMemoAction = (id, content) => {
+    performReplyMemo(id, content);
+    alert(i18n.t("sendsuccess"));
+    setReplyModal(false);
+    setConfirmation(false);
+    setOpen(false);
+  };
+
   return (
-    <>
+    <Wrapper>
       <Table>
         <thead>
           <tr>
@@ -165,7 +200,8 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo }) => {
           <UpperSection>
             <Title>{content.subject}</Title>
             <div>
-              {content.sender} - {dateTimeFormatter(content.sentOn)}
+              {i18n.t("sentBy")} {content.sender}{" "}
+              {dateTimeFormatter(content.sentOn)}
             </div>
           </UpperSection>
 
@@ -196,7 +232,10 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo }) => {
             </div>
           </InputRow>
           <InputRow>
-            <div>{i18n.t("memo")}</div>
+            <div>
+              <span style={{ color: "red" }}>*</span>
+              {i18n.t("yourmessage")}
+            </div>
             <div>
               <CustomTextArea
                 rows="7"
@@ -204,8 +243,25 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo }) => {
                 value={memoContent}
                 placeholder="Enter your memo here..."
                 onChange={(e) => {
-                  setMemoContent(e.target.value);
+                  const value = e.target.value;
+                  const lastChar = value.charAt(value.length - 1);
+                  if (lastChar === "\n") {
+                    setMemoContent(value + lastChar);
+                  } else {
+                    setMemoContent(value);
+                  }
                 }}
+              />
+            </div>
+          </InputRow>
+          <InputRow>
+            <div>{i18n.t("originalmessage")}</div>
+            <div>
+              <CustomTextArea
+                rows="7"
+                cols="50"
+                value={content.content}
+                disabled
               />
             </div>
           </InputRow>
@@ -213,9 +269,9 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo }) => {
             <div></div>
             <div>
               <CustomButton
+                disabled={memoContent.length === 0}
                 onClick={() => {
-                  performReplyMemo(replyId, memoContent);
-                  performCloseModal();
+                  setConfirmation(true);
                 }}
               >
                 {i18n.t("common.submit")}
@@ -224,7 +280,36 @@ const Inbox = ({ memo, getMemoV2, performReplyMemo }) => {
           </InputRow>
         </Content>
       </Modal>
-    </>
+      <Modal
+        open={confirmation}
+        handleClose={() => {
+          setConfirmation(false);
+        }}
+      >
+        <ContentWrapper>
+          <UpperSection>
+            <Title>{i18n.t("confirmSubmit")}?</Title>
+          </UpperSection>
+
+          <ActionButtonWrapper>
+            <Button
+              onClick={() => {
+                setConfirmation(false);
+              }}
+            >
+              {i18n.t("common.cancel")}
+            </Button>
+            <CustomButton
+              onClick={() => {
+                performReplyMemoAction(replyId, memoContent);
+              }}
+            >
+              {i18n.t("common.submit")}
+            </CustomButton>
+          </ActionButtonWrapper>
+        </ContentWrapper>
+      </Modal>
+    </Wrapper>
   );
 };
 

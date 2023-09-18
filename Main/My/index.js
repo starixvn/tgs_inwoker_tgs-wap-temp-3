@@ -248,6 +248,9 @@ const My = ({
     window.scrollTo(0, 0);
     navigate(to);
   };
+  const handleBackClick = () => {
+    this.props.appHistory.goBack();
+  };
 
   const profileMenu = React.useMemo(
     () => [
@@ -315,10 +318,6 @@ const My = ({
     ],
     [account.info.message_num]
   );
-
-  const handleBackClick = () => {
-    appHistory.goBack();
-  };
 
   const variantSwitcher = (variant) => {
     switch (variant) {

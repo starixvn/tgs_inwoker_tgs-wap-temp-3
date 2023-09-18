@@ -27,7 +27,8 @@ const UpperTabContainer = styled.div`
 `;
 
 const Tabs = styled.div`
-  padding: 10px 20px;
+  padding: 15px 30px;
+  font-size: 20px;
   color: #fff;
   ${({ active, theme }) => {
     return active
@@ -37,41 +38,6 @@ const Tabs = styled.div`
   }}
   font-size: 30px;
   border-radius: 20px;
-`;
-
-const CustomTabs = styled.div`
-  font-size: 25px;
-  width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 30px 5px 15px 5px;
-`;
-
-const CustomTabText = styled.div`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  padding: 15px 35px;
-  background: #27273f;
-
-  border-radius: ${({ theme }) => {
-    return theme.wapBorderRadius ? theme.wapBorderRadius : "50px";
-  }};
-`;
-
-const CustomTab = styled.div`
-  color: #fff;
-  font-size: 28px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  ${CustomTabText} {
-    ${({ selected, theme }) => {
-      return selected && `background: ${theme.primary}`;
-    }};
-  }
 `;
 
 const Memo = ({
@@ -143,8 +109,8 @@ const Memo = ({
     alert,
     performComposeMemo,
     performReplyMemo,
+    account,
   };
-
   useEffect(() => {
     getMemoV2();
   }, []);
@@ -153,9 +119,9 @@ const Memo = ({
   };
   const Tab = ({ name }) => {
     return (
-      <CustomTab selected={name === selected} onClick={() => setSelected(name)}>
-        <CustomTabText> {i18n.t(name)}</CustomTabText>
-      </CustomTab>
+      <Tabs active={name === selected} onClick={() => setSelected(name)}>
+        {i18n.t(name)}
+      </Tabs>
     );
   };
 
@@ -179,14 +145,14 @@ const Memo = ({
         balance={0}
         background={true}
         onBackClick={handleBackClick}
-        title={i18n.t("memo")}
+        title={i18n.t("memoinbox")}
       ></Header>
       <div style={{ height: 90 }} />
-      <CustomTabs>
+      <UpperTabContainer>
         <Tab name="compose" />
         <Tab name="memoinbox" />
         <Tab name="sent" />
-      </CustomTabs>
+      </UpperTabContainer>
       <Container>
         <div>{contentSwitcher()}</div>
       </Container>
@@ -202,7 +168,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getMemoV2: (letterId) => dispatch(generalAction.getMemoV2(letterId)),
+    getMemoV2: (letterId) =>
+      dispatch(generalAction.getMemoV2(letterId, 1, 100)),
     composeMemo: (subject, content) =>
       dispatch(generalAction.composeMemo(subject, content)),
     replyMemo: (letterId, content) =>
