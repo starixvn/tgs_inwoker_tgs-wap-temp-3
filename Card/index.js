@@ -230,9 +230,8 @@ class Card extends Component {
         {!(
           config.features.AddCard_NotAllowedEditDelete ||
           config.features.ChangesNotAllowed ||
-          (this.props.wallet.bankCardList.length >=
-            config.features.AddCard_MaximumCardAllowed &&
-            config.features.AddCard_DisableCreateUpdateDelete)
+          this.props.wallet.bankCardList.length >=
+            config.features.AddCard_MaximumCardAllowed
         ) && (
           <>
             <div className="clear"></div>
