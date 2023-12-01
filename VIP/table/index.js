@@ -170,30 +170,30 @@ const VIPTable = ({ data }) => {
   return (
     <>
       <FixedPosition>
-        <WithLeftBorderRadius>{i18n.t("T13.vip.level")}</WithLeftBorderRadius>{" "}
+        <WithLeftBorderRadius>{i18n.t("vip.level")}</WithLeftBorderRadius>
         <LandscapeScroll ref={anotherscrollref}>
           <WithMinHeight>
-            {i18n.t("T13.vip.levelKeepAccumulateBetAmount")}
+            {i18n.t("vip.levelKeepAccumulateBetAmount")}
           </WithMinHeight>
           <WithMinHeight>
-            {i18n.t("T13.vip.levelKeepAccumulateDeposit")}
+            {i18n.t("vip.levelKeepAccumulateDeposit")}
           </WithMinHeight>
           <WithMinHeight>
-            {i18n.t("T13.vip.levelUpAccumulateBetAmount")}
+            {i18n.t("vip.levelUpAccumulateBetAmount")}
           </WithMinHeight>
           <WithMinHeight>
-            {i18n.t("T13.vip.levelUpAccumulateDeposit")}
+            {i18n.t("vip.levelUpAccumulateDeposit")}
           </WithMinHeight>
-          <WithMinHeight>{i18n.t("T13.vip.birthBenefit")}</WithMinHeight>
-          <WithMinHeight>{i18n.t("T13.vip.promotionBenefit")}</WithMinHeight>
-          <WithMinHeight>{i18n.t("T13.vip.quarterlyBenefit")}</WithMinHeight>
-          <WithMinHeight>{i18n.t("vip.cardGameRebate")}</WithMinHeight>
+          <WithMinHeight>{i18n.t("vip.birthBenefit")}</WithMinHeight>
+          <WithMinHeight>{i18n.t("vip.promotionBenefit")}</WithMinHeight>
+          <WithMinHeight>{i18n.t("vip.quarterlyBenefit")}</WithMinHeight>
           <WithMinHeight>{i18n.t("vip.liveDealerRebate")}</WithMinHeight>
-          <WithMinHeight>{i18n.t("vip.lotteryRebate")}</WithMinHeight>
-          <WithMinHeight>{i18n.t("vip.slotRebate")}</WithMinHeight>
+          <WithMinHeight>{i18n.t("vip.slotRebate")}</WithMinHeight>{" "}
+          <WithMinHeight>{i18n.t("vip.cardGameRebate")}</WithMinHeight>
           <WithMinHeight>{i18n.t("vip.sportsRebate")}</WithMinHeight>
+          <WithMinHeight>{i18n.t("vip.virtualSportsRebate")}</WithMinHeight>
           <WithRightBorderRadius>
-            {i18n.t("vip.virtualSportsRebate")}
+            {i18n.t("vip.lotteryRebate")}
           </WithRightBorderRadius>
         </LandscapeScroll>
       </FixedPosition>
@@ -260,22 +260,22 @@ const VIPTable = ({ data }) => {
                       {Common.addComma(data.quarterlyBenefit)}
                     </DataWrapper>
                     <DataWrapper>
-                      {Common.addComma(data.cardGameRebate)}
-                    </DataWrapper>
-                    <DataWrapper>
                       {Common.addComma(data.liveDealerRebate)}
                     </DataWrapper>
                     <DataWrapper>
-                      {Common.addComma(data.lotteryRebate)}
+                      {Common.addComma(data.slotRebate)}
                     </DataWrapper>
                     <DataWrapper>
-                      {Common.addComma(data.slotRebate)}
+                      {Common.addComma(data.cardGameRebate)}
                     </DataWrapper>
                     <DataWrapper>
                       {Common.addComma(data.sportsRebate)}
                     </DataWrapper>
                     <DataWrapper>
                       {Common.addComma(data.virtualSportsRebate)}
+                    </DataWrapper>
+                    <DataWrapper>
+                      {Common.addComma(data.lotteryRebate)}
                     </DataWrapper>
                   </>
                 );
