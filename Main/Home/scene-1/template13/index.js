@@ -20,6 +20,7 @@ import { hardcodeNews } from "./news/hardcoded";
 import Banner from "../banner";
 import GamingLicensePNG from "../../../../../../assets/images/gaming-license.png";
 import Loading from "../../../../Share/Loading";
+import VersionNumber from "../../../../../../utils/versionnumber";
 
 const TheContainer = styled.div`
   padding-top: 380px;
@@ -1012,7 +1013,7 @@ const Template13 = ({
                     .replace(/{brand}/g, config.brandName)}
                   <br /> {i18n.t("T13.footer.rights")}
                   <br />
-                  Version {process.env.REACT_APP_VERSION}
+                  Version <VersionNumber />
                 </div>
               </ContentWrapper>
 
