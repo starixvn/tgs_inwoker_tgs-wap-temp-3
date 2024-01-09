@@ -83,7 +83,6 @@ const WithMinHeight = styled(Data)`
   height: 77px;
   background: #27273f;
   padding: 7px 10px;
-  text-transform: capitalize;
   min-width: initial;
   font-size: 22px;
   width: 237px;
