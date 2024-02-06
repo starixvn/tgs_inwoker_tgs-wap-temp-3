@@ -325,6 +325,26 @@ const CopyIcon = styled.div`
   cursor: pointer;
 `;
 
+const NewDataContainer = styled.div`
+  display: grid;
+  grid-template-columns: 75% 25%;
+  gap: 10px;
+  padding: 10px 0;
+`;
+
+const NewDataContainerLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const NewDataContainerRight = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+`;
+
 class Report extends Component {
   constructor(props) {
     super(props);
@@ -1532,16 +1552,6 @@ class Report extends Component {
           } else if (this.state.selectedType === 3) {
             return (
               <React.Fragment>
-                <DataHeader>
-                  <DataHeaderRow>
-                    <DataDateCell3>{i18n.t("report.dateTime")}</DataDateCell3>
-
-                    <DataDateCell3>{i18n.t("report.status")}</DataDateCell3>
-                    <DataDateCellAmount>
-                      {i18n.t("common.amount")}
-                    </DataDateCellAmount>
-                  </DataHeaderRow>
-                </DataHeader>
                 {(() => {
                   if (this.state.dataList.length <= 0) {
                     return <NoDataPlaceholder />;
@@ -1554,21 +1564,29 @@ class Report extends Component {
                           );
                           return (
                             <DataContent key={index}>
-                              <DataRowId>
-                                {i18n.t("report.NewOrderNumber")} :{" "}
-                                <IDCell>{row.orderno}</IDCell>
-                              </DataRowId>
-                              <DataRow>
-                                <DataDateCell3>{date}</DataDateCell3>
-                                <DataDateCell3>
-                                  {i18n.t(
-                                    `report.withdrawal.status${row.status}`
+                              <NewDataContainer key={index}>
+                                <NewDataContainerLeft>
+                                  <div>
+                                    {i18n.t("report.NewOrderNumber")} :{" "}
+                                    <IDCell>{row.orderno}</IDCell>
+                                  </div>
+                                  <div>{date}</div>
+                                  <div>
+                                    {i18n.t(
+                                      `report.withdrawal.status${row.status}`
+                                    )}
+                                  </div>
+                                  {row.remark && (
+                                    <div>
+                                      <span>{i18n.t("remark")}</span>:{" "}
+                                      {row.remark}
+                                    </div>
                                   )}
-                                </DataDateCell3>
-                                <DataDateCellAmount>
+                                </NewDataContainerLeft>
+                                <NewDataContainerRight>
                                   {row.amount}
-                                </DataDateCellAmount>
-                              </DataRow>
+                                </NewDataContainerRight>
+                              </NewDataContainer>
                             </DataContent>
                           );
                         })}
