@@ -169,6 +169,25 @@ const TransferLimit = styled.div`
   padding: 10px 20px;
   border-radius: 20px;
 `;
+const ExchangeRateCalculation = styled.div`
+  text-align: center;
+  font-size: 24px;
+  color: ${({ black, theme }) => {
+    return black
+      ? "#000"
+      : theme.wapSecondary
+      ? theme.wapSecondary
+      : theme.secondary;
+  }};
+  .remark {
+    margin-top: 10px;
+  }
+
+  span {
+    color: ${({ theme }) => theme.primary};
+    font-weight: bold;
+  }
+`;
 
 class Main extends Component {
   render() {
@@ -251,14 +270,13 @@ class Main extends Component {
         ].indexOf(item.promotionType) >= 0
       );
     };
-  
+
     const hasDepositRewardPromotion = (item) => {
       return item.promotionType === "DepositReward"
         ? this.props.amount >= item.campaignDetail.depositMinimumLimit
         : true;
     };
-  
-    
+
     return (
       <React.Fragment>
         {!config.features.Deposit_AddCard ? (
@@ -645,6 +663,27 @@ class Main extends Component {
             )
           }
         ></Textfield>
+
+        {methodCode("crypto") &&
+          paymentCode("ubpay") &&
+          config.currency === "VND" &&
+          this.props.rate > 0 && (
+            <ExchangeRateCalculation>
+              <div className="remark">
+                1 VND: <span>{this.props.rate}</span> (USDT)
+              </div>
+              <div>
+                {i18n.t("deposit.totalAmount")}:{" "}
+                <span>
+                  $
+                  {this.props.amount > 0
+                    ? this.props.rate * this.props.amount
+                    : 0}
+                </span>
+              </div>
+            </ExchangeRateCalculation>
+          )}
+
         {paymentCode("umpay") && <Remark>{i18n.t("deposit.ppRemark")}</Remark>}
         {(() => {
           if (
@@ -744,8 +783,7 @@ class Main extends Component {
           {this.props.general.promotionList.items
             .filter(
               (item) =>
-              hasDepositPromotion(item) &&
-              hasDepositRewardPromotion(item)
+                hasDepositPromotion(item) && hasDepositRewardPromotion(item)
             )
             .map((item, index) => {
               return (
