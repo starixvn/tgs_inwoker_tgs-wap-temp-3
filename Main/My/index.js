@@ -244,80 +244,67 @@ const My = ({
     });
   };
 
-  const navigateTo = (to) => {
-    window.scrollTo(0, 0);
-    navigate(to);
+  const profileMenu = [
+    {
+      icon: "icon-profile-profile",
+      title: i18n.t("wap.main.account.personalInfo"),
+      to: "/profile",
+    },
+    //   {
+    //     icon: "icon-profile-inbox",
+    //     title: i18n.t("wap.main.account.inbox"),
+    //     to: "/inbox",
+    //     notification: this.props.account.info.message_num > 0 ? true : false,
+    //   },
+    {
+      icon: "icon-profile-inbox",
+      title: i18n.t("memoinbox"),
+      to: "/memo",
+    },
+    {
+      icon: "icon-profile-report",
+      title: i18n.t("report.bettingDetails"),
+      to: "/report/2",
+    },
+    {
+      icon: "icon-profile-withdrawal",
+      title: i18n.t("wap.main.account.withdrawal"),
+      to: "/report/3",
+    },
+    {
+      icon: "icon-profile-topup",
+      title: i18n.t("wap.main.account.deposit"),
+      to: "/report/4",
+    },
+    {
+      icon: "icon-profile-report-transfer",
+      title: i18n.t("wap.main.account.transfer"),
+      to: "/report/6",
+    },
+    {
+      icon: "icon-profile-report",
+      title: i18n.t("report.joinedPromo.title"),
+      to: "/report/7",
+    },
+    {
+      icon: "icon-profile-report-transfer",
+      title: i18n.t("report.balanceChanges.title"),
+      to: "/report/8",
+    },
+    {
+      icon: "icon-vip",
+      title: "VIP",
+      to: "/vip",
+    },
+  ];
+
+  const navigateTo = (path) => {
+    navigate(path);
   };
+
   const handleBackClick = () => {
     this.props.appHistory.goBack();
   };
-
-  const profileMenu = React.useMemo(
-    () => [
-      {
-        icon: "icon-profile-profile",
-        title: i18n.t("wap.main.account.personalInfo"),
-        to: "/profile",
-      },
-      {
-        icon: "icon-profile-inbox",
-        title: i18n.t("wap.main.account.inbox"),
-        to: "/inbox",
-        notification: account.info.message_num > 0 ? true : false,
-      },
-      {
-        icon: "icon-profile-inbox",
-        title: i18n.t("memo"),
-        to: "/memo",
-      },
-      {
-        icon: "announcement",
-        title: i18n.t("announcement"),
-        to: "/news",
-      },
-      {
-        icon: "icon-profile-report",
-        title: i18n.t("report.bettingDetails"),
-        to: "/report/2",
-      },
-      {
-        icon: "icon-profile-withdrawal",
-        title: i18n.t("wap.main.account.withdrawal"),
-        to: "/report/3",
-      },
-      {
-        icon: "icon-profile-topup",
-        title: i18n.t("wap.main.account.deposit"),
-        to: "/report/4",
-      },
-      {
-        icon: "icon-profile-report-transfer",
-        title: i18n.t("wap.main.account.transfer"),
-        to: "/report/6",
-      },
-      {
-        icon: "icon-profile-report",
-        title: i18n.t("report.joinedPromo.title"),
-        to: "/report/7",
-      },
-      {
-        icon: "icon-profile-report-transfer",
-        title: i18n.t("report.balanceChanges.title"),
-        to: "/report/8",
-      },
-      {
-        icon: "collection",
-        title: i18n.t("myfavorite"),
-        to: "/favorite",
-      },
-      {
-        icon: "icon-vip",
-        title: "VIP",
-        to: "/vip",
-      },
-    ],
-    [account.info.message_num]
-  );
 
   const variantSwitcher = (variant) => {
     switch (variant) {
