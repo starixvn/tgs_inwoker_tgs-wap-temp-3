@@ -214,12 +214,12 @@ class My extends Component {
       title: i18n.t("wap.main.account.personalInfo"),
       to: "/profile",
     },
-    {
-      icon: "icon-profile-inbox",
-      title: i18n.t("wap.main.account.inbox"),
-      to: "/inbox",
-      notification: this.props.account.info.message_num > 0 ? true : false,
-    },
+    //   {
+    //     icon: "icon-profile-inbox",
+    //     title: i18n.t("wap.main.account.inbox"),
+    //     to: "/inbox",
+    //     notification: this.props.account.info.message_num > 0 ? true : false,
+    //   },
     {
       icon: "icon-profile-inbox",
       title: i18n.t("memoinbox"),
