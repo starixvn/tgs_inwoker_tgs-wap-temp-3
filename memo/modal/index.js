@@ -36,6 +36,7 @@ const ContentContainer = styled.div`
 
 const Content = styled.div`
   padding: 40px;
+  overflow: auto;
   max-height: 50vh;
   text-wrap: pre-wrap;
 

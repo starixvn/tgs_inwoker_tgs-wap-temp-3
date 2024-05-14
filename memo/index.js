@@ -36,7 +36,15 @@ const Tabs = styled.div`
       font-weight: bold;`
       : `bordeR: solid 1px ${theme.primary};opacity: 0.8;`;
   }}
-  font-size: 30px;
+
+  color: ${({ theme, active }) => {
+    return active
+      ? theme.primary
+      : theme.wapSecondary
+      ? theme.wapSecondary
+      : theme.secondary;
+  }} 
+
   border-radius: 20px;
 `;
 

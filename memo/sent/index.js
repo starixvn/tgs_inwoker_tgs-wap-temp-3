@@ -27,6 +27,8 @@ const Table = styled.table`
     }
   }
   tbody {
+    tr {
+      td {
         padding: 20px 10px;
         &:last-child {
           text-align: right;

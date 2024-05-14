@@ -302,12 +302,6 @@ const RouteMapping = [
     alert: true,
     navigate: true,
   },
-  {
-    path: "/memo",
-    component: memo,
-    alert: true,
-    navigate: true,
-  },
 
   {
     path: "/memo",

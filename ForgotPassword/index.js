@@ -138,7 +138,9 @@ class ForgotPassword extends Component {
         ...this.state,
         securityKey: response.data,
         loading: true,
+        countdownToken: config.features.SendCodeInterval || 60
       });
+      this.checkCountdown();
     } else {
       this.props.alert("", response.info);
     }
@@ -233,7 +235,12 @@ class ForgotPassword extends Component {
                   </PhoneField>
 
                   <TextfieldWithButton
-                    buttonlabel={i18n.t("common.msgSendToken")}
+                    buttonlabel={this.state.countdownToken <= 0
+                      ? i18n.t("common.msgSendToken")
+                      : i18n.t("common.btnTokenResendLabel") +
+                        "(" +
+                        this.state.countdownToken +
+                        "s)"}
                     style={{ margin: "20px auto 20px auto" }}
                     value={this.state.code}
                     onChange={this.handleCodeChange}
@@ -255,7 +262,12 @@ class ForgotPassword extends Component {
                   ></Textfield>
 
                   <TextfieldWithButton
-                    buttonlabel={i18n.t("common.msgSendToken")}
+                    buttonlabel={this.state.countdownToken <= 0
+                      ? i18n.t("common.msgSendToken")
+                      : i18n.t("common.btnTokenResendLabel") +
+                        "(" +
+                        this.state.countdownToken +
+                        "s)"}
                     style={{ margin: "20px auto 20px auto" }}
                     value={this.state.code}
                     onChange={this.handleCodeChange}
